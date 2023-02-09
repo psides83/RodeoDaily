@@ -19,11 +19,12 @@ struct WinnerCell: View {
                 
                 Text(winner.place.string)
                     .font(.headline)
+                    .foregroundColor(.appSecondary)
                 
                 
                 
                 winner.image
-                    .overlay(Color.gray.opacity(0.96)).mask(winner.image)
+                    .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
                 
                 VStack(alignment: .leading) {
                     
@@ -33,7 +34,8 @@ struct WinnerCell: View {
                         }
                     } label: {
                         Text(winner.name)
-                            .foregroundColor(.rdGreen)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.appPrimary)
                             .font(.title3)
                             .fontWeight(.bold)
                     }
@@ -41,8 +43,7 @@ struct WinnerCell: View {
                     
                     Text(winner.hometown ?? "")
                         .font(.caption)
-                        .foregroundColor(.gray)
-                    
+                        .foregroundColor(.appTertiary)
                 }
                 
                 
@@ -53,12 +54,12 @@ struct WinnerCell: View {
                     
                     Spacer()
                     Text(winner.result)
-                        .font(.headline)
+                        .font(.subheadline)
                         .fontWeight(.medium)
                     Spacer()
                     
                     Text(winner.payoff == 0 ? "" : winner.payoff.currency)
-                        .font(.subheadline)
+                        .font(.headline)
                 }
                 .frame(width: 150)
             }
@@ -67,5 +68,11 @@ struct WinnerCell: View {
                 BioView(athleteId: winner.contestantId, isShowingBio: isShowingBio)
             }
         }
+    }
+}
+
+struct WinnerCell_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

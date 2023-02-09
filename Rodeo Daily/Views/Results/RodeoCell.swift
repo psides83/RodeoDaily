@@ -27,7 +27,7 @@ struct RodeoCell: View {
                     } label: {
                         Text(rodeo.name)
                             .multilineTextAlignment(.leading)
-                            .foregroundColor(.rdGreen)
+                            .foregroundColor(.appPrimary)
                             .font(.title2)
                             .fontWeight(.bold)
                     }
@@ -36,10 +36,10 @@ struct RodeoCell: View {
                         Text(rodeo.location)
                             .font(.subheadline)
                         
-                        Circle().fill(Color.rdGray).frame(width: 4)
+                        Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
                         
                         Text(rodeo.endDate.medium)
-                            .foregroundColor(.rdGray)
+                            .foregroundColor(.appTertiary)
                             .font(.subheadline)
                     }
                     .padding(.bottom, 8)
@@ -55,7 +55,7 @@ struct RodeoCell: View {
                 } label: {
                     Image(systemName: "chevron.right")
                         .rotationEffect(Angle(degrees: rotationAngle))
-                        .accentColor(Color.rdGray)
+                        .accentColor(Color.appSecondary)
                 }
                 .buttonStyle(.clearButton)
             }

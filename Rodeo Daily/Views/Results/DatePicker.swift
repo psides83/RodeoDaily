@@ -21,7 +21,7 @@ struct DatePicker: View {
     var body: some View {
         VStack(spacing: 4) {
             Text("Date Filter")
-                .foregroundColor(.rdGreen)
+                .foregroundColor(.appPrimary)
                 .font(.title2)
                 .fontWeight(.semibold)
                 .frame(maxWidth: 360, alignment: .leading)
@@ -40,7 +40,7 @@ struct DatePicker: View {
                     }
                 } label: {
                     Image(systemName: "delete.left.fill")
-                        .foregroundColor(.rdGray)
+                        .foregroundColor(.appTertiary)
                         .opacity(dateRange.count == 0 ? 0 : 1)
                         .disabled(dateRange.count == 0)
                 }
@@ -51,9 +51,9 @@ struct DatePicker: View {
             MultiDatePicker(selection: $dateRange, in: bounds) {
                 Label("Dates", systemImage: "calendar")
             }
-            .tint(.rdGreen)
+            .tint(.appPrimary)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.rdGray))
+            .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.appSecondary))
             .presentationDetents([.height(500)])
             .presentationDragIndicator(.visible)
         }

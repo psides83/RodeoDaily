@@ -25,7 +25,7 @@ extension HomeView {
                             switch selectedTab {
                             case .standings:
                                 
-                                StandingsList(standings: standingsApi.standings, loading: standingsApi.loading, selectedTab: selectedTab, searchText: searchText, selectedYear: $selectedYear, selectedEvent: $standingsEvent)
+                                StandingsList(standings: standingsApi.standings, loading: standingsApi.loading, selectedTab: selectedTab, searchText: searchText, selectedYear: $selectedYear, selectedEvent: $standingsEvent, standingType: $standingType, circuit: $circuit)
                             case .results:
                                 
                                 ResultsList(rodeos: rodeosApi.rodeos, dateParams: dateParams, loading: rodeosApi.loading, selectedEvent: $resultsEvent, index: $index, dateRange: $dateRange)
@@ -56,7 +56,7 @@ extension HomeView {
                             Task {
                                 if newValue == .standings {
                                     clearSearch()
-                                    await standingsApi.getStandings(for: standingsEvent)
+//                                    await standingsApi.getStandings(for: standingsEvent, type: standingType, circuit: circuit, selectedYear: selectedYear)
                                 }
                                 
                                 if newValue == .results {
@@ -69,12 +69,22 @@ extension HomeView {
                         }
                         .onChange(of: selectedYear) { newValue in
                             Task {
-                                await standingsApi.getStandings(for: standingsEvent, selectedYear: selectedYear)
+                                await standingsApi.getStandings(for: standingsEvent, type: standingType, circuit: circuit, selectedYear: newValue)
                             }
                         }
                         .onChange(of: standingsEvent) { newValue in
                             Task {
-                                await standingsApi.getStandings(for: standingsEvent, selectedYear: selectedYear)
+                                await standingsApi.getStandings(for: newValue, type: standingType, circuit: circuit, selectedYear: selectedYear)
+                            }
+                        }
+                        .onChange(of: standingType) { newValue in
+                            Task {
+                                await standingsApi.getStandings(for: standingsEvent, type: newValue, circuit: circuit, selectedYear: selectedYear)
+                            }
+                        }
+                        .onChange(of: circuit) { newValue in
+                            Task {
+                                await standingsApi.getStandings(for: standingsEvent, type: standingType, circuit: newValue, selectedYear: selectedYear)
                             }
                         }
                         .onChange(of: dateRange) { newValue in
@@ -99,7 +109,7 @@ extension HomeView {
                         }
                         .onAppear {
                             standingsEvent = favoriteStandingsEvent
-                            resultsEvent = favoriteResultssEvent
+                            resultsEvent = favoriteResultsEvent
                         }
                         .task {
                             if selectedTab == .standings {
@@ -108,7 +118,7 @@ extension HomeView {
                             
                             if selectedTab == .results {
                                 await rodeosApi.loadRodeos(event: resultsEvent, index: index, searchText: "", dateParams: dateParams) {
-                                    rodeosApi.endLoading()
+//                                    rodeosApi.endLoading()
                                 }
                             }
                         }
@@ -120,7 +130,7 @@ extension HomeView {
                         isShowingSearchBar = (-offset > 80) && isShowingSearchBar
                     }
                 }
-                .background(.regularMaterial)
+                .background(Color.appBg)
                 .coordinateSpace(name: coordinateSpace)
                 .edgesIgnoringSafeArea(.top)
             }

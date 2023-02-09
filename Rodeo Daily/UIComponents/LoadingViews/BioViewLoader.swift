@@ -27,7 +27,7 @@ struct BioViewLoader: View {
                 
                 Divider()
                     .frame(minHeight: 2, alignment: .center)
-                    .background(Color.rdGray.opacity(0.6))
+                    .background(Color.appTertiary.opacity(0.6))
                     .padding(.vertical, 4)
                 
                 HStack {
@@ -38,7 +38,7 @@ struct BioViewLoader: View {
                     
                     Divider()
                         .frame(width: 2, height: 14, alignment: .center)
-                        .background(Color.rdYellow.opacity(0.8))
+                        .background(Color.appSecondary.opacity(0.8))
                     
                     Spacer()
                     
@@ -49,7 +49,7 @@ struct BioViewLoader: View {
                     
                     Divider()
                         .frame(width: 2, height: 14, alignment: .center)
-                        .background(Color.rdYellow.opacity(0.8))
+                        .background(Color.appSecondary.opacity(0.8))
                     
                     Spacer()
                     

@@ -26,7 +26,7 @@ struct ResultsBlock: View {
                     
                     HStack {
                         Text(round.round == "Avg" || round.round == "Finals" || roundCount == 1 ? roundCount == 1 ? "" : "\(round.round)" : "Round \(round.round)")
-                            .accentColor(Color.rdGray)
+                            .foregroundColor(Color.appSecondary)
                             .font(.headline)
                             .padding(.top, 10)
                             .padding(.bottom, 4)
@@ -41,6 +41,7 @@ struct ResultsBlock: View {
                                 TRWinnerCell(winner: round.winners[index], partner: round.winners[index + 1])
                                 
                                 Divider()
+                                    .overlay(Color.appTertiary)
                             }
                         } else {
                             

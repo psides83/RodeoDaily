@@ -40,7 +40,7 @@ extension HomeView {
                         
                         Image(systemName: "slider.horizontal.3")
                             .fontWeight(.semibold)
-                            .foregroundColor(.rdGreen)
+                            .foregroundColor(.appPrimary)
                             .frame(width: 35, height: 35)
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -80,7 +80,7 @@ extension HomeView {
                     searchFieldFocused = false
                 } label: {
                     Text("Cancel")
-                        .foregroundColor(.rdGreen)
+                        .foregroundColor(.appPrimary)
                 }
             }
         }
@@ -98,14 +98,14 @@ extension HomeView {
             .opacity(isShowingSearchBar ? 0 : -progress)
         })
         .animation(.easeInOut(duration: 0.2), value: isShowingSearchBar)
-        .environment(\.colorScheme, .dark)
         .padding([.horizontal, .bottom], 15)
         .padding(.top, safeAreaTop)
         .background {
             Rectangle()
-                .fill(Color.rdGreen)
+                .fill(Color.appPrimary)
                 .padding(.bottom, -progress * 85)
         }
+        .environment(\.colorScheme, .light)
     }
     
     // MARK: - Header Logo

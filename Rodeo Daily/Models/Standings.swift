@@ -17,10 +17,11 @@ struct Standings: Codable {
 // MARK: - Datum
 struct Position: Codable, Identifiable {
     let id: Int
-    let firstName, lastName, event, type, hometown: String
-    let nickName, imageUrl: String?
+    let firstName, lastName, event, type: String
+    let hometown, nickName, imageUrl: String?
     let earnings, points: Double
     let place, standingId, seasonYear: Int
+    let tourId, circuitId: Int?
 
     enum CodingKeys: String, CodingKey {
         case id = "ContestantId"
@@ -36,6 +37,8 @@ struct Position: Codable, Identifiable {
         case hometown = "Hometown"
         case standingId = "StandingId"
         case seasonYear = "SeasonYear"
+        case tourId = "TourId"
+        case circuitId = "CircuitId"
     }
 }
 

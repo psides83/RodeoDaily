@@ -20,7 +20,7 @@ struct HomeView: View {
     @ObservedObject var rodeosApi = RodeosApi()
     
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvents = .aa
-    @AppStorage("favoriteResultssEvent") var favoriteResultssEvent: Events.CodingKeys = .bb
+    @AppStorage("favoriteResultsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteResultsEvent: Events.CodingKeys = .bb
     
     // MARK: State Properties
     @FocusState var searchFieldFocused: Bool
@@ -32,6 +32,8 @@ struct HomeView: View {
     @State var offSetY: CGFloat = 0
     @State var isShowingSearchBar = false
     @State var selectedYear = Date().yearInt
+    @State var standingType: StandingTypes = .world
+    @State var circuit: Circuits = .columbiaRiver
     @State var index = 1
     @State var dateRange: Set<DateComponents> = []
     

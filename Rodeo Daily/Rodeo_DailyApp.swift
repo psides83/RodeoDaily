@@ -11,12 +11,11 @@ import SwiftUI
 
 @main
 struct Rodeo_DailyApp: App {
-    let persistenceController = PersistenceController.shared
+//    let persistenceController = PersistenceController.shared
     
     let status = ATTrackingManager.trackingAuthorizationStatus
     
     @AppStorage("needsATTRequest") var needsATTRequest = true
-//    @State var needsATTRequest = true
     
     init() {
 //        GADMobileAds.sharedInstance().start(completionHandler: nil)
@@ -64,7 +63,7 @@ struct Rodeo_DailyApp: App {
                 ATTRequestView(requestTracking: requestTracking)
             } else {
                 ContentView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
         }
     }

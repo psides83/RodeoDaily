@@ -15,9 +15,10 @@ enum StandingsEvents: String, CaseIterable {
     case hl = "TRHL"
     case sb = "SB"
     case td = "TD"
-//    case gb = "GB"
+    case gb = "GB"
     case br = "BR"
-//    case lb = "LB"
+    case sr = "SR"
+    case lb = "LB"
     
     var title: String {
         switch self {
@@ -28,9 +29,10 @@ enum StandingsEvents: String, CaseIterable {
         case .hl: return "Heeling"
         case .sb: return "Saddle Bronc"
         case .td: return "Tie-Down Roping"
-//        case .gb: return "Barrel Racing"
+        case .gb: return "Barrel Racing"
         case .br: return "Bull Riding"
-//        case .lb: return "Breakaway Roping"
+        case .sr: return "Steer Roping"
+        case .lb: return "Breakaway Roping"
         }
     }
 }

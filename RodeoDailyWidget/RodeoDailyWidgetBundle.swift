@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct RodeoDailyWidgetBundle: WidgetBundle {
     var body: some Widget {
-        RodeoDailyWidget()
-//        RodeoDailyWidgetLiveActivity()
+        StandingsWidget()
+        ResultsWidget()
     }
 }

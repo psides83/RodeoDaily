@@ -12,22 +12,22 @@ struct LogoLoader: View {
     @Environment(\.colorScheme) var colorScheme
     
     //    let display: Bool
-    let color: Color = .rdGreen
+    let color: Color = .appPrimary
     let size = 2.5
     
     @State private var endAmount: CGFloat = 0
     @State private var dotCount = 0
     
     var strokeColor: Color {
-        if color == .rdGreen {
-            return colorScheme == .dark ? Color.white : Color.rdYellow
+        if color == .appPrimary {
+            return Color.appSecondary
         }
         
         if color == .white {
-            return colorScheme == .dark ? Color.rdGreen : Color.rdYellow
+            return colorScheme == .dark ? Color.appPrimary : Color.appSecondary
         }
         
-        return Color.rdGreen
+        return Color.appPrimary
     }
     
     var body: some View {
@@ -51,7 +51,8 @@ struct LogoLoader: View {
 //                .font(.system(.largeTitle, weight: .semibold))
 //                .padding(.top, -42)
         }
-        .background(Color.clear.blur(radius: 6))
+        .offset(y: -150)
+//        .background(Color.appBgOpp.opacity(0.2).blur(radius: 10))
     }
     
     var loadingText: some View {

@@ -20,12 +20,13 @@ struct TRWinnerCell: View {
             HStack {
                 
                 Text(winner.place.string)
-                    .font(.headline)
+                    .font(.title3)
+                    .foregroundColor(.appSecondary)
                 
                 VStack(alignment: .leading) {
                     HStack {
                         winner.image
-                            .overlay(Color.gray.opacity(0.96)).mask(winner.image)
+                            .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
                         
                         VStack(alignment: .leading) {
                             Text("Header")
@@ -39,7 +40,8 @@ struct TRWinnerCell: View {
                                 }
                             } label: {
                                 Text(winner.name)
-                                    .foregroundColor(isShowingBio ? .rdYellow : .rdGreen)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(isShowingBio ? .appSecondary : .appPrimary)
                                     .font(.title3)
                                     .fontWeight(.bold)
                             }
@@ -47,19 +49,19 @@ struct TRWinnerCell: View {
                             
                             Text(winner.hometown ?? "")
                                 .font(.caption)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.appTertiary)
                             
                         }
                     }
                     
                     HStack {
                         partner.image
-                            .overlay(Color.gray.opacity(0.96)).mask(partner.image)
+                            .overlay(Color.appTertiary.opacity(0.96)).mask(partner.image)
                         
                         VStack(alignment: .leading) {
                             Text("Heeler")
                                 .font(.caption)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.appTertiary)
                             
                             Button {
                                 withAnimation {
@@ -68,7 +70,8 @@ struct TRWinnerCell: View {
                                 }
                             } label: {
                                 Text(partner.name)
-                                    .foregroundColor(isShowingPartnerBio ? .rdYellow : .rdGreen)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(isShowingPartnerBio ? .appSecondary : .appPrimary)
                                     .font(.title3)
                                     .fontWeight(.bold)
                             }
@@ -76,7 +79,7 @@ struct TRWinnerCell: View {
                             
                             Text(partner.hometown ?? "")
                                 .font(.caption)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.appTertiary)
                             
                         }
                     }
@@ -89,12 +92,12 @@ struct TRWinnerCell: View {
                     
                     Spacer()
                     Text(winner.result)
-                        .font(.headline)
+                        .font(.subheadline)
                         .fontWeight(.medium)
                     Spacer()
                     
                     Text(winner.payoff == 0 ? "" : winner.payoff.currency)
-                        .font(.subheadline)
+                        .font(.headline)
                 }
                 .frame(width: 150)
             }

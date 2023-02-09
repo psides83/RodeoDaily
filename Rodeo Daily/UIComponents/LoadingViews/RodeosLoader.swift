@@ -19,16 +19,16 @@ struct RodeosLoader: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 
-                                RoundedRectangle(cornerRadius: 2).fill(Color.rdGreen.opacity(opacity))
+                                RoundedRectangle(cornerRadius: 2).fill(Color.appPrimary.opacity(opacity))
                                     .frame(width: 230, height: 28)
                                 
                                 HStack {
                                     RoundedRectangle(cornerRadius: 2).fill(Color.primary.opacity(opacity))
                                         .frame(width: 80, height: 12)
                                     
-                                    Circle().fill(Color.rdGray.opacity(opacity)).frame(width: 4)
+                                    Circle().fill(Color.appSecondary.opacity(0.4)).frame(width: 4, height: 4)
                                     
-                                    RoundedRectangle(cornerRadius: 2).fill(Color.rdGray.opacity(opacity))
+                                    RoundedRectangle(cornerRadius: 2).fill(Color.appTertiary.opacity(opacity))
                                         .frame(width: 80, height: 12)
                                 }
                                 .padding(.bottom, 8)
@@ -37,7 +37,7 @@ struct RodeosLoader: View {
                             Spacer()
                             
                             Image(systemName: "chevron.right")
-                                .foregroundColor(Color.rdGray)
+                                .foregroundColor(Color.appTertiary)
                         }
                         .padding(.bottom, 10)
                         
@@ -46,6 +46,7 @@ struct RodeosLoader: View {
                     .padding(.top)
                 }
             }
+            
             LogoLoader()
         }
         .onAppear {

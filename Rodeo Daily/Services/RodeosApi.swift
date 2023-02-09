@@ -36,7 +36,7 @@ class RodeosApi: ObservableObject {
                 return
                 }
                 
-                DispatchQueue.main.async {
+                Task {
                     
                     do {
                         let decodedItems = try JSONDecoder().decode(RodeoSchedule.self, from: data)
@@ -58,6 +58,8 @@ class RodeosApi: ObservableObject {
                             filteredRodeos = decodedItems.data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("bull") && $0.htmlUnwrap.localizedCaseInsensitiveContains("riding")})
                         case .tr:
                             filteredRodeos = decodedItems.data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("team") })
+                        case .sr:
+                            filteredRodeos = decodedItems.data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("steer roping") })
                         case .lb:
                             filteredRodeos = decodedItems.data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("breakaway") })
                         }

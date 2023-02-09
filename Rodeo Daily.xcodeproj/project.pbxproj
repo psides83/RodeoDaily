@@ -50,6 +50,14 @@
 		1C0C2CA8298DA0D2002FE8EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0C2CA7298DA0D2002FE8EC /* AdSupport.framework */; };
 		1C0C2CAA298DA0D9002FE8EC /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0C2CA9298DA0D8002FE8EC /* AppTrackingTransparency.framework */; };
 		1C0C2CAD298DBC65002FE8EC /* StandingsEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvents.swift */; };
+		1C1D76C42994471900AA0142 /* ResultsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D76C32994471900AA0142 /* ResultsWidget.swift */; };
+		1C1D76C6299466D200AA0142 /* ResultsWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D76C5299466D200AA0142 /* ResultsWidgetApi.swift */; };
+		1C40A675298F820500CAA13D /* Circuits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A674298F820500CAA13D /* Circuits.swift */; };
+		1C40A676298F820500CAA13D /* Circuits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A674298F820500CAA13D /* Circuits.swift */; };
+		1C40A678298F865C00CAA13D /* StandingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A677298F865C00CAA13D /* StandingTypes.swift */; };
+		1C40A679298F865C00CAA13D /* StandingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A677298F865C00CAA13D /* StandingTypes.swift */; };
+		1C40A67B298F87AF00CAA13D /* Tours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A67A298F87AF00CAA13D /* Tours.swift */; };
+		1C40A67C298F87AF00CAA13D /* Tours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A67A298F87AF00CAA13D /* Tours.swift */; };
 		1C643554298C57DE0032CFC2 /* RodeoSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643553298C57DE0032CFC2 /* RodeoSchedule.swift */; };
 		1C643556298C58340032CFC2 /* Standings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643555298C58340032CFC2 /* Standings.swift */; };
 		1C643558298C58740032CFC2 /* Rodeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643557298C58740032CFC2 /* Rodeo.swift */; };
@@ -68,14 +76,11 @@
 		1C85DA33298E294500CA6F35 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C85DA32298E294500CA6F35 /* SwiftUI.framework */; };
 		1C85DA36298E294500CA6F35 /* RodeoDailyWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA35298E294500CA6F35 /* RodeoDailyWidgetBundle.swift */; };
 		1C85DA38298E294500CA6F35 /* RodeoDailyWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA37298E294500CA6F35 /* RodeoDailyWidgetLiveActivity.swift */; };
-		1C85DA3A298E294500CA6F35 /* RodeoDailyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA39298E294500CA6F35 /* RodeoDailyWidget.swift */; };
+		1C85DA3A298E294500CA6F35 /* StandingsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA39298E294500CA6F35 /* StandingsWidget.swift */; };
 		1C85DA3D298E294600CA6F35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C85DA3C298E294600CA6F35 /* Assets.xcassets */; };
 		1C85DA3F298E294600CA6F35 /* RodeoDailyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA3B298E294500CA6F35 /* RodeoDailyWidget.intentdefinition */; };
 		1C85DA40298E294600CA6F35 /* RodeoDailyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA3B298E294500CA6F35 /* RodeoDailyWidget.intentdefinition */; };
 		1C85DA43298E294600CA6F35 /* RodeoDailyWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C85DA2F298E294500CA6F35 /* RodeoDailyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1C85DA48298E2A0800CA6F35 /* BioAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5F298D7A60002FE8EC /* BioAPI.swift */; };
-		1C85DA49298E2A0F00CA6F35 /* ResultsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643567298C73040032CFC2 /* ResultsApi.swift */; };
-		1C85DA4A298E2A1200CA6F35 /* RodeosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64356E298C7E830032CFC2 /* RodeosApi.swift */; };
 		1C85DA4C298E2A5E00CA6F35 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5B298D7A4D002FE8EC /* Athlete.swift */; };
 		1C85DA4D298E2A6000CA6F35 /* Bio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5D298D7A57002FE8EC /* Bio.swift */; };
 		1C85DA4E298E2A6300CA6F35 /* BioExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C71298D7BBB002FE8EC /* BioExtension.swift */; };
@@ -87,7 +92,8 @@
 		1C85DA54298E2A7400CA6F35 /* RodeoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643569298C78490032CFC2 /* RodeoResult.swift */; };
 		1C85DA56298E2B3000CA6F35 /* StandingsEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvents.swift */; };
 		1C85DA58298E2B7F00CA6F35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA57298E2B7F00CA6F35 /* Extensions.swift */; };
-		1CEF10D5298EAD050078A809 /* WidgetStandingsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A5861298E9B4C00A70F61 /* WidgetStandingsApi.swift */; };
+		1CDC39DB29913CA40014935A /* WpraCircuits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC39DA29913CA40014935A /* WpraCircuits.swift */; };
+		1CEF10D5298EAD050078A809 /* StandingsWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A5861298E9B4C00A70F61 /* StandingsWidgetApi.swift */; };
 		1CEF10D6298EAFD70078A809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C093118298AFE5B00BB016D /* Assets.xcassets */; };
 		1CEF10D7298EAFDA0078A809 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C55298D4FDC002FE8EC /* Images.xcassets */; };
 		1CEF10D8298EAFDC0078A809 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C57298D5015002FE8EC /* Colors.xcassets */; };
@@ -128,7 +134,7 @@
 		1C093118298AFE5B00BB016D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C09311A298AFE5B00BB016D /* Rodeo_Daily.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rodeo_Daily.entitlements; sourceTree = "<group>"; };
 		1C09311C298AFE5B00BB016D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1C0A5861298E9B4C00A70F61 /* WidgetStandingsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetStandingsApi.swift; sourceTree = "<group>"; };
+		1C0A5861298E9B4C00A70F61 /* StandingsWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsWidgetApi.swift; sourceTree = "<group>"; };
 		1C0C2C55298D4FDC002FE8EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1C0C2C57298D5015002FE8EC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		1C0C2C59298D7660002FE8EC /* TRWinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRWinnerCell.swift; sourceTree = "<group>"; };
@@ -166,6 +172,11 @@
 		1C0C2CA9298DA0D8002FE8EC /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
 		1C0C2CAB298DB20E002FE8EC /* Rodeo-Daily-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Rodeo-Daily-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1C0C2CAC298DBC65002FE8EC /* StandingsEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsEvents.swift; sourceTree = "<group>"; };
+		1C1D76C32994471900AA0142 /* ResultsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsWidget.swift; sourceTree = "<group>"; };
+		1C1D76C5299466D200AA0142 /* ResultsWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsWidgetApi.swift; sourceTree = "<group>"; };
+		1C40A674298F820500CAA13D /* Circuits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuits.swift; sourceTree = "<group>"; };
+		1C40A677298F865C00CAA13D /* StandingTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingTypes.swift; sourceTree = "<group>"; };
+		1C40A67A298F87AF00CAA13D /* Tours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tours.swift; sourceTree = "<group>"; };
 		1C643553298C57DE0032CFC2 /* RodeoSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoSchedule.swift; sourceTree = "<group>"; };
 		1C643555298C58340032CFC2 /* Standings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Standings.swift; sourceTree = "<group>"; };
 		1C643557298C58740032CFC2 /* Rodeo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rodeo.swift; sourceTree = "<group>"; };
@@ -185,11 +196,12 @@
 		1C85DA32298E294500CA6F35 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1C85DA35298E294500CA6F35 /* RodeoDailyWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoDailyWidgetBundle.swift; sourceTree = "<group>"; };
 		1C85DA37298E294500CA6F35 /* RodeoDailyWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoDailyWidgetLiveActivity.swift; sourceTree = "<group>"; };
-		1C85DA39298E294500CA6F35 /* RodeoDailyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoDailyWidget.swift; sourceTree = "<group>"; };
+		1C85DA39298E294500CA6F35 /* StandingsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsWidget.swift; sourceTree = "<group>"; };
 		1C85DA3B298E294500CA6F35 /* RodeoDailyWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = RodeoDailyWidget.intentdefinition; sourceTree = "<group>"; };
 		1C85DA3C298E294600CA6F35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C85DA3E298E294600CA6F35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C85DA57298E2B7F00CA6F35 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1CDC39DA29913CA40014935A /* WpraCircuits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WpraCircuits.swift; sourceTree = "<group>"; };
 		1CEF10D9298EB32B0078A809 /* RodeoDailyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RodeoDailyWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1CF41FDF298C87F000214324 /* RodeoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoDetailView.swift; sourceTree = "<group>"; };
 		1CF41FE1298CC80300214324 /* WinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinnerCell.swift; sourceTree = "<group>"; };
@@ -422,6 +434,10 @@
 			children = (
 				1C64356C298C7DF60032CFC2 /* Tabs.swift */,
 				1C0C2CAC298DBC65002FE8EC /* StandingsEvents.swift */,
+				1C40A674298F820500CAA13D /* Circuits.swift */,
+				1C40A677298F865C00CAA13D /* StandingTypes.swift */,
+				1C40A67A298F87AF00CAA13D /* Tours.swift */,
+				1CDC39DA29913CA40014935A /* WpraCircuits.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -437,16 +453,42 @@
 		1C85DA34298E294500CA6F35 /* RodeoDailyWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1CDC39DE2991430C0014935A /* Views */,
+				1CDC39DD299142F90014935A /* Utils */,
+				1CDC39DC299142EB0014935A /* Services */,
 				1C85DA35298E294500CA6F35 /* RodeoDailyWidgetBundle.swift */,
 				1C85DA37298E294500CA6F35 /* RodeoDailyWidgetLiveActivity.swift */,
-				1C85DA39298E294500CA6F35 /* RodeoDailyWidget.swift */,
 				1C85DA3B298E294500CA6F35 /* RodeoDailyWidget.intentdefinition */,
 				1C85DA3C298E294600CA6F35 /* Assets.xcassets */,
 				1C85DA3E298E294600CA6F35 /* Info.plist */,
-				1C85DA57298E2B7F00CA6F35 /* Extensions.swift */,
-				1C0A5861298E9B4C00A70F61 /* WidgetStandingsApi.swift */,
 			);
 			path = RodeoDailyWidget;
+			sourceTree = "<group>";
+		};
+		1CDC39DC299142EB0014935A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1C0A5861298E9B4C00A70F61 /* StandingsWidgetApi.swift */,
+				1C1D76C5299466D200AA0142 /* ResultsWidgetApi.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1CDC39DD299142F90014935A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1C85DA57298E2B7F00CA6F35 /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1CDC39DE2991430C0014935A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1C85DA39298E294500CA6F35 /* StandingsWidget.swift */,
+				1C1D76C32994471900AA0142 /* ResultsWidget.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -568,6 +610,7 @@
 				1C0C2C78298D97BF002FE8EC /* Buttons.swift in Sources */,
 				1C0C2C9E298DA068002FE8EC /* BannerAd.swift in Sources */,
 				1C0A5863298E9B7600A70F61 /* StandingsApi.swift in Sources */,
+				1C40A675298F820500CAA13D /* Circuits.swift in Sources */,
 				1C64356F298C7E830032CFC2 /* RodeosApi.swift in Sources */,
 				1C0C2C7C298D9E88002FE8EC /* HomeView.swift in Sources */,
 				1C093115298AFE5A00BB016D /* Rodeo_Daily.xcdatamodeld in Sources */,
@@ -579,6 +622,7 @@
 				1C0C2C96298D9EF0002FE8EC /* StandingsList.swift in Sources */,
 				1C0C2C6E298D7B2C002FE8EC /* StandingsLoader.swift in Sources */,
 				1C643558298C58740032CFC2 /* Rodeo.swift in Sources */,
+				1C40A67B298F87AF00CAA13D /* Tours.swift in Sources */,
 				1C0C2C77298D97BF002FE8EC /* LogoShape.swift in Sources */,
 				1C0C2C5E298D7A57002FE8EC /* Bio.swift in Sources */,
 				1C093112298AFE5A00BB016D /* Persistence.swift in Sources */,
@@ -587,6 +631,7 @@
 				1C0C2C84298D9EBA002FE8EC /* CustomButtonView.swift in Sources */,
 				1C0C2C91298D9EDC002FE8EC /* FilterChip.swift in Sources */,
 				1C0C2C82298D9EBA002FE8EC /* HeaderView.swift in Sources */,
+				1C40A678298F865C00CAA13D /* StandingTypes.swift in Sources */,
 				1C643563298C71E80032CFC2 /* ViewExtensions.swift in Sources */,
 				1C0C2C5C298D7A4D002FE8EC /* Athlete.swift in Sources */,
 				1C643564298C71E80032CFC2 /* Extensions.swift in Sources */,
@@ -596,6 +641,7 @@
 				1CF41FE2298CC80300214324 /* WinnerCell.swift in Sources */,
 				1C0C2C6F298D7B2C002FE8EC /* ResultsLoader.swift in Sources */,
 				1C643566298C71E80032CFC2 /* OffsetKey.swift in Sources */,
+				1CDC39DB29913CA40014935A /* WpraCircuits.swift in Sources */,
 				1C643556298C58340032CFC2 /* Standings.swift in Sources */,
 				1C0C2C8F298D9EDC002FE8EC /* RodeoCell.swift in Sources */,
 				1C0C2C6D298D7B2C002FE8EC /* RodeosLoader.swift in Sources */,
@@ -624,22 +670,24 @@
 				1C85DA52298E2A6F00CA6F35 /* RodeoResults.swift in Sources */,
 				1C85DA4F298E2A6600CA6F35 /* RodeoSchedule.swift in Sources */,
 				1C85DA4D298E2A6000CA6F35 /* Bio.swift in Sources */,
+				1C1D76C42994471900AA0142 /* ResultsWidget.swift in Sources */,
 				1C85DA38298E294500CA6F35 /* RodeoDailyWidgetLiveActivity.swift in Sources */,
-				1CEF10D5298EAD050078A809 /* WidgetStandingsApi.swift in Sources */,
+				1CEF10D5298EAD050078A809 /* StandingsWidgetApi.swift in Sources */,
+				1C40A67C298F87AF00CAA13D /* Tours.swift in Sources */,
 				1C85DA51298E2A6C00CA6F35 /* Rodeo.swift in Sources */,
 				1C85DA4C298E2A5E00CA6F35 /* Athlete.swift in Sources */,
-				1C85DA49298E2A0F00CA6F35 /* ResultsApi.swift in Sources */,
 				1C85DA58298E2B7F00CA6F35 /* Extensions.swift in Sources */,
 				1C85DA56298E2B3000CA6F35 /* StandingsEvents.swift in Sources */,
 				1C85DA36298E294500CA6F35 /* RodeoDailyWidgetBundle.swift in Sources */,
-				1C85DA4A298E2A1200CA6F35 /* RodeosApi.swift in Sources */,
+				1C40A676298F820500CAA13D /* Circuits.swift in Sources */,
 				1C85DA3F298E294600CA6F35 /* RodeoDailyWidget.intentdefinition in Sources */,
 				1C85DA4E298E2A6300CA6F35 /* BioExtension.swift in Sources */,
+				1C1D76C6299466D200AA0142 /* ResultsWidgetApi.swift in Sources */,
 				1C85DA54298E2A7400CA6F35 /* RodeoResult.swift in Sources */,
 				1C85DA50298E2A6800CA6F35 /* Standings.swift in Sources */,
-				1C85DA3A298E294500CA6F35 /* RodeoDailyWidget.swift in Sources */,
+				1C85DA3A298E294500CA6F35 /* StandingsWidget.swift in Sources */,
 				1C85DA53298E2A7200CA6F35 /* JSONStructs.swift in Sources */,
-				1C85DA48298E2A0800CA6F35 /* BioAPI.swift in Sources */,
+				1C40A679298F865C00CAA13D /* StandingTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

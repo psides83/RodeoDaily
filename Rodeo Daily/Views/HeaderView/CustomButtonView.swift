@@ -21,7 +21,7 @@ extension HomeView {
                 
                 Image(systemName: symbolImage)
                     .fontWeight(.semibold)
-                    .foregroundColor(.rdGreen)
+                    .foregroundColor(.appPrimary)
                     .frame(width: 35, height: 35)
                     .background {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)

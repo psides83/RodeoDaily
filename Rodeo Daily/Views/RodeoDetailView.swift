@@ -15,7 +15,7 @@ struct RodeoDetailView: View {
     let event: Events.CodingKeys
     
     var body: some View {
-        let loading = resultsApi.loading
+//        let loading = resultsApi.loading
         let roundCount = resultsApi.results.rounds.count
         
         VStack {

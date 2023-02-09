@@ -8,15 +8,21 @@
 import Foundation
 import SwiftUI
 
-class StandingsApi: ObservableObject {
-    
-//    @Published var standings: [Position] = []
-    
-//    @Published var loading = false
+class StandingsWidgetApi: ObservableObject {
     
     func getStandings(for event: StandingsEvents, selectedYear: Int = Date().yearInt, completionHandler: @escaping ([Position]) -> Void) async {
                 
-        guard let url = URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/standings?year=\(selectedYear.string)&type=world&id=&event=\(event.rawValue)") else { fatalError("Missing URL") }
+        var dynamicUrl: URL? {
+            if event == .gb {
+                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/br/world/\(selectedYear.string)")
+            } else if event == .lb {
+                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/lb/world/\(selectedYear.string)")
+            } else {
+                return URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/standings?year=\(selectedYear.string)&type=world&id=&event=\(event.rawValue)")
+            }
+        }
+        
+        guard let url = dynamicUrl else { fatalError("Missing URL") }
         
         let urlRequest = URLRequest(url: url)
         

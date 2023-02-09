@@ -34,7 +34,7 @@ class BioAPI: ObservableObject {
                 
                 guard let data = data else { return }
                 
-                DispatchQueue.main.async {
+                Task {
                     
                     do {
                         

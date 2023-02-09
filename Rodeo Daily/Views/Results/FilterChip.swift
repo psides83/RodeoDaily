@@ -17,7 +17,7 @@ struct FilterChip: View {
         HStack {
             VStack(alignment: .leading) {
                 Text("Filtered By:")
-                    .foregroundColor(.rdGray)
+                    .foregroundColor(.appTertiary)
                     .font(.callout)
         
                 HStack {
@@ -35,7 +35,7 @@ struct FilterChip: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(Color.rdGreen)
+                .background(Color.appPrimary)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
             }

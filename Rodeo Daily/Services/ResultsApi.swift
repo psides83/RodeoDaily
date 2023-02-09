@@ -71,7 +71,7 @@ class ResultsApi: ObservableObject {
                 
                 guard let data = data else { return }
                 
-                DispatchQueue.main.async {
+                Task {
                     
                     do {
                         
@@ -105,6 +105,9 @@ class ResultsApi: ObservableObject {
                         case .lb:
                             guard decodedItems.data![0].events?.lb != nil else { return }
                             completionHandler(decodedItems.data![0], (decodedItems.data![0].events?.lb!)!)
+                        case .sr:
+                            guard decodedItems.data![0].events?.sr != nil else { return }
+                            completionHandler(decodedItems.data![0], (decodedItems.data![0].events?.sr!)!)
                         }
 
 

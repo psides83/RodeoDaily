@@ -18,7 +18,7 @@ struct StandingsLoader: View {
                     HStack {
                         
                         Text(block.string)
-                            .foregroundColor(.rdGreen)
+                            .foregroundColor(.appPrimary)
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .frame(width: 30)
                             .padding(.horizontal, 10)
@@ -32,7 +32,7 @@ struct StandingsLoader: View {
                         
                         VStack(alignment: .leading, spacing: 1) {
                             
-                            RoundedRectangle(cornerRadius: 2).fill(Color.rdGreen.opacity(opacity))
+                            RoundedRectangle(cornerRadius: 2).fill(Color.appPrimary.opacity(opacity))
                                 .frame(width: 105, height: 18)
                                 .padding(.horizontal, 10)
                             
@@ -41,9 +41,9 @@ struct StandingsLoader: View {
                                     .frame(width: 58, height: 10)
                                     .padding(.leading, 10)
                                 
-                                Circle().fill(Color.rdGray.opacity(opacity)).frame(width: 4)
+                                Circle().fill(Color.appTertiary.opacity(0.4)).frame(width: 4, height: 4)
                                 
-                                RoundedRectangle(cornerRadius: 2).fill(Color.rdGray.opacity(opacity))
+                                RoundedRectangle(cornerRadius: 2).fill(Color.appTertiary.opacity(opacity))
                                     .frame(width: 80, height: 8)
                             }
                             .padding(.top,6)

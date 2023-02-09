@@ -28,10 +28,10 @@ struct ResultsLoader: View {
                         
                         VStack(alignment: .leading) {
                             
-                            RoundedRectangle(cornerRadius: 2).fill(Color.rdGreen.opacity(opacity))
+                            RoundedRectangle(cornerRadius: 2).fill(Color.appPrimary.opacity(opacity))
                                 .frame(width: 105, height: 18)
                             
-                            RoundedRectangle(cornerRadius: 2).fill(Color.rdGray.opacity(opacity))
+                            RoundedRectangle(cornerRadius: 2).fill(Color.appTertiary.opacity(opacity))
                                 .frame(width: 80, height: 8)
                         }
                         

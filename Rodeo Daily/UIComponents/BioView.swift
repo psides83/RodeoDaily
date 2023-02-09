@@ -36,7 +36,7 @@ struct BioView: View {
                     
                     Divider()
                         .frame(minHeight: 2, alignment: .center)
-                        .background(Color.rdGray.opacity(0.6))
+                        .overlay(Color.appTertiary)
                     
                     HStack {
                         Text(bio.nfrQuals)
@@ -48,7 +48,7 @@ struct BioView: View {
                         
                         Divider()
                             .frame(width: 2, height: 14, alignment: .center)
-                            .background(Color.rdYellow.opacity(0.8))
+                            .overlay(Color.appSecondary)
                         
                         Spacer()
                         
@@ -61,7 +61,7 @@ struct BioView: View {
                         
                         Divider()
                             .frame(width: 2, height: 14, alignment: .center)
-                            .background(Color.rdYellow.opacity(0.8))
+                            .overlay(Color.appSecondary)
                         
                         Spacer()
                         

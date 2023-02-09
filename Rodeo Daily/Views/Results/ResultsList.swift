@@ -45,16 +45,18 @@ struct ResultsList: View {
                                 .frame(minHeight: 80)
                             
                             Divider()
+                                .overlay(Color.appTertiary)
                         }
                     }
                     
                     RodeoCell(rodeo: filteredRodeos[index], event: selectedEvent)
                     
                     Divider()
+                        .overlay(Color.appTertiary)
                 }
             } else if rodeos.count == 0 && !loading {
                 Text("No Results Found")
-                    .foregroundColor(.rdGreen)
+                    .foregroundColor(.appPrimary)
                     .font(.largeTitle)
                     .fontWeight(.bold)
             } else if loading {
@@ -76,47 +78,61 @@ struct ResultsList: View {
     
     // MARK: - Sub Views
     var ListHeader: some View {
-        HStack {
             VStack(alignment: .leading) {
-                Text(selectedEvent.title)
-                    .foregroundColor(.rdGreen)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                Text("Rodeo Results")
-                    .foregroundColor(.rdGray)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-            }
-            
-            Spacer()
-            
-            Menu {
-                ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                    Button {
-                        withAnimation {
-                            selectedEvent = event
-                        }
-                    } label: {
-                        Text(event.title)
+                HStack(alignment: .top, spacing: 22) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(selectedEvent.title)
+                            .foregroundColor(.appPrimary)
+                            .font(.title)
+                            .fontWeight(.bold)
+                        
+                        Text("Rodeo Results")
+                            .foregroundColor(.appSecondary)
+                            .font(.title)
+                            .fontWeight(.bold)
                     }
-                }
                 
-            } label: {
-                Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                    .imageScale(.large)
-                    .foregroundColor(.rdGreen)
+                    Spacer()
+                    
+                    Menu {
+                        ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                            Button {
+                                withAnimation {
+                                    selectedEvent = event
+                                }
+                            } label: {
+                                Text(event.title)
+                            }
+                        }
+                        
+                    } label: {
+                        VStack {
+                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                                .imageScale(.large)
+                                .foregroundColor(colorScheme == .light ? .appPrimary : .primary)
+                            
+                            Text("Event")
+                                .font(.caption)
+                                .foregroundColor(.appSecondary)
+                        }
+                    }
+                    
+                    Button {
+                        isShowingCalendar = true
+                    } label: {
+                        VStack {
+                            Image(systemName: "calendar")
+                                .foregroundColor(colorScheme == .light ? .appPrimary : .primary)
+                                .imageScale(.large)
+                            
+                            Text("Dates")
+                                .font(.caption)
+                                .foregroundColor(.appSecondary)
+                        }
+                    }
+                    .buttonStyle(.clearButton)
+                }
             }
-            
-            Button {
-                isShowingCalendar = true
-            } label: {
-                Image(systemName: "calendar")
-                    .foregroundColor(colorScheme == .light ? .rdGreen : .primary)
-                    .imageScale(.large)
-            }
-            .buttonStyle(.clearButton)
-        }
     }
     
     // MARK: - Computed Properties

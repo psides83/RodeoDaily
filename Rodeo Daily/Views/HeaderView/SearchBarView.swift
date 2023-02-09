@@ -18,26 +18,31 @@ extension HomeView {
             
             TextField("Search", text: $searchText)
                 .tint(.white)
+                .foregroundColor(.white)
                 .focused($searchFieldFocused)
                 .submitLabel(.search)
                 .onSubmit {
-                    Task {
-                        await rodeosApi.searchRodeos(for: resultsEvent, by: searchText, in: dateParams) {
-                            rodeosApi.endLoading()
+                    if selectedTab == .results {
+                        Task {
+                            await rodeosApi.searchRodeos(for: resultsEvent, by: searchText, in: dateParams) {
+                                rodeosApi.endLoading()
+                            }
                         }
                     }
                 }
             
             Button {
                 clearSearch()
-                Task {
-                    await rodeosApi.loadRodeos(event: resultsEvent, index: index, searchText: "", dateParams: dateParams) {
-                        rodeosApi.endLoading()
+                if selectedTab ==  .results {
+                    Task {
+                        await rodeosApi.loadRodeos(event: resultsEvent, index: index, searchText: "", dateParams: dateParams) {
+                            rodeosApi.endLoading()
+                        }
                     }
                 }
             } label: {
                 Image(systemName: "delete.left.fill")
-                    .accentColor(.white)
+                    .foregroundColor(.appBg)
                     .opacity(searchText.isEmpty ? 0 : 0.6)
                     .disabled(searchText.isEmpty)
             }

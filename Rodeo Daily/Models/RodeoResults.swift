@@ -33,7 +33,7 @@ struct Datum: Codable {
 
 // MARK: - Events
 struct Events: Codable {
-    let bb, sw, tr, sb, td, gb, br, lb: [String: [Round]]?
+    let bb, sw, tr, sb, td, gb, br, sr, lb: [String: [Round]]?
 
     enum CodingKeys: String, CodingKey, CaseIterable {
         case bb = "BB"
@@ -43,6 +43,7 @@ struct Events: Codable {
         case td = "TD"
         case gb = "GB"
         case br = "BR"
+        case sr = "SR"
         case lb = "LB"
         
         var title: String {
@@ -54,6 +55,7 @@ struct Events: Codable {
             case .td: return"Tie-Down Roping"
             case .gb: return"Barrel Racing"
             case .br: return"Bull Riding"
+            case .sr: return "Steer Roping"
             case .lb: return"Breakaway Roping"
             }
         }
@@ -99,8 +101,8 @@ struct Round: Codable {
 // MARK: - Contestant
 struct Contestant: Codable {
     let id: Int
-    let firstName, lastName, hometown: String
-    let nickName, imageUrl: String?
+    let firstName, lastName: String
+    let hometown, nickName, imageUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ContestantId"
