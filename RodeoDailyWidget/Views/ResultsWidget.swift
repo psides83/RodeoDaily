@@ -66,7 +66,7 @@ struct ResultsWidgetEntryView : View {
 
                 Spacer()
 
-                Image("rodeo-daily-logo-white")
+                Image("rodeo-daily-iOS-icon-sm")
                     .resizable()
                     .frame(width: widgetFamily == .systemSmall ? 24 : 36, height: widgetFamily == .systemSmall ? 24 : 36)
             }

@@ -12,6 +12,7 @@ import SwiftUI
 struct RodeoDailyWidgetBundle: WidgetBundle {
     var body: some Widget {
         StandingsWidget()
-        ResultsWidget()
+//        ResultsWidget()
+        FavoriteWidget()
     }
 }

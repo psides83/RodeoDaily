@@ -63,15 +63,14 @@ struct StandingsWidgetEntryView : View {
             
             HStack {
                 Text(favoriteStandingsEvent.title)
-                    .font(.system(size: widgetFamily == .systemSmall ? 16 : 24))
-                    .fontWeight(.semibold)
+                    .font(.system(size: widgetFamily == .systemSmall ? 16 : 22, weight: .semibold))
                     .foregroundColor(.white)
                 
                 Spacer()
                 
-                Image("rodeo-daily-logo-white")
+                Image("rodeo-daily-iOS-icon-sm")
                     .resizable()
-                    .frame(width: widgetFamily == .systemSmall ? 24 : 36, height: widgetFamily == .systemSmall ? 24 : 36)
+                    .frame(width: widgetFamily == .systemSmall ? 24 : 32, height: widgetFamily == .systemSmall ? 24 : 32)
             }
             
             ForEach(standings, id: \.earnings) { position in
@@ -84,7 +83,7 @@ struct StandingsWidgetEntryView : View {
                 case .systemSmall:
                     HStack(spacing: 10) {
                         Text(position.place.string)
-                            .font(.subheadline)
+                            .font(.system(size: 16, weight: .semibold))
                             .fontWeight(.medium)
                             .foregroundColor(.appSecondary)
                             .environment(\.colorScheme, .dark)
@@ -95,7 +94,7 @@ struct StandingsWidgetEntryView : View {
                                 .font(.system(size: 14, weight: .medium))
                             
                             Text(position.earnings.currency)
-                                .font(.caption)
+                                .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(.white)
                         }
                     }
@@ -103,26 +102,26 @@ struct StandingsWidgetEntryView : View {
                 case .systemMedium:
                     HStack(spacing: 16) {
                         Text(position.place.string)
-                            .font(.title3)
+                            .font(.system(size: 16, weight: .semibold))
                             .fontWeight(.semibold)
                             .foregroundColor(.appSecondary)
                             .environment(\.colorScheme, .dark)
                         
                         Text(position.name)
                             .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .medium))
+                            .font(.system(size: 16, weight: .medium))
                         
                         Spacer()
                         
                         Text(position.earnings.currency)
-                            .font(.system(size: 16))
+                            .font(.system(size: 14))
                             .foregroundColor(.white)
                         
                     }
                 case .systemLarge:
                     HStack(spacing: 16) {
                         Text(position.place.string)
-                            .font(.title3)
+                            .font(.system(size: 18, weight: .semibold))
                             .fontWeight(.medium)
                             .foregroundColor(.appSecondary)
                             .environment(\.colorScheme, .dark)
@@ -130,18 +129,18 @@ struct StandingsWidgetEntryView : View {
                         VStack(alignment: .leading) {
                             Text(position.name)
                                 .foregroundColor(.white)
-                                .font(.system(size: 20, weight: .medium))
+                                .font(.system(size: 16, weight: .medium))
                             
                             Text(position.hometown ?? "")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16))
+                                .font(.system(size: 12))
                         }
                         
                         Spacer()
                         
                         Text(position.earnings.currency)
                             .foregroundColor(.white)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                         
                     }
                 default:
@@ -187,7 +186,7 @@ struct StandingsWidget: Widget {
         StaticConfiguration(kind: kind, provider: StandingsProvider()) { entry in
             StandingsWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Rodeo Daily")
+        .configurationDisplayName("ProRodeo Standings")
         .description("Current standings at a quick glance.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
