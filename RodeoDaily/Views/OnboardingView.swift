@@ -9,13 +9,65 @@ import SwiftUI
 
 struct OnboardingView: View {
     var body: some View {
-        ZStack {
-            HomeView()
+        GeometryReader { proxy in
             VStack {
-                Rectangle()
-                    .fill(Color.rdGray.opacity(0.6))
+                VStack(alignment: .leading, spacing: 30) {
+                    HStack {
+                        Spacer()
+                        Image.appLogo
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200)
+                            .padding(.vertical, -42)
+                        Spacer()
+                    }
+                    
+                    Text("Allow tracking in the following alert for:")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                    
+                    HStack(spacing: 20) {
+                        Image(systemName: "hand.tap.fill")
+                            .font(.system(size: 26, weight: .medium))
+                            .foregroundColor(.rdGreen)
+                            .padding(8)
+                            .background(.white)
+                            .clipShape(Circle())
+                        
+                        Text("Advertisements that match your interests")
+                            .font(.system(size: 20, weight: .medium))
+                            .foregroundColor(.white)
+                    }
+                    
+                    Text("You can change this option later in the Settings app.")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                        Button {
+//                            isShowingAlert = true
+//                            requestTracking()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                
+                                Text("Continue")
+                                    .font(.system(size: 22, weight: .semibold))
+                                    .foregroundColor(.rdGreen)
+                                    .padding(.vertical)
+                                
+                                Spacer()
+                            }
+                            .background(RoundedRectangle(cornerRadius: 12))
+                            .tint(.white)
+                        }
+//                        .opacity(isShowingAlert ? 0 : 1)
+                }
+                .padding(.horizontal, 24)
+                .offset(y: -proxy.safeAreaInsets.top / 2)
             }
-            .ignoresSafeArea(.all)
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .background(Color.rdGreen.gradient)
         }
     }
 }

@@ -20,7 +20,7 @@ struct ATTRequestView: View {
                 VStack(alignment: .leading, spacing: 30) {
                     HStack {
                         Spacer()
-                        Image("rodeo-daily-logo-white")
+                        Image.appLogo
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 200)
