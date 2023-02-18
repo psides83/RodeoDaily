@@ -11,10 +11,10 @@ import WidgetKit
 struct BioCellView: View {
     
     let athleteId: Int
-    let event: String
+    let event: StandingsEvent
     let isShowingBio: Bool
     
-    @ObservedObject var bioAPI = BioAPI()
+    @ObservedObject var bioAPI = BioApi()
     
     @AppStorage("favoriteAthlete", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteAthlete: FavoriteAthlete? = nil
     
@@ -44,7 +44,7 @@ struct BioCellView: View {
                         
                         Spacer()
                         
-                        if event != "AA" && event != "GB" && event != "LB" {
+                        if event.hasBio {
                             Button {
                                 if isFavorite {
                                     deleteFavorite()
@@ -91,7 +91,7 @@ struct BioCellView: View {
                         
                         Spacer()
                         
-                        Text("\(bio.athleteAge) Years old")
+                        Text(bio.athleteAge + NSLocalizedString(" Years old", comment: ""))
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .redacted(reason: loading ? .placeholder : .privacy)
@@ -137,6 +137,6 @@ struct BioCellView: View {
 
 struct BioCellView_Previews: PreviewProvider {
     static var previews: some View {
-        BioCellView(athleteId: 70406, event: "TD", isShowingBio: true)
+        BioCellView(athleteId: 70406, event: .td, isShowingBio: true)
     }
 }

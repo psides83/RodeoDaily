@@ -16,7 +16,7 @@ struct StandingsProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (StandingsWidgetEntry) -> ()) {
         Task {
             
-            @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvents = .aa
+            @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
             
             await StandingsWidgetApi().getStandings(for: favoriteStandingsEvent, selectedYear: Date().yearInt) { result in
                 let entry = StandingsWidgetEntry(date: Date(), standings: result)
@@ -28,7 +28,7 @@ struct StandingsProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         Task {
             
-            @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvents = .aa
+            @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
             
             await StandingsWidgetApi().getStandings(for: favoriteStandingsEvent, selectedYear: Date().yearInt) { result in
                 let entry = StandingsWidgetEntry(date: Date(), standings: result)
@@ -54,7 +54,7 @@ struct StandingsWidgetEntryView : View {
     
     @Environment(\.widgetFamily) var widgetFamily
     
-    @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvents = .aa
+    @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     
     var body: some View {
         let standings = entry.standings.prefix(widgetFamily == .systemLarge ? 5 : 3)
@@ -166,7 +166,7 @@ struct StandingsWidgetEntryView : View {
                 HStack {
                     Spacer()
                     
-                    Text("Updated \(entry.date.medium)")
+                    Text(NSLocalizedString("Updated ", comment: "") + entry.date.medium)
                         .foregroundColor(.white)
                         .font(.caption)
                 }

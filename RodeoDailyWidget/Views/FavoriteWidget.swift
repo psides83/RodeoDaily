@@ -19,7 +19,7 @@ struct FavoriteProvider: TimelineProvider {
             @AppStorage("favoriteAthlete", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteAthlete: FavoriteAthlete? = nil
                         
             await FavoriteWidgetApi().loadBio(for: favoriteAthlete?.id ?? 96898) { bio in
-                let entry = FavoriteWidgetEntry(date: Date(), bio: bio, event: .td)
+                let entry = FavoriteWidgetEntry(date: Date(), bio: bio, event: favoriteAthlete?.event ?? .br)
                 completion(entry)
             }
         }
@@ -31,7 +31,7 @@ struct FavoriteProvider: TimelineProvider {
             @AppStorage("favoriteAthlete", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteAthlete: FavoriteAthlete? = nil
             
             await FavoriteWidgetApi().loadBio(for: favoriteAthlete?.id ?? 96898) { bio in
-                let entry = FavoriteWidgetEntry(date: Date(), bio: bio, event: .td)
+                let entry = FavoriteWidgetEntry(date: Date(), bio: bio, event: favoriteAthlete?.event ?? .br)
                 
                 print(bio)
                 
@@ -47,7 +47,7 @@ struct FavoriteProvider: TimelineProvider {
 struct FavoriteWidgetEntry: TimelineEntry {
     let date: Date
     let bio: BioData
-    let event: Events.CodingKeys
+    let event: StandingsEvent
 }
 
 struct FavoriteWidgetEntryView : View {

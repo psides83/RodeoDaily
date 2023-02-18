@@ -17,7 +17,9 @@ struct Athlete: Identifiable {
     let imageUrl: String?
     
     var name: String {
-        return "\(nickName ?? firstName) \(lastName)"
+        let name = PersonNameComponents(givenName: firstName, familyName: lastName, nickname: nickName)
+        
+        return name.formatted(.name(style: .medium))
     }
     
     var image: some View {

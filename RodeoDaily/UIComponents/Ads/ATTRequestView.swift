@@ -11,7 +11,9 @@ import SwiftUI
 /// This view proceeds the ATT alert and explains why the app is asking to track
 struct ATTRequestView: View {
     
-    let requestTracking: () -> Void
+//    let requestTracking: () -> Void
+    @StateObject var attHandler = ATTHandler()
+    
     @State private var isShowingAlert =  false
     
     var body: some View {
@@ -52,7 +54,7 @@ struct ATTRequestView: View {
                     
                         Button {
                             isShowingAlert = true
-                            requestTracking()
+                            attHandler.requestTracking()
                         } label: {
                             HStack {
                                 Spacer()

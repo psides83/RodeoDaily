@@ -10,21 +10,21 @@ import SwiftUI
 struct StandingsTypeFilterView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    let action: (_ type: StandingTypes) -> Void
+    let action: (_ type: StandingType) -> Void
     
-    init(_ action: @escaping (_ type: StandingTypes) -> Void) { self.action = action }
+    init(_ action: @escaping (_ type: StandingType) -> Void) { self.action = action }
     
     // MARK: - Body
     var body: some View {
         Menu(content: menuContent) {
-            FilterMenuIcon(label: "Type")
+            FilterMenuIcon(label: NSLocalizedString("Type", comment: ""))
         }
         .menuStyle(.button)
     }
     
     // MARK: - View Methods
     func menuContent() -> some View {
-        ForEach(StandingTypes.allCases, id: \.self) { type in
+        ForEach(StandingType.allCases, id: \.self) { type in
             Button {
                 withAnimation {
                     action(type)

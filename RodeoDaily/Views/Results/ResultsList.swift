@@ -7,22 +7,19 @@
 
 import SwiftUI
 
-struct ResultsList: View {
-        
-    @Environment(\.calendar) var calendar
+struct ResultsList: View {        
     @Environment(\.colorScheme) var colorScheme
     
     let rodeos: [RodeoData]
-    let dateParams: String
-    
-    var loading: Bool
+    let loading: Bool
     
     @Binding var selectedEvent: Events.CodingKeys
     @Binding var index: Int
     @Binding var dateRange: Set<DateComponents>
     @State var popover: PopoverModel?
     
-    @State private var isShowingCalendar = false
+    @State var dateRangeDisplay = ""
+    @State var isShowingCalendar = false
     
     let adPlacement: Int = 5
     let helpMessage: LocalizedStringKey = "For rodeos like **RODEOHOUSTON** where rounds are broken up into ***brackets***, all the braket's winners are lumped into the given round in the results. You might see multiple athletes who placed 1st and won the same money but all with different times/scores in a given round. This is due to the ***bracket format***."
@@ -73,7 +70,7 @@ struct ResultsList: View {
             }
         }
         .sheet(isPresented: $isShowingCalendar) {
-            DatePicker(dateRange: $dateRange, dateRangeDisplay: dateRangeDisplay)
+            DatePicker(dateRange: $dateRange, dateRangeDisplay: $dateRangeDisplay, isShowingCalendar: $isShowingCalendar)
         }
     }
     
@@ -142,47 +139,6 @@ struct ResultsList: View {
                 .font(.caption)
                 .foregroundColor(.appSecondary)
         }
-    }
-    
-    // MARK: - Computed Properties
-    var dateRangeDisplay: String {
-        var range = dateRange.compactMap { components in
-            calendar.date(from: components)
-        }.sorted(by: { $0 < $1 })
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d, yy"
-        
-        if range.count > 1 {
-            guard let first = range.first else { return "" }
-            guard let last = range.last else { return "" }
-            
-            range.forEach { date in
-                let index = range.firstIndex(of: date)
-                range.remove(at: index!)
-            }
-            
-            let firstDate = formatter.string(from: first)
-            
-            
-            let secondDate = formatter.string(from: last)
-            
-            return "Current Range: \(firstDate) - \(secondDate)"
-        }
-        
-        if range.count == 1 {
-            guard let first = range.first else { return "" }
-            
-            range.forEach { date in
-                let index = range.firstIndex(of: date)
-                range.remove(at: index!)
-            }
-            
-            let firstDate = formatter.string(from: first)
-            
-            return "Current Range: \(firstDate) -"
-        }
-        
-        return "*Select two dates"
     }
     
     // MARK: - Methods

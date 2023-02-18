@@ -19,9 +19,9 @@ struct BioView: View {
     }
     
     let athleteId: Int
-    let event: StandingsEvents
+    let event: StandingsEvent
     
-    @ObservedObject var bioApi = BioAPI()
+    @ObservedObject var bioApi = BioApi()
     
     @AppStorage("favoriteAthlete", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteAthlete: FavoriteAthlete? = nil
     
@@ -105,7 +105,7 @@ struct BioView: View {
     
     var isFavoriteAthlete: Bool {
         guard let favorite = favoriteAthlete else { return false }
-        guard favorite.id == athleteId && favorite.event == event.rawValue else { return false }
+        guard favorite.id == athleteId && favorite.event.rawValue == event.rawValue else { return false }
         return true
     }
     
@@ -143,7 +143,7 @@ struct BioView: View {
     
     func setFavorite() {
         withAnimation {
-            let favorite = FavoriteAthlete(id: athleteId, name: bioApi.bio.name, event: event.rawValue)
+            let favorite = FavoriteAthlete(id: athleteId, name: bioApi.bio.name, event: event)
             
             favoriteAthlete = favorite
             WidgetCenter.shared.reloadAllTimelines()

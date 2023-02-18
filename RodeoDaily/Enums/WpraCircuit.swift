@@ -1,5 +1,5 @@
 //
-//  WpraCircuits.swift
+//  WpraCircuit.swift
 //  Rodeo Daily
 //
 //  Created by Payton Sides on 2/6/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WpraCircuits: String, CaseIterable {
+enum WpraCircuit: String, CaseIterable {
     case badlands = "Badlands"
     case california = "California"
     case columbiaRiver = "Columbia%20River"

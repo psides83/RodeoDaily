@@ -19,24 +19,25 @@ struct HomeView: View {
     @ObservedObject var standingsApi = StandingsApi()
     @ObservedObject var rodeosApi = RodeosApi()
     
-    @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvents = .aa
+    @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     @AppStorage("favoriteResultsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteResultsEvent: Events.CodingKeys = .bb
     
     // MARK: - State Properties
     @FocusState var searchFieldFocused: Bool
     
-    @State var standingsEvent: StandingsEvents = .aa
+    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
+    
+    @State var standingsEvent: StandingsEvent = .aa
     @State var resultsEvent: Events.CodingKeys = .bb
     @State var initialLoad = true
     @State var selectedTab: Tabs = .standings
-    @State var searchText = ""
     @State var offSetY: CGFloat = 0
     @State var isShowingSearchBar = false
     @State var selectedYear = Date().yearString
-    @State var standingType: StandingTypes = .world
-    @State var circuit: Circuits = .columbiaRiver
+    @State var standingType: StandingType = .world
+    @State var circuit: Circuit = .columbiaRiver
     @State var index = 1
-    @State var dateRange: Set<DateComponents> = []
+    @State var dateRange = Set<DateComponents>()
     @State var navigatedToSettings = false
     
     // MARK: - Computed Properties
@@ -69,7 +70,7 @@ struct HomeView: View {
     
     // MARK: - Methods
     func clearSearch() {
-        searchText = ""
+        search.text = ""
         index = 1
         searchFieldFocused = false
     }

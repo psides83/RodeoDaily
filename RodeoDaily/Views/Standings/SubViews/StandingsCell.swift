@@ -15,8 +15,8 @@ struct StandingsCell: View {
     @State private var isShowingBio = false
     
     // matched the position event to a StandingsEvent to be passed into the BioView
-    var standingEvent: StandingsEvents {
-        let event = StandingsEvents.allCases.filter({ $0.rawValue == position.event})
+    var standingEvent: StandingsEvent {
+        let event = StandingsEvent.allCases.filter({ $0.rawValue == position.event})
         
         guard event.count > 0 else { return .aa }
         
@@ -82,7 +82,7 @@ struct StandingsCell: View {
                 }
             }
             if isShowingBio && position.id != 0 {
-                BioCellView(athleteId: position.id, event: position.event, isShowingBio: isShowingBio)
+                BioCellView(athleteId: position.id, event: StandingsEvent(rawValue: position.event) ?? .aa, isShowingBio: isShowingBio)
             }
         }
     }

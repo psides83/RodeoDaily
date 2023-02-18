@@ -1,5 +1,5 @@
 //
-//  Tabs.swift
+//  Tab.swift
 //  CalfRopingDaily
 //
 //  Created by Payton Sides on 12/11/22.

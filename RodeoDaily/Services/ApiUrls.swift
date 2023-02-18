@@ -49,16 +49,16 @@ class ApiUrls: ObservableObject {
     }
     
     // MARK: URL for loading standings data
-    func standingsUrl(event: StandingsEvents, type: StandingTypes, circuit: Circuits, selectedYear: String) -> URL {
+    func standingsUrl(event: StandingsEvent, type: StandingType, circuit: Circuit, selectedYear: String) -> URL {
         var id: String {
             if type == .circuit {
                 return circuit.id.string
             } else if type == .xBulls  {
-                return Tours.xBulls.id.string
+                return Tour.xBulls.id.string
             } else if type == .xBroncs {
-                return Tours.xBroncs.id.string
+                return Tour.xBroncs.id.string
             } else if type == .legacySteerRoping {
-                return Tours.legacySteerRoping.id.string
+                return Tour.legacySteerRoping.id.string
             } else {
                 return ""
             }
@@ -72,7 +72,7 @@ class ApiUrls: ObservableObject {
             }
         }
         
-        var finalEvent: StandingsEvents {
+        var finalEvent: StandingsEvent {
             if type == .xBulls || type == .xBroncs || type == .legacySteerRoping {
                 return .aa
             } else {

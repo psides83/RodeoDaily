@@ -1,5 +1,5 @@
 //
-//  Tours.swift
+//  Tour.swift
 //  Rodeo Daily
 //
 //  Created by Payton Sides on 2/5/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Tours: String, CaseIterable, Identifiable {
+enum Tour: String, CaseIterable, Identifiable {
     case xBulls,
          xBroncs,
          legacySteerRoping,

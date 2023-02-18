@@ -11,7 +11,7 @@ import SwiftUI
 public struct FavoriteAthlete: Codable, Identifiable, Equatable {
     public let id: Int
     let name: String
-    let event: String
+    let event: StandingsEvent
     
     enum CodingKeys: String, CodingKey {
         case id, name, event
@@ -26,10 +26,10 @@ public struct FavoriteAthlete: Codable, Identifiable, Equatable {
             id = try Int(values.decode(String.self, forKey: .id)) ?? 0
         }
         self.name = try values.decode(String.self, forKey: .name)
-        self.event = try values.decode(String.self, forKey: .event)
+        self.event = try values.decode(StandingsEvent.self, forKey: .event)
     }
     
-    init(id: Int, name: String, event: String) {
+    init(id: Int, name: String, event: StandingsEvent) {
         self.id = id
         self.name = name
         self.event = event

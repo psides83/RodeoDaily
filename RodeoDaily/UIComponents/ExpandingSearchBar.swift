@@ -26,6 +26,7 @@ struct ExpandingSearchBar: View {
     var body: some View {
         HStack {
             Spacer()
+            
             HStack {
                 if showing {
                     Button(action: toggleSearch, label: searchIcon)

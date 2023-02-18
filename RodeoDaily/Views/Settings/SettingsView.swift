@@ -8,10 +8,10 @@
 import SwiftUI
 import WidgetKit
 
-struct Settings: View {
+struct SettingsView: View {
     @AppStorage("favoriteStandingsEvent",
                 store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily"))
-    var favoriteStandingsEvent: StandingsEvents = .aa
+    var favoriteStandingsEvent: StandingsEvent = .aa
     
     @AppStorage("favoriteResultsEvent",
                 store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily"))
@@ -26,7 +26,7 @@ struct Settings: View {
             Section(header: Text("Favorites"),
                     footer: Text("The selected events will be used to populate the widget data and load in the respective tab when the app opens.")) {
                 Picker("Standings Event", selection: $favoriteStandingsEvent) {
-                    ForEach(StandingsEvents.allCases, id: \.self) { event in
+                    ForEach(StandingsEvent.allCases, id: \.self) { event in
                         Text(event.title)
                     }
                 }
@@ -69,6 +69,6 @@ struct Settings: View {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings()
+        SettingsView()
     }
 }

@@ -11,13 +11,13 @@ import SwiftUI
 class StandingsApi: ObservableObject {
     @ObservedObject var apiUrls = ApiUrls()
     
-    @Published var standings: [Position] = []
+    @Published var standings = [Position]()
     @Published var loading = false
     
     func getStandings(
-        for event: StandingsEvents,
-        type: StandingTypes = .world,
-        circuit: Circuits = .columbiaRiver,
+        for event: StandingsEvent,
+        type: StandingType = .world,
+        circuit: Circuit = .columbiaRiver,
         selectedYear: String = Date().yearString
     ) async {
         setLoading()

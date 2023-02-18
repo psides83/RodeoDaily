@@ -103,11 +103,11 @@ struct TRWinnerCell: View {
             }
             
             if isShowingBio {
-                BioCellView(athleteId: winner.contestantId, event: "HD", isShowingBio: isShowingBio)
+                BioCellView(athleteId: winner.contestantId, event: .hd, isShowingBio: isShowingBio)
             }
             
             if isShowingPartnerBio {
-                BioCellView(athleteId: partner.contestantId, event: "HL", isShowingBio: isShowingPartnerBio)
+                BioCellView(athleteId: partner.contestantId, event: .hl, isShowingBio: isShowingPartnerBio)
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Circuits.swift
+//  Circuit.swift
 //  Rodeo Daily
 //
 //  Created by Payton Sides on 2/5/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Circuits: CaseIterable, Identifiable {
+enum Circuit: CaseIterable, Identifiable {
     case columbiaRiver,
          california,
          wilderness,

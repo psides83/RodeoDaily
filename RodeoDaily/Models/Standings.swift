@@ -44,9 +44,9 @@ struct Position: Codable, Identifiable {
 
 extension Position {
     var name: String {
-        guard nickName != "" else { return "\(firstName) \(lastName)" }
+        let name = PersonNameComponents(givenName: firstName, familyName: lastName, nickname: nickName)
         
-        return "\(nickName ?? firstName) \(lastName)"
+        return name.formatted(.name(style: .medium))
     }
     
     var image: some View {

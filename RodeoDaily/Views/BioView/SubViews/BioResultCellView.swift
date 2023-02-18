@@ -38,14 +38,14 @@ struct BioResultCellView: View {
             HStack {
                 Text(result.placeDisplay)
                     .font(.callout)
-                    .frame(width: 40, alignment: .leading)
+                    .frame(width: 60, alignment: .leading)
                 
                 Spacer()
                 
                 Text(result.resultDisplay)
                     .font(.subheadline)
                     .fontWeight(.medium)
-                    .frame(width: 40)
+                    .frame(width: 60, alignment: .center)
                 
                 Spacer()
                 

@@ -11,7 +11,7 @@ import SwiftUI
 class RodeosApi: ObservableObject {
     @ObservedObject var apiUrls = ApiUrls()
     
-    @Published var rodeos: [RodeoData] = []
+    @Published var rodeos = [RodeoData]()
     @Published var loading = false
     
     func getRodeos(event: Events.CodingKeys, index: Int, searchText: String, dateParams: String, _ completionHandler: @escaping () -> Void) async {

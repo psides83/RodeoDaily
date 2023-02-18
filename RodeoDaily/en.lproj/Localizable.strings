@@ -1,0 +1,129 @@
+/* 
+  Localizable.strings
+  RodeoDaily
+
+  Created by Payton Sides on 2/17/23.
+  
+*/
+
+// ATTREquestView
+"Allow tracking in the following alert for:" = "Allow tracking in the following alert for:";
+
+"Advertisements that match your interests" = "Advertisements that match your interests";
+
+"You can change this option later in the Settings app." = "You can change this option later in the Settings app.";
+
+// SettingsView
+"Standings Event" = "Standings Event";
+
+"Results Event" = "Results Event";
+
+"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "The selected events will be used to populate the widget data and load in the respective tab when the app opens.";
+
+"Favorite Athlete Widget" = "Favorite Athlete Widget";
+
+"Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time.";
+
+"Settings" = "Settings";
+
+"Favorites" = "Favorites";
+
+// Lists
+"Sort" = "Sort";
+
+"Date" = "Date";
+
+"Time/Score" = "Time/Score";
+
+"Search" = "Search";
+
+// StandingsListView
+"No Standings Found" = "No Standings Found";
+
+"Cancel" = "Cancel";
+
+"Rodeo Results" = "Rodeo Results";
+
+"No Results Found" = "No Results Found";
+
+"Dates" = "Dates";
+
+// ResultsList
+"Load More" = "Load More";
+
+"Event" = "Event";
+
+"Loading..." = "Loading...";
+
+"Loading%@" = "Loading%@";
+
+"Date Filter" = "Date Filter";
+
+"Search Dates" = "Search Dates";
+
+" Years old" = " Years old";
+
+"star" = "star";
+
+"Place" = "Place";
+
+"Time" = "Time";
+
+"Score" = "Score";
+
+"Earnings" = "Earnings";
+
+"Season" = "Season";
+
+"Ranking" = "Ranking";
+
+// Results help sheet
+"For rodeos like **RODEOHOUSTON** where rounds are broken up into ***brackets***, all the braket's winners are lumped into the given round in the results. You might see multiple athletes who placed 1st and won the same money but all with different times/scores in a given round. This is due to the ***bracket format***." = "For rodeos like **RODEOHOUSTON** where rounds are broken up into ***brackets***, all the braket's winners are lumped into the given round in the results. You might see multiple athletes who placed 1st and won the same money but all with different times/scores in a given round. This is due to the ***bracket format***.";
+
+"**Important**" = "**Important**";
+
+"Type" = "Type";
+
+// Bio
+" Career Earnings" = " Career Earnings";
+
+"No Career Earnings" = "No Career Earnings";
+
+"Unranked" = "Unranked";
+
+"unknown" = "unknown";
+
+"No World Titles" = "No World Titles";
+
+" NFR" = " NFR";
+
+" World Title" = " World Title";
+" World Titles" = " World Titles";
+
+" NFR's" = " NFR's";
+
+"No NFRs" = "No NFRs";
+
+"Results" = "Results";
+
+"Bio" = "Bio";
+
+"Career" = "Career";
+
+"Standings" = "Standings";
+
+"ProRodeo Athlete" = "ProRodeo Athlete";
+
+"Your favorite athlete's info at a quick glance." = "Your favorite athlete's info at a quick glance.";
+
+"Latest Results" = "Latest Results";
+
+" in " = " in ";
+
+" with " = " with ";
+
+"ProRodeo Standings" = "ProRodeo Standings";
+
+"Current standings at a quick glance." = "Current standings at a quick glance.";
+
+"Updated " = "Updated ";

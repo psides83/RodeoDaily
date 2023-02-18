@@ -61,7 +61,7 @@ struct WinnerCell: View {
             }
             
             if isShowingBio {
-                BioCellView(athleteId: winner.contestantId, event: event, isShowingBio: isShowingBio)
+                BioCellView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .aa, isShowingBio: isShowingBio)
             }
         }
     }

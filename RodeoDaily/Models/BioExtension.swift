@@ -18,42 +18,42 @@ extension BioData {
     var currentRank: String {
         rankings
             .first(where: { $0.season == Date().yearInt })?
-            .rank ?? "Unranked"
+            .rank ?? NSLocalizedString("Unranked", comment: "")
     }
     
     var currentRankEvent: String {
         rankings
             .first(where: { $0.season == Date().yearInt })?
-            .eventName.trimmingCharacters(in: .whitespacesAndNewlines) ?? "Unranked"
+            .eventName.trimmingCharacters(in: .whitespacesAndNewlines) ?? NSLocalizedString("Unranked", comment: "")
     }
     
     var athleteAge: String {
-        guard let checkAge = age else { return "unknown" }
+        guard let checkAge = age else { return NSLocalizedString("unknown", comment: "") }
         
         return checkAge.string
     }
     
     var worldTitlesCount: String {
-        guard let titles = worldTitles else { return "No World Titles" }
+        guard let titles = worldTitles else { return NSLocalizedString("No World Titles", comment: "") }
         
         switch titles {
-            case 0: return "No World Titles"
-            case 1: return "\(titles) World Title"
-            default: return "\(titles) World Titles"
+            case 0: return NSLocalizedString("No World Titles", comment: "")
+        case 1: return titles.string + NSLocalizedString(" World Title", comment: "")
+        default: return titles.string + NSLocalizedString(" World Titles", comment: "")
         }
     }
     
     var careerEarnings: String {
-        guard let earnings = totalEarnings else { return "No Career Earnings" }
+        guard let earnings = totalEarnings else { return NSLocalizedString("No Career Earnings", comment: "") }
         
-        return "\(earnings.shortenedCurrency) Career Earnings"
+        return earnings.shortenedCurrency + NSLocalizedString(" Career Earnings", comment: "")
     }
     
     var nfrQuals: String {
-        guard let nfrs = nfrQualifications else { return "No NFRs" }
+        guard let nfrs = nfrQualifications else { return NSLocalizedString("No NFRs", comment: "") }
         
-        if nfrs == 1 { return "\(nfrs) NFR" }
-        else { return "\(nfrs) NFR's" }
+        if nfrs == 1 { return nfrs.string + NSLocalizedString(" NFR", comment: "") }
+        else { return nfrs.string + NSLocalizedString(" NFR's", comment: "") }
     }
     
     var image: some View {
@@ -138,7 +138,7 @@ extension BioData {
         }
     }
     
-    func careerSeasons(filteredBy event: StandingsEvents) -> [CareerWithEarinings] {
+    func careerSeasons(filteredBy event: StandingsEvent) -> [CareerWithEarinings] {
         var adjustedEvent: String {
             if event == .hd || event == .hl {
                 return "TR"
@@ -240,9 +240,9 @@ extension BioResult {
         
         var title: String {
             switch self {
-            case .rodeoDate: return "Date"
-            case .result: return "Time/Score"
-            case .earnings: return "Earnings"
+            case .rodeoDate: return NSLocalizedString("Date", comment: "")
+            case .result: return NSLocalizedString("Time/Score", comment: "")
+            case .earnings: return NSLocalizedString("Earnings", comment: "")
             }
         }
         

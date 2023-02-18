@@ -1,0 +1,131 @@
+/* 
+  Localizable.strings
+  RodeoDaily
+
+  Created by Payton Sides on 2/17/23.
+  
+*/
+
+// ATTREquestView
+"Allow tracking in the following alert for:" = "Permitir rastreamento no seguinte alerta para:";
+
+"Advertisements that match your interests" = "Anúncios que correspondem aos seus interesses";
+
+"You can change this option later in the Settings app." = "Você pode alterar essa opção posteriormente no aplicativo Configurações.";
+
+// SettingsView
+"Standings Event" = "Evento de classificação";
+
+"Results Event" = "Evento de Resultados
+";
+
+"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "Os eventos selecionados serão usados ​​para preencher os dados do widget e carregar na respectiva guia quando o aplicativo for aberto.";
+
+"Favorite Athlete Widget" = "Widget de Atleta Favorito";
+
+"Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "Infelizmente, definir um Atleta Favorito para Barrel Reacing e Breakaway Roping não está disponível no momento.";
+
+"Settings" = "Configurações";
+
+"Favorites" = "Favoritosgs";
+
+// Lists
+"Sort" = "Organizar";
+
+"Date" = "Data";
+
+"Time/Score" = "Tempo/Pontuação";
+
+"Search" = "Procurar";
+
+// StandingsListView
+"No Standings Found" = "Nenhuma classificação encontrada";
+
+"Cancel" = "Cancelar";
+
+"Rodeo Results" = "
+Resultados do Rodeio";
+
+"No Results Found" = "Nenhum resultado encontrado";
+
+"Dates" = "Datas";
+
+// ResultsList
+"Load More" = "Carregue mais";
+
+"Event" = "Evento";
+
+"Loading..." = "Carregando...";
+
+"Loading%@" = "Carregando%@";
+
+"Date Filter" = "Filtro de Data";
+
+"Search Dates" = "Pesquisar datas";
+
+" Years old" = " Anos";
+
+"star" = "star";
+
+"Place" = "Lugar";
+
+"Time" = "Tempo";
+
+"Score" = "Pontuação";
+
+" Career Earnings" = " Ganhos de Carreira";
+
+"No Career Earnings" = "Sem Ganhos de Carreira";
+
+"Unranked" = "não classificado";
+
+"unknown" = "desconhecido";
+
+"No World Titles" = "Sem títulos mundiais";
+
+" World Title" = " Título Mundial";
+
+" World Titles" = " Títulos Mundiais";
+
+" NFR" = " NFR";
+
+" NFR's" = " NFR's";
+
+"No NFRs" = "No NFRs";
+
+"Earnings" = "Ganhos";
+
+"Season" = "Temporada";
+
+"Ranking" = "Classificação";
+
+// Results help sheet
+"For rodeos like **RODEOHOUSTON** where rounds are broken up into ***brackets***, all the braket's winners are lumped into the given round in the results. You might see multiple athletes who placed 1st and won the same money but all with different times/scores in a given round. This is due to the ***bracket format***." = "Para rodeios como **RODEOHOUSTON**, onde as rodadas são divididas em ***chaves***, todos os vencedores da chave são agrupados na rodada especificada nos resultados. Você pode ver vários atletas que ficaram em primeiro lugar e ganharam o mesmo dinheiro, mas todos com tempos/pontuações diferentes em uma determinada rodada. Isso se deve ao ***formato do colchete***.";
+
+"**Important**" = "**Importante**";
+
+"Type" = "Tipo";
+
+"Results" = "Resultados";
+
+"Bio" = "Biografia";
+
+"Career" = "Carreira";
+
+"Standings" = "Classificação";
+
+"ProRodeo Athlete" = "Atleta ProRodeo";
+
+"Your favorite athlete's info at a quick glance." = "As informações do seu atleta favorito em um piscar de olhos.";
+
+"Latest Results" = "Últimos resultados";
+
+" in " = " em ";
+
+" with " = " com ";
+
+"ProRodeo Standings" = "Classificação ProRodeo";
+
+"Current standings at a quick glance." = "Classificação atual em uma rápida olhada.";
+
+"Updated " = "Atualizado ";

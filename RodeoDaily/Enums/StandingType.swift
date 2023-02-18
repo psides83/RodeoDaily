@@ -1,5 +1,5 @@
 //
-//  Tours.swift
+//  Tour.swift
 //  Rodeo Daily
 //
 //  Created by Payton Sides on 2/5/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StandingTypes: String, CaseIterable {
+enum StandingType: String, CaseIterable {
     case world = "world"
     case xBulls = "xtremeBulls"
     case xBroncs = "xtremeBroncs"

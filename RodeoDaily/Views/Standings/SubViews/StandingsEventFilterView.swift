@@ -10,21 +10,21 @@ import SwiftUI
 struct StandingsEventFilterView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    let action: (_ event: StandingsEvents) -> Void
+    let action: (_ event: StandingsEvent) -> Void
     
-    init(_ action: @escaping (_ event: StandingsEvents) -> Void) { self.action = action }
+    init(_ action: @escaping (_ event: StandingsEvent) -> Void) { self.action = action }
     
     // MARK: - Body
     var body: some View {
         Menu(content: menuContent) {
-            FilterMenuIcon(label: "Event")
+            FilterMenuIcon(label: NSLocalizedString("Event", comment: ""))
         }
         .menuStyle(.button)
     }
     
     // MARK: - View Methods
     func menuContent() -> some View {
-        ForEach(StandingsEvents.allCases, id: \.self) { event in
+        ForEach(StandingsEvent.allCases, id: \.self) { event in
             Button {
                 withAnimation {
                     action(event)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BioHeadingView: View {
     
-    let event: StandingsEvents
+    let event: StandingsEvent
     let bio: BioData
     
     @Binding var infoType: BioView.BioInfoType
@@ -65,7 +65,7 @@ struct BioHeadingView: View {
                     
                     Spacer()
                     
-                    Text("\(bio.athleteAge) Years old")
+                    Text(bio.athleteAge + NSLocalizedString(" Years old", comment: ""))
                         .font(.headline)
                         .fontWeight(.medium)
                 }
@@ -76,11 +76,11 @@ struct BioHeadingView: View {
                     Spacer()
                     
                     Picker("", selection: $infoType) {
-                        Text(BioView.BioInfoType.results.rawValue).tag(BioView.BioInfoType.results)
+                        Text("Results").tag(BioView.BioInfoType.results)
                         
-                        Text(BioView.BioInfoType.career.rawValue).tag(BioView.BioInfoType.career)
+                        Text("Career").tag(BioView.BioInfoType.career)
                         
-                        Text(BioView.BioInfoType.bio.rawValue).tag(BioView.BioInfoType.bio)
+                        Text("Bio").tag(BioView.BioInfoType.bio)
                     }
                     .pickerStyle(.segmented)
                 }

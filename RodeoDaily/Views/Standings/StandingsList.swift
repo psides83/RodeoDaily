@@ -17,11 +17,11 @@ struct StandingsList: View {
     let searchText: String
     
     @Binding var selectedYear: String
-    @Binding var selectedEvent: StandingsEvents
-    @Binding var standingType: StandingTypes
-    @Binding var selectedCircuit: Circuits
+    @Binding var selectedEvent: StandingsEvent
+    @Binding var standingType: StandingType
+    @Binding var selectedCircuit: Circuit
     
-    //    @State private var selectedEvent: StandingsEvents = .aa
+    //    @State private var selectedEvent: StandingsEvent = .aa
     
     let adPlacement: Int = 10
     
@@ -43,7 +43,7 @@ struct StandingsList: View {
     
     // MARK: - Computed View Properties
     var standingsList: some View {
-        ForEach(standings.indices, id: \.self) { index in
+        ForEach(filteredStandings.indices, id: \.self) { index in
             if (index % adPlacement) == 0 && index != 0 {
                 VStack {
                     BannerAd()
@@ -53,7 +53,7 @@ struct StandingsList: View {
                         .overlay(Color.appTertiary)
                 }
             }
-            StandingsCell(position: standings[index])
+            StandingsCell(position: filteredStandings[index])
             
             Divider()
                 .overlay(Color.appTertiary)
@@ -143,15 +143,15 @@ struct StandingsList: View {
         return array.sorted(by: { $0 > $1 })
     }
     
-    func setType(_ type: StandingTypes) {
+    func setType(_ type: StandingType) {
         standingType = type
     }
     
-    func setEvent(_ event: StandingsEvents) {
+    func setEvent(_ event: StandingsEvent) {
         selectedEvent = event
     }
     
-    func setCircuit(_ circuit: Circuits) {
+    func setCircuit(_ circuit: Circuit) {
         selectedCircuit = circuit
     }
 }

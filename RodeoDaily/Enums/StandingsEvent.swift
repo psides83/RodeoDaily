@@ -1,5 +1,5 @@
 //
-//  StandingsEvents.swift
+//  StandingsEvent.swift
 //  Rodeo Daily
 //
 //  Created by Payton Sides on 2/3/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StandingsEvents: String, CaseIterable {
+enum StandingsEvent: String, CaseIterable, Codable {
     case aa = "AA"
     case bb = "BB"
     case sw = "SW"

@@ -10,7 +10,7 @@ import SwiftUI
 
 class StandingsWidgetApi: ObservableObject {
     
-    func getStandings(for event: StandingsEvents, selectedYear: Int = Date().yearInt, completionHandler: @escaping ([Position]) -> Void) async {
+    func getStandings(for event: StandingsEvent, selectedYear: Int = Date().yearInt, completionHandler: @escaping ([Position]) -> Void) async {
                 
         var dynamicUrl: URL? {
             if event == .gb {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultsListView: View {
     
-    @ObservedObject var bioApi = BioAPI()
+    @ObservedObject var bioApi = BioApi()
     
     let bio: BioData
     let event: String
@@ -17,7 +17,9 @@ struct ResultsListView: View {
     
     @State private var selectedSeason = Date().yearString
     @State private var sortResultsBy: BioResult.SortingKeyPath = .rodeoDate
-    @State private var searchText = ""
+//    @State private var searchText = ""
+    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
+
     @Binding var showSearchBar: Bool
     
     // MARK: - Body
@@ -39,7 +41,7 @@ struct ResultsListView: View {
                     
                     ExpandingSearchBar(
                         showing: $showSearchBar,
-                        text: $searchText
+                        text: $search.text
                     )
                 }
                 .frame(height: 50)
@@ -57,7 +59,7 @@ struct ResultsListView: View {
         bio.results(
             filteredBy: selectedSeason.int,
             filteredBy: event,
-            searchText: searchText,
+            searchText: search.text,
             sortedBy: sortResultsBy)
     }
     
@@ -75,17 +77,17 @@ struct ResultsListView: View {
     var header: some View {
         var resultType = ""
         if event == "BR" || event == "SB" || event == "BB" {
-            resultType = "Score"
-        } else { resultType = "Time" }
+            resultType = NSLocalizedString("Score", comment: "")
+        } else { resultType = NSLocalizedString("Time", comment: "") }
         
         return HStack {
             Text("Place")
-                .frame(width: 40, alignment: .leading)
+                .frame(width: 60, alignment: .leading)
             
             Spacer()
             
             Text(resultType)
-                .frame(width: 40)
+                .frame(width: 60, alignment: .center)
             
             Spacer()
             

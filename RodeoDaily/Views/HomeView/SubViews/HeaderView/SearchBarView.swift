@@ -16,7 +16,7 @@ extension HomeView {
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
             
-            TextField("Search", text: $searchText)
+            TextField("Search", text: $search.text)
                 .tint(.white)
                 .foregroundColor(.white)
                 .focused($searchFieldFocused)
@@ -24,7 +24,7 @@ extension HomeView {
                 .onSubmit {
                     if selectedTab == .results {
                         Task {
-                            await rodeosApi.searchRodeos(for: resultsEvent, by: searchText, in: dateParams) {
+                            await rodeosApi.searchRodeos(for: resultsEvent, by: search.text, in: dateParams) {
                                 rodeosApi.endLoading()
                             }
                         }
@@ -43,8 +43,8 @@ extension HomeView {
             } label: {
                 Image.clearField
                     .foregroundColor(.appBg)
-                    .opacity(searchText.isEmpty ? 0 : 0.6)
-                    .disabled(searchText.isEmpty)
+                    .opacity(search.text.isEmpty ? 0 : 0.6)
+                    .disabled(search.text.isEmpty)
             }
         }
         .padding(.vertical, 10)

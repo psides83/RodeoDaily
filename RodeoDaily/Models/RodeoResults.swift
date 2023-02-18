@@ -35,7 +35,7 @@ struct Datum: Codable {
 struct Events: Codable {
     let bb, sw, tr, sb, td, gb, br, sr, lb: [String: [Round]]?
 
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum CodingKeys: String, CodingKey, CaseIterable, Codable {
         case bb = "BB"
         case sw = "SW"
         case tr = "TR"

@@ -22,20 +22,20 @@ extension HomeView {
             }
             
             HStack(spacing: 0) {
-                CustomButton(symbolImage: .standings, title: "Standings") {
+                CustomButton(symbolImage: .standings, title: NSLocalizedString("Standings", comment: "")) {
                     selectedTab = .standings
                 }
                 
-                CustomButton(symbolImage: .results, title: "Results") {
+                CustomButton(symbolImage: .results, title: NSLocalizedString("Results", comment: "")) {
                     selectedTab = .results
                 }
                 
-                CustomButton(symbolImage: .settings, title: "Settings") {
+                CustomButton(symbolImage: .settings, title: NSLocalizedString("Settings", comment: "")) {
                     navigatedToSettings = true
                 }
             }
             .navigationDestination(isPresented: $navigatedToSettings) {
-                Settings()
+                SettingsView()
             }
             // Shrinking Horizontal
             .padding(.horizontal, -progress * 50)
