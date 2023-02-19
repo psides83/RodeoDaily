@@ -49,14 +49,14 @@ struct Events: Codable {
         var title: String {
             switch self {
             case .bb: return "Bareback"
-            case .sw: return"Steer Wrestling"
-            case .tr: return"Team Roping"
-            case .sb: return"Saddle Bronc"
-            case .td: return"Tie-Down Roping"
-            case .gb: return"Barrel Racing"
-            case .br: return"Bull Riding"
+            case .sw: return "Steer Wrestling"
+            case .tr: return "Team Roping"
+            case .sb: return "Saddle Bronc"
+            case .td: return "Tie-Down Roping"
+            case .gb: return "Barrel Racing"
+            case .br: return "Bull Riding"
             case .sr: return "Steer Roping"
-            case .lb: return"Breakaway Roping"
+            case .lb: return "Breakaway Roping"
             }
         }
         

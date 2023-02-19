@@ -18,13 +18,13 @@ enum StandingType: String, CaseIterable {
     
     var title: String {
         switch self {
-        case .world: return "World Standings"
+        case .world: return NSLocalizedString("World Standings", comment: "")
         case .xBulls: return "Xtreme Bulls"
         case .xBroncs: return "Xtreme Broncs"
         case .legacySteerRoping: return "Legacy Steer Roping"
-        case .circuit: return "Circuit"
-        case .rookie: return "Rookie"
-        case .permit: return "Permit"
+        case .circuit: return NSLocalizedString("Circuit", comment: "")
+        case .rookie: return NSLocalizedString("Rookie", comment: "")
+        case .permit: return NSLocalizedString("Permit", comment: "Permit")
         }
     }
     

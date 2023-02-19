@@ -22,7 +22,7 @@ struct BannerAd: UIViewRepresentable {
         
         let adview = GADBannerView(adSize: GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width), origin: .zero)
         
-        adview.adUnitID = config.testAdId
+        adview.adUnitID = config.productionAdId
 //        adview.adSize = GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width)
         adview.rootViewController = UIApplication.shared.getRootViewController()
         adview.delegate = context.coordinator
