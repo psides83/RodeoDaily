@@ -20,13 +20,17 @@ extension Color {
     static let appBg = Color("app-bg")
     static let appBgOpp = Color("app-bg-opp")
     static let picked = Color.gray.opacity(0.8)
+    #if os(iOS)
     static let systemGroupedBackground = Color(UIColor.systemGroupedBackground)
     static let secondarySystemGroupedBackground = Color(UIColor.secondarySystemGroupedBackground)
+    #endif
 }
 
+#if os(iOS)
 extension UIColor {
     static let secondary = UIColor(Color.secondary)
     static let appBg = UIColor(Color.appBg)
     static let mint = UIColor(Color.mint)
     static let picked = UIColor(Color.picked)
 }
+#endif

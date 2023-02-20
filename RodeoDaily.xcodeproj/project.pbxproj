@@ -73,6 +73,7 @@
 		1C64356D298C7DF60032CFC2 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64356C298C7DF60032CFC2 /* Tabs.swift */; };
 		1C64356F298C7E830032CFC2 /* RodeosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64356E298C7E830032CFC2 /* RodeosApi.swift */; };
 		1C6E4CE3299F2E5300FBFF9E /* ATTHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6E4CE2299F2E5300FBFF9E /* ATTHandler.swift */; };
+		1C7CDCC829A41EF200329C4B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451D1299FFBE9006DD531 /* Localizable.strings */; };
 		1C85DA2A298E118A00CA6F35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA29298E118A00CA6F35 /* SettingsView.swift */; };
 		1C85DA31298E294500CA6F35 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C85DA30298E294500CA6F35 /* WidgetKit.framework */; };
 		1C85DA33298E294500CA6F35 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C85DA32298E294500CA6F35 /* SwiftUI.framework */; };
@@ -121,6 +122,14 @@
 		1C9A42AB299C2AE8008F4F9A /* StandingsEventFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A42AA299C2AE8008F4F9A /* StandingsEventFilterView.swift */; };
 		1C9A42AD299C2C41008F4F9A /* CircuitFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A42AC299C2C41008F4F9A /* CircuitFilterView.swift */; };
 		1C9A42B0299C361A008F4F9A /* ResultsEventFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A42AF299C361A008F4F9A /* ResultsEventFilter.swift */; };
+		1C9FEC1F29A2ADEE00860C7A /* WatchRodeosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC1E29A2ADEE00860C7A /* WatchRodeosListView.swift */; };
+		1C9FEC2129A2B8A600860C7A /* WatchRodeoResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC2029A2B8A600860C7A /* WatchRodeoResultsView.swift */; };
+		1C9FEC2329A2C04B00860C7A /* LogoShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C74298D97BF002FE8EC /* LogoShape.swift */; };
+		1C9FEC2629A2C0B600860C7A /* WatchLogoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC2529A2C0B600860C7A /* WatchLogoLoadingView.swift */; };
+		1C9FEC2A29A2D60400860C7A /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC2929A2D60400860C7A /* Buttons.swift */; };
+		1C9FEC2C29A3AEAE00860C7A /* WatchResultsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC2B29A3AEAE00860C7A /* WatchResultsCellView.swift */; };
+		1C9FEC2E29A3AF8000860C7A /* WatchResultsTRCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC2D29A3AF8000860C7A /* WatchResultsTRCellView.swift */; };
+		1C9FEC3129A3B5D100860C7A /* WatchLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FEC3029A3B5D100860C7A /* WatchLogo.swift */; };
 		1CACDDDD299C522700E7CCC9 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDC299C522700E7CCC9 /* Bundle-Decodable.swift */; };
 		1CACDDDF299C523200E7CCC9 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDE299C523200E7CCC9 /* Binding-OnChange.swift */; };
 		1CACDDE1299C585100E7CCC9 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDE0299C585100E7CCC9 /* FilterType.swift */; };
@@ -130,6 +139,7 @@
 		1CC2C56D299EE3DA00011270 /* HomeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2C56C299EE3DA00011270 /* HomeMainView.swift */; };
 		1CC98B072996F9EA0024A197 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC98B062996F9EA0024A197 /* BioView.swift */; };
 		1CD76B8C299A95E2002E5B08 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD76B8B299A95E2002E5B08 /* HtmlView.swift */; };
+		1CD8569029A2648500B02E27 /* WatchStandingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8568F29A2648500B02E27 /* WatchStandingsListView.swift */; };
 		1CDC39DB29913CA40014935A /* WpraCircuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC39DA29913CA40014935A /* WpraCircuit.swift */; };
 		1CE451CE299FF73A006DD531 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451CD299FF73A006DD531 /* Localizable.stringsdict */; };
 		1CE451CF299FFBE9006DD531 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451D1299FFBE9006DD531 /* Localizable.strings */; };
@@ -140,6 +150,40 @@
 		1CEF10D8298EAFDC0078A809 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C57298D5015002FE8EC /* Colors.xcassets */; };
 		1CF097382998BE8F000D7499 /* ExpandingSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF097372998BE8F000D7499 /* ExpandingSearchBar.swift */; };
 		1CF41FE2298CC80300214324 /* WinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF41FE1298CC80300214324 /* WinnerCell.swift */; };
+		1CFFA7C329A1E66100E180B3 /* RodeoDailyWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFA7C229A1E66100E180B3 /* RodeoDailyWatchApp.swift */; };
+		1CFFA7C529A1E66100E180B3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFA7C429A1E66100E180B3 /* ContentView.swift */; };
+		1CFFA7CA29A1E66200E180B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CFFA7C929A1E66200E180B3 /* Preview Assets.xcassets */; };
+		1CFFA7CF29A1E6E900E180B3 /* BioApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5F298D7A60002FE8EC /* BioApi.swift */; };
+		1CFFA7D029A1E6EB00E180B3 /* ResultsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643567298C73040032CFC2 /* ResultsApi.swift */; };
+		1CFFA7D129A1E6EF00E180B3 /* RodeosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64356E298C7E830032CFC2 /* RodeosApi.swift */; };
+		1CFFA7D229A1E6F200E180B3 /* StandingsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C99298D9FA5002FE8EC /* StandingsApi.swift */; };
+		1CFFA7D329A1E6F400E180B3 /* ApiUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A42A3299C0010008F4F9A /* ApiUrls.swift */; };
+		1CFFA7D429A1E71C00E180B3 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5B298D7A4D002FE8EC /* Athlete.swift */; };
+		1CFFA7D529A1E72200E180B3 /* RodeoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643569298C78490032CFC2 /* RodeoResult.swift */; };
+		1CFFA7D629A1E72200E180B3 /* RodeoResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643559298C58BD0032CFC2 /* RodeoResults.swift */; };
+		1CFFA7D729A1E72200E180B3 /* RodeoSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643553298C57DE0032CFC2 /* RodeoSchedule.swift */; };
+		1CFFA7D829A1E72200E180B3 /* Standings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C643555298C58340032CFC2 /* Standings.swift */; };
+		1CFFA7D929A1E72200E180B3 /* Bio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C5D298D7A57002FE8EC /* Bio.swift */; };
+		1CFFA7DA29A1E72200E180B3 /* FavoriteAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4292299BDEF1008F4F9A /* FavoriteAthlete.swift */; };
+		1CFFA7DB29A1E72200E180B3 /* BioExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C71298D7BBB002FE8EC /* BioExtension.swift */; };
+		1CFFA7DC29A1E73400E180B3 /* JSONStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64355B298C595D0032CFC2 /* JSONStructs.swift */; };
+		1CFFA7DD29A1E75C00E180B3 /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A674298F820500CAA13D /* Circuit.swift */; };
+		1CFFA7DE29A1E75C00E180B3 /* StandingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A677298F865C00CAA13D /* StandingType.swift */; };
+		1CFFA7DF29A1E75C00E180B3 /* WpraCircuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC39DA29913CA40014935A /* WpraCircuit.swift */; };
+		1CFFA7E029A1E75C00E180B3 /* StandingsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */; };
+		1CFFA7E129A1E75C00E180B3 /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A67A298F87AF00CAA13D /* Tour.swift */; };
+		1CFFA7E229A1E76700E180B3 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDE0299C585100E7CCC9 /* FilterType.swift */; };
+		1CFFA7E429A1E77900E180B3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C57298D5015002FE8EC /* Colors.xcassets */; };
+		1CFFA7E529A1E77900E180B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C55298D4FDC002FE8EC /* Images.xcassets */; };
+		1CFFA7E629A1E79700E180B3 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A42A0299BF275008F4F9A /* ImageExtension.swift */; };
+		1CFFA7E729A1E79C00E180B3 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4288299BDB98008F4F9A /* ColorExtension.swift */; };
+		1CFFA7E829A1E79C00E180B3 /* TextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A428E299BDC27008F4F9A /* TextExtension.swift */; };
+		1CFFA7E929A1E79C00E180B3 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4282299BDB3B008F4F9A /* CGFloatExtension.swift */; };
+		1CFFA7EB29A1E79C00E180B3 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4279299BD4B2008F4F9A /* IntExtension.swift */; };
+		1CFFA7EC29A1E79C00E180B3 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A427F299BD583008F4F9A /* DoubleExtension.swift */; };
+		1CFFA7ED29A1E79C00E180B3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A427C299BD52A008F4F9A /* StringExtension.swift */; };
+		1CFFA7EE29A1E79C00E180B3 /* DateExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4285299BDB65008F4F9A /* DateExtansion.swift */; };
+		1CFFA7F029A1E87D00E180B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CFFA7C629A1E66200E180B3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +307,13 @@
 		1C9A42AA299C2AE8008F4F9A /* StandingsEventFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsEventFilterView.swift; sourceTree = "<group>"; };
 		1C9A42AC299C2C41008F4F9A /* CircuitFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFilterView.swift; sourceTree = "<group>"; };
 		1C9A42AF299C361A008F4F9A /* ResultsEventFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsEventFilter.swift; sourceTree = "<group>"; };
+		1C9FEC1E29A2ADEE00860C7A /* WatchRodeosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRodeosListView.swift; sourceTree = "<group>"; };
+		1C9FEC2029A2B8A600860C7A /* WatchRodeoResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRodeoResultsView.swift; sourceTree = "<group>"; };
+		1C9FEC2529A2C0B600860C7A /* WatchLogoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLogoLoadingView.swift; sourceTree = "<group>"; };
+		1C9FEC2929A2D60400860C7A /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		1C9FEC2B29A3AEAE00860C7A /* WatchResultsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchResultsCellView.swift; sourceTree = "<group>"; };
+		1C9FEC2D29A3AF8000860C7A /* WatchResultsTRCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchResultsTRCellView.swift; sourceTree = "<group>"; };
+		1C9FEC3029A3B5D100860C7A /* WatchLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLogo.swift; sourceTree = "<group>"; };
 		1CACDDDC299C522700E7CCC9 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		1CACDDDE299C523200E7CCC9 /* Binding-OnChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		1CACDDE0299C585100E7CCC9 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
@@ -272,6 +323,7 @@
 		1CC2C56C299EE3DA00011270 /* HomeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainView.swift; sourceTree = "<group>"; };
 		1CC98B062996F9EA0024A197 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
 		1CD76B8B299A95E2002E5B08 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
+		1CD8568F29A2648500B02E27 /* WatchStandingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStandingsListView.swift; sourceTree = "<group>"; };
 		1CDC39DA29913CA40014935A /* WpraCircuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WpraCircuit.swift; sourceTree = "<group>"; };
 		1CE451CD299FF73A006DD531 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		1CE451D0299FFBE9006DD531 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -281,6 +333,12 @@
 		1CEF10D9298EB32B0078A809 /* RodeoDailyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RodeoDailyWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1CF097372998BE8F000D7499 /* ExpandingSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingSearchBar.swift; sourceTree = "<group>"; };
 		1CF41FE1298CC80300214324 /* WinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinnerCell.swift; sourceTree = "<group>"; };
+		1CFFA7C029A1E66100E180B3 /* Rodeo Daily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rodeo Daily.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CFFA7C229A1E66100E180B3 /* RodeoDailyWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeoDailyWatchApp.swift; sourceTree = "<group>"; };
+		1CFFA7C429A1E66100E180B3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1CFFA7C629A1E66200E180B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1CFFA7C929A1E66200E180B3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1CFFA7CE29A1E69400E180B3 /* RodeoDailyWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RodeoDailyWatch.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +361,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CFFA7BD29A1E66100E180B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -312,6 +377,7 @@
 				1CEF10D9298EB32B0078A809 /* RodeoDailyWidgetExtension.entitlements */,
 				1C09310E298AFE5A00BB016D /* RodeoDaily */,
 				1C85DA34298E294500CA6F35 /* RodeoDailyWidget */,
+				1CFFA7C129A1E66100E180B3 /* RodeoDailyWatch */,
 				1C09310D298AFE5A00BB016D /* Products */,
 				1C0C2CA6298DA0D1002FE8EC /* Frameworks */,
 			);
@@ -322,6 +388,7 @@
 			children = (
 				1C09310C298AFE5A00BB016D /* RodeoDaily.app */,
 				1C85DA2F298E294500CA6F35 /* RodeoDailyWidgetExtension.appex */,
+				1CFFA7C029A1E66100E180B3 /* Rodeo Daily.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -601,6 +668,23 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		1C9FEC2429A2C09600860C7A /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				1C9FEC2529A2C0B600860C7A /* WatchLogoLoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		1C9FEC2829A2D5EE00860C7A /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				1C9FEC2929A2D60400860C7A /* Buttons.swift */,
+				1C9FEC3029A3B5D100860C7A /* WatchLogo.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
 		1CC2C56B299EE3A000011270 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +701,36 @@
 				1CC98B062996F9EA0024A197 /* BioView.swift */,
 			);
 			path = BioView;
+			sourceTree = "<group>";
+		};
+		1CD8569329A2667600B02E27 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1CFFA7C429A1E66100E180B3 /* ContentView.swift */,
+				1C9FEC2429A2C09600860C7A /* LoadingView */,
+				1CD8569529A2669100B02E27 /* ResultsViews */,
+				1CD8569429A2667C00B02E27 /* StandingsViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1CD8569429A2667C00B02E27 /* StandingsViews */ = {
+			isa = PBXGroup;
+			children = (
+				1CD8568F29A2648500B02E27 /* WatchStandingsListView.swift */,
+			);
+			path = StandingsViews;
+			sourceTree = "<group>";
+		};
+		1CD8569529A2669100B02E27 /* ResultsViews */ = {
+			isa = PBXGroup;
+			children = (
+				1C9FEC1E29A2ADEE00860C7A /* WatchRodeosListView.swift */,
+				1C9FEC2029A2B8A600860C7A /* WatchRodeoResultsView.swift */,
+				1C9FEC2B29A3AEAE00860C7A /* WatchResultsCellView.swift */,
+				1C9FEC2D29A3AF8000860C7A /* WatchResultsTRCellView.swift */,
+			);
+			path = ResultsViews;
 			sourceTree = "<group>";
 		};
 		1CDC39DC299142EB0014935A /* Services */ = {
@@ -637,6 +751,27 @@
 				1C129F592995B44400EB052E /* FavoriteWidget.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1CFFA7C129A1E66100E180B3 /* RodeoDailyWatch */ = {
+			isa = PBXGroup;
+			children = (
+				1CFFA7C229A1E66100E180B3 /* RodeoDailyWatchApp.swift */,
+				1C9FEC2829A2D5EE00860C7A /* ViewComponents */,
+				1CD8569329A2667600B02E27 /* Views */,
+				1CFFA7CE29A1E69400E180B3 /* RodeoDailyWatch.entitlements */,
+				1CFFA7C629A1E66200E180B3 /* Assets.xcassets */,
+				1CFFA7C829A1E66200E180B3 /* Preview Content */,
+			);
+			path = RodeoDailyWatch;
+			sourceTree = "<group>";
+		};
+		1CFFA7C829A1E66200E180B3 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1CFFA7C929A1E66200E180B3 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -681,6 +816,23 @@
 			productReference = 1C85DA2F298E294500CA6F35 /* RodeoDailyWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		1CFFA7BF29A1E66100E180B3 /* RodeoDailyWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CFFA7CB29A1E66200E180B3 /* Build configuration list for PBXNativeTarget "RodeoDailyWatch" */;
+			buildPhases = (
+				1CFFA7BC29A1E66100E180B3 /* Sources */,
+				1CFFA7BD29A1E66100E180B3 /* Frameworks */,
+				1CFFA7BE29A1E66100E180B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RodeoDailyWatch;
+			productName = "RodeoDailyWatch Watch App";
+			productReference = 1CFFA7C029A1E66100E180B3 /* Rodeo Daily.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -695,6 +847,9 @@
 						CreatedOnToolsVersion = 14.2;
 					};
 					1C85DA2E298E294500CA6F35 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					1CFFA7BF29A1E66100E180B3 = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -720,6 +875,7 @@
 			targets = (
 				1C09310B298AFE5A00BB016D /* RodeoDaily */,
 				1C85DA2E298E294500CA6F35 /* RodeoDailyWidgetExtension */,
+				1CFFA7BF29A1E66100E180B3 /* RodeoDailyWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -747,6 +903,18 @@
 				1CEF10D8298EAFDC0078A809 /* Colors.xcassets in Resources */,
 				1CEF10D6298EAFD70078A809 /* Assets.xcassets in Resources */,
 				1C85DA3D298E294600CA6F35 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CFFA7BE29A1E66100E180B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C7CDCC829A41EF200329C4B /* Localizable.strings in Resources */,
+				1CFFA7CA29A1E66200E180B3 /* Preview Assets.xcassets in Resources */,
+				1CFFA7E529A1E77900E180B3 /* Images.xcassets in Resources */,
+				1CFFA7F029A1E87D00E180B3 /* Assets.xcassets in Resources */,
+				1CFFA7E429A1E77900E180B3 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +1051,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CFFA7BC29A1E66100E180B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CFFA7E929A1E79C00E180B3 /* CGFloatExtension.swift in Sources */,
+				1CFFA7E129A1E75C00E180B3 /* Tour.swift in Sources */,
+				1CFFA7ED29A1E79C00E180B3 /* StringExtension.swift in Sources */,
+				1C9FEC2A29A2D60400860C7A /* Buttons.swift in Sources */,
+				1CFFA7D629A1E72200E180B3 /* RodeoResults.swift in Sources */,
+				1CFFA7D229A1E6F200E180B3 /* StandingsApi.swift in Sources */,
+				1CFFA7E729A1E79C00E180B3 /* ColorExtension.swift in Sources */,
+				1CFFA7D729A1E72200E180B3 /* RodeoSchedule.swift in Sources */,
+				1CFFA7DF29A1E75C00E180B3 /* WpraCircuit.swift in Sources */,
+				1C9FEC3129A3B5D100860C7A /* WatchLogo.swift in Sources */,
+				1CD8569029A2648500B02E27 /* WatchStandingsListView.swift in Sources */,
+				1CFFA7D529A1E72200E180B3 /* RodeoResult.swift in Sources */,
+				1CFFA7C529A1E66100E180B3 /* ContentView.swift in Sources */,
+				1CFFA7EB29A1E79C00E180B3 /* IntExtension.swift in Sources */,
+				1C9FEC1F29A2ADEE00860C7A /* WatchRodeosListView.swift in Sources */,
+				1CFFA7D929A1E72200E180B3 /* Bio.swift in Sources */,
+				1CFFA7D829A1E72200E180B3 /* Standings.swift in Sources */,
+				1CFFA7D329A1E6F400E180B3 /* ApiUrls.swift in Sources */,
+				1CFFA7C329A1E66100E180B3 /* RodeoDailyWatchApp.swift in Sources */,
+				1CFFA7DA29A1E72200E180B3 /* FavoriteAthlete.swift in Sources */,
+				1CFFA7CF29A1E6E900E180B3 /* BioApi.swift in Sources */,
+				1CFFA7EC29A1E79C00E180B3 /* DoubleExtension.swift in Sources */,
+				1CFFA7E229A1E76700E180B3 /* FilterType.swift in Sources */,
+				1C9FEC2129A2B8A600860C7A /* WatchRodeoResultsView.swift in Sources */,
+				1C9FEC2629A2C0B600860C7A /* WatchLogoLoadingView.swift in Sources */,
+				1C9FEC2E29A3AF8000860C7A /* WatchResultsTRCellView.swift in Sources */,
+				1CFFA7DB29A1E72200E180B3 /* BioExtension.swift in Sources */,
+				1CFFA7D129A1E6EF00E180B3 /* RodeosApi.swift in Sources */,
+				1CFFA7D029A1E6EB00E180B3 /* ResultsApi.swift in Sources */,
+				1CFFA7DC29A1E73400E180B3 /* JSONStructs.swift in Sources */,
+				1CFFA7E029A1E75C00E180B3 /* StandingsEvent.swift in Sources */,
+				1C9FEC2C29A3AEAE00860C7A /* WatchResultsCellView.swift in Sources */,
+				1CFFA7DE29A1E75C00E180B3 /* StandingType.swift in Sources */,
+				1CFFA7EE29A1E79C00E180B3 /* DateExtansion.swift in Sources */,
+				1CFFA7D429A1E71C00E180B3 /* Athlete.swift in Sources */,
+				1CFFA7E829A1E79C00E180B3 /* TextExtension.swift in Sources */,
+				1CFFA7E629A1E79700E180B3 /* ImageExtension.swift in Sources */,
+				1CFFA7DD29A1E75C00E180B3 /* Circuit.swift in Sources */,
+				1C9FEC2329A2C04B00860C7A /* LogoShape.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -964,6 +1178,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -1016,6 +1231,7 @@
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -1170,6 +1386,71 @@
 			};
 			name = Release;
 		};
+		1CFFA7CC29A1E66200E180B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatch/RodeoDailyWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = PaytonSides.RodeoDaily;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
+				PRODUCT_NAME = "Rodeo Daily";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		1CFFA7CD29A1E66200E180B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatch/RodeoDailyWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = PaytonSides.RodeoDaily;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
+				PRODUCT_NAME = "Rodeo Daily";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1196,6 +1477,15 @@
 			buildConfigurations = (
 				1C85DA45298E294600CA6F35 /* Debug */,
 				1C85DA46298E294600CA6F35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CFFA7CB29A1E66200E180B3 /* Build configuration list for PBXNativeTarget "RodeoDailyWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CFFA7CC29A1E66200E180B3 /* Debug */,
+				1CFFA7CD29A1E66200E180B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

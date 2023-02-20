@@ -9,21 +9,21 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Promises (Playground) 2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Promises (Playground).xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Rodeo Daily.xcscheme_^#shared#^_</key>
 		<dict>
@@ -33,12 +33,17 @@
 		<key>RodeoDaily.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
+		</dict>
+		<key>RodeoDailyWatch.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>RodeoDailyWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -49,6 +54,11 @@
 			<true/>
 		</dict>
 		<key>1C85DA2E298E294500CA6F35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CFFA7BF29A1E66100E180B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
