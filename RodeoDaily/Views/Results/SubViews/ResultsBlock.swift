@@ -33,16 +33,19 @@ struct ResultsBlock: View {
                         Spacer()
                     }
                     
-                    ForEach(round.winners.indices, id: \.self) { index in
-                        if event == .tr {
-                            if index % 2 == 0 {
-                                TRWinnerCell(winner: round.winners[index], partner: round.winners[index + 1])
-                                
-                                Divider()
-                                    .overlay(Color.appTertiary)
-                            }
-                        } else {
-                            WinnerCell(event: event.rawValue, winner: round.winners[index])
+                    if event == .tr {
+                        
+                        ForEach(teams(from: round)) { team in
+                            //
+                            
+                            TRWinnerCell(team: team)
+                            
+                            Divider()
+                                .overlay(Color.appTertiary)
+                        }
+                    } else {
+                        ForEach(round.winners) { winner in
+                            WinnerCell(event: event.rawValue, winner: winner)
                         }
                     }
                 }
@@ -53,6 +56,29 @@ struct ResultsBlock: View {
                 resultsApi.endLoading()
             }
         }
+    }
+    
+    func teams(from round: RoundWinners) -> [Team] {
+        var addedTeams = [Int]()
+        var teams = [Team]()
+        
+        round.winners.forEach { winner in
+            let isCurrentTeam = addedTeams.filter({ $0 == winner.teamId }).count > 0
+            
+            let teamArray = round.winners.filter({ $0.teamId == winner.teamId })
+            let header = teamArray[0]
+            let heeler = teamArray[1]
+            
+            let team = Team(id: header.teamId, headerId: header.id, headerName: header.name, heelerId: heeler.id, heelerName: heeler.name, roundLabel: header.roundLabel, place: header.placeDisplay, headerHometown: header.hometownDisplay, heelerHometown: heeler.hometownDisplay, headerImageUrl: header.imageUrl, heelerImageUrl: heeler.imageUrl, payoff: header.earnings, time: header.result, round: header.round)
+            
+            
+            if !isCurrentTeam {
+                addedTeams.append(winner.teamId)
+                teams.append(team)
+            }
+        }
+        
+        return teams
     }
 }
 

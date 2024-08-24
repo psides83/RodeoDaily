@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct RodeoDailyWidgetBundle: WidgetBundle {
     var body: some Widget {
+        StandingsWidgetSmall()
         StandingsWidget()
 //        ResultsWidget()
         FavoriteWidget()

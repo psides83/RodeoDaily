@@ -4,26 +4,31 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Promises (Playground) 1.xcscheme</key>
+		<key>NewWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>7</integer>
 		</dict>
-		<key>Promises (Playground) 2.xcscheme</key>
+		<key>Promises (Playground) 1.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>Promises (Playground) 2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Promises (Playground).xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Rodeo Daily.xcscheme_^#shared#^_</key>
 		<dict>
@@ -35,10 +40,15 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>RodeoDailyWatch.xcscheme_^#shared#^_</key>
+		<key>RodeoDailyWatchApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>3</integer>
+		</dict>
+		<key>RodeoDailyWatchWidgetExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>RodeoDailyWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
@@ -54,6 +64,16 @@
 			<true/>
 		</dict>
 		<key>1C85DA2E298E294500CA6F35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CE1514E29A4A7DE00B7AA26</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CEA4A3B29A4FB72007F7B53</key>
 		<dict>
 			<key>primary</key>
 			<true/>

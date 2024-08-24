@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StandingsProvider: TimelineProvider {
     func placeholder(in context: Context) -> StandingsWidgetEntry {
-        StandingsWidgetEntry(date: Date(), standings: exampleData)
+        StandingsWidgetEntry(date: Date(), standings: Array(exampleData.prefix(5)))
     }
     
     func getSnapshot(in context: Context, completion: @escaping (StandingsWidgetEntry) -> ()) {
@@ -18,22 +18,31 @@ struct StandingsProvider: TimelineProvider {
             
             @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
             
-            await StandingsWidgetApi().getStandings(for: favoriteStandingsEvent, selectedYear: Date().yearInt) { result in
-                let entry = StandingsWidgetEntry(date: Date(), standings: result)
+            await StandingsWidgetApi().getStandings() { result in
+                let entry = StandingsWidgetEntry(date: Date(), standings: Array(exampleData.prefix(5)))
                 completion(entry)
             }
         }
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<StandingsWidgetEntry>) -> ()) {
         Task {
             
             @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
-            
-            await StandingsWidgetApi().getStandings(for: favoriteStandingsEvent, selectedYear: Date().yearInt) { result in
-                let entry = StandingsWidgetEntry(date: Date(), standings: result)
+                        
+            await StandingsWidgetApi().getStandings() { result in
                 
-                let timeline = Timeline(entries: [entry], policy: .after(.now.advanced(by: 60 * 60 * 12)))
+                var entries = [StandingsWidgetEntry]()
+                
+                for i in 0..<5 {
+                    let segment = i * 5
+                    let segmentEnd = segment + 5
+                    let positions = Array(result[segment..<segmentEnd])
+                    
+                    entries.append(StandingsWidgetEntry(date: .now.advanced(by: TimeInterval(60 * (i + 1))), standings: positions))
+                }
+                                
+                let timeline = Timeline(entries: entries, policy: .atEnd)
                 completion(timeline)
             }
         }
@@ -57,20 +66,20 @@ struct StandingsWidgetEntryView : View {
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     
     var body: some View {
-        let standings = entry.standings.prefix(widgetFamily == .systemLarge ? 5 : 3)
+        let standings = entry.standings
         
-        VStack(alignment: .leading, spacing: widgetFamily == .systemSmall ? 4 : 6) {
+        VStack(alignment: .leading, spacing: 6) {
             
             HStack {
                 Text(favoriteStandingsEvent.title)
-                    .font(.system(size: widgetFamily == .systemSmall ? 16 : 22, weight: .semibold))
+                    .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.white)
                 
                 Spacer()
                 
                 Image("rodeo-daily-iOS-icon-sm")
                     .resizable()
-                    .frame(width: widgetFamily == .systemSmall ? 24 : 32, height: widgetFamily == .systemSmall ? 24 : 32)
+                    .frame(width: 32, height: 32)
             }
             
             ForEach(standings, id: \.earnings) { position in
@@ -79,52 +88,11 @@ struct StandingsWidgetEntryView : View {
                     .overlay(Color.appSecondary)
                     .environment(\.colorScheme, .dark)
                 
-                switch widgetFamily {
-                case .systemSmall:
-                    HStack(spacing: 10) {
-                        Text(position.place.string)
-                            .font(.system(size: 16, weight: .semibold))
-                            .fontWeight(.medium)
-                            .foregroundColor(.appSecondary)
-                            .environment(\.colorScheme, .dark)
-                        
-                        VStack(alignment: .leading) {
-                            Text(position.name)
-                                .foregroundColor(.white)
-                                .font(.system(size: 14, weight: .medium))
-                            
-                            Text(position.earnings.currency)
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.white)
-                        }
-                    }
-                    
-                case .systemMedium:
-                    HStack(spacing: 16) {
-                        Text(position.place.string)
-                            .font(.system(size: 16, weight: .semibold))
-                            .fontWeight(.semibold)
-                            .foregroundColor(.appSecondary)
-                            .environment(\.colorScheme, .dark)
-                        
-                        Text(position.name)
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
-                        
-                        Spacer()
-                        
-                        Text(position.earnings.currency)
-                            .font(.system(size: 14))
-                            .foregroundColor(.white)
-                        
-                    }
-                case .systemLarge:
                     HStack(spacing: 16) {
                         Text(position.place.string)
                             .font(.system(size: 18, weight: .semibold))
                             .fontWeight(.medium)
                             .foregroundColor(.appSecondary)
-                            .environment(\.colorScheme, .dark)
                         
                         VStack(alignment: .leading) {
                             Text(position.name)
@@ -143,39 +111,20 @@ struct StandingsWidgetEntryView : View {
                             .font(.system(size: 16))
                         
                     }
-                default:
-                    HStack {
-                        Text(position.place.string)
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.appSecondary)
-                        
-                        Text(position.name)
-                            .foregroundColor(.white)
-                            .font(.system(size: 18, weight: .semibold))
-                        
-                        Spacer()
-                        
-                        Text(position.earnings.currency)
-                            .font(.subheadline)
-                            .foregroundColor(.white)
-                    }
-                }
             }
-            if widgetFamily == .systemLarge {
-                HStack {
-                    Spacer()
-                    
-                    Text(NSLocalizedString("Updated ", comment: "") + entry.date.medium)
-                        .foregroundColor(.white)
-                        .font(.caption)
-                }
+            
+            HStack {
+                Spacer()
+                
+                Text(NSLocalizedString("Updated ", comment: "") + entry.date.medium)
+                    .foregroundColor(.white)
+                    .font(.caption)
             }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.appPrimary).edgesIgnoringSafeArea(.all)
-        .environment(\.colorScheme, .light)
+        .background(Color.rdGreen).edgesIgnoringSafeArea(.all)
+        .environment(\.colorScheme, .dark)
     }
 }
 
@@ -188,7 +137,7 @@ struct StandingsWidget: Widget {
         }
         .configurationDisplayName("ProRodeo Standings")
         .description("Current standings at a quick glance.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemLarge])
     }
 }
 
@@ -198,12 +147,6 @@ struct RodeoDailyWidget_Previews: PreviewProvider {
         
         
         Group {
-            StandingsWidgetEntryView(entry: StandingsWidgetEntry(date: Date(), standings: standings))
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-            
-            StandingsWidgetEntryView(entry: StandingsWidgetEntry(date: Date(), standings: standings))
-                .previewContext(WidgetPreviewContext(family: .systemMedium))
-            
             StandingsWidgetEntryView(entry: StandingsWidgetEntry(date: Date(), standings: standings))
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }

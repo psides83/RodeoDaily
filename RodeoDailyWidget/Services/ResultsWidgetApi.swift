@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class ResultsWidgetApi: ObservableObject {
-        
+    
     func getRodeos(event: Events.CodingKeys, _ completionHandler: @escaping (_ rodeo: RodeoData) async -> Void) async {
         
         guard let url = URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/schedule?type=results&page_size=48&index=1&active=true&search_term=&search_type=&tourId=&circuitId=&combine_results=true") else { fatalError("Missing URL") }
@@ -164,7 +164,11 @@ class ResultsWidgetApi: ObservableObject {
         dataTask.resume()
     }
     
-    func getWinners(rodeoId: Int, event: Events.CodingKeys, _ completionHandler: @escaping (RodeoResult) async -> Void) async {
+    func getWinners(
+        rodeoId: Int,
+        event: Events.CodingKeys,
+        _ completionHandler: @escaping (RodeoResult) async -> Void
+    ) async {
         
         await fetchResults(rodeoId: rodeoId, event: event) { (rodeo, rounds) in
             
@@ -172,29 +176,118 @@ class ResultsWidgetApi: ObservableObject {
                 
                 let id = round.key
                 
-                let roundWinners = round.value.filter({ $0.payoff != 0 }).sorted(by: { $0.payoff > $1.payoff }).map { winner in
-                    let contestant = winner.contestant[0]
-                    let winnerId = "\(id)\(contestant.id)"
-                    let contestantName = contestant.nickName != "" ? "\(contestant.nickName ?? "") \(contestant.lastName)" : "\(contestant.firstName) \(contestant.lastName)"
-                    
-                    return Winner(id: winnerId.int, contestantId: contestant.id, roundLabel: winner.goRoundLabel, name: contestantName, hometown: contestant.hometown, imageUrl: contestant.imageUrl, payoff: winner.payoff, time: winner.time, score: winner.score, place: winner.place, round: winner.goRound)
-                }
-                
-                guard roundWinners.count != 0 else {
-                    let leaders = round.value.filter({ $0.time != 0 || $0.score != 0 }).sorted(by: { $0.time < $1.time }).sorted(by: { $0.score > $1.score }).prefix(10).enumerated().map { (index, winner) in
+                let roundWinners = round.value
+                    .filter({ $0.payoff != 0 })
+                    .sorted(by: { $0.payoff > $1.payoff })
+                    .map { winner in
                         let contestant = winner.contestant[0]
                         let winnerId = "\(id)\(contestant.id)"
+                        let contestantName = contestant.nickName != "" ? "\(contestant.nickName ?? "") \(contestant.lastName)" : "\(contestant.firstName) \(contestant.lastName)"
                         
-                        return Winner(id: winnerId.int, contestantId: contestant.id, roundLabel: winner.goRoundLabel, name: contestant.name, hometown: contestant.hometown, imageUrl: contestant.imageUrl, payoff: winner.payoff, time: winner.time, score: winner.score, place: winner.place == 0 ? index + 1 : winner.place, round: winner.goRound)
+                        return Winner(
+                            id: winnerId.int,
+                            contestantId: contestant.id,
+                            roundLabel: winner.goRoundLabel,
+                            name: contestantName,
+                            hometown: contestant.hometown,
+                            imageUrl: contestant.imageUrl,
+                            payoff: winner.payoff,
+                            time: winner.time,
+                            score: winner.score,
+                            place: winner.place,
+                            round: winner.goRound,
+                            teamId: 0,
+                            numberScores: winner.numberScores ?? 0
+                        )
                     }
-                    return RoundWinners(id: id.int, round: leaders[0].roundLabel, winners: leaders)
+                
+                guard roundWinners.count != 0 else {
+                    let currentRound = round.value.sorted(by: { $0.numberScores ?? 0 > $1.numberScores ?? 0 })[0].numberScores
+                    
+                    if id.int < 555 {
+                        let leaders = round.value
+                            .filter({ $0.time != 0 || $0.score != 0 })
+                            .sorted(by: { $0.time < $1.time })
+                            .sorted(by: { $0.score > $1.score })
+                            .prefix(10)
+                            .enumerated()
+                            .map { (index, winner) in
+                                let contestant = winner.contestant[0]
+                                let winnerId = "\(id)\(contestant.id)"
+                                
+                                return Winner(
+                                    id: winnerId.int,
+                                    contestantId: contestant.id,
+                                    roundLabel: winner.goRoundLabel,
+                                    name: contestant.name,
+                                    hometown: contestant.hometown,
+                                    imageUrl: contestant.imageUrl,
+                                    payoff: winner.payoff,
+                                    time: winner.time,
+                                    score: winner.score,
+                                    place: winner.place == 0 ? index + 1 : winner.place,
+                                    round: winner.goRound,
+                                    teamId: 0,
+                                    numberScores: winner.numberScores ?? 0
+                                )
+                            }
+                        
+                        return RoundWinners(
+                            id: id.int,
+                            round: leaders[0].roundLabel,
+                            winners: leaders
+                        )
+                    } else {
+                        let leaders = round.value
+                            .filter({ $0.time != 0 || $0.score != 0 })
+                            .filter({ $0.numberScores == currentRound })
+                            .sorted(by: { $0.time < $1.time })
+                            .sorted(by: { $0.score > $1.score })
+                            .prefix(10)
+                            .enumerated()
+                            .map { (index, winner) in
+                                let contestant = winner.contestant[0]
+                                let winnerId = "\(id)\(contestant.id)"
+                                
+                                return Winner(
+                                    id: winnerId.int,
+                                    contestantId: contestant.id,
+                                    roundLabel: winner.goRoundLabel,
+                                    name: contestant.name,
+                                    hometown: contestant.hometown,
+                                    imageUrl: contestant.imageUrl,
+                                    payoff: winner.payoff,
+                                    time: winner.time,
+                                    score: winner.score,
+                                    place: winner.place == 0 ? index + 1 : winner.place,
+                                    round: winner.goRound,
+                                    teamId: 0,
+                                    numberScores: winner.numberScores ?? 0
+                                )
+                            }
+                        
+                        return RoundWinners(
+                            id: id.int,
+                            round: leaders[0].roundLabel,
+                            winners: leaders
+                        )
+                    }
                 }
                 
-                return RoundWinners(id: id.int, round: roundWinners[0].roundLabel, winners: roundWinners)
+                return RoundWinners(
+                    id: id.int,
+                    round: roundWinners[0].roundLabel,
+                    winners: roundWinners)
             }
             
-            let result = RodeoResult(id: rodeoId, city: rodeo.city, state: rodeo.state, name: rodeo.name, rounds: winners.sorted(by: { $0.id < 555 || $1.id < 555 ? $0.id < $1.id : $0.id > $1.id}))
-                        
+            let result = RodeoResult(
+                id: rodeoId,
+                city: rodeo.city,
+                state: rodeo.state,
+                name: rodeo.name,
+                rounds: winners.sorted(by: { $0.id < 555 || $1.id < 555 ? $0.id < $1.id : $0.id > $1.id})
+            )
+            
             await completionHandler(result)
         }
     }

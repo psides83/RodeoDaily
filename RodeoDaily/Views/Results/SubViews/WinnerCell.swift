@@ -17,7 +17,7 @@ struct WinnerCell: View {
     var body: some View {
         VStack {
             HStack {
-                Text(winner.place.string)
+                Text(winner.placeDisplay)
                     .font(.headline)
                     .foregroundColor(.appSecondary)
    
@@ -33,7 +33,7 @@ struct WinnerCell: View {
                         Text(winner.name)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(.appPrimary)
-                            .font(.title3)
+                            .font(.title2)
                             .fontWeight(.bold)
                     }
                     .buttonStyle(.borderless)
@@ -54,8 +54,10 @@ struct WinnerCell: View {
                         .fontWeight(.medium)
                     Spacer()
                     
-                    Text(winner.payoff == 0 ? "" : winner.payoff.currency)
-                        .font(.headline)
+                    Text(winner.earnings)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .frame(width: 90, alignment: .trailing)
                 }
                 .frame(width: 150)
             }

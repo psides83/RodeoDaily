@@ -10,50 +10,36 @@ import SwiftUI
 
 class StandingsWidgetApi: ObservableObject {
     
-    func getStandings(for event: StandingsEvent, selectedYear: Int = Date().yearInt, completionHandler: @escaping ([Position]) -> Void) async {
-                
+    func getStandings(completionHandler: @escaping ([Position]) -> Void) async {
+        
+        @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
+        
+        print("event", favoriteStandingsEvent)
+        
+        let year = Date().yearString
+        
         var dynamicUrl: URL? {
-            if event == .gb {
-                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/br/world/\(selectedYear.string)")
-            } else if event == .lb {
-                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/lb/world/\(selectedYear.string)")
+            if favoriteStandingsEvent == .gb {
+                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/br/world/\(year)")
+            } else if favoriteStandingsEvent == .lb {
+                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/lb/world/\(year)")
             } else {
-                return URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/standings?year=\(selectedYear.string)&type=world&id=&event=\(event.rawValue)")
+                return URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/standings?year=\(year)&type=world&id=&event=\(favoriteStandingsEvent.rawValue)")
             }
         }
         
         guard let url = dynamicUrl else { fatalError("Missing URL") }
         
-        let urlRequest = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            
-            if let error = error {
-                print("Request error: ", error)
-                return
+        do {
+            if favoriteStandingsEvent == .gb || favoriteStandingsEvent  == .lb {
+                let standings = try await WpraScraper.scrape(event: favoriteStandingsEvent, type: .world, year: year, circuit: .columbiaRiver)
+                completionHandler(standings)
+            } else {
+                let standings = try await APIService.fetchStandings(from: url).data
+                completionHandler(standings)
             }
-            
-            guard let response = response as? HTTPURLResponse else { return }
-            
-            if response.statusCode == 200 {
-                
-                guard let data = data else { return }
-                
-                DispatchQueue.main.async {
-                    
-                    do {
-                        
-                        let decodedItems = try JSONDecoder().decode(Standings.self, from: data)
-                        completionHandler(decodedItems.data)
-                        
-//                        print("data: \(self.standings)")
-                    } catch let error {
-                        
-                        print("Error decoding: ", error)
-                    }
-                }
-            }
+        } catch {
+            print("Error decoding: ", error)
         }
-        dataTask.resume()
     }
 }

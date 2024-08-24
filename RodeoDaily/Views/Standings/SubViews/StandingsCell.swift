@@ -45,9 +45,9 @@ struct StandingsCell: View {
                             Text(position.name)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(.appPrimary)
-                                .font(.title3)
+                                .font(.title2)
                                 .fontWeight(.bold)
-                                .padding(.horizontal, 10)
+                                .padding(.bottom, -6)
                         }
                         .buttonStyle(.clearTextButton)
                         
@@ -55,19 +55,17 @@ struct StandingsCell: View {
                     }
                     
                     HStack{
-                        
                         Text(position.earnings.currency)
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .padding(.leading, 10)
+                            .padding(.leading, 7)
                         
                         Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
                         
-                        Text(position.hometown ?? "")
+                        Text(position.hometownDisplay)
                             .font(.caption)
                             .foregroundColor(.appTertiary)
                     }
-                    
                 }
                 Spacer()
                 

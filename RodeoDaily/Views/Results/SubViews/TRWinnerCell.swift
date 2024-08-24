@@ -9,8 +9,7 @@ import SwiftUI
 
 struct TRWinnerCell: View {
 
-    let winner: Winner
-    let partner: Winner
+    let team: Team
     
     @State private var isShowingBio = false
     @State private var isShowingPartnerBio = false
@@ -19,14 +18,14 @@ struct TRWinnerCell: View {
         VStack {
             HStack {
                 
-                Text(winner.place.string)
+                Text(team.place)
                     .font(.title3)
                     .foregroundColor(.appSecondary)
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        winner.image
-                            .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
+                        team.headerImage
+                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.headerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Header")
@@ -39,15 +38,15 @@ struct TRWinnerCell: View {
                                     isShowingPartnerBio = false
                                 }
                             } label: {
-                                Text(winner.name)
+                                Text(team.headerName)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(isShowingBio ? .appSecondary : .appPrimary)
-                                    .font(.title3)
+                                    .font(.title2)
                                     .fontWeight(.bold)
                             }
                             .buttonStyle(.borderless)
                             
-                            Text(winner.hometownDisplay)
+                            Text(team.headerHometown)
                                 .font(.caption)
                                 .foregroundColor(.appTertiary)
                             
@@ -55,8 +54,8 @@ struct TRWinnerCell: View {
                     }
                     
                     HStack {
-                        partner.image
-                            .overlay(Color.appTertiary.opacity(0.96)).mask(partner.image)
+                        team.heelerImage
+                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.heelerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Heeler")
@@ -69,15 +68,15 @@ struct TRWinnerCell: View {
                                     isShowingPartnerBio.toggle()
                                 }
                             } label: {
-                                Text(partner.name)
+                                Text(team.heelerName)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(isShowingPartnerBio ? .appSecondary : .appPrimary)
-                                    .font(.title3)
+                                    .font(.title2)
                                     .fontWeight(.bold)
                             }
                             .buttonStyle(.borderless)
                             
-                            Text(partner.hometownDisplay)
+                            Text(team.heelerHometown)
                                 .font(.caption)
                                 .foregroundColor(.appTertiary)
                             
@@ -91,23 +90,27 @@ struct TRWinnerCell: View {
                 HStack {
                     
                     Spacer()
-                    Text(winner.result)
+                    
+                    Text(team.time)
                         .font(.subheadline)
                         .fontWeight(.medium)
+                    
                     Spacer()
                     
-                    Text(winner.payoff == 0 ? "" : winner.payoff.currency)
-                        .font(.headline)
+                    Text(team.payoff)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .frame(width: 90, alignment: .trailing)
                 }
                 .frame(width: 150)
             }
             
             if isShowingBio {
-                BioCellView(athleteId: winner.contestantId, event: .hd, isShowingBio: isShowingBio)
+                BioCellView(athleteId: team.headerId, event: .hd, isShowingBio: isShowingBio)
             }
             
             if isShowingPartnerBio {
-                BioCellView(athleteId: partner.contestantId, event: .hl, isShowingBio: isShowingPartnerBio)
+                BioCellView(athleteId: team.heelerId, event: .hl, isShowingBio: isShowingPartnerBio)
             }
         }
     }
