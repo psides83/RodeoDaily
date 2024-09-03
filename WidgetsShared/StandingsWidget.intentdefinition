@@ -97,16 +97,6 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>Barrel Racing</string>
-					<key>INEnumValueDisplayNameID</key>
-					<string>mheoEd</string>
-					<key>INEnumValueIndex</key>
-					<integer>8</integer>
-					<key>INEnumValueName</key>
-					<string>gb</string>
-				</dict>
-				<dict>
-					<key>INEnumValueDisplayName</key>
 					<string>Bull Riding</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>jOy9Z0</string>
@@ -114,16 +104,6 @@
 					<integer>9</integer>
 					<key>INEnumValueName</key>
 					<string>br</string>
-				</dict>
-				<dict>
-					<key>INEnumValueDisplayName</key>
-					<string>Breakaway</string>
-					<key>INEnumValueDisplayNameID</key>
-					<string>wqgy9h</string>
-					<key>INEnumValueIndex</key>
-					<integer>10</integer>
-					<key>INEnumValueName</key>
-					<string>lb</string>
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
@@ -135,6 +115,26 @@
 					<key>INEnumValueName</key>
 					<string>sr</string>
 				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Barrel Racing</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>I1gQSX</string>
+					<key>INEnumValueIndex</key>
+					<integer>8</integer>
+					<key>INEnumValueName</key>
+					<string>gb</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Breakaway Roping</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>Ihy4MT</string>
+					<key>INEnumValueIndex</key>
+					<integer>10</integer>
+					<key>INEnumValueName</key>
+					<string>lb</string>
+				</dict>
 			</array>
 		</dict>
 	</array>
@@ -143,11 +143,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>Rcpjoj</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>22A400</string>
+	<string>23G93</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>14C18</string>
+	<string>15F31d</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>14.2</string>
+	<string>15.4</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -239,7 +239,7 @@
 			<key>INTypeDisplayNameID</key>
 			<string>Nk2Fp8</string>
 			<key>INTypeLastPropertyTag</key>
-			<integer>99</integer>
+			<integer>100</integer>
 			<key>INTypeName</key>
 			<string>WidgetEvent</string>
 			<key>INTypeProperties</key>

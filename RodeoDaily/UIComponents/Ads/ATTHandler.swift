@@ -27,7 +27,7 @@ class ATTHandler: ObservableObject {
             GADMobileAds.sharedInstance().start(completionHandler: nil)
             GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "2077ef9a63d2b398840261c8221a0c9b" ]
             GADMobileAds.sharedInstance().disableSDKCrashReporting()
-            GADMobileAds.sharedInstance().requestConfiguration.setSameAppKeyEnabled(false)
+            GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
             break
         case .denied:
             print("tracking denied")
@@ -36,7 +36,7 @@ class ATTHandler: ObservableObject {
             GADMobileAds.sharedInstance().start(completionHandler: nil)
             GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "2077ef9a63d2b398840261c8221a0c9b" ]
             GADMobileAds.sharedInstance().disableSDKCrashReporting()
-            GADMobileAds.sharedInstance().requestConfiguration.setSameAppKeyEnabled(false)
+            GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
             break
         case .authorized:
             print("tracking authorized")
@@ -57,7 +57,7 @@ class ATTHandler: ObservableObject {
                 case .restricted:
                     GADMobileAds.sharedInstance().start(completionHandler: nil)
                     GADMobileAds.sharedInstance().disableSDKCrashReporting()
-                    GADMobileAds.sharedInstance().requestConfiguration.setSameAppKeyEnabled(false)
+                    GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
                     DispatchQueue.main.async {
                         self.needsATTRequest = false
                     }
@@ -65,7 +65,7 @@ class ATTHandler: ObservableObject {
                 case .denied:
                     GADMobileAds.sharedInstance().start(completionHandler: nil)
                     GADMobileAds.sharedInstance().disableSDKCrashReporting()
-                    GADMobileAds.sharedInstance().requestConfiguration.setSameAppKeyEnabled(false)
+                    GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
                     DispatchQueue.main.async {
                         self.needsATTRequest = false
                     }

@@ -39,7 +39,7 @@ struct WatchStandingsListView: View {
             }
         }
         .navigationTitle("World Statndings")
-        .onChange(of: selectedEvent) { newValue in
+        .onChange(of: selectedEvent) { oldValue, newValue in
             Task {
                 await standingsApi.getStandings(for: newValue)
             }
@@ -55,7 +55,9 @@ struct WatchStandingsListView: View {
     
     // MARK: - View Methods
     func pickerContent() -> some View {
-        return ForEach(StandingsEvent.allCases, id: \.self, content: pickerCell)
+        let events = StandingsEvent.allCases.filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
+
+        return ForEach(events, content: pickerCell)
     }
     
     func pickerCell(_ event: StandingsEvent) -> some View {

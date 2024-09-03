@@ -46,7 +46,7 @@ struct BioView: View {
                     if infoType == .bio {
                         HtmlView(htmlContent: bioApi.bio.biographyText)
                         BannerAd()
-                            .frame(height: 50)
+                            .frame(height: 200)
                     }
                     
                     if infoType == .results {

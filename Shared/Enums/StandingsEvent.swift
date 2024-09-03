@@ -5,9 +5,26 @@
 //  Created by Payton Sides on 2/3/23.
 //
 
+import AppIntents
 import Foundation
 
-enum StandingsEvent: String, CaseIterable, Codable {
+enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum {
+    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Event"
+    
+    static var caseDisplayRepresentations: [StandingsEvent : DisplayRepresentation] = [
+        .aa: "All Around",
+        .bb: "Bareback",
+        .sw: "Steer Wrestling",
+        .hd: "Heading",
+        .hl: "Heeling",
+        .sb: "Saddle Bronc",
+        .td: "Tie-Down Roping",
+        .gb: "Barrel Racing",
+        .br: "Bull Riding",
+        .sr: "Steer Roping",
+        .lb: "Breakaway Roping"
+    ]
+    
     case aa = "AA"
     case bb = "BB"
     case sw = "SW"

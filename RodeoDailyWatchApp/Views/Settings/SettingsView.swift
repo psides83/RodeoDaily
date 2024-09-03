@@ -17,7 +17,9 @@ struct SettingsView: View {
         Form {
             Section(header: Text("Favorite Event"), footer: Text("When the Standings or Results section is opened, they will load the event selected here.")) {
                 Picker("Standings Event", selection: $standingsWatchEvent) {
-                    ForEach(StandingsEvent.allCases, id: \.self) { event in
+                    let events = StandingsEvent.allCases.filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
+                    
+                    ForEach(events) { event in
                         Text(event.title).tag(event)
                     }
                 }

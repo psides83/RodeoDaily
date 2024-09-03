@@ -19,7 +19,7 @@
 "Results Event" = "Evento de Resultados
 ";
 
-"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "Los eventos seleccionados se utilizarán para completar los datos del widget y se cargarán en la pestaña respectiva cuando se abra la aplicación.";
+"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "Los eventos seleccionados se utilizarán para completar los datos del widget de la pantalla de bloqueo y se cargarán en la pestaña correspondiente cuando se abra la aplicación.";
 
 "Favorite Athlete Widget" = "Widget de atleta favorito";
 

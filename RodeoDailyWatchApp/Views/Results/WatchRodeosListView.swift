@@ -44,7 +44,7 @@ struct WatchRodeosListView: View {
                     VStack(alignment: .center, content: loadMoreButton)
                         .listRowBackground(Color.clear)
                         .frame(maxWidth: .infinity)
-                        .onChange(of: index) { newValue in
+                        .onChange(of: index) { oldValue, newValue in
                             Task {
                                 await rodeosApi.loadRodeos(event: selectedEvent, index: newValue, searchText: "", dateParams: "") {
                                     rodeosApi.endLoading()
@@ -55,7 +55,7 @@ struct WatchRodeosListView: View {
                 .navigationTitle("Results")
             }
         }
-        .onChange(of: selectedEvent) { newValue in
+        .onChange(of: selectedEvent) { oldValue, newValue in
             Task {
                 await rodeosApi.loadRodeos(event: newValue, index: index, searchText: "", dateParams: "") {}
             }

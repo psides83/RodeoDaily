@@ -12,7 +12,19 @@ import SwiftUI
 struct RodeoDailyWidgetBundle: WidgetBundle {
     var body: some Widget {
         StandingsWidgetSmall()
-        StandingsWidget()
+        StandingsWidgetLarge()
+        PhoneStandingsARWidget()
+//        PhoneStandingsARWidget(event: .bb)
+//        PhoneStandingsARWidget(event: .sw)
+//        PhoneStandingsARWidget(event: .hd)
+//        PhoneStandingsARWidget(event: .hl)
+//        PhoneStandingsARWidget(event: .sb)
+//        PhoneStandingsARWidget(event: .td)
+//        PhoneStandingsARWidget(event: .gb)
+//        PhoneStandingsARWidget(event: .br)
+//        PhoneStandingsARWidget(event: .lb)
+//        PhoneStandingsARWidget(event: .sr)
+//        StandingsARWidget()
 //        ResultsWidget()
         FavoriteWidget()
     }

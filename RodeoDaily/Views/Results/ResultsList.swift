@@ -40,7 +40,7 @@ struct ResultsList: View {
                     if (index % adPlacement) == 0 && index != 0 {
                         VStack {
                             BannerAd()
-                                .frame(minHeight: 80)
+                                .frame(minHeight: 100)
                             
                             Divider()
                                 .overlay(Color.appTertiary)
@@ -62,6 +62,9 @@ struct ResultsList: View {
             }
             
             LoadMoreButton(loading: loading, action: incrementIndex)
+            
+            BannerAd()
+                .frame(height: 300)
         }
         .padding(.bottom)
         .onChange(of: isShowingCalendar) { newValue in

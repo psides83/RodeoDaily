@@ -24,7 +24,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section(header: Text("Favorites"),
-                    footer: Text("The selected events will be used to populate the widget data and load in the respective tab when the app opens.")) {
+                    footer: Text("The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens.")) {
                 Picker("Standings Event", selection: $favoriteStandingsEvent) {
                     ForEach(StandingsEvent.allCases, id: \.self) { event in
                         Text(event.title)

@@ -31,7 +31,9 @@ class StandingsApi: ObservableObject {
         
         do {
             if event == .gb || event == .lb {
+                #if os(iOS)
                 standings = try await WpraScraper.scrape(event: event, type: type, year: selectedYear, circuit: circuit)
+                #endif
             } else {
                 standings = try await APIService.fetchStandings(from: url).data
             }

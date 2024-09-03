@@ -32,7 +32,7 @@ struct CareerListView: View {
                     .font(.headline)
                     .fontWeight(.bold)
             },
-                    footer: BannerAd().frame(height: 50)
+                    footer: BannerAd().frame(height: 300)
             ) {
                 
                 ForEach(careerSeasons, id: \.season) { season in

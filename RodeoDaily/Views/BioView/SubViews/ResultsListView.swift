@@ -65,7 +65,7 @@ struct ResultsListView: View {
     
     // MARK: - View Methods
     func listSection() -> some View {
-        Section(header: header, footer: BannerAd().frame(height: 50)) {
+        Section(header: header, footer: BannerAd().frame(height: 300)) {
             ForEach(results, id: \.rodeoResultId) { result in
                 BioResultCellView(result: result)
                     .listRowBackground(Color.appBg)

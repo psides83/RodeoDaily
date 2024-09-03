@@ -68,15 +68,6 @@
             ReferencedContainer = "container:RodeoDaily.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C09310B298AFE5A00BB016D"
-            BuildableName = "RodeoDaily.app"
-            BlueprintName = "RodeoDaily"
-            ReferencedContainer = "container:RodeoDaily.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
