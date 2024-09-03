@@ -16,6 +16,7 @@ struct Bio: Codable {
 // MARK: - BioData
 struct BioData: Codable {
     var results: [BioResult] = []
+    var averages: [BioAverage] = []
     var career: [Career] = []
     var rankings: [Ranking] = []
     var earnings: [String: [Earning]] = [:]
@@ -35,10 +36,11 @@ struct BioData: Codable {
     var dateJoined: String = ""
     var eventTypes: [String]?
     var biographyText: String = ""
-//    var videoHighlights: String?
+    var videoHighlights: String?
 
     enum CodingKeys: String, CodingKey {
         case results = "Results"
+        case averages = "Averages"
         case career = "Career"
         case rankings = "Rankings"
         case earnings = "Earnings"
@@ -58,7 +60,7 @@ struct BioData: Codable {
         case dateJoined = "DateJoined"
         case eventTypes = "EventTypes"
         case biographyText = "BiographyText"
-//        case videoHighlights = "VideoHighlights"
+        case videoHighlights = "VideoHighlights"
     }
 }
 
@@ -178,6 +180,37 @@ struct BioResult: Codable {
         case time = "Time"
         case round = "Round"
         case stockId = "StockId"
+//        case stock = "Stock"
+        case seasonYear = "SeasonYear"
+    }
+}
+
+struct BioAverage: Codable {
+    let rodeoId: Int
+    let rodeoName, city, state, startDate: String
+    let endDate: String
+    let aggregateId: Int
+    let eventType: String
+    let place: Int
+    let payoff,time, score: Double
+    let round: String
+//    let stock: JSONNull?
+    let seasonYear: Int
+
+    enum CodingKeys: String, CodingKey {
+        case rodeoId = "RodeoId"
+        case rodeoName = "RodeoName"
+        case city = "City"
+        case state = "StateAbbrv"
+        case startDate = "StartDate"
+        case endDate = "EndDate"
+        case aggregateId = "AggregateId"
+        case eventType = "EventType"
+        case score = "Score"
+        case place = "Place"
+        case payoff = "Payoff"
+        case time = "Time"
+        case round = "Round"
 //        case stock = "Stock"
         case seasonYear = "SeasonYear"
     }

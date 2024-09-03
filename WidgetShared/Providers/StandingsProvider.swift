@@ -10,13 +10,13 @@ import WidgetKit
 
 struct StandingsProvider: AppIntentTimelineProvider {
     typealias Intent = StandingsWidgetIntent
-
+    
     public typealias Entry = StandingsWidgetEntry
     
     let sampleData = Array(WidgetSampleData().standingsSampleData.prefix(3))
     
     var widgetFamily: WidgetFamily
-        
+    
     var numberOfResults: Int {
         switch widgetFamily {
         case .systemSmall, .systemMedium:
@@ -30,7 +30,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
         default: return 5
         }
     }
-
+    
     func placeholder(in context: Context) -> Entry {
         Entry(
             date: Date(),
@@ -42,14 +42,16 @@ struct StandingsProvider: AppIntentTimelineProvider {
     
     func snapshot(for configuration: StandingsWidgetIntent, in context: Context) async -> StandingsWidgetEntry {
         @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
-
+        
         var result: [Position] = []
         
         var config: StandingsWidgetIntent {
             if widgetFamily == .accessoryRectangular {
                 var config = configuration
                 
+#if os(iOS)
                 config.event = favoriteStandingsEvent
+#endif
                 
                 return config
             } else {
@@ -77,14 +79,16 @@ struct StandingsProvider: AppIntentTimelineProvider {
             if widgetFamily == .accessoryRectangular {
                 var config = configuration
                 
+#if os(iOS)
                 config.event = favoriteStandingsEvent
+#endif
                 
                 return config
             } else {
                 return configuration
             }
         }
-
+        
         await StandingsWidgetApi().getStandings(event: config.event) { result in
             switch widgetFamily {
             case .systemSmall, .systemMedium:

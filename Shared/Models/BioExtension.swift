@@ -37,7 +37,7 @@ extension BioData {
         guard let titles = worldTitles else { return NSLocalizedString("No World Titles", comment: "") }
         
         switch titles {
-            case 0: return NSLocalizedString("No World Titles", comment: "")
+        case 0: return NSLocalizedString("No World Titles", comment: "")
         case 1: return titles.string + NSLocalizedString(" World Title", comment: "")
         default: return titles.string + NSLocalizedString(" World Titles", comment: "")
         }
@@ -72,24 +72,75 @@ extension BioData {
         }
     }
     
+    // Retreives all events competed in by tthe athlete
+    var events: [String] {
+        Array(Set(results.map { result in
+            result.eventType
+        }))
+    }
+    
     // Removes previous season's NFR from results and adds it to the previous season's results.
     func baseResults(for season: Int) -> [BioResult] {
         let nextSeason = season + 1
         
-        let currentNfr = results
+        let currentNfr = resultsAndAveragesCombined()
             .filter({
                 $0.seasonMatches(season: nextSeason)
                 &&
                 $0.rodeoName.localizedCaseInsensitiveContains("National Finals")
             })
         
-        let currentSeason = results
+        let currentSeason = resultsAndAveragesCombined()
             .filter({
                 $0.seasonMatches(season: season)
                 &&
                 $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false })
         
         return currentNfr + currentSeason
+    }
+    
+    // Removes previous season's NFR from results and adds it to the previous season's results.
+//    func baseAverages(for season: Int) -> [BioAverage] {
+//        let nextSeason = season + 1
+//        
+//        let currentNfr = averages
+//            .filter({
+//                $0.seasonMatches(season: nextSeason)
+//                &&
+//                $0.rodeoName.localizedCaseInsensitiveContains("National Finals")
+//            })
+//        
+//        let currentSeason = averages
+//            .filter({
+//                $0.seasonMatches(season: season)
+//                &&
+//                $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false })
+//        
+//        return currentNfr + currentSeason
+//    }
+    
+    func resultsAndAveragesCombined() -> [BioResult] {
+        let converted = averages.map { result in
+            BioResult(
+                rodeoId: result.rodeoId,
+                rodeoName: result.rodeoName,
+                city: result.city,
+                state: result.state,
+                startDate: result.startDate,
+                endDate: result.endDate,
+                rodeoResultId: result.aggregateId,
+                eventType: result.eventType,
+                place: result.place,
+                payoff: result.payoff,
+                time: result.time,
+                score: result.score,
+                round: result.round,
+                stockId: 0,
+                seasonYear: result.seasonYear
+            )
+        }
+        
+        return results + converted
     }
     
     // Provides the bio results filtered by season, event, and a search term that is provided by the view.
@@ -109,7 +160,31 @@ extension BioData {
         
         switch keyPath {
         case .rodeoDate:
-            return searchedResults.filter({ $0.eventType == event }).sorted(by: { $0.endDate > $1.endDate })
+            return searchedResults
+                .filter({ $0.eventType == event })
+                .sorted { a, b in
+                    if a.round == "Avg" {
+                        return true
+                    } else if b.round == "Avg" {
+                        return false
+                    }
+                    
+                    if a.round == "Finals" {
+                        return true
+                    } else if b.round == "Finals" {
+                        return false
+                    }
+                    
+                    // Try to convert the round values to integers, if possible
+                    if let aInt = Int(a.round), let bInt = Int(b.round) {
+                        return aInt > bInt // Sort digit values in descending order
+                    }
+                    
+                    // If conversion fails (e.g., for non-digit strings), maintain original order
+                    return false
+                }
+                .sorted(by: { $0.rodeoName > $1.rodeoName })
+                .sorted(by: { $0.endDate > $1.endDate })
         case .result:
             return searchedResults.filter({
                 $0.eventType == event

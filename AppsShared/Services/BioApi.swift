@@ -13,14 +13,17 @@ class BioApi: ObservableObject {
     
     @Published var bio: BioData = BioData()
     @Published var loading = true
-        
+    
     func getBio(for athleteId: Int) async {
         
         let url = apiUrls.bioUrl(for: athleteId)
         
         do {
-                self.bio = try await APIService.fetchBio(from: url).data
-                self.endLoading()
+            self.bio = try await APIService.fetchBio(from: url).data
+//            print(self.bio)
+            print(self.bio.events)
+            print(self.bio.videoHighlights as Any)
+            self.endLoading()
         } catch {
             self.endLoading()
             print("Error decoding: ", error)

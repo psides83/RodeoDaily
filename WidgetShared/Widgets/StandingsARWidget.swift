@@ -36,7 +36,7 @@ struct PhoneStandingsARWidget: Widget {
         ) { entry in
             StandingsARWidgetView(entry: entry)
         }
-        .configurationDisplayName("All AroundWorld Standings")
+        .configurationDisplayName("World Standings")
         .description("Current World Standings.")
         .supportedFamilies([.accessoryRectangular])
     }

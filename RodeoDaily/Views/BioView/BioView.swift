@@ -12,10 +12,11 @@ struct BioView: View {
     //MARK: - Properties
     @Environment(\.calendar) var calendar
     
-    enum BioInfoType: String {
+    enum BioInfoType: String, CaseIterable {
         case bio = "Bio"
         case results = "Results"
         case career = "Career"
+        case highlights = "Highlights"
     }
     
     let athleteId: Int
@@ -39,26 +40,26 @@ struct BioView: View {
                 VStack(spacing: 0) {
                     if !showSearchBar {
                         BioHeadingView(event: event, bio: bioApi.bio, infoType: $infoType)
-                        .scaleEffect(x: 1, y: showSearchBar ? 0 : 1, anchor: .top)
-                        .transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
+                            .scaleEffect(x: 1, y: showSearchBar ? 0 : 1, anchor: .top)
+                            .transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
                     }
                     
-                    if infoType == .bio {
+                    switch infoType {
+                    case .bio:
                         HtmlView(htmlContent: bioApi.bio.biographyText)
                         BannerAd()
                             .frame(height: 200)
-                    }
-                    
-                    if infoType == .results {
+                    case .results:
                         ResultsListView(bio: bioApi.bio,
                                         event: eventWithTrConversion,
                                         seasons: seasons,
                                         showSearchBar: $showSearchBar
                         )
-                    }
-                    
-                    if infoType == .career {
+                    case .career:
                         CareerListView(careerSeasons: bioApi.bio.careerSeasons(filteredBy: event))
+
+                    case .highlights:
+                        VideoHighlightsView(bio: bioApi.bio)
                     }
                 }
                 .background(Color.appBg)

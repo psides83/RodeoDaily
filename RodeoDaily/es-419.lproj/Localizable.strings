@@ -19,7 +19,7 @@
 "Results Event" = "Evento de Resultados
 ";
 
-"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "Los eventos seleccionados se utilizarán para completar los datos del widget y se cargarán en la pestaña respectiva cuando se abra la aplicación.";
+"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "Los eventos seleccionados se utilizarán para completar los datos del widget de la pantalla de bloqueo y se cargarán en la pestaña correspondiente cuando se abra la aplicación.";
 
 "Favorite Athlete Widget" = "Widget de atleta favorito";
 
@@ -145,3 +145,14 @@ Desafortunadamente, en este momento no está disponible establecer un atleta fav
 "Widget Event" = "Widget Event";
 
 "Select Event" = "Select Event";
+
+// VideoHighlightsView
+"Highlights for %@" = "Aspectos destacados para %@";
+
+"No Highlights Available" = "No hay destacados disponibles";
+
+"%@ doesn't have any highlights available. Videos will be added as they become available" = "%@ no hay destacados disponibles. Se irán añadiendo vídeos a medida que estén disponibles.";
+
+"Previous" = "Previo";
+
+"Next" = "Próximo";

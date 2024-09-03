@@ -19,7 +19,7 @@
 "Results Event" = "Evento de Resultados
 ";
 
-"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "Os eventos selecionados serão usados ​​para preencher os dados do widget e carregar na respectiva guia quando o aplicativo for aberto.";
+"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "Os eventos selecionados serão usados ​​para preencher os dados do widget da tela de bloqueio e carregados na respectiva aba quando o aplicativo for aberto.";
 
 "Favorite Athlete Widget" = "Widget de Atleta Favorito";
 
@@ -145,3 +145,14 @@ Resultados do Rodeio";
 "Widget Event" = "Widget Event";
 
 "Select Event" = "Select Event";
+
+// VideoHighlightsView
+"Highlights for %@" = "Destaques para %@";
+
+"No Highlights Available" = "Nenhum destaque disponível";
+
+"%@ doesn't have any highlights available. Videos will be added as they become available" = "%@ não tem nenhum destaque disponível. Os vídeos serão adicionados assim que estiverem disponíveis";
+
+"Previous" = "Anterior";
+
+"Next" = "Próximo";

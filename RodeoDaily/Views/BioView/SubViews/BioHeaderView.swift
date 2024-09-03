@@ -76,11 +76,9 @@ struct BioHeadingView: View {
                     Spacer()
                     
                     Picker("", selection: $infoType) {
-                        Text("Results").tag(BioView.BioInfoType.results)
-                        
-                        Text("Career").tag(BioView.BioInfoType.career)
-                        
-                        Text("Bio").tag(BioView.BioInfoType.bio)
+                        ForEach(BioView.BioInfoType.allCases, id: \.self) { section in
+                            Text(section.rawValue).tag(section)
+                        }
                     }
                     .pickerStyle(.segmented)
                 }

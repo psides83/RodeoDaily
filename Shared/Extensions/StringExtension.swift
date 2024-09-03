@@ -77,4 +77,17 @@ extension String {
     var crdLogoWhite: String {
         "crd-ios-icon-white"
     }
+    
+    var eventDisplay: String {
+        switch self {
+        case "BB": return "Bareback"
+        case "SW": return "Steer Wrestling"
+        case "TR": return "Team Roping"
+        case "SB": return "Saddle Bronc"
+        case "TD": return "Tie-Down Roping"
+        case "BR": return "Bull Riding"
+        case "SR": return "Steer Roping"
+        default: return ""
+        }
+    }
 }

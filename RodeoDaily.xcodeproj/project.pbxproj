@@ -48,6 +48,11 @@
 		1C0C2CA8298DA0D2002FE8EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0C2CA7298DA0D2002FE8EC /* AdSupport.framework */; };
 		1C0C2CAA298DA0D9002FE8EC /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0C2CA9298DA0D8002FE8EC /* AppTrackingTransparency.framework */; };
 		1C0C2CAD298DBC65002FE8EC /* StandingsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */; };
+		1C0D3A902C8750D500286449 /* EventFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A8F2C8750D500286449 /* EventFilterView.swift */; };
+		1C0D3A922C875E0900286449 /* VimeoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A912C875E0900286449 /* VimeoPlayer.swift */; };
+		1C0D3A942C8762B500286449 /* VideoHighlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */; };
+		1C0D3A962C8762F200286449 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A952C8762F200286449 /* Video.swift */; };
+		1C0D3A982C877F2A00286449 /* UnavailableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */; };
 		1C129F582995B29F00EB052E /* FavoriteWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C129F572995B29F00EB052E /* FavoriteWidgetApi.swift */; };
 		1C129F5A2995B44400EB052E /* FavoriteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C129F592995B44400EB052E /* FavoriteWidget.swift */; };
 		1C179A0F2C85677A002A7D69 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C179A0E2C85677A002A7D69 /* SwiftSoup */; };
@@ -367,6 +372,11 @@
 		1C0C2CA9298DA0D8002FE8EC /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
 		1C0C2CAB298DB20E002FE8EC /* RodeoDaily-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RodeoDaily-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsEvent.swift; sourceTree = "<group>"; };
+		1C0D3A8F2C8750D500286449 /* EventFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFilterView.swift; sourceTree = "<group>"; };
+		1C0D3A912C875E0900286449 /* VimeoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VimeoPlayer.swift; sourceTree = "<group>"; };
+		1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHighlightsView.swift; sourceTree = "<group>"; };
+		1C0D3A952C8762F200286449 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableContentView.swift; sourceTree = "<group>"; };
 		1C129F572995B29F00EB052E /* FavoriteWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetApi.swift; sourceTree = "<group>"; };
 		1C129F592995B44400EB052E /* FavoriteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidget.swift; sourceTree = "<group>"; };
 		1C1CBC8D299E7EA700C7888D /* Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
@@ -588,10 +598,13 @@
 				1C0C2C75298D97BF002FE8EC /* Buttons.swift */,
 				1C0C2C73298D97BF002FE8EC /* Logo.swift */,
 				1C0C2C74298D97BF002FE8EC /* LogoShape.swift */,
+				1C0D3A8F2C8750D500286449 /* EventFilterView.swift */,
 				1CF097372998BE8F000D7499 /* ExpandingSearchBar.swift */,
+				1C62918A299D367D000DA43E /* FilterMenuIcon.swift */,
 				1CD76B8B299A95E2002E5B08 /* HtmlView.swift */,
 				1C9A4297299BE287008F4F9A /* SeasonFilterView.swift */,
-				1C62918A299D367D000DA43E /* FilterMenuIcon.swift */,
+				1C0D3A912C875E0900286449 /* VimeoPlayer.swift */,
+				1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -687,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				1C1CBC8D299E7EA700C7888D /* Tab.swift */,
+				1C0D3A952C8762F200286449 /* Video.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -855,6 +869,7 @@
 				1C9A429A299BE3F9008F4F9A /* CareerListView.swift */,
 				1C9A429C299BE4C7008F4F9A /* ResultsListView.swift */,
 				1C9A429E299BE8A6008F4F9A /* BioHeaderView.swift */,
+				1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -1359,6 +1374,7 @@
 				1C9A429D299BE4C7008F4F9A /* ResultsListView.swift in Sources */,
 				1C85DA2A298E118A00CA6F35 /* SettingsView.swift in Sources */,
 				1CC2C566299EA46700011270 /* SearchModel.swift in Sources */,
+				1C0D3A982C877F2A00286449 /* UnavailableContentView.swift in Sources */,
 				1C9A427D299BD52A008F4F9A /* StringExtension.swift in Sources */,
 				1C80302129A7D2480080CF9A /* ApiService.swift in Sources */,
 				1C093110298AFE5A00BB016D /* RodeoDailyApp.swift in Sources */,
@@ -1378,6 +1394,7 @@
 				1C9A427A299BD4B2008F4F9A /* IntExtension.swift in Sources */,
 				1C64356A298C78490032CFC2 /* RodeoResult.swift in Sources */,
 				1CACDDDF299C523200E7CCC9 /* Binding-OnChange.swift in Sources */,
+				1C0D3A942C8762B500286449 /* VideoHighlightsView.swift in Sources */,
 				1CC2C568299EA7F000011270 /* DebouncedObservedObject.swift in Sources */,
 				1C643565298C71E80032CFC2 /* Modifiers.swift in Sources */,
 				1C64355C298C595D0032CFC2 /* JSONStructs.swift in Sources */,
@@ -1403,6 +1420,7 @@
 				1C9A4289299BDB98008F4F9A /* ColorExtension.swift in Sources */,
 				1C0C2C91298D9EDC002FE8EC /* FilterChip.swift in Sources */,
 				1C6E4CE3299F2E5300FBFF9E /* ATTHandler.swift in Sources */,
+				1C0D3A922C875E0900286449 /* VimeoPlayer.swift in Sources */,
 				1C0C2C82298D9EBA002FE8EC /* HeaderView.swift in Sources */,
 				1C9A4298299BE287008F4F9A /* SeasonFilterView.swift in Sources */,
 				1C9A42A1299BF275008F4F9A /* ImageExtension.swift in Sources */,
@@ -1410,6 +1428,7 @@
 				1C0C2C5C298D7A4D002FE8EC /* Athlete.swift in Sources */,
 				1C62918B299D367D000DA43E /* FilterMenuIcon.swift in Sources */,
 				1C0C2C90298D9EDC002FE8EC /* DatePicker.swift in Sources */,
+				1C0D3A902C8750D500286449 /* EventFilterView.swift in Sources */,
 				1C643568298C73040032CFC2 /* ResultsApi.swift in Sources */,
 				1C0C2C7D298D9E88002FE8EC /* HomeViewModel.swift in Sources */,
 				1CF41FE2298CC80300214324 /* WinnerCell.swift in Sources */,
@@ -1432,6 +1451,7 @@
 				1CC2C563299E9A0100011270 /* Debouncer.swift in Sources */,
 				1C0C2C5A298D7660002FE8EC /* TRWinnerCell.swift in Sources */,
 				1C0C2C95298D9EF0002FE8EC /* StandingsCell.swift in Sources */,
+				1C0D3A962C8762F200286449 /* Video.swift in Sources */,
 				1C0C2C83298D9EBA002FE8EC /* SearchBarView.swift in Sources */,
 				1C9A42A4299C0010008F4F9A /* ApiUrls.swift in Sources */,
 				1C0C2C72298D7BBC002FE8EC /* BioExtension.swift in Sources */,

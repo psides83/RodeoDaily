@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Update to filter by event
+
 struct CareerListView: View {
     
     let careerSeasons: [CareerWithEarinings]

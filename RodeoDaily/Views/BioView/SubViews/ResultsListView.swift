@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct ResultsListView: View {
-    
-    @ObservedObject var bioApi = BioApi()
-    
     let bio: BioData
     let event: String
     let seasons: [String]
     
     @State private var selectedSeason = Date().yearString
+    @State private var selectedEvent: String = ""
     @State private var sortResultsBy: BioResult.SortingKeyPath = .rodeoDate
 //    @State private var searchText = ""
     @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
 
     @Binding var showSearchBar: Bool
+
     
     // MARK: - Body
     var body: some View {
@@ -37,6 +36,8 @@ struct ResultsListView: View {
                         }
                         
                         SeasonFilterView(seasons: seasons, selectedSeason: $selectedSeason)
+                        
+                        EventFilterView(events: bio.events, selectedEvent: $selectedEvent)
                     }
                     
                     ExpandingSearchBar(
@@ -52,15 +53,17 @@ struct ResultsListView: View {
             }
             Spacer()
         }
+        .onAppear { selectedEvent = event }
     }
     
     // MARK: - Computed Properties
     var results: [BioResult] {
         bio.results(
             filteredBy: selectedSeason.int,
-            filteredBy: event,
+            filteredBy: selectedEvent,
             searchText: search.text,
-            sortedBy: sortResultsBy)
+            sortedBy: sortResultsBy
+        )
     }
     
     // MARK: - View Methods

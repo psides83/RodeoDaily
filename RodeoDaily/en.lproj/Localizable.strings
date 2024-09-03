@@ -144,3 +144,14 @@
 "Widget Event" = "Widget Event";
 
 "Select Event" = "Select Event";
+
+// VideoHighlightsView
+"Highlights for %@" = "Highlights for %@";
+
+"No Highlights Available" = "No Highlights Available";
+
+"%@ doesn't have any highlights available. Videos will be added as they become available" = "%@ doesn't have any highlights available. Videos will be added as they become available";
+
+"Previous" = "Previous";
+
+"Next" = "Next";
