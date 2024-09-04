@@ -47,7 +47,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
         
         var config: StandingsWidgetIntent {
             if widgetFamily == .accessoryRectangular {
-                var config = configuration
+                let config = configuration
                 
 #if os(iOS)
                 config.event = favoriteStandingsEvent
@@ -77,7 +77,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
         
         var config: StandingsWidgetIntent {
             if widgetFamily == .accessoryRectangular {
-                var config = configuration
+                let config = configuration
                 
 #if os(iOS)
                 config.event = favoriteStandingsEvent
