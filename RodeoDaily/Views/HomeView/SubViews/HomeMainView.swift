@@ -112,7 +112,12 @@ extension HomeView {
                 }
                 
                 if selectedTab == .results {
-                    await rodeosApi.loadRodeos(event: resultsEvent, index: index, searchText: "", dateParams: dateParams) {
+                    await rodeosApi.loadRodeos(
+                        event: resultsEvent,
+                        index: index,
+                        searchText: "",
+                        dateParams: dateParams
+                    ) {
                         initialLoad = false
                     }
                 }

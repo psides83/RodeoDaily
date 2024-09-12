@@ -69,7 +69,7 @@ struct ResultsBlock: View {
             let header = teamArray[0]
             let heeler = teamArray[1]
             
-            let team = Team(id: header.teamId, headerId: header.id, headerName: header.name, heelerId: heeler.id, heelerName: heeler.name, roundLabel: header.roundLabel, place: header.placeDisplay, headerHometown: header.hometownDisplay, heelerHometown: heeler.hometownDisplay, headerImageUrl: header.imageUrl, heelerImageUrl: heeler.imageUrl, payoff: header.earnings, time: header.result, round: header.round)
+            let team = Team(id: header.teamId, headerId: header.contestantId, headerName: header.name, heelerId: heeler.contestantId, heelerName: heeler.name, roundLabel: header.roundLabel, place: header.placeDisplay, headerHometown: header.hometownDisplay, heelerHometown: heeler.hometownDisplay, headerImageUrl: header.imageUrl, heelerImageUrl: heeler.imageUrl, payoff: header.earnings, time: header.result, round: header.round)
             
             
             if !isCurrentTeam {

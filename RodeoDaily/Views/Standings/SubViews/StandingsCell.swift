@@ -37,19 +37,19 @@ struct StandingsCell: View {
                 VStack(alignment: .leading, spacing: 1) {
                     
                     HStack {
-                        Button {
-                            withAnimation {
-                                isShowingBio.toggle()
-                            }
-                        } label: {
+//                        Button {
+//                            withAnimation {
+//                                isShowingBio.toggle()
+//                            }
+//                        } label: {
                             Text(position.name)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(.appPrimary)
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .padding(.bottom, -6)
-                        }
-                        .buttonStyle(.clearTextButton)
+//                                .padding(.bottom, -6)
+//                        }
+//                        .buttonStyle(.clearTextButton)
                         
                         Spacer()
                     }
@@ -70,15 +70,11 @@ struct StandingsCell: View {
                 Spacer()
                 
                 if position.hasBio {
-                    NavigationLink {
-                        BioView(athleteId: position.id, event: standingEvent)
-                    } label: {
                         Image(systemName: "chevron.right")
                             .foregroundColor(.appSecondary)
-                    }
-                    .buttonStyle(.clearButton)
                 }
             }
+            
             if isShowingBio && position.id != 0 {
                 BioCellView(athleteId: position.id, event: StandingsEvent(rawValue: position.event) ?? .aa, isShowingBio: isShowingBio)
             }

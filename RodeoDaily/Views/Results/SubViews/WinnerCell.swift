@@ -25,10 +25,8 @@ struct WinnerCell: View {
                     .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
                 
                 VStack(alignment: .leading) {
-                    Button {
-                        withAnimation {
-                             isShowingBio.toggle()
-                        }
+                    NavigationLink {
+                        BioView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .bb)
                     } label: {
                         Text(winner.name)
                             .multilineTextAlignment(.leading)
@@ -62,9 +60,9 @@ struct WinnerCell: View {
                 .frame(width: 150)
             }
             
-            if isShowingBio {
-                BioCellView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .aa, isShowingBio: isShowingBio)
-            }
+//            if isShowingBio {
+//                BioCellView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .aa, isShowingBio: isShowingBio)
+//            }
         }
     }
 }
