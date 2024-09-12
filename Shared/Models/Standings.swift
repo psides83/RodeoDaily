@@ -80,7 +80,7 @@ extension Position {
     
     var hasBio: Bool {
         switch event {
-            case "AA", "GB", "LB": return false
+            case "GB", "LB": return false
             default: return true
         }
     }

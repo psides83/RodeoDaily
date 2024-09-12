@@ -45,7 +45,7 @@ struct StandingsWidgetLargeView : View {
                                 .foregroundColor(.white)
                                 .font(.system(size: 16, weight: .medium))
                             
-                            Text(position.hometown ?? "")
+                            Text(position.hometownDisplay)
                                 .foregroundColor(.white)
                                 .font(.system(size: 12))
                         }

@@ -32,11 +32,12 @@ struct TRWinnerCell: View {
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             
-                            Button {
-                                withAnimation {
-                                    isShowingBio.toggle()
-                                    isShowingPartnerBio = false
-                                }
+                            NavigationLink {
+                                BioView(athleteId: team.headerId, event: .hd)
+//                                withAnimation {
+//                                    isShowingBio.toggle()
+//                                    isShowingPartnerBio = false
+//                                }
                             } label: {
                                 Text(team.headerName)
                                     .multilineTextAlignment(.leading)
@@ -62,11 +63,12 @@ struct TRWinnerCell: View {
                                 .font(.caption)
                                 .foregroundColor(.appTertiary)
                             
-                            Button {
-                                withAnimation {
-                                    isShowingBio = false
-                                    isShowingPartnerBio.toggle()
-                                }
+                            NavigationLink {
+                                BioView(athleteId: team.heelerId, event: .hl)
+//                                withAnimation {
+//                                    isShowingBio = false
+//                                    isShowingPartnerBio.toggle()
+//                                }
                             } label: {
                                 Text(team.heelerName)
                                     .multilineTextAlignment(.leading)
@@ -105,13 +107,13 @@ struct TRWinnerCell: View {
                 .frame(width: 150)
             }
             
-            if isShowingBio {
-                BioCellView(athleteId: team.headerId, event: .hd, isShowingBio: isShowingBio)
-            }
-            
-            if isShowingPartnerBio {
-                BioCellView(athleteId: team.heelerId, event: .hl, isShowingBio: isShowingPartnerBio)
-            }
+//            if isShowingBio {
+//                BioCellView(athleteId: team.headerId, event: .hd, isShowingBio: isShowingBio)
+//            }
+//            
+//            if isShowingPartnerBio {
+//                BioCellView(athleteId: team.heelerId, event: .hl, isShowingBio: isShowingPartnerBio)
+//            }
         }
     }
 }

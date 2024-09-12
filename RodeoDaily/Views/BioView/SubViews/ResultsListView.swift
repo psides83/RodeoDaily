@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultsListView: View {
     let bio: BioData
-    let event: String
+    @State var event: String
     let seasons: [String]
     
     @State private var selectedSeason = Date().yearString
@@ -53,7 +53,14 @@ struct ResultsListView: View {
             }
             Spacer()
         }
-        .onAppear { selectedEvent = event }
+        .onAppear {
+            if event == "AA" {
+                event = bio.events[0]
+                selectedEvent = bio.events[0]
+            } else {
+                selectedEvent = event
+            }
+        }
     }
     
     // MARK: - Computed Properties

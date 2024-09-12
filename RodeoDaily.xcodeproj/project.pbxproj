@@ -144,6 +144,8 @@
 		1CC2C568299EA7F000011270 /* DebouncedObservedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2C567299EA7F000011270 /* DebouncedObservedObject.swift */; };
 		1CC2C56D299EE3DA00011270 /* HomeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2C56C299EE3DA00011270 /* HomeMainView.swift */; };
 		1CC98B072996F9EA0024A197 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC98B062996F9EA0024A197 /* BioView.swift */; };
+		1CCE134B2C88007B000A3063 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE134A2C88007B000A3063 /* HomePage.swift */; };
+		1CCE134C2C88120A000A3063 /* WidgetSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDCBC752C861EE900AB1850 /* WidgetSampleData.swift */; };
 		1CD76B8C299A95E2002E5B08 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD76B8B299A95E2002E5B08 /* HtmlView.swift */; };
 		1CDC39DB29913CA40014935A /* WpraCircuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC39DA29913CA40014935A /* WpraCircuit.swift */; };
 		1CDCBC4A2C85FEF500AB1850 /* RodeoDailyWatchWidgetExtension.appex in Resources */ = {isa = PBXBuildFile; fileRef = 1CEA4A3C29A4FB72007F7B53 /* RodeoDailyWatchWidgetExtension.appex */; };
@@ -430,6 +432,7 @@
 		1CC2C567299EA7F000011270 /* DebouncedObservedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebouncedObservedObject.swift; sourceTree = "<group>"; };
 		1CC2C56C299EE3DA00011270 /* HomeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainView.swift; sourceTree = "<group>"; };
 		1CC98B062996F9EA0024A197 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
+		1CCE134A2C88007B000A3063 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		1CD76B8B299A95E2002E5B08 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		1CDC39DA29913CA40014935A /* WpraCircuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WpraCircuit.swift; sourceTree = "<group>"; };
 		1CDCBC522C86076B00AB1850 /* StandingsARWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsARWidget.swift; sourceTree = "<group>"; };
@@ -787,6 +790,7 @@
 		1C64355D298C71C70032CFC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1CCE13492C88005A000A3063 /* Prototypes */,
 				1CC98B052996F9BC0024A197 /* BioView */,
 				1C85DA28298E117A00CA6F35 /* Settings */,
 				1C0C2C79298D9E73002FE8EC /* HomeView */,
@@ -904,6 +908,14 @@
 				1CC98B062996F9EA0024A197 /* BioView.swift */,
 			);
 			path = BioView;
+			sourceTree = "<group>";
+		};
+		1CCE13492C88005A000A3063 /* Prototypes */ = {
+			isa = PBXGroup;
+			children = (
+				1CCE134A2C88007B000A3063 /* HomePage.swift */,
+			);
+			path = Prototypes;
 			sourceTree = "<group>";
 		};
 		1CDC39DC299142EB0014935A /* Services */ = {
@@ -1414,6 +1426,7 @@
 				1CF41FE2298CC80300214324 /* WinnerCell.swift in Sources */,
 				1CD76B8C299A95E2002E5B08 /* HtmlView.swift in Sources */,
 				1C0C2C6F298D7B2C002FE8EC /* ResultsLoader.swift in Sources */,
+				1CCE134B2C88007B000A3063 /* HomePage.swift in Sources */,
 				1C643566298C71E80032CFC2 /* OffsetKey.swift in Sources */,
 				1CDC39DB29913CA40014935A /* WpraCircuit.swift in Sources */,
 				1C9A428C299BDBC6008F4F9A /* ViewExtension.swift in Sources */,
@@ -1429,6 +1442,7 @@
 				1C0C2C9F298DA068002FE8EC /* ATTRequestView.swift in Sources */,
 				1CC2C563299E9A0100011270 /* Debouncer.swift in Sources */,
 				1C0C2C5A298D7660002FE8EC /* TRWinnerCell.swift in Sources */,
+				1CCE134C2C88120A000A3063 /* WidgetSampleData.swift in Sources */,
 				1C0C2C95298D9EF0002FE8EC /* StandingsCell.swift in Sources */,
 				1C0D3A962C8762F200286449 /* Video.swift in Sources */,
 				1C0C2C83298D9EBA002FE8EC /* SearchBarView.swift in Sources */,
@@ -1745,7 +1759,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
@@ -1770,7 +1784,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1794,7 +1808,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
@@ -1819,7 +1833,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1841,7 +1855,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
@@ -1853,7 +1867,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1871,7 +1885,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
@@ -1883,7 +1897,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1902,7 +1916,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
@@ -1917,7 +1931,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1937,7 +1951,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchApp/RodeoDailyWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
@@ -1952,7 +1966,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1971,7 +1985,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
@@ -1983,7 +1997,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2002,7 +2016,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
@@ -2014,7 +2028,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

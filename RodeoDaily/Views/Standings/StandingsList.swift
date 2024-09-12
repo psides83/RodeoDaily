@@ -44,6 +44,8 @@ struct StandingsList: View {
     // MARK: - Computed View Properties
     var standingsList: some View {
         ForEach(filteredStandings.indices, id: \.self) { index in
+            let position = filteredStandings[index]
+
             if (index % adPlacement) == 0 && index != 0 {
                 VStack {
                     BannerAd()
@@ -53,7 +55,16 @@ struct StandingsList: View {
                         .overlay(Color.appTertiary)
                 }
             }
-            StandingsCell(position: filteredStandings[index])
+                        
+            if position.hasBio {
+                NavigationLink {
+                    BioView(athleteId: position.id, event: selectedEvent)
+                } label: {
+                    StandingsCell(position: position)
+                }
+            } else {
+                StandingsCell(position: position)
+            }
             
             Divider()
                 .overlay(Color.appTertiary)
