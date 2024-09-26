@@ -71,7 +71,6 @@
 		1C5082092C97BC9200A60E68 /* StandingsWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A5861298E9B4C00A70F61 /* StandingsWidgetApi.swift */; };
 		1C54326C2C9882DE00CFF362 /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C54326B2C9882DE00CFF362 /* AlertKit */; };
 		1C5432702C9887D300CFF362 /* FavoriteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C54326F2C9887D300CFF362 /* FavoriteAlert.swift */; };
-		1C5881F82C85682C00A946EE /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1C5881F72C85682C00A946EE /* GoogleMobileAds */; };
 		1C5A6F8A2C98AAD300B5F624 /* FavoriteWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A6F892C98AAD300B5F624 /* FavoriteWidgetSmallView.swift */; };
 		1C5A6F8E2C990A9300B5F624 /* FavoriteWidgetSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A6F8D2C990A9300B5F624 /* FavoriteWidgetSmall.swift */; };
 		1C62918B299D367D000DA43E /* FilterMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62918A299D367D000DA43E /* FilterMenuIcon.swift */; };
@@ -113,6 +112,7 @@
 		1C894BE72C966E5700AC9AF7 /* WidgetAthleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C894BE52C966E5700AC9AF7 /* WidgetAthleteQuery.swift */; };
 		1C89A3ED299AF559003D915F /* BioResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C89A3EC299AF559003D915F /* BioResultCellView.swift */; };
 		1C902A172CA4F85A007AC200 /* AthleteCellViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C902A162CA4F85A007AC200 /* AthleteCellViewLoader.swift */; };
+		1C902A1A2CA51AB8007AC200 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1C902A192CA51AB8007AC200 /* GoogleMobileAds */; };
 		1C9219A52C936A1F00A9CECD /* AthleteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9219A42C936A1F00A9CECD /* AthleteList.swift */; };
 		1C9219A72C936A1F00A9CECD /* AthleteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9219A42C936A1F00A9CECD /* AthleteList.swift */; };
 		1C9219A92C936FD000A9CECD /* AthletesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9219A82C936FD000A9CECD /* AthletesApi.swift */; };
@@ -162,6 +162,7 @@
 		1CACDDDD299C522700E7CCC9 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDC299C522700E7CCC9 /* Bundle-Decodable.swift */; };
 		1CACDDDF299C523200E7CCC9 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDE299C523200E7CCC9 /* Binding-OnChange.swift */; };
 		1CACDDE1299C585100E7CCC9 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDE0299C585100E7CCC9 /* FilterType.swift */; };
+		1CAD0D412CA51E34001DAF18 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 1CAD0D402CA51E34001DAF18 /* GoogleUserMessagingPlatform */; };
 		1CADD4762C95E2C300D26B87 /* DebouncedObservedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2C567299EA7F000011270 /* DebouncedObservedObject.swift */; };
 		1CADD4772C95E2CF00D26B87 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2C565299EA46700011270 /* SearchModel.swift */; };
 		1CADD4792C95F6D600D26B87 /* TransitionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CADD4782C95F6D600D26B87 /* TransitionExtension.swift */; };
@@ -522,10 +523,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C5881F82C85682C00A946EE /* GoogleMobileAds in Frameworks */,
 				1C923A732C87EDAF00D3626E /* AppTrackingTransparency.framework in Frameworks */,
 				1C54326C2C9882DE00CFF362 /* AlertKit in Frameworks */,
+				1C902A1A2CA51AB8007AC200 /* GoogleMobileAds in Frameworks */,
 				1C179A0F2C85677A002A7D69 /* SwiftSoup in Frameworks */,
+				1CAD0D412CA51E34001DAF18 /* GoogleUserMessagingPlatform in Frameworks */,
 				1C0C2CA8298DA0D2002FE8EC /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1274,8 +1276,9 @@
 			name = RodeoDaily;
 			packageProductDependencies = (
 				1C179A0E2C85677A002A7D69 /* SwiftSoup */,
-				1C5881F72C85682C00A946EE /* GoogleMobileAds */,
 				1C54326B2C9882DE00CFF362 /* AlertKit */,
+				1C902A192CA51AB8007AC200 /* GoogleMobileAds */,
+				1CAD0D402CA51E34001DAF18 /* GoogleUserMessagingPlatform */,
 			);
 			productName = "Rodeo Daily";
 			productReference = 1C09310C298AFE5A00BB016D /* RodeoDaily.app */;
@@ -1379,8 +1382,9 @@
 			mainGroup = 1C093103298AFE5A00BB016D;
 			packageReferences = (
 				1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				1C5881F62C85682C00A946EE /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				1C54326A2C9882AD00CFF362 /* XCRemoteSwiftPackageReference "SPAlert" */,
+				1C902A182CA51AB8007AC200 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				1CAD0D3F2CA51E34001DAF18 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
 			);
 			productRefGroup = 1C09310D298AFE5A00BB016D /* Products */;
 			projectDirPath = "";
@@ -1879,7 +1883,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
@@ -1928,7 +1932,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
@@ -1975,7 +1979,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
@@ -2005,7 +2009,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
@@ -2037,7 +2041,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchApp/RodeoDailyWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
@@ -2072,7 +2076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchApp/RodeoDailyWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
@@ -2107,7 +2111,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
@@ -2138,7 +2142,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
@@ -2230,12 +2234,20 @@
 				minimumVersion = 5.1.9;
 			};
 		};
-		1C5881F62C85682C00A946EE /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+		1C902A182CA51AB8007AC200 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.8.0;
+				minimumVersion = 11.10.0;
+			};
+		};
+		1CAD0D3F2CA51E34001DAF18 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-user-messaging-platform";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2256,10 +2268,15 @@
 			package = 1C54326A2C9882AD00CFF362 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = AlertKit;
 		};
-		1C5881F72C85682C00A946EE /* GoogleMobileAds */ = {
+		1C902A192CA51AB8007AC200 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C5881F62C85682C00A946EE /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			package = 1C902A182CA51AB8007AC200 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		1CAD0D402CA51E34001DAF18 /* GoogleUserMessagingPlatform */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CAD0D3F2CA51E34001DAF18 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
+			productName = GoogleUserMessagingPlatform;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
