@@ -18,15 +18,27 @@
 
 "Results Event" = "Results Event";
 
-"The selected events will be used to populate the widget data and load in the respective tab when the app opens." = "The selected events will be used to populate the widget data and load in the respective tab when the app opens.";
+"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens.";
 
 "Favorite Athlete Widget" = "Favorite Athlete Widget";
 
-"Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time.";
+"* Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "* Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time.";
+
+"* **Note:** Long press on the athlete name to change the event used in the widget." = "* **Note:** Long press on the athlete name to change the event used in the widget.";
 
 "Settings" = "Settings";
 
 "Favorites" = "Favorites";
+
+"Athlete Search" = "Athlete Search";
+
+"Athlete Name" = "Athlete Name";
+
+"Search athletes to add favorite" = "Search athletes to add favorite";
+
+"Search for an athlete to add to your list of favorites for the favorite athlete widget." = "Search for an athlete to add to your list of favorites for the favorite athlete widget.";
+
+"Favorite Athlete Widget" = "Favorite Athlete Widget";
 
 // Lists
 "Sort" = "Sort";
@@ -155,3 +167,19 @@
 "Previous" = "Previous";
 
 "Next" = "Next";
+
+"Selects the favorite athlete to display in the widget." = "Selects the favorite athlete to display in the widget.";
+
+"Select Favorite" = "Select Favorite";
+
+"Athlete" = "Athlete";
+
+"Athletes" = "Athletes";
+
+"Favorite Athletes" = "Favorite Athletes";
+
+// UNLOCALIZED
+
+"No Athletes" = "No Athletes";
+
+"Add athletes to favorites fromt he settings tab. These athletes will be available to add widgets to you home screen." = "Add athletes to favorites fromt he settings tab. These athletes will be available to add widgets to you home screen.";

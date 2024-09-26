@@ -5,16 +5,20 @@
 //  Created by Payton Sides on 2/14/23.
 //
 
-import Foundation
+import AppIntents
+//import Foundation
 import SwiftUI
+import WidgetKit
 
-public struct FavoriteAthlete: Codable, Identifiable, Equatable {
+public struct FavoriteAthlete: Codable, Identifiable, Equatable, AppEntity {
     public let id: Int
     let name: String
-    let event: StandingsEvent
+    var event: StandingsEvent
+    let teamRopingEvent: StandingsEvent?
+    let events: [String]
     
     enum CodingKeys: String, CodingKey {
-        case id, name, event
+        case id, name, event, teamRopingEvent, events
     }
     
     public init(from decoder: Decoder) throws {
@@ -27,12 +31,33 @@ public struct FavoriteAthlete: Codable, Identifiable, Equatable {
         }
         self.name = try values.decode(String.self, forKey: .name)
         self.event = try values.decode(StandingsEvent.self, forKey: .event)
+        self.teamRopingEvent = try values.decode(StandingsEvent.self, forKey: .teamRopingEvent)
+        self.events = try values.decode([String].self, forKey: .events)
     }
     
-    init(id: Int, name: String, event: StandingsEvent) {
+    public init(
+        id: Int,
+        name: String,
+        event: StandingsEvent,
+        teamRopingEvent: StandingsEvent?,
+        events: [String]
+    ) {
         self.id = id
         self.name = name
         self.event = event
+        self.teamRopingEvent = teamRopingEvent
+        self.events = events
+    }
+    
+    // This replaces `defaultQuery` with an actual query type.
+       public static var defaultQuery: FavoriteAthleteQuery {
+           return FavoriteAthleteQuery()
+       }
+    
+    public static var typeDisplayRepresentation: TypeDisplayRepresentation = TypeDisplayRepresentation(name: "Widget Athlete")
+    
+    public var displayRepresentation: DisplayRepresentation {
+        DisplayRepresentation(title: "\(name)", subtitle: "\(event.title)")
     }
 }
 
@@ -62,5 +87,44 @@ extension Optional: RawRepresentable where Wrapped == FavoriteAthlete {
         try container.encode(self?.id, forKey: .id)
         try container.encode(self?.name, forKey: .name)
         try container.encode(self?.event, forKey: .event)
+        try container.encode(self?.events, forKey: .events)
+    }
+}
+
+// A query to return a list of FavoriteAthlete entities
+public struct FavoriteAthleteQuery: EntityQuery {
+    public init() { }
+    
+//    var favoriteAthletes = [FavoriteAthlete]()
+
+    @AppStorage(
+        "favoriteAthletes",
+        store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")
+    ) var favoriteAthletesData: Data = Data()
+    
+    func favoriteAthletes() -> [FavoriteAthlete] {
+        let favoriteAthletes = [FavoriteAthlete]()
+
+        let decoder = JSONDecoder()
+        if let decodedData = try? decoder.decode([FavoriteAthlete].self, from: favoriteAthletesData) {
+            return decodedData
+        }
+        
+        return favoriteAthletes
+    }
+    
+    public func entities(for identifiers: [FavoriteAthlete.ID]) -> [FavoriteAthlete] {
+        // Fetch the specific FavoriteAthlete entities using the identifiers
+        // Example: This is a simple implementation, you'll replace it with actual data fetching.
+        return favoriteAthletes().filter { identifiers.contains($0.id) }
+    }
+
+    public func suggestedEntities() -> [FavoriteAthlete] {
+        // Return a list of default/suggested FavoriteAthlete instances.
+        return favoriteAthletes()
+    }
+    
+    public func defaultResult() -> FavoriteAthlete? {
+        suggestedEntities().first
     }
 }

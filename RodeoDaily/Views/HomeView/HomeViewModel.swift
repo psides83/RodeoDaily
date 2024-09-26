@@ -5,19 +5,21 @@
 //  Created by Payton Sides on 12/8/22.
 //
 
+import SwiftData
 import SwiftUI
 
 // MARK: - View Model
 /// Funcitons as the view model for the Home view with the header view.
 /// The view sections are housed in sseperate files and only house View code.
 struct HomeView: View {
-    
     @Environment(\.calendar) var calendar
         
      let coordinateSpace = "SCROLL"
     
     @ObservedObject var standingsApi = StandingsApi()
     @ObservedObject var rodeosApi = RodeosApi()
+    
+    @Query var widgetAthletes: [WidgetAthlete]
     
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     @AppStorage("favoriteResultsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteResultsEvent: Events.CodingKeys = .bb

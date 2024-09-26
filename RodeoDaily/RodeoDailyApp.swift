@@ -5,6 +5,7 @@
 //  Created by Payton Sides on 2/1/23.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -27,5 +28,6 @@ struct RodeoDailyApp: App {
             }
             .onAppear(perform: attHandler.checkATTStatus)
         }
+        .modelContainer(for: WidgetAthlete.self)
     }
 }

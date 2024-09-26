@@ -75,9 +75,72 @@ extension BioData {
     // Retreives all events competed in by tthe athlete
     var events: [String] {
         Array(Set(results.map { result in
-            result.eventType
+//            print(result)
+            return result.eventType
         }))
     }
+    
+    var topEvent: StandingsEvent {        
+        let currentYearEarnings = earnings["2024"]
+        
+        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
+    
+        var rankingEvent: String {
+            let rank = rankings.filter { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(topEvent?.eventDisplay.localizedLowercase ?? "AA") }
+            
+            if rank.isEmpty {
+                return ""
+            }
+            
+            return rank[0].eventName
+        }
+        
+        var finalEvent: StandingsEvent = .aa
+        
+        StandingsEvent.allCases.forEach { event in
+            if rankingEvent.localizedCaseInsensitiveContains(event.title.prefix(4).localizedLowercase) {
+                finalEvent = event
+            }
+        }
+        
+        return finalEvent
+    }
+    
+    var teamRopingEvent: StandingsEvent? {
+//        let currentYearEarnings = earnings["2024"]
+        
+//        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
+        
+        var rankingEvent: String {
+            let rank = rankings.filter { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains("Team Roping") }
+            
+            if rank.isEmpty {
+                return ""
+            }
+            
+            return rank[0].eventName
+        }
+        
+        var finalEvent: StandingsEvent?
+        
+        StandingsEvent.allCases.forEach { event in
+            if rankingEvent.localizedCaseInsensitiveContains(event.title.prefix(4).localizedLowercase) {
+                finalEvent = event
+            }
+        }
+        
+        return finalEvent
+    }
+    
+    var seasons: [String] {
+        let careerSeasons = career.map { season in
+            return season.season.string
+        }
+        
+        return Array(Set(careerSeasons)).sorted(by: { $0 > $1 })
+    }
+    
+    // MARK: - Methods
     
     // Removes previous season's NFR from results and adds it to the previous season's results.
     func baseResults(for season: Int) -> [BioResult] {
@@ -150,6 +213,8 @@ extension BioData {
         searchText: String,
         sortedBy keyPath: BioResult.SortingKeyPath
     ) -> [BioResult] {
+        
+        
         let searchedResults = baseResults(for: season).filter({
             if searchText.isEmpty {
                 return true
@@ -213,21 +278,15 @@ extension BioData {
         }
     }
     
-    func careerSeasons(filteredBy event: StandingsEvent) -> [CareerWithEarinings] {
-        var adjustedEvent: String {
-            if event == .hd || event == .hl {
-                return "TR"
-            } else {
-                return event.rawValue
-            }
-        }
+    func careerSeasons(filteredBy event: String?) -> [CareerWithEarinings] {
+        let selectedEvent = event != nil ? event : topEvent.withTeamRopingConversion
         
-        let careerRankings = rankings.filter({ $0.eventName.localizedCaseInsensitiveContains(event.title.localizedLowercase.prefix(4)) })
+        let careerRankings = rankings.filter({ $0.eventName.localizedCaseInsensitiveContains(selectedEvent!.eventDisplay) })
         
         let finalCareerData = careerRankings.map { season in
             let careerEarnings = career
                 .filter({
-                    $0.eventType == adjustedEvent
+                    $0.eventType == event
                     &&
                     $0.season.string == season.season.string
                 })
@@ -249,6 +308,40 @@ extension BioData {
         return finalCareerData
             .filter({ $0.season != "" })
             .sorted(by: {$0.season > $1.season })
+    }
+    
+    func currentSeasonRankings() -> [CurrentSeason] {
+        var seasonRankings = [CurrentSeason]()
+        
+        events.forEach { event in
+            guard career.filter({ $0.season == Date().yearInt && $0.eventType == event }).count > 0 else { return }
+            
+            let seasonEarnings = career.filter({ $0.season == Date().yearInt && $0.eventType == event })[0].earnings
+            
+            let rankData = rankings.first(where: { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(event.eventDisplay.localizedLowercase) })
+            
+            guard let ranking = rankData else { return }
+            
+            let season = CurrentSeason(
+                ranking: ranking.rank,
+                earnings: seasonEarnings,
+                event: event,
+                eventName: ranking.eventName.eventShort
+            )
+            
+            seasonRankings.append(season)
+        }
+        
+        return seasonRankings.sorted(by: { $0.earnings > $1.earnings })
+    }
+    
+    struct CurrentSeason: Identifiable {
+        let id  = UUID()
+        let year: String = Date().yearString
+        var ranking: String = "Unranked"
+        var earnings: Double = 0
+        var event: String
+        var eventName: String
     }
 }
 

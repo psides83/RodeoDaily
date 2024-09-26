@@ -14,7 +14,7 @@ struct StandingsWidgetIntent: WidgetConfigurationIntent {
     
     static var description = IntentDescription("Selects the event standings to display in the widget.")
     
-    @Parameter(title: "Event", default: StandingsEvent.bb) var event: StandingsEvent
+    @Parameter(title: "Event", default: StandingsEvent.aa) var event: StandingsEvent
     
     init() {}
 }

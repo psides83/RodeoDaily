@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct WidgetSampleData {
     var favoriteSampleData: BioData {
@@ -19,12 +20,30 @@ struct WidgetSampleData {
             rodeoResultId: 833,
             eventType: "TD",
             place: 0,
-            payoff: 250000.00,
+            payoff: 25000.00,
             time: 7.8,
             score: 0.0,
             round: "1",
             stockId: 0,
-            seasonYear: 2023
+            seasonYear: Date().yearInt
+        )
+        
+        let bioResult2: BioResult = BioResult(
+            rodeoId: 23,
+            rodeoName: "Fort Worth",
+            city: "Fort Worth",
+            state: "TX",
+            startDate: "2020-01-30T00:00:00",
+            endDate: "2020-02-10T00:00:00",
+            rodeoResultId: 833,
+            eventType: "TR",
+            place: 0,
+            payoff: 25000.00,
+            time: 4.8,
+            score: 0.0,
+            round: "1",
+            stockId: 0,
+            seasonYear: Date().yearInt
         )
         
         return BioData(
@@ -35,13 +54,25 @@ struct WidgetSampleData {
                 bioResult,
                 bioResult,
                 bioResult,
-                bioResult
+                bioResult,
+                bioResult,
+                bioResult,
+                bioResult,
+                bioResult2
             ],
             career: [
                 Career(
-                    season: 2023,
+                    season: Date().yearInt,
                     eventType: "TD",
                     earnings: 100000.00,
+                    worldTitles: 4,
+                    nfrQualified: false,
+                    timedStatistics: nil
+                ),
+                Career(
+                    season: Date().yearInt,
+                    eventType: "TR",
+                    earnings: 3500.00,
                     worldTitles: 4,
                     nfrQualified: false,
                     timedStatistics: nil
@@ -52,14 +83,22 @@ struct WidgetSampleData {
                     rank: "#1",
                     rankType: "World",
                     eventName: "Tie-down Roping",
-                    season: 2023,
+                    season: Date().yearInt,
+                    tourId: nil,
+                    circuitId: nil
+                ),
+                Ranking(
+                    rank: "Unranked",
+                    rankType: "World",
+                    eventName: "Team Roping (Headers)",
+                    season: Date().yearInt,
                     tourId: nil,
                     circuitId: nil
                 )
             ],
             earnings: [
-                "2023": [
-                    Earning(seasonYear: 2023, earnings: 100000.00, eventType: "TD")
+                Date().yearString: [
+                    Earning(seasonYear: Date().yearInt, earnings: 100000.00, eventType: "TD")
                 ]
             ],
             contestantId: 70406,
@@ -95,7 +134,7 @@ struct WidgetSampleData {
             points: 42626.6,
             place: 1,
             standingId: 291301,
-            seasonYear: 2023,
+            seasonYear: Date().yearInt,
             tourId: nil,
             circuitId: nil
         )

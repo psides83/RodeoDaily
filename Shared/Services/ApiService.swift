@@ -22,7 +22,7 @@ enum APIService {
         
         let decoder = JSONDecoder()
         let result = try decoder.decode(T.self, from: todoData)
-        
+                
         return result
     }
     
@@ -39,6 +39,14 @@ enum APIService {
     }
     
     static func fetchResults(from url: URL) async throws -> RodeoResults {
+        return try await APIService.fetch(from: url)
+    }
+    
+    static func fetchSearchAthletes(from url: URL) async throws -> AthleteList {
+        return try await APIService.fetch(from: url)
+    }
+    
+    static func fetchSearchSuggestions(from url: URL) async throws -> SearchSuggestion {
         return try await APIService.fetch(from: url)
     }
 }

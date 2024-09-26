@@ -8,10 +8,10 @@
 import AppIntents
 import Foundation
 
-enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum {
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Event"
+public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum {
+    public static var typeDisplayRepresentation: TypeDisplayRepresentation = "Event"
     
-    static var caseDisplayRepresentations: [StandingsEvent : DisplayRepresentation] = [
+    public static var caseDisplayRepresentations: [StandingsEvent : DisplayRepresentation] = [
         .aa: "All Around",
         .bb: "Bareback",
         .sw: "Steer Wrestling",
@@ -53,6 +53,26 @@ enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum {
         }
     }
     
+    var withTeamRopingConversion: String {
+        switch self {
+        case .aa, .bb, .sw, .sb, .td, .gb, .br, .sr, .lb:
+            return self.rawValue
+        case .hd, .hl:
+            return "TR"
+        }
+    }
+    
+    var displayWithTeamRopingConversion: String {
+        switch self {
+        case .aa, .bb, .sw, .sb, .td, .gb, .br, .sr, .lb:
+            return self.title
+        case .hd:
+            return "Team Roping (Headers)"
+        case .hl:
+            return "Team Roping (Heelers)"
+        }
+    }
+    
     var isRoughStock: Bool {
         switch self {
         case .bb, .br, .sb: return true
@@ -72,5 +92,5 @@ enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum {
         else { return "Time" }
     }
     
-    var id: String { rawValue }
+    public var id: String { rawValue }
 }

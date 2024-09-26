@@ -11,6 +11,7 @@ struct RodeoCell: View {
     
     let rodeo: RodeoData
     let event: Events.CodingKeys
+    var widgetAthletes: [WidgetAthlete]
         
     @State private var isShowingResults = false
     @State private var rotationAngle: Double = 0
@@ -78,7 +79,7 @@ struct RodeoCell: View {
             }
             
             if isShowingResults {
-                ResultsBlock(rodeo: rodeo, event: event)
+                ResultsBlock(rodeo: rodeo, event: event, widgetAthletes: widgetAthletes)
             }
         }
         .padding(.top)

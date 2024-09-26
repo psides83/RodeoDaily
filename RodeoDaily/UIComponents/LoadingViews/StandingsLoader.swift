@@ -17,7 +17,7 @@ struct StandingsLoader: View {
                 VStack {
                     HStack {
                         Text(block.string)
-                            .foregroundColor(.appPrimary)
+                            .foregroundColor(.appSecondary)
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .frame(width: 30)
                             .padding(.trailing, 10)

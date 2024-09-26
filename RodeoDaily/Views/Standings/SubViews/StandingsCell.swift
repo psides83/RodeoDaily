@@ -5,12 +5,13 @@
 //  Created by Payton Sides on 12/11/22.
 //
 
-import Foundation
+import SwiftData
 import SwiftUI
 
 struct StandingsCell: View {
-    
     let position: Position
+    
+    var widgetAthletes: [WidgetAthlete]
     
     @State private var isShowingBio = false
     
@@ -37,19 +38,21 @@ struct StandingsCell: View {
                 VStack(alignment: .leading, spacing: 1) {
                     
                     HStack {
-//                        Button {
-//                            withAnimation {
-//                                isShowingBio.toggle()
-//                            }
-//                        } label: {
-                            Text(position.name)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(.appPrimary)
-                                .font(.title2)
-                                .fontWeight(.bold)
-//                                .padding(.bottom, -6)
-//                        }
-//                        .buttonStyle(.clearTextButton)
+                        //                        Button {
+                        //                            withAnimation {
+                        //                                isShowingBio.toggle()
+                        //                            }
+                        //                        } label: {
+                        Text(position.name)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.appPrimary)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        //                                .padding(.bottom, -6)
+                        
+                        favoriteIcon
+                        //                        }
+                        //                        .buttonStyle(.clearTextButton)
                         
                         Spacer()
                     }
@@ -70,22 +73,41 @@ struct StandingsCell: View {
                 Spacer()
                 
                 if position.hasBio {
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.appSecondary)
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.appSecondary)
                 }
             }
             
-            if isShowingBio && position.id != 0 {
-                BioCellView(athleteId: position.id, event: StandingsEvent(rawValue: position.event) ?? .aa, isShowingBio: isShowingBio)
-            }
+            //            if isShowingBio && position.id != 0 {
+            //                BioCellView(athleteId: position.id, event: StandingsEvent(rawValue: position.event) ?? .aa, isShowingBio: isShowingBio)
+            //            }
+        }
+    }
+    
+    var isFavorite: Bool {
+        if widgetAthletes.contains(where: { $0.athleteId == position.id }) {
+            return true
+        }
+        
+        return false
+    }
+    
+    @ViewBuilder
+    var favoriteIcon: some View {
+        switch isFavorite {
+        case true: 
+            Image(systemName: "star.fill")
+                .foregroundColor(.appSecondary)
+        case false:
+            EmptyView()
         }
     }
 }
 
 struct StandingsCell_Previews: PreviewProvider {
     static var previews: some View {
-//        let position = Position(id: 70406, firstName: "Caleb", lastName: "Smidt", event: "td", type: "", hometown: "Somewhere, TX", nickName: "Caleb", imageUrl: "", earnings: 15635.45, points: 15635.45, place: 6, standingId: 123, seasonYear: 2023, tourId: nil, circuitId: nil)
-//
+        //        let position = Position(id: 70406, firstName: "Caleb", lastName: "Smidt", event: "td", type: "", hometown: "Somewhere, TX", nickName: "Caleb", imageUrl: "", earnings: 15635.45, points: 15635.45, place: 6, standingId: 123, seasonYear: 2023, tourId: nil, circuitId: nil)
+        //
         ContentView()
     }
 }

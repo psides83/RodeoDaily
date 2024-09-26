@@ -20,4 +20,12 @@ extension Image {
     static var help = Image(systemName: "questionmark.circle")
     static var appLogo = Image("rodeo-daily-iOS-icon-sm")
     static var noImage = Image("noimage")
+    static var cowboy = Image("cowboy")
 }
+
+#if os(iOS)
+extension UIImage {
+    static var favoriteStar = UIImage(systemName: "star.fill")
+    static var unfavoriteStar = UIImage(systemName: "star")
+}
+#endif

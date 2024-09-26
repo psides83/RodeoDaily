@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct WinnerCell: View {
-
     let event: String
     let winner: Winner
+    var widgetAthletes: [WidgetAthlete]
     
     @State private var isShowingBio = false
 
@@ -26,13 +26,17 @@ struct WinnerCell: View {
                 
                 VStack(alignment: .leading) {
                     NavigationLink {
-                        BioView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .bb)
+                        BioView(athleteId: winner.contestantId)
                     } label: {
-                        Text(winner.name)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.appPrimary)
-                            .font(.title2)
-                            .fontWeight(.bold)
+                        HStack {
+                            Text(winner.name)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(.appPrimary)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            favoriteIcon
+                        }
                     }
                     .buttonStyle(.borderless)
                     
@@ -63,6 +67,25 @@ struct WinnerCell: View {
 //            if isShowingBio {
 //                BioCellView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .aa, isShowingBio: isShowingBio)
 //            }
+        }
+    }
+    
+    var isFavorite: Bool {
+        if widgetAthletes.contains(where: { $0.athleteId == winner.contestantId }) {
+            return true
+        }
+        
+        return false
+    }
+    
+    @ViewBuilder
+    var favoriteIcon: some View {
+        switch isFavorite {
+        case true:
+            Image(systemName: "star.fill")
+                .foregroundColor(.appSecondary)
+        case false:
+            EmptyView()
         }
     }
 }

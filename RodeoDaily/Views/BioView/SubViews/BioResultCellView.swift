@@ -61,7 +61,7 @@ struct BioResultCellView: View {
 struct BioResultCellView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BioView(athleteId: 59836, event: .hd)
+            BioView(athleteId: 59836)
                 .tint(.appSecondary)
         }
     }

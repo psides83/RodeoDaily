@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct StandingsList: View {
-    
     @Environment(\.colorScheme) var colorScheme
-    
+
+    var widgetAthletes: [WidgetAthlete]
     let standings: [Position]
     var loading: Bool
     let selectedTab: Tabs
@@ -20,8 +20,6 @@ struct StandingsList: View {
     @Binding var selectedEvent: StandingsEvent
     @Binding var standingType: StandingType
     @Binding var selectedCircuit: Circuit
-    
-    //    @State private var selectedEvent: StandingsEvent = .aa
     
     let adPlacement: Int = 10
     
@@ -45,7 +43,7 @@ struct StandingsList: View {
     var standingsList: some View {
         ForEach(filteredStandings.indices, id: \.self) { index in
             let position = filteredStandings[index]
-
+            
             if (index % adPlacement) == 0 && index != 0 {
                 VStack {
                     BannerAd()
@@ -55,15 +53,15 @@ struct StandingsList: View {
                         .overlay(Color.appTertiary)
                 }
             }
-                        
+            
             if position.hasBio {
                 NavigationLink {
-                    BioView(athleteId: position.id, event: selectedEvent)
+                    BioView(athleteId: position.id)
                 } label: {
-                    StandingsCell(position: position)
+                    StandingsCell(position: position, widgetAthletes: widgetAthletes)
                 }
             } else {
-                StandingsCell(position: position)
+                StandingsCell(position: position, widgetAthletes: widgetAthletes)
             }
             
             Divider()
@@ -122,9 +120,13 @@ struct StandingsList: View {
     }
     
     var noStandings: some View {
-        Text("No Standings Found")
-            .foregroundColor(.appPrimary)
-            .font(.system(.largeTitle, weight: .semibold))
+        ContentUnavailableView {
+            Label("Standings Could Not Load", systemImage: "list.number")
+                .foregroundColor(.appPrimary)
+        } description: {
+            Text("We were not able to load these standings at this time. Try again later")
+                .foregroundColor(.appPrimary)
+        }
     }
     
     // MARK: - Computed Properties

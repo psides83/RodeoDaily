@@ -30,6 +30,10 @@ extension HomeView {
                     selectedTab = .results
                 }
                 
+                CustomButton(symbolImage: .cowboy, title: NSLocalizedString("Athletes", comment: "")) {
+                    selectedTab = .cowboys
+                }
+                
                 CustomButton(symbolImage: .settings, title: NSLocalizedString("Settings", comment: "")) {
                     navigatedToSettings = true
                 }

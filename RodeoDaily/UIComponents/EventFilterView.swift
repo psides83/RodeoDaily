@@ -10,7 +10,7 @@ import SwiftUI
 struct EventFilterView: View {
     
     let events: [String]
-    @Binding var selectedEvent: String
+    @Binding var selectedEvent: String?
         
     // MARK: - Body
     var body: some View {
@@ -23,7 +23,7 @@ struct EventFilterView: View {
 //                .imageScale(.large)
 //                .foregroundColor(.appPrimary)
             
-        Text(selectedEvent.eventDisplay)
+        Text(selectedEvent?.eventDisplay ?? "Select an Event")
                 .font(.caption)
                 .fontWeight(.medium)
 //        }

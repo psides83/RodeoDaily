@@ -19,15 +19,27 @@
 "Results Event" = "Evento de Resultados
 ";
 
-"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "Os eventos selecionados serão usados ​​para preencher os dados do widget da tela de bloqueio e carregados na respectiva aba quando o aplicativo for aberto.";
+"The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens." = "Os eventos selecionados serão usados para preencher os dados do widget da tela de bloqueio e carregar na aba correspondente quando o app for aberto.";
 
 "Favorite Athlete Widget" = "Widget de Atleta Favorito";
 
-"Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "Infelizmente, definir um Atleta Favorito para Barrel Reacing e Breakaway Roping não está disponível no momento.";
+"* Unfortunately, setting a Favorite Athlete for Barrel Racing and Breakaway Roping is unavailable at this time." = "* Infelizmente, definir um Atleta Favorito para Barrel Racing e Breakaway Roping não está disponível no momento.";
+
+"* **Note:** Long press on the athlete name to change the event used in the widget." = "* **Nota:** Pressione e segure o nome do atleta para mudar o evento usado no widget.";
 
 "Settings" = "Configurações";
 
 "Favorites" = "Favoritosgs";
+
+"Athlete Search" = "Busca de Atleta";
+
+"Athlete Name" = "Nome do Atleta";
+
+"Search athletes to add favorite" = "Procure atletas para adicionar aos favoritos";
+
+"Search for an athlete to add to your list of favorites for the favorite athlete widget." = "Procure um atleta para adicionar à sua lista de favoritos para o widget de atleta favorito.";
+
+"Favorite Athlete Widget" = "Widget de Atleta Favorito";
 
 // Lists
 "Sort" = "Organizar";
@@ -156,3 +168,19 @@ Resultados do Rodeio";
 "Previous" = "Anterior";
 
 "Next" = "Próximo";
+
+// Favorite Widget
+"Selects the favorite athlete to display in the widget." = "Seleciona o atleta favorito para exibir no widget.";
+
+"Select Favorite" = "Selecionar Favorito";
+
+"Athlete" = "Atleta";
+
+"Athletes" = "Atletas";
+
+"Favorite Athletes" = "Atletas Favoritos";
+
+// Athletes List
+"No Athletes" = "Nenhum Atleta";
+
+"Add athletes to favorites from the settings tab. These athletes will be available to add widgets to your home screen." = "Adicione atletas aos favoritos na aba de configurações. Esses atletas estarão disponíveis para adicionar widgets à sua tela inicial.";

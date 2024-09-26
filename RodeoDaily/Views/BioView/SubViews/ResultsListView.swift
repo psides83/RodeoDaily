@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ResultsListView: View {
-    let bio: BioData
-    @State var event: String
-    let seasons: [String]
+    @ObservedObject var viewModel: BioViewModel
+//    let bio: BioData
+//    @State var event: String
+//    let seasons: [String]
     
-    @State private var selectedSeason = Date().yearString
-    @State private var selectedEvent: String = ""
-    @State private var sortResultsBy: BioResult.SortingKeyPath = .rodeoDate
+//    @State private var selectedSeason = Date().yearString
+//    @State private var selectedEvent: String = ""
+//    @State private var sortResultsBy: BioResult.SortingKeyPath = .rodeoDate
 //    @State private var searchText = ""
-    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
+//    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
 
-    @Binding var showSearchBar: Bool
+//    @Binding var showSearchBar: Bool
 
     
     // MARK: - Body
@@ -32,17 +33,15 @@ struct ResultsListView: View {
                 HStack(alignment: .center) {
                     HStack(spacing: 30) {
                         SortMenuView { keyPath in
-                            sortResultsBy = keyPath
+                            viewModel.sortResultsBy = keyPath
                         }
                         
-                        SeasonFilterView(seasons: seasons, selectedSeason: $selectedSeason)
-                        
-                        EventFilterView(events: bio.events, selectedEvent: $selectedEvent)
+                        SeasonFilterView(seasons: viewModel.bio.seasons, selectedSeason: $viewModel.selectedSeason)
                     }
                     
                     ExpandingSearchBar(
-                        showing: $showSearchBar,
-                        text: $search.text
+                        showing: $viewModel.showSearchBar,
+                        text: $viewModel.search.text
                     )
                 }
                 .frame(height: 50)
@@ -53,30 +52,15 @@ struct ResultsListView: View {
             }
             Spacer()
         }
-        .onAppear {
-            if event == "AA" {
-                event = bio.events[0]
-                selectedEvent = bio.events[0]
-            } else {
-                selectedEvent = event
-            }
-        }
     }
     
     // MARK: - Computed Properties
-    var results: [BioResult] {
-        bio.results(
-            filteredBy: selectedSeason.int,
-            filteredBy: selectedEvent,
-            searchText: search.text,
-            sortedBy: sortResultsBy
-        )
-    }
+    
     
     // MARK: - View Methods
     func listSection() -> some View {
         Section(header: header, footer: BannerAd().frame(height: 300)) {
-            ForEach(results, id: \.rodeoResultId) { result in
+            ForEach(viewModel.results, id: \.rodeoResultId) { result in
                 BioResultCellView(result: result)
                     .listRowBackground(Color.appBg)
             }
@@ -86,7 +70,7 @@ struct ResultsListView: View {
     // MARK: - Computed Property Views
     var header: some View {
         var resultType = ""
-        if event == "BR" || event == "SB" || event == "BB" {
+        if viewModel.selectedEvent == "BR" || viewModel.selectedEvent == "SB" || viewModel.selectedEvent == "BB" {
             resultType = NSLocalizedString("Score", comment: "")
         } else { resultType = NSLocalizedString("Time", comment: "") }
         
@@ -110,7 +94,8 @@ struct ResultsListView: View {
 struct ResultsListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            BioView(athleteId: 59836, event: .hd)
+            BioView(athleteId: 59836)
+                .tint(.appSecondary)
         }
     }
 }

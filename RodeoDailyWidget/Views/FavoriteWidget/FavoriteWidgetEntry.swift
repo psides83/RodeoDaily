@@ -10,5 +10,5 @@ import WidgetKit
 struct FavoriteWidgetEntry: TimelineEntry {
     let date: Date
     let bio: BioData
-    let event: StandingsEvent
+    let event: String
 }

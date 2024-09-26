@@ -8,13 +8,15 @@
 import Foundation
 import SwiftUI
 
-struct Athlete: Identifiable {
+struct Athlete: Codable, Identifiable {
     let id: Int
     let firstName: String
     let nickName: String?
     let lastName: String
     let hometown: String
     let imageUrl: String?
+    var event: String
+    let events: [String]
     
     var name: String {
         let name = PersonNameComponents(givenName: firstName, familyName: lastName, nickname: nickName)

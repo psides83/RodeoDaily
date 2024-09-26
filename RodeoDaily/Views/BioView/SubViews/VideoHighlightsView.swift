@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct VideoHighlightsView: View {
-    
-    var bio: BioData
+    @ObservedObject var viewModel: BioViewModel
+//    var bio: BioData
     
     @State private var index: Int = 0
     
     var body: some View {
         ScrollView {
-            if bio.videoHighlights != nil {
-                Text("Highlights for \(bio.name)")
+            if viewModel.bio.videoHighlights != nil {
+                Text("Highlights for \(viewModel.bio.name)")
                     .font(.title3)
                     .fontWeight(.bold)
                     .padding()
@@ -56,13 +56,13 @@ struct VideoHighlightsView: View {
                         ContentUnavailableView {
                             Label("No Highlights Available", systemImage: "video.slash.fill")
                         } description: {
-                            Text("\(bio.name) doesn't have any highlights available. Videos will be added as they become available")
+                            Text("\(viewModel.bio.name) doesn't have any highlights available. Videos will be added as they become available")
                         }
                     } else {
                         UnavailableContentView(
                             imageName: "video.slash.fill",
                             title: "No Highlights Available",
-                            description: "\(bio.name) doesn't have any highlights available. Videos will be added as they become available"
+                            description: "\(viewModel.bio.name) doesn't have any highlights available. Videos will be added as they become available"
                         )
                     }
                     
@@ -76,7 +76,7 @@ struct VideoHighlightsView: View {
     }
     
     var videoArray: [String] {
-        if let videos = bio.videoHighlights {
+        if let videos = viewModel.bio.videoHighlights {
             let array = videos
                 .components(separatedBy: ",")
                 .map { $0.replacingOccurrences(of: "/videos", with: "/video") }

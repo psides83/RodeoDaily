@@ -1,28 +1,29 @@
 //
-//  AthleteAPI.swift
-//  CalfRopingDaily
+//  AthletesApi.swift
+//  RodeoDaily
 //
-//  Created by Payton Sides on 12/10/22.
+//  Created by Payton Sides on 9/12/24.
 //
 
 import Foundation
 import SwiftUI
 
-class BioApi: ObservableObject {
+class AthletesApi: ObservableObject {
     @ObservedObject var apiUrls = ApiUrls()
     
-    @Published var bio: BioData = BioData()
+    @Published var athletes = [AthleteData]()
     @Published var loading = true
+    @Published var searchText = ""
     
-    func getBio(for athleteId: Int) async {
+    func getSearchResults() async {
         
-        let url = apiUrls.bioUrl(for: athleteId)
+        let url = apiUrls.athleteSearchUrl(from: searchText)
         
         do {
-            self.bio = try await APIService.fetchBio(from: url).data
+            self.athletes = try await APIService.fetchSearchAthletes(from: url).data
 //            print(self.bio)
-            print(self.bio.events)
-            print(self.bio.videoHighlights as Any)
+//            print(url)
+//            print(self.bio.videoHighlights as Any)
             self.endLoading()
         } catch {
             self.endLoading()

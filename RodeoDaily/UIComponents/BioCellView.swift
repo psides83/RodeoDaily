@@ -14,7 +14,7 @@ struct BioCellView: View {
     let event: StandingsEvent
     let isShowingBio: Bool
     
-    @ObservedObject var bioAPI = BioApi()
+    @ObservedObject var bioAPI = BioViewModel()
     
     @AppStorage("favoriteAthlete", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteAthlete: FavoriteAthlete? = nil
     
@@ -100,7 +100,7 @@ struct BioCellView: View {
                 .frame(width: 300)
             }
         }
-        .onChange(of: favoriteAthlete) { newValue in
+        .onChange(of: favoriteAthlete) {
             Task {
                 await bioAPI.getBio(for: athleteId)
             }
@@ -114,7 +114,7 @@ struct BioCellView: View {
     
     func setFavorite() {
         withAnimation {
-            let favorite = FavoriteAthlete(id: athleteId, name: bioAPI.bio.name, event: event)
+            let favorite = FavoriteAthlete(id: athleteId, name: bioAPI.bio.name, event: event, teamRopingEvent: bioAPI.bio.teamRopingEvent, events: bioAPI.bio.events)
             
             print(favorite)
             

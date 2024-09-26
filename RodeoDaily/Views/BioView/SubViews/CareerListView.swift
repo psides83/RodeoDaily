@@ -10,8 +10,7 @@ import SwiftUI
 // TODO: Update to filter by event
 
 struct CareerListView: View {
-    
-    let careerSeasons: [CareerWithEarinings]
+    @ObservedObject var viewModel: BioViewModel
     
     // MARK: - Body
     var body: some View {
@@ -37,7 +36,7 @@ struct CareerListView: View {
                     footer: BannerAd().frame(height: 300)
             ) {
                 
-                ForEach(careerSeasons, id: \.season) { season in
+                ForEach(viewModel.careerSeasons, id: \.season) { season in
                     HStack {
                         Text(season.season)
                         

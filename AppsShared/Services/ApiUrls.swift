@@ -102,4 +102,28 @@ class ApiUrls: ObservableObject {
         
         return url
     }
+    
+    func athleteSearchUrl(from searchText: String) -> URL {
+        let searchUrl = "athletes?event_type=&letter=&page_size=10&index=1&search_term=\(searchText)&search_type=&exact_search=null"
+        
+        var url: URL {
+            guard let url = URL(string: baseUrl + searchUrl) else { fatalError("Missing URL") }
+            
+            return url
+        }
+        
+        return url
+    }
+    
+    func searchSuggetionsUrl(from searchText: String) -> URL {
+        let searchUrl = "autocomplete?searchText=\(searchText)&searchType=contestant"
+        
+        var url: URL {
+            guard let url = URL(string: baseUrl + searchUrl) else { fatalError("Missing URL") }
+            
+            return url
+        }
+        
+        return url
+    }
 }

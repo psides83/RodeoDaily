@@ -10,6 +10,7 @@ import SwiftUI
 struct TRWinnerCell: View {
 
     let team: Team
+    var widgetAthletes: [WidgetAthlete]
     
     @State private var isShowingBio = false
     @State private var isShowingPartnerBio = false
@@ -33,17 +34,21 @@ struct TRWinnerCell: View {
                                 .foregroundColor(.gray)
                             
                             NavigationLink {
-                                BioView(athleteId: team.headerId, event: .hd)
+                                BioView(athleteId: team.headerId)
 //                                withAnimation {
 //                                    isShowingBio.toggle()
 //                                    isShowingPartnerBio = false
 //                                }
                             } label: {
-                                Text(team.headerName)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(isShowingBio ? .appSecondary : .appPrimary)
-                                    .font(.title2)
-                                    .fontWeight(.bold)
+                                HStack {
+                                    Text(team.headerName)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundColor(isShowingBio ? .appSecondary : .appPrimary)
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                                                        
+                                    favoriteIcon(winnerId: team.headerId)
+                                }
                             }
                             .buttonStyle(.borderless)
                             
@@ -64,17 +69,21 @@ struct TRWinnerCell: View {
                                 .foregroundColor(.appTertiary)
                             
                             NavigationLink {
-                                BioView(athleteId: team.heelerId, event: .hl)
+                                BioView(athleteId: team.heelerId)
 //                                withAnimation {
 //                                    isShowingBio = false
 //                                    isShowingPartnerBio.toggle()
 //                                }
                             } label: {
-                                Text(team.heelerName)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(isShowingPartnerBio ? .appSecondary : .appPrimary)
-                                    .font(.title2)
-                                    .fontWeight(.bold)
+                                HStack {
+                                    Text(team.heelerName)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundColor(isShowingPartnerBio ? .appSecondary : .appPrimary)
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    
+                                    favoriteIcon(winnerId: team.heelerId)
+                                }
                             }
                             .buttonStyle(.borderless)
                             
@@ -114,6 +123,25 @@ struct TRWinnerCell: View {
 //            if isShowingPartnerBio {
 //                BioCellView(athleteId: team.heelerId, event: .hl, isShowingBio: isShowingPartnerBio)
 //            }
+        }
+    }
+    
+    func isFavorite(for winnerId: Int) -> Bool {
+        if widgetAthletes.contains(where: { $0.athleteId == winnerId }) {
+            return true
+        }
+        
+        return false
+    }
+    
+    @ViewBuilder
+    func favoriteIcon(winnerId: Int) -> some View {
+        switch isFavorite(for: winnerId) {
+        case true:
+            Image(systemName: "star.fill")
+                .foregroundColor(.appSecondary)
+        case false:
+            EmptyView()
         }
     }
 }

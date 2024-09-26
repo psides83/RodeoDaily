@@ -28,9 +28,15 @@ extension Color {
 
 #if os(iOS)
 extension UIColor {
+    static let primary = UIColor(Color.primary)
     static let secondary = UIColor(Color.secondary)
     static let appBg = UIColor(Color.appBg)
-    static let mint = UIColor(Color.mint)
-    static let picked = UIColor(Color.picked)
+    static let rdGreen = UIColor(Color.rdGreen)
+    static let rdYellow = UIColor(Color.rdYellow)
+    static let rdGray = UIColor(Color.rdGray)
+    static let bgcolor = UIColor(Color.appBg)
+    static let appPrimary = UIColor(Color.appPrimary)
+    static let appSecondary = UIColor(Color.appSecondary)
+    static let appTertiary = UIColor(Color.appTertiary)
 }
 #endif

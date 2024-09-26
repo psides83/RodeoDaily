@@ -32,6 +32,12 @@ extension Int {
         let conversion = Double(self) / 255.0
         return conversion
     }
+    
+    var word: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        return formatter.string(for: self) ?? ""
+    }
 }
 
 //MARK: - Int

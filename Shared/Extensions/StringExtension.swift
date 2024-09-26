@@ -90,4 +90,13 @@ extension String {
         default: return ""
         }
     }
+    
+    var eventShort: String {
+        switch self.trimmingCharacters(in: .whitespaces) {
+        case "Tie-down Roping": return "TD Roping"
+        case "Team Roping (Headers)": return "TR Heading"
+        case "Team Roping (Heelers)": return "TR Heeling"
+        default: return self
+        }
+    }
 }

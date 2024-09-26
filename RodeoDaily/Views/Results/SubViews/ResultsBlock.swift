@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ResultsBlock: View {
-    
     @ObservedObject var resultsApi = ResultsApi()
     
     let rodeo: RodeoData
     let event: Events.CodingKeys
+    var widgetAthletes: [WidgetAthlete]
     
     var body: some View {
         let loading = resultsApi.loading
@@ -38,14 +38,14 @@ struct ResultsBlock: View {
                         ForEach(teams(from: round)) { team in
                             //
                             
-                            TRWinnerCell(team: team)
+                            TRWinnerCell(team: team, widgetAthletes: widgetAthletes)
                             
                             Divider()
                                 .overlay(Color.appTertiary)
                         }
                     } else {
                         ForEach(round.winners) { winner in
-                            WinnerCell(event: event.rawValue, winner: winner)
+                            WinnerCell(event: event.rawValue, winner: winner, widgetAthletes: widgetAthletes)
                         }
                     }
                 }

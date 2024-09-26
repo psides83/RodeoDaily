@@ -19,14 +19,28 @@ extension HomeView {
         } label: {
             VStack(spacing: 8) {
                 
-                symbolImage
-                    .fontWeight(.semibold)
-                    .foregroundColor(.appPrimary)
-                    .frame(width: 35, height: 35)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(.white)
-                    }
+                if symbolImage == .cowboy {
+                    symbolImage
+                        .resizable()
+                        .renderingMode(.template)
+                        .fontWeight(.bold)
+                        .foregroundColor(.appPrimary)
+                        .padding(2)
+                        .frame(width: 35, height: 35)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(.white)
+                        }
+                } else {
+                    symbolImage
+                        .fontWeight(.semibold)
+                        .foregroundColor(.appPrimary)
+                        .frame(width: 35, height: 35)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(.white)
+                        }
+                }
                 
                 Text(title)
                     .font(.caption)
@@ -38,12 +52,25 @@ extension HomeView {
             .opacity(1 + progress)
             // MARK: Display Alternative Icon
             .overlay {
-                symbolImage
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .opacity(-progress)
-                    .offset(y: -10)
+                if symbolImage == .cowboy {
+                    symbolImage
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 32, height: 32)
+//                        .fontWeight(.bold)
+//                        .font(.headline)
+//                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .opacity(-progress)
+                        .offset(y: -10)
+                } else {
+                    symbolImage
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .opacity(-progress)
+                        .offset(y: -10)
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ struct ResultsList: View {
     
     let rodeos: [RodeoData]
     let loading: Bool
+    var widgetAthletes: [WidgetAthlete]
     
     @Binding var selectedEvent: Events.CodingKeys
     @Binding var index: Int
@@ -47,7 +48,7 @@ struct ResultsList: View {
                         }
                     }
                     
-                    RodeoCell(rodeo: filteredRodeos[index], event: selectedEvent)
+                    RodeoCell(rodeo: filteredRodeos[index], event: selectedEvent, widgetAthletes: widgetAthletes)
                     
                     Divider()
                         .overlay(Color.appTertiary)
@@ -67,7 +68,7 @@ struct ResultsList: View {
                 .frame(height: 300)
         }
         .padding(.bottom)
-        .onChange(of: isShowingCalendar) { newValue in
+        .onChange(of: isShowingCalendar) { old, newValue in
             if newValue == false && dateRange.count < 2 {
                 dateRange.removeAll()
             }

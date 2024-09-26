@@ -10,6 +10,7 @@ import SwiftUI
 
 // MARK: - View
 extension View {
+#if os(iOS)
     func safeArea() -> UIEdgeInsets {
         guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
         else{return .zero}
@@ -18,6 +19,7 @@ extension View {
         
         return safeArea
     }
+#endif
     
 #if os(iOS)
     func pressAction(onPress: @escaping (() -> Void), onRelease: @escaping (() -> Void)) -> some View {
@@ -42,4 +44,26 @@ extension View {
             }
         }
     }
+    
+    @ViewBuilder
+    func hSpacing(_ alignment: Alignment = .center) -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: alignment)
+    }
+    
+    @ViewBuilder
+    func vSpacing(_ alignment: Alignment = .center) -> some View {
+        self
+            .frame(maxHeight: .infinity, alignment: alignment)
+    }
+    
+#if os(iOS)
+    @available(iOS 14, *)
+    func navigationBarTitleColor(_ color: Color) -> some View {
+        let uiColor = UIColor(color)
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
+        return self
+    }
+#endif
 }
