@@ -116,7 +116,7 @@ extension HomeView {
                 }
                 
             case .cowboys:
-                AthletesView()
+                AthletesView(searchText: search.text)
             }
         }
         .onChange(of: selectedTab) { old, newValue in

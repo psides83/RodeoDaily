@@ -16,8 +16,8 @@ struct HomeView: View {
         
      let coordinateSpace = "SCROLL"
     
-    @ObservedObject var standingsApi = StandingsApi()
-    @ObservedObject var rodeosApi = RodeosApi()
+    @StateObject var standingsApi = StandingsApi()
+    @StateObject var rodeosApi = RodeosApi()
     
     @Query var widgetAthletes: [WidgetAthlete]
     

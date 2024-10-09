@@ -18,6 +18,8 @@ struct ResultsLoader: View {
                     HStack {
                         Text(block.string)
                             .font(.headline)
+                            .foregroundColor(.appSecondary)
+
                         
                         Image("noimage")
                             .resizable()

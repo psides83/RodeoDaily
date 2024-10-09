@@ -41,7 +41,7 @@ struct ResultsList: View {
                     if (index % adPlacement) == 0 && index != 0 {
                         VStack {
                             BannerAd()
-                                .frame(minHeight: 100)
+                                .frame(minHeight: 340)
                             
                             Divider()
                                 .overlay(Color.appTertiary)

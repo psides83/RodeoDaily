@@ -81,7 +81,7 @@ extension BioData {
     }
     
     var topEvent: StandingsEvent {        
-        let currentYearEarnings = earnings["2024"]
+        let currentYearEarnings = earnings[Date().yearString]
         
         let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
     
@@ -98,7 +98,7 @@ extension BioData {
         var finalEvent: StandingsEvent = .aa
         
         StandingsEvent.allCases.forEach { event in
-            if rankingEvent.localizedCaseInsensitiveContains(event.title.prefix(4).localizedLowercase) {
+            if rankingEvent.localizedCaseInsensitiveContains(event.title.prefix(8).localizedLowercase) {
                 finalEvent = event
             }
         }

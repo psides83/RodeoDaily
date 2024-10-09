@@ -66,13 +66,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section(footer: Link(
-                "Cowboy Icon",
-                destination: URL(string: "https://iconscout.com/icons/cowboy")!
-            )
-                .font(.caption)
-                .tint(.appPrimary)
-            ) {}
+            Section(footer: contactFooter) {}
         }
         .navigationTitle("Settings")
         .onChange(of: search.text) {
@@ -80,6 +74,22 @@ struct SettingsView: View {
                 await searchModel.getSearchResults(from: search.text)
             }
         }
+    }
+    
+    var contactFooter: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Link(
+                destination: URL(string: "thewaymediaco@gmail.com")!) {
+                    Label("Submit Feedback", systemImage: "envelope")
+                        .font(.caption)
+                }
+            
+            Link(
+                "Cowboy Icon provided by IconScout",
+                destination: URL(string: "https://iconscout.com/icons/cowboy")!)
+            .font(.caption)
+        }
+        .tint(.appPrimary)
     }
     
     var athleteSearchSection: some View {

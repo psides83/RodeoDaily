@@ -49,6 +49,9 @@ struct ResultsBlock: View {
                         }
                     }
                 }
+                
+                BannerAd()
+                    .frame(height: 340)
             }
         }
         .task {

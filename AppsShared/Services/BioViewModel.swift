@@ -41,7 +41,9 @@ class BioViewModel: ObservableObject {
         
         do {
             self.bio = try await APIService.fetchBio(from: url).data
-            self.selectedEvent = bio.topEvent.withTeamRopingConversion
+            if selectedEvent == nil {
+                self.selectedEvent = bio.topEvent.withTeamRopingConversion
+            }
             print(self.bio.contestantId)
 //            print(self.bio.events)
 //            print(self.bio.videoHighlights as Any)

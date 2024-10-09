@@ -106,16 +106,6 @@ struct AthleteCellView: View {
     var latestResults: ArraySlice<BioResult> {
         return viewModel.bio.results.filter({ $0.eventType == viewModel.selectedEvent }).sorted(by: { $0.endDate > $1.endDate }).prefix(4)
     }
-    
-    var currentYearEarnings: String {
-        return viewModel.bio.career.filter({ $0.season == Date().yearInt && $0.eventType == viewModel.selectedEvent })[0].earnings.currencyABS
-    }
-    
-//    var currentYearRank: String {
-//        let rankData = viewModel.bio.rankings.filter({ $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(athlete.event.eventDisplay.localizedLowercase) })[0]
-//        
-//        return "\(rankData.rank) in \(rankData.eventName) with \(currentYearEarnings)"
-//    }
 }
 
 #Preview {

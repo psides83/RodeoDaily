@@ -69,7 +69,6 @@ struct BioView: View {
                 .toolbarBackground(.visible, for: .navigationBar)
                 .toolbarRole(.navigationStack)
                 .toolbar {
-                    //                    ToolbarItem(placement: .navigationBarTrailing) { favoriteButton() }
                     EventFilterView(
                         events: viewModel.bio.events,
                         selectedEvent: $viewModel.selectedEvent
