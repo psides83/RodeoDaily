@@ -75,7 +75,7 @@ extension BioData {
     // Retreives all events competed in by tthe athlete
     var events: [String] {
         Array(Set(results.map { result in
-//            print(result)
+//            print(result.eventType)
             return result.eventType
         }))
     }
@@ -98,10 +98,14 @@ extension BioData {
         var finalEvent: StandingsEvent = .aa
         
         StandingsEvent.allCases.forEach { event in
-            if rankingEvent.localizedCaseInsensitiveContains(event.title.prefix(8).localizedLowercase) {
+            print (rankingEvent)
+            print(event.rankingEvent.suffix(10).localizedLowercase)
+            if rankingEvent.localizedCaseInsensitiveContains(event.rankingEvent.suffix(10).localizedLowercase) {
                 finalEvent = event
             }
         }
+        
+        print(finalEvent)
         
         return finalEvent
     }

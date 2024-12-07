@@ -53,6 +53,22 @@ public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum
         }
     }
     
+    var rankingEvent: String {
+        switch self {
+        case .aa: return "AA"
+        case .bb: return "Bareback"
+        case .sw: return "Steer Wrestling"
+        case .hd: return "Team Roping (Headers)"
+        case .hl: return "Team Roping (Heelers)"
+        case .sb: return "Saddle Bronc"
+        case .td: return "Tie-Down Roping"
+        case .gb: return "GB"
+        case .br: return "Bull Riding"
+        case .sr: return "Steer Roping"
+        case .lb: return "LB"
+        }
+    }
+    
     var withTeamRopingConversion: String {
         switch self {
         case .aa, .bb, .sw, .sb, .td, .gb, .br, .sr, .lb:
