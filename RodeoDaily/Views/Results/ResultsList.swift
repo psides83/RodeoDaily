@@ -48,7 +48,11 @@ struct ResultsList: View {
                         }
                     }
                     
-                    RodeoCell(rodeo: filteredRodeos[index], event: selectedEvent, widgetAthletes: widgetAthletes)
+                    RodeoCell(
+                        rodeo: filteredRodeos[index],
+                        event: selectedEvent,
+                        widgetAthletes: widgetAthletes
+                    )
                     
                     Divider()
                         .overlay(Color.appTertiary)

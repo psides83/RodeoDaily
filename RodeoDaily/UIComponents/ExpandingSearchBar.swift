@@ -39,6 +39,7 @@ struct ExpandingSearchBar: View {
                         .toolbar { ToolbarItemGroup(placement: .keyboard, content: keyboardToolbar) }
                     
                     Button(action: clearSearch, label: clearButton)
+                        .buttonStyle(.plain)
                 }
                 
                 if !showing {

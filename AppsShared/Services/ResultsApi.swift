@@ -65,25 +65,28 @@ class ResultsApi: ObservableObject {
         event: Events.CodingKeys,
         _ completionHandler: @escaping (RodeoResult) -> Void
     ) async {
-        await fetchResults(rodeoId: rodeoId, event: event) { (rodeo, rounds) in
+        await fetchResults(
+            rodeoId: rodeoId,
+            event: event,
+        ) { (rodeo, rounds) in
             let winners = rounds.map { round in
                 
                 let id = round.key
                 
                 let roundWinners = round.value
-                    .filter({ $0.payoff != 0 })
-                    .sorted(by: { $0.payoff > $1.payoff })
+                    .unique { $0.contestant[0].id }
+                    .filter { $0.payoff != 0 }
+                    .sorted { $0.payoff > $1.payoff }
+                    .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
                     .map { winner in
-                        
                         let contestant = winner.contestant[0]
                         let winnerId = "\(id)\(contestant.id)"
-                        let contestantName = contestant.nickName != "" ? "\(contestant.nickName ?? "") \(contestant.lastName)" : "\(contestant.firstName) \(contestant.lastName)"
                         
                         return Winner(
                             id: winnerId.int,
                             contestantId: contestant.id,
                             roundLabel: winner.goRoundLabel,
-                            name: contestantName,
+                            name: contestant.name,
                             hometown: contestant.hometown,
                             imageUrl: contestant.imageUrl,
                             payoff: winner.payoff,
@@ -101,10 +104,10 @@ class ResultsApi: ObservableObject {
                     
                     if id.int < 555 {
                         let leaders = round.value
-                            .filter({ $0.time != 0 || $0.score != 0 })
-                            .sorted(by: { $0.time < $1.time })
-                            .sorted(by: { $0.score > $1.score })
-                            .prefix(10)
+                            .unique { $0.contestant[0].id }
+                            .filter { $0.time != 0 || $0.score != 0 }
+                            .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
+                            .prefix(15)
                             .enumerated()
                             .map { (index, winner) in
                                 let contestant = winner.contestant[0]
@@ -120,9 +123,9 @@ class ResultsApi: ObservableObject {
                                     payoff: winner.payoff,
                                     time: winner.time,
                                     score: winner.score,
-                                    place: winner.place == 0 ? index + 1 : winner.place,
+                                    place: self.setPlacement(for: event, from: winner.place, at: index),
                                     round: winner.goRound,
-                                    teamId: 0,
+                                    teamId: winner.teamId,
                                     numberScores: winner.numberScores ?? 0
                                 )
                             }
@@ -134,11 +137,11 @@ class ResultsApi: ObservableObject {
                         )
                     } else {
                         let leaders = round.value
-                            .filter({ $0.time != 0 || $0.score != 0 })
-                            .filter({ $0.numberScores == currentRound })
-                            .sorted(by: { $0.time < $1.time })
-                            .sorted(by: { $0.score > $1.score })
-                            .prefix(10)
+                            .unique { $0.contestant[0].id }
+                            .filter { $0.time != 0 || $0.score != 0 }
+                            .filter { $0.numberScores == currentRound }
+                            .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
+                            .prefix(15)
                             .enumerated()
                             .map { (index, winner) in
                                 let contestant = winner.contestant[0]
@@ -154,12 +157,20 @@ class ResultsApi: ObservableObject {
                                     payoff: winner.payoff,
                                     time: winner.time,
                                     score: winner.score,
-                                    place: winner.place == 0 ? index + 1 : winner.place,
+                                    place: self.setPlacement(for: event, from: winner.place, at: index),
                                     round: winner.goRound,
-                                    teamId: 0,
+                                    teamId: winner.teamId,
                                     numberScores: winner.numberScores ?? 0
                                 )
                             }
+                        
+                        guard !leaders.isEmpty else {
+                            return RoundWinners(
+                                id: id.int,
+                                round: "1",
+                                winners: leaders
+                            )
+                        }
                         
                         return RoundWinners(
                             id: id.int,
@@ -181,23 +192,51 @@ class ResultsApi: ObservableObject {
                 city: rodeo.city,
                 state: rodeo.state,
                 name: rodeo.name,
-                rounds: winners.sorted(by: { $0.id < 555 || $1.id < 555 ? $0.id < $1.id : $0.id > $1.id})
+                rounds: winners.sorted {
+                    $0.id < 555
+                    ||
+                    $1.id < 555
+                    ?
+                    $0.id < $1.id
+                    :
+                    $0.id > $1.id
+                }
             )
-            
-            //            self.results = result
+                    
+            print(result)
             
             completionHandler(result)
         }
     }
     
-    func loadResults(rodeoId: Int, event: Events.CodingKeys, _ completionHandler: @escaping () -> Void) async {
-        
-        await getWinners(rodeoId: rodeoId, event: event) { data in
+    func loadResults(
+        rodeoId: Int,
+        event: Events.CodingKeys,
+        _ completionHandler: @escaping () -> Void
+    ) async {
+        await getWinners(
+            rodeoId: rodeoId,
+            event: event
+        ) { data in
             DispatchQueue.main.async {
                 self.results = data
                 
                 completionHandler()
             }
+        }
+    }
+    
+    func setPlacement(
+        for event: Events.CodingKeys,
+        from place: Int,
+        at index: Int
+    ) -> Int {
+        if place > 0 { return place }
+        
+        if event == .tr {
+            return (index / 2) + 1
+        } else {
+            return index + 1
         }
     }
     

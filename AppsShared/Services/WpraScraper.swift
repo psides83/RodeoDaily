@@ -11,42 +11,69 @@ import SwiftUI
 
 enum WpraScraper {
     static func scrape(event: StandingsEvent, type: StandingType, year: String, circuit: Circuit) async throws -> [Position] {
+        let wpraUrls = URL(string:"https://psides83.github.io/rodeo-daily-resources/wpra-urls.json")!
         
-        var url: URL? {
+        func url() async throws -> URL? {
+            guard let urls = try? await APIService.fetchWpraUrl(from: wpraUrls) else { return nil }
+            
             if event == .gb && type == .world {
-                return URL(string: "https://archived.wpra.com/index.php/standings-group-season?group=Pro%20Rodeo%20-%20World&season=\(year)&standing=\(year)%20Pro%20Rodeo%20World%20Standings")!
+                let url = URL(string: urls.gbWorld.replacingOccurrences(of: "{selectedYear}", with: year))!
+                
+                print(url)
+                
+                return url
             }
             
             if event == .gb && type == .rookie {
-                return URL(string: "https://archived.wpra.com/index.php/standings-group-season?group=Rookie%20Standings&season=\(year)&standing=\(year)%20Rookie%20Standings")!
+                let url = URL(string: urls.gbRookie)!
+                
+                print(url)
+                
+                return url
             }
             
             if event == .gb && type == .circuit {
-                return URL(string:  "https://archived.wpra.com/index.php/standings-group-season?group=Pro%20Rodeo-Circuit&season=\(year)&standing=\(year)%20Pro%20Rodeo%20\(circuit.convertToWpra)%20Circuit%20Standings")!
+                let url = URL(string:
+                                (
+                                    urls.gbCircuit.replacingOccurrences(of: "{circuit}", with: circuit.convertToWpra)),
+                               )!
+                
+                print(url)
+                
+                return url
             }
             
             if event == .lb && type == .world {
-                return URL(string: "https://archived.wpra.com/index.php/standings-group-season?group=Roping%20Standings&season=\(year)&standing=\(year)%20Pro%20Rodeo%20Breakaway%20World%20Standings")!
+                return URL(string: urls.lbWorld.replacingOccurrences(of: "{selectedYear}", with: year))!
+            }
+            
+            if event == .lb && type == .rookie {
+                return URL(string: urls.lbRookie)!
             }
             
             if event == .lb && type == .circuit {
-                return URL(string: "https://archived.wpra.com/index.php/standings-group-season?group=Roping%20Standings&season=\(year)&standing=\(year)%20Pro%20Rodeo%20Breakaway%20\(circuit.convertToWpra)%20Circuit%20Standings")!
+                return URL(string:
+                            (
+                                urls.lbCircuit.replacingOccurrences(of: "{circuit}", with: circuit.convertToWpra))
+                           )!
             }
             
             return nil
         }
         
-        guard url != nil else { return [] }
+        guard ((await (try? url() != nil)) != nil) else { return [] }
         
         var titles: ArraySlice<Position> = []
         
         do {
-            let content = try String(contentsOf: url!)
+            let content = try await String(contentsOf: url()!)
             let doc: Document = try SwiftSoup.parse(content)
             
-            print(doc)
+//                        print(doc)
             
-            let table = try? doc.select("table").first()
+            let table = try? doc.select("table")[1]
+            
+//            print(table)
             
             if let table {
                 let rows = try table.select("tr")
@@ -59,7 +86,7 @@ enum WpraScraper {
                     
                     let nameComponents = nameRaw.components(separatedBy: " ").filter({ $0 != "" })
                     
-                    print(nameComponents)
+//                                        print(nameRaw)
                     
                     var lastName: String {
                         if nameComponents.isEmpty {
@@ -101,9 +128,11 @@ enum WpraScraper {
                 
                 titles = title
             } else {
+                print("result failed")
                 return []
             }
         } catch {
+            print("result failed")
             return []
         }
         return Array(titles)

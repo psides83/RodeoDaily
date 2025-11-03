@@ -75,16 +75,16 @@ extension BioData {
     // Retreives all events competed in by tthe athlete
     var events: [String] {
         Array(Set(results.map { result in
-//            print(result.eventType)
+            //            print(result.eventType)
             return result.eventType
         }))
     }
     
-    var topEvent: StandingsEvent {        
+    var topEvent: StandingsEvent {
         let currentYearEarnings = earnings[Date().yearString]
         
         let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
-    
+        
         var rankingEvent: String {
             let rank = rankings.filter { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(topEvent?.eventDisplay.localizedLowercase ?? "AA") }
             
@@ -111,9 +111,9 @@ extension BioData {
     }
     
     var teamRopingEvent: StandingsEvent? {
-//        let currentYearEarnings = earnings["2024"]
+        //        let currentYearEarnings = earnings["2024"]
         
-//        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
+        //        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
         
         var rankingEvent: String {
             let rank = rankings.filter { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains("Team Roping") }
@@ -151,40 +151,41 @@ extension BioData {
         let nextSeason = season + 1
         
         let currentNfr = resultsAndAveragesCombined()
-            .filter({
+            .filter {
                 $0.seasonMatches(season: nextSeason)
                 &&
                 $0.rodeoName.localizedCaseInsensitiveContains("National Finals")
-            })
+            }
         
         let currentSeason = resultsAndAveragesCombined()
-            .filter({
+            .filter {
                 $0.seasonMatches(season: season)
                 &&
-                $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false })
+                $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false
+            }
         
         return currentNfr + currentSeason
     }
     
     // Removes previous season's NFR from results and adds it to the previous season's results.
-//    func baseAverages(for season: Int) -> [BioAverage] {
-//        let nextSeason = season + 1
-//        
-//        let currentNfr = averages
-//            .filter({
-//                $0.seasonMatches(season: nextSeason)
-//                &&
-//                $0.rodeoName.localizedCaseInsensitiveContains("National Finals")
-//            })
-//        
-//        let currentSeason = averages
-//            .filter({
-//                $0.seasonMatches(season: season)
-//                &&
-//                $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false })
-//        
-//        return currentNfr + currentSeason
-//    }
+    //    func baseAverages(for season: Int) -> [BioAverage] {
+    //        let nextSeason = season + 1
+    //
+    //        let currentNfr = averages
+    //            .filter({
+    //                $0.seasonMatches(season: nextSeason)
+    //                &&
+    //                $0.rodeoName.localizedCaseInsensitiveContains("National Finals")
+    //            })
+    //
+    //        let currentSeason = averages
+    //            .filter({
+    //                $0.seasonMatches(season: season)
+    //                &&
+    //                $0.rodeoName.localizedCaseInsensitiveContains("National Finals") == false })
+    //
+    //        return currentNfr + currentSeason
+    //    }
     
     func resultsAndAveragesCombined() -> [BioResult] {
         let converted = averages.map { result in
@@ -219,18 +220,25 @@ extension BioData {
     ) -> [BioResult] {
         
         
-        let searchedResults = baseResults(for: season).filter({
-            if searchText.isEmpty {
-                return true
-            } else {
-                return $0.rodeoName.localizedCaseInsensitiveContains(searchText) || $0.result.localizedCaseInsensitiveContains(searchText)
+        let searchedResults = baseResults(for: season)
+            .unique { $0.uniqueId }
+            .filter {
+                if searchText.isEmpty {
+                    return true
+                } else {
+                    return $0.rodeoName.localizedCaseInsensitiveContains(searchText)
+                    ||
+                    $0.resultDisplay.localizedCaseInsensitiveContains(searchText)
+                    ||
+                    $0.location.localizedCaseInsensitiveContains(searchText)
+                }
             }
-        })
         
         switch keyPath {
         case .rodeoDate:
             return searchedResults
-                .filter({ $0.eventType == event })
+//                .unique { $0.uniqueId }
+                .filter { $0.eventType == event }
                 .sorted { a, b in
                     if a.round == "Avg" {
                         return true
@@ -252,33 +260,36 @@ extension BioData {
                     // If conversion fails (e.g., for non-digit strings), maintain original order
                     return false
                 }
-                .sorted(by: { $0.rodeoName > $1.rodeoName })
-                .sorted(by: { $0.endDate > $1.endDate })
+                .sorted { $0.rodeoName > $1.rodeoName }
+                .sorted { $0.endDate > $1.endDate }
         case .result:
-            return searchedResults.filter({
-                $0.eventType == event
-                &&
-                $0.resultDisplay != "NT"
-                &&
-                $0.resultDisplay != "NS"
-            }).sorted(by: {
-                if $0.isRoughStock {
-                    return $0.resultDisplay.double > $1.resultDisplay.double
-                } else {
-                    return $0.resultDisplay.double < $1.resultDisplay.double
+            return searchedResults
+                .filter {
+                    $0.eventType == event
+                    &&
+                    $0.resultDisplay != "NT"
+                    &&
+                    $0.resultDisplay != "NS"
                 }
-            })
+                .sorted {
+                    if $0.isRoughStock {
+                        return $0.resultDisplay.double > $1.resultDisplay.double
+                    } else {
+                        return $0.resultDisplay.double < $1.resultDisplay.double
+                    }
+                }
             +
-            searchedResults.filter({
-                $0.eventType == event
-                &&
-                ($0.resultDisplay == "NT" || $0.resultDisplay == "NS")
-                
-            })
+            searchedResults
+                .filter({
+                    $0.eventType == event
+                    &&
+                    ($0.resultDisplay == "NT" || $0.resultDisplay == "NS")
+                    
+                })
         case .earnings:
             return searchedResults
-                .filter({ $0.eventType == event })
-                .sorted(by: { $0.payoff > $1.payoff })
+                .filter { $0.eventType == event }
+                .sorted { $0.payoff > $1.payoff }
         }
     }
     
@@ -350,14 +361,16 @@ extension BioData {
 }
 
 extension BioResult {
+    var uniqueId: String { "\(rodeoId)\(round)"}
+    
     var location: String {
         "\(city), \(state)"
     }
     
     var isRoughStock: Bool {
         switch eventType {
-            case "BR", "SB", "BB": return true
-            default: return false
+        case "BR", "SB", "BB": return true
+        default: return false
         }
     }
     
@@ -373,15 +386,15 @@ extension BioResult {
         let nonQualifier = isRoughStock ? "NS" : "NT"
         
         switch result {
-            case "0.0", "-99.0": return nonQualifier
-            default: return result
+        case "0.0", "-99.0": return nonQualifier
+        default: return result
         }
     }
     
     var roundDisplay: String {
         switch round {
-            case "Avg", "Finals": return round
-            default: return "Round \(round)"
+        case "Avg", "Finals": return round
+        default: return "Round \(round)"
         }
     }
     
@@ -391,11 +404,11 @@ extension BioResult {
         guard place.string != "11" && place.string != "12" && place.string != "13" else { return "\(place)th"}
         
         switch place.string.last {
-            case "1": return "\(place)st"
-            case "2": return "\(place)nd"
-            case "3": return "\(place)rd"
-            case "0": return "  -"
-            default: return "\(place)th"
+        case "1": return "\(place)st"
+        case "2": return "\(place)nd"
+        case "3": return "\(place)rd"
+        case "0": return "  -"
+        default: return "\(place)th"
         }
     }
     

@@ -161,9 +161,9 @@ struct StandingsProvider: AppIntentTimelineProvider {
     
     func recommendations() -> [AppIntentRecommendation<StandingsWidgetIntent>] {
         let events = StandingsEvent.allCases
-#if os(watchOS)
-            .filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
-#endif
+//#if os(watchOS)
+//            .filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
+//#endif
         
         return events
             .map { event in

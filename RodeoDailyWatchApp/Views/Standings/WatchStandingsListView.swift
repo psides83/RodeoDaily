@@ -55,7 +55,7 @@ struct WatchStandingsListView: View {
     
     // MARK: - View Methods
     func pickerContent() -> some View {
-        let events = StandingsEvent.allCases.filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
+        let events = StandingsEvent.allCases
 
         return ForEach(events, content: pickerCell)
     }

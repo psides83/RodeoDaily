@@ -96,6 +96,13 @@ public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum
         }
     }
     
+    var isWPRA: Bool {
+        switch self {
+        case .gb, .lb: return true
+        default: return false
+        }
+    }
+    
     var hasBio: Bool {
         switch self {
         case .aa, .gb, .lb: return false

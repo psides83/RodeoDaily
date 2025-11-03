@@ -41,7 +41,7 @@ struct ResultsListView: View {
                     
                     ExpandingSearchBar(
                         showing: $viewModel.showSearchBar,
-                        text: $viewModel.search.text
+                        text: $viewModel.searchText
                     )
                 }
                 .frame(height: 50)

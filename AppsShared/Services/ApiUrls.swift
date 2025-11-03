@@ -11,7 +11,7 @@ import SwiftUI
 class ApiUrls: ObservableObject {
     // MARK: Base Url
     let baseUrl = "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/"
-//    let wpraBaseUrl = "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/"
+    let wpraBaseUrl = "https://psides83.github.io/wpra-json/"
     
     // MARK: URL for loading athlete Bio data
     func bioUrl(for athleteId: Int) -> URL {
@@ -80,22 +80,29 @@ class ApiUrls: ObservableObject {
             }
         }
         
-//        let gbUrlString = wpraBaseUrl + "br/\(finalType)/\(selectedYear)/\(circuit.convertToWpra)"
-//        let lbUrlString = wpraBaseUrl + "lb/\(finalType)/\(selectedYear)/\(circuit.convertToWpra)"
-        let prcaUrlString = baseUrl + "standings?year=\(selectedYear)&type=\(finalType)&id=\(id)&event=\(finalEvent.rawValue)"
+        var character: String {
+            if finalEvent == .gb || finalEvent == .lb {
+                return "-"
+            } else {
+                return "?"
+            }
+        }
+//        let gbUrlString = wpraBaseUrl + "br_\(finalType)_\(selectedYear)_\(type == .circuit ? circuit.convertToGit : "").json"
+//        let lbUrlString = wpraBaseUrl + "lb_\(finalType)_\(selectedYear)_\(type == .circuit ? circuit.convertToGit : "").json"
+        let urlFilters = "standings\(character)year=\(selectedYear)&type=\(finalType)&id=\(id)&event=\(finalEvent.rawValue)"
         
         var url: URL {
-//            if finalEvent == .gb {
-//                return URL(string: gbUrlString)
-//            } else if finalEvent == .lb {
-//                print(lbUrlString)
-//                return URL(string: lbUrlString)
-//            } else {
-                print(prcaUrlString)
-                guard let url = URL(string: prcaUrlString) else { fatalError("Missing URL") }
+            if finalEvent == .gb || finalEvent == .lb {
+                print(wpraBaseUrl + urlFilters + ".json")
+                guard let url = URL(string: wpraBaseUrl + urlFilters + ".json") else { fatalError("Missing URL") }
             
                 return url
-//            }
+            } else {
+                print(urlFilters)
+                guard let url = URL(string: baseUrl + urlFilters) else { fatalError("Missing URL") }
+            
+                return url
+            }
         }
         
 //        guard let url = dynamicUrl else { fatalError("Missing URL") }

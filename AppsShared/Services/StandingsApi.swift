@@ -30,13 +30,13 @@ class StandingsApi: ObservableObject {
         )
         
         do {
-            if event == .gb || event == .lb {
-                #if os(iOS)
-                standings = try await WpraScraper.scrape(event: event, type: type, year: selectedYear, circuit: circuit)
-                #endif
-            } else {
+//#if os(iOS)
+//            if event == .gb || event == .lb {
+//                standings = try await WpraScraper.scrape(event: event, type: type, year: selectedYear, circuit: circuit)
+//            } else {
                 standings = try await APIService.fetchStandings(from: url).data
-            }
+//            }
+//#endif
             endLoading()
         } catch {
             DispatchQueue.main.async {

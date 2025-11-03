@@ -66,21 +66,41 @@ enum Circuit: CaseIterable, Identifiable {
     
     var convertToWpra: String {
         switch self {
-        case .badlands: return "Badlands"
-        case .california: return "California"
-        case .columbiaRiver: return "Columbia%20River"
-        case .firstFrontier: return "First%20Frontier"
-        case .greatLakes: return "Great%20Lakes"
-        case .mapleLeaf: return "Maple%20Leaf"
-        case .montana: return "Montana"
-        case .mountainStates: return "Mountain%20States"
-        case .prairie: return "Prairie"
-        case .southeastern: return "Southeastern"
-        case .texas: return "Texas"
-        case .turquoise: return "Turquoise"
-        case .wilderness: return "Wilderness"
-        case .mexico: return "Mexico"
-        case .brazil: return "Brazil"
+        case .badlands: return "badlands"
+        case .california: return "california"
+        case .columbiaRiver: return "columbia%20river"
+        case .firstFrontier: return "first%20frontier"
+        case .greatLakes: return "great%20lakes"
+        case .mapleLeaf: return "maple%20leaf"
+        case .montana: return "montana"
+        case .mountainStates: return "mountain%20states"
+        case .prairie: return "prairie"
+        case .southeastern: return "southeastern"
+        case .texas: return "texas"
+        case .turquoise: return "turquoise"
+        case .wilderness: return "wilderness"
+        case .mexico: return "mexico"
+        case .brazil: return "brazil"
+        }
+    }
+    
+    var convertToGit: String {
+        switch self {
+        case .badlands: return "BADLANDS"
+        case .california: return "CALIFORNIA"
+        case .columbiaRiver: return "COLUMBIA_RIVER"
+        case .firstFrontier: return "FIRST_FRONTIER"
+        case .greatLakes: return "GREAT_LAKES"
+        case .mapleLeaf: return "MAPLE_LEAF"
+        case .montana: return "MONTANA"
+        case .mountainStates: return "MOUNTAIN_STATES"
+        case .prairie: return "PRARIE"
+        case .southeastern: return "SOUTHEASTERN"
+        case .texas: return "TEXAS"
+        case .turquoise: return "TURQUOISE"
+        case .wilderness: return "WILDERNESS"
+        case .mexico: return "MEXICO"
+        case .brazil: return "BRAZIL"
         }
     }
 }

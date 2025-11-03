@@ -19,10 +19,8 @@ class StandingsWidgetApi: ObservableObject {
         let year = Date().yearString
         
         var dynamicUrl: URL? {
-            if event == .gb {
-                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/br/world/\(year)")
-            } else if event == .lb {
-                return URL(string: "https://us-central1-rodeo-daily.cloudfunctions.net/wpra/lb/world/\(year)")
+            if event.isWPRA {
+                return URL(string: "https://psides83.github.io/wpra-json/standings-year=\(year)&type=world&id=&event=\(event.rawValue).json")
             } else {
                 return URL(string: "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/standings?year=\(year)&type=world&id=&event=\(event.rawValue)")
             }
@@ -31,15 +29,17 @@ class StandingsWidgetApi: ObservableObject {
         guard let url = dynamicUrl else { fatalError("Missing URL") }
         
         do {
-            if event == .gb || event  == .lb {
-                #if os(iOS)
-                let standings = try await WpraScraper.scrape(event: event, type: .world, year: year, circuit: .columbiaRiver)
-                completionHandler(standings)
-                #endif
-            } else {
+//            if event == .gb || event  == .lb {
+//                #if os(iOS)
+//                let standings = try await WpraScraper.scrape(event: event, type: .world, year: year, circuit: .columbiaRiver)
+//                completionHandler(standings)
+//                #endif
+//            } else {
+            print(dynamicUrl)
                 let standings = try await APIService.fetchStandings(from: url).data
+            print(standings)
                 completionHandler(standings)
-            }
+//            }
         } catch {
             print("Error decoding: ", error)
         }

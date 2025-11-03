@@ -11,7 +11,7 @@ import SwiftUI
 
 class BioViewModel: ObservableObject {
     @ObservedObject var apiUrls = ApiUrls()
-    @ObservedObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
+//    @ObservedObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
     
     @Published var bio: BioData = BioData()
     @Published var selectedEvent: String?
@@ -20,6 +20,7 @@ class BioViewModel: ObservableObject {
     @Published var infoType: BioInfoType = .results
     @Published var showSearchBar = false
     @Published var loading = false
+    @Published var searchText = ""
 
     
     enum BioInfoType: String, CaseIterable {
@@ -86,7 +87,7 @@ class BioViewModel: ObservableObject {
             return bio.results(
                 filteredBy: selectedSeason.int,
                 filteredBy: event,
-                searchText: search.text,
+                searchText: searchText,
                 sortedBy: sortResultsBy
             )
         }

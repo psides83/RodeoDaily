@@ -49,4 +49,8 @@ enum APIService {
     static func fetchSearchSuggestions(from url: URL) async throws -> SearchSuggestion {
         return try await APIService.fetch(from: url)
     }
+    
+    static func fetchWpraUrl(from url: URL) async throws -> WpraUrl {
+        return try await APIService.fetch(from: url)
+    }
 }

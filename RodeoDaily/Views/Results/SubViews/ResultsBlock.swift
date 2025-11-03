@@ -45,7 +45,11 @@ struct ResultsBlock: View {
                         }
                     } else {
                         ForEach(round.winners) { winner in
-                            WinnerCell(event: event.rawValue, winner: winner, widgetAthletes: widgetAthletes)
+                            WinnerCell(
+                                event: event.rawValue,
+                                winner: winner,
+                                widgetAthletes: widgetAthletes
+                            )
                         }
                     }
                 }
@@ -55,7 +59,10 @@ struct ResultsBlock: View {
             }
         }
         .task {
-            await resultsApi.loadResults(rodeoId: rodeo.id, event: event) {
+            await resultsApi.loadResults(
+                rodeoId: rodeo.id,
+                event: event,
+            ) {
                 resultsApi.endLoading()
             }
         }
@@ -64,11 +71,16 @@ struct ResultsBlock: View {
     func teams(from round: RoundWinners) -> [Team] {
         var addedTeams = [Int]()
         var teams = [Team]()
-        
+                
         round.winners.forEach { winner in
             let isCurrentTeam = addedTeams.filter({ $0 == winner.teamId }).count > 0
             
             let teamArray = round.winners.filter({ $0.teamId == winner.teamId })
+            
+            guard teamArray.count == 2 else {
+                return
+            }
+            
             let header = teamArray[0]
             let heeler = teamArray[1]
             

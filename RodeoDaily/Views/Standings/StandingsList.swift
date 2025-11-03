@@ -89,7 +89,9 @@ struct StandingsList: View {
                 
                 StandingsTypeFilterView(setType)
                 
+//                if selectedEvent != .gb && selectedEvent != .lb {
                 SeasonFilterView(seasons: years, selectedSeason: $selectedYear)
+//                }
             }
             
             listTitle
