@@ -43,6 +43,12 @@
 
 "Submit Feedback" = "Enviar Comentarios";
 
+"Results data provided by the PRCA" = "Datos de resultados proporcionados por la PRCA";
+
+"Standings data provided by the PRCA" = "Datos de clasificaciones proporcionados por la PRCA";
+
+"Barrel Racing and Breakaway standings data provided by the WPRA" = "Datos de clasificaciones de Barrel Racing y Breakaway proporcionados por la WPRA";
+
 "Cowboy Icon provided by IconScout" = "Icono de Vaquero proporcionado por IconScout";
 
 // Lists
@@ -160,6 +166,35 @@
 "Widget Event" = "Widget Event";
 
 "Select Event" = "Select Event";
+
+"No Earnings" = "Sin ganancias";
+
+"No Results" = "Sin resultados";
+
+"Career Stats" = "Estadísticas de carrera";
+
+"Highest Earning Single %@:" = "Mayor ganancia individual %@:";
+
+"Highest Single Rodeo Earnings:" = "Mayor ganancia en un solo rodeo:";
+
+"NFR %@:" = "NFR %@:";
+
+"NFR Earnings:" = "Ganancias en el NFR:";
+
+"Monthly Earnings:" = "Ganancias mensuales:";
+
+"Jan" = "Ene";
+"Feb" = "Feb";
+"Mar" = "Mar";
+"Apr" = "Abr";
+"May" = "May";
+"Jun" = "Jun";
+"Jul" = "Jul";
+"Aug" = "Ago";
+"Sep" = "Sep";
+"Oct" = "Oct";
+"Nov" = "Nov";
+"Dec" = "Dic";
 
 // VideoHighlightsView
 "Highlights for %@" = "Aspectos destacados para %@";

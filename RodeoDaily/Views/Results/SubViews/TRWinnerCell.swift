@@ -26,7 +26,7 @@ struct TRWinnerCell: View {
                 VStack(alignment: .leading) {
                     HStack {
                         team.headerImage
-                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.headerImage)
+//                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.headerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Header")
@@ -61,7 +61,7 @@ struct TRWinnerCell: View {
                     
                     HStack {
                         team.heelerImage
-                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.heelerImage)
+//                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.heelerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Heeler")

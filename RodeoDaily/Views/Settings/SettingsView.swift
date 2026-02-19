@@ -85,8 +85,27 @@ struct SettingsView: View {
                 }
             
             Link(
+                "Results data provided by the PRCA",
+                destination: URL(string: "https://prorodeo.com")!
+            )
+            .font(.caption)
+            
+            Link(
+                "Standings data provided by the PRCA",
+                destination: URL(string: "https://prorodeo.com")!
+            )
+            .font(.caption)
+            
+            Link(destination: URL(string: "https://wpra.com")!) {
+                Text("Barrel Racing and Breakaway standings data provided by the WPRA")
+                    .multilineTextAlignment(.leading)
+                    .font(.caption)
+            }
+            
+            Link(
                 "Cowboy Icon provided by IconScout",
-                destination: URL(string: "https://iconscout.com/icons/cowboy")!)
+                destination: URL(string: "https://iconscout.com/icons/cowboy")!
+            )
             .font(.caption)
         }
         .tint(.appPrimary)

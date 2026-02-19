@@ -22,7 +22,8 @@ struct WinnerCell: View {
                     .foregroundColor(.appSecondary)
    
                 winner.image
-                    .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
+//                    .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
+                    .shadow(radius: 4, x: 0, y: 4)
                 
                 VStack(alignment: .leading) {
                     NavigationLink {

@@ -1,14 +1,14 @@
 //
-//  StandingsCell.swift
-//  CalfRopingDaily
+//  StandingsCellProt.swift
+//  RodeoDaily
 //
-//  Created by Payton Sides on 12/11/22.
+//  Created by Payton Sides on 11/8/25.
 //
 
 import SwiftData
 import SwiftUI
 
-struct StandingsCell: View {
+struct StandingsCellProt: View {
     let position: Position
     
     var widgetAthletes: [WidgetAthlete]
@@ -74,10 +74,10 @@ struct StandingsCell: View {
                 }
                 Spacer()
                 
-                if position.hasBio {
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.appSecondary)
-                }
+//                if position.hasBio {
+//                    Image(systemName: "chevron.right")
+//                        .foregroundColor(.appSecondary)
+//                }
             }
             
             //            if isShowingBio && position.id != 0 {
@@ -97,7 +97,7 @@ struct StandingsCell: View {
     @ViewBuilder
     var favoriteIcon: some View {
         switch isFavorite {
-        case true: 
+        case true:
             Image(systemName: "star.fill")
                 .foregroundColor(.appSecondary)
         case false:
@@ -106,10 +106,7 @@ struct StandingsCell: View {
     }
 }
 
-struct StandingsCell_Previews: PreviewProvider {
-    static var previews: some View {
-        //        let position = Position(id: 70406, firstName: "Caleb", lastName: "Smidt", event: "td", type: "", hometown: "Somewhere, TX", nickName: "Caleb", imageUrl: "", earnings: 15635.45, points: 15635.45, place: 6, standingId: 123, seasonYear: 2023, tourId: nil, circuitId: nil)
-        //
-        ContentView()
-    }
+#Preview {
+    LayoutAltView()
 }
+

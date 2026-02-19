@@ -9,17 +9,6 @@ import SwiftUI
 
 struct ResultsListView: View {
     @ObservedObject var viewModel: BioViewModel
-//    let bio: BioData
-//    @State var event: String
-//    let seasons: [String]
-    
-//    @State private var selectedSeason = Date().yearString
-//    @State private var selectedEvent: String = ""
-//    @State private var sortResultsBy: BioResult.SortingKeyPath = .rodeoDate
-//    @State private var searchText = ""
-//    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
-
-//    @Binding var showSearchBar: Bool
 
     
     // MARK: - Body

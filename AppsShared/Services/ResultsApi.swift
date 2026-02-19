@@ -139,7 +139,7 @@ class ResultsApi: ObservableObject {
                         let leaders = round.value
                             .unique { $0.contestant[0].id }
                             .filter { $0.time != 0 || $0.score != 0 }
-                            .filter { $0.numberScores == currentRound }
+                            .filter { $0.numberScores == currentRound || $0.numberScores == 0 }
                             .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
                             .prefix(15)
                             .enumerated()
@@ -165,6 +165,7 @@ class ResultsApi: ObservableObject {
                             }
                         
                         guard !leaders.isEmpty else {
+                            print(leaders)
                             return RoundWinners(
                                 id: id.int,
                                 round: "1",
@@ -203,7 +204,7 @@ class ResultsApi: ObservableObject {
                 }
             )
                     
-            print(result)
+//            print(result)
             
             completionHandler(result)
         }

@@ -48,6 +48,23 @@ class ApiUrls: ObservableObject {
         return url
     }
     
+    // MARK: URL for loading schedule data
+    func rodeoScheduleUrl(with index: Int, searchText: String, dateParams: String) -> URL {
+        let searchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let urlString =
+        baseUrl
+        + "schedule?type=schedules&page_size=24&index="
+        + index.string
+        + "&active=true&search_term="
+        + searchString
+        + "&search_type=&tourId=&circuitId=&combine_results=true"
+        + dateParams
+        
+        guard let url = URL(string: urlString) else { fatalError("Missing URL") }
+        
+        return url
+    }
+    
     // MARK: URL for loading standings data
     func standingsUrl(event: StandingsEvent, type: StandingType, circuit: Circuit, selectedYear: String) -> URL {
         var id: String {

@@ -45,6 +45,16 @@ struct BioView: View {
                                 Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
                             }
                         }
+                    case .stats:
+                        if viewModel.selectedEvent != nil  {
+                            BioStatsView(viewModel: viewModel)
+                        } else {
+                            ContentUnavailableView {
+                                Label("No Event Selected", systemImage: "list.number")
+                            } description: {
+                                Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
+                            }
+                        }
                     case .career:
                         if viewModel.selectedEvent != nil {
                             

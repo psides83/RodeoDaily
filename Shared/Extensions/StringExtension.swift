@@ -99,4 +99,26 @@ extension String {
         default: return self
         }
     }
+    
+    var rankingDisplay: String {
+            // Handle unranked or invalid values
+            guard self.lowercased() != "unranked",
+                  let number = Int(self.replacingOccurrences(of: "#", with: "")) else {
+                return "Unranked"
+            }
+            
+            // Handle 11, 12, 13 exceptions
+            let lastTwo = number % 100
+            if lastTwo == 11 || lastTwo == 12 || lastTwo == 13 {
+                return "\(number)th"
+            }
+            
+            // Handle general suffix rules
+            switch number % 10 {
+            case 1: return "\(number)st"
+            case 2: return "\(number)nd"
+            case 3: return "\(number)rd"
+            default: return "\(number)th"
+            }
+        }
 }

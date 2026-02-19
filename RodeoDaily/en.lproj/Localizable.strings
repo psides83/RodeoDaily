@@ -44,6 +44,12 @@
 
 "Cowboy Icon provided by IconScout" = "Cowboy Icon provided by IconScout";
 
+"Results data provided by the PRCA" = "Results data provided by the PRCA";
+
+"Standings data provided by the PRCA" = "Standings data provided by the PRCA";
+
+"Barrel Racing and Breakaway standings data provided by the WPRA" = "Barrel Racing and Breakaway standings data provided by the WPRA";
+
 // Lists
 "Sort" = "Sort";
 
@@ -145,6 +151,35 @@
 "Updated " = "Updated ";
 
 "Continue" = "Continue";
+
+"No Earnings" = "No Earnings";
+
+"No Results" = "No Results";
+
+"Career Stats" = "Career Stats";
+
+"Highest Earning Single %@:" = "Highest Earning Single %@:";
+
+"Highest Single Rodeo Earnings:" = "Highest Single Rodeo Earnings:";
+
+"NFR %@:" = "NFR %@:";
+
+"NFR Earnings:" = "NFR Earnings:";
+
+"Monthly Earnings:" = "Monthly Earnings:";
+
+"Jan" = "Jan";
+"Feb" = "Feb";
+"Mar" = "Mar";
+"Apr" = "Mar";
+"May" = "May";
+"Jun" = "Jun";
+"Jul" = "Jul";
+"Aug" = "Aug";
+"Sep" = "Sep";
+"Oct" = "Oct";
+"Nov" = "Nov";
+"Dec" = "Dec";
 
 // need localized in the other languages
 "World Standings" = "World Standings";

@@ -144,6 +144,25 @@ extension BioData {
         return Array(Set(careerSeasons)).sorted(by: { $0 > $1 })
     }
     
+    var nfrSeasons: [(season: Int, nfr: Bool)] {
+        // 1️⃣ Group by season
+        let grouped = Dictionary(grouping: career) { $0.season }
+
+        // 2️⃣ For each season, determine if the athlete qualified in any event
+        let unique = grouped.map { season, seasons in
+            (season: season, nfr: seasons.contains { $0.nfrQualified })
+        }
+
+        // 3️⃣ Sort by most recent season first
+        return unique.sorted { $0.season > $1.season }
+    }
+    
+    func nfrQualified(for season: Int) -> Bool {
+        print("NFR Season -", season, nfrSeasons.first(where: { $0.season == season })?.nfr)
+        
+        return nfrSeasons.first(where: { $0.season == season })?.nfr ?? false
+    }
+    
     // MARK: - Methods
     
     // Removes previous season's NFR from results and adds it to the previous season's results.

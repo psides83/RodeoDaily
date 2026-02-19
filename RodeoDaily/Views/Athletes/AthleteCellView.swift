@@ -18,24 +18,29 @@ struct AthleteCellView: View {
                 AthleteCellViewLoader()
             } else {
                 VStack(alignment: .leading, spacing: 6) {
-                    HStack(alignment: .center) {
-                        Text(viewModel.bio.name)
-                            .foregroundColor(.white)
-                            .font(.system(size: 24, weight: .bold))
-                            .fontWeight(.semibold)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(viewModel.bio.name)
+                                .foregroundColor(.white)
+                                .font(.system(size: 24, weight: .bold))
+                                .fontWeight(.semibold)
+                                                    
+                            Text(viewModel.seasonRanking())
+                                .fixedSize(horizontal: false, vertical: true)
+                                .font(.system(size: 16))
+                                .foregroundColor(.white)
+                            
+                            Text("Latest Results")
+                                .foregroundColor(.appSecondary)
+                                .font(.system(size: 16, weight: .semibold))
+                                .environment(\.colorScheme, .dark)
+                        }
                         
                         Spacer()
+                        
+                        viewModel.bio.image.frame(width: 80, height: 80)
+                            .shadow(radius: 4, x: 0, y: 4)
                     }
-                    
-                    Text(viewModel.seasonRanking())
-                        .fixedSize(horizontal: false, vertical: true)
-                        .font(.system(size: 16))
-                        .foregroundColor(.white)
-                    
-                    Text("Latest Results")
-                        .foregroundColor(.appSecondary)
-                        .font(.system(size: 16, weight: .semibold))
-                        .environment(\.colorScheme, .dark)
                     
                     ForEach(latestResults, id: \.rodeoResultId) { result in
                         

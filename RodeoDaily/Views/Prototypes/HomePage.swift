@@ -45,7 +45,7 @@ struct EventCard: View {
                     .resizable()
                     .frame(width: 32, height: 32)
             }
-            
+                        
             ForEach(api.standings.prefix(5), id: \.earnings) { position in
                 
                 Divider()
