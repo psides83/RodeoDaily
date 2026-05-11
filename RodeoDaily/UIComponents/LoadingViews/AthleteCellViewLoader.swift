@@ -11,98 +11,87 @@ struct AthleteCellViewLoader: View {
     @State private var opacity = 0.2
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack(alignment: .center) {
-                Text("Shad Mayfield")
-                    .redacted(reason: .placeholder)
-                    .opacity(opacity)
-                    .foregroundColor(.white)
-                    .font(.system(size: 24, weight: .bold))
-                    .fontWeight(.semibold)
+        VStack(alignment: .leading, spacing: AppSpace.md) {
+            HStack(alignment: .top, spacing: AppSpace.md) {
+                VStack(alignment: .leading, spacing: AppSpace.xs) {
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.appPrimary.opacity(opacity))
+                        .frame(width: 180, height: 20)
+                    
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.appTertiary.opacity(opacity))
+                        .frame(width: 210, height: 14)
+                    
+                    Capsule()
+                        .fill(Color.appSecondary.opacity(opacity * 0.7))
+                        .frame(width: 72, height: 22)
+                }
                 
                 Spacer()
+                
+                RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                    .fill(Color.appPrimary.opacity(opacity))
+                    .frame(width: 92, height: 92)
             }
             
-            Text("#1 in TD Roping with $246,722")
-                .redacted(reason: .placeholder)
-                .opacity(opacity)
-                .fixedSize(horizontal: false, vertical: true)
-                .font(.system(size: 16))
-                .foregroundColor(.white)
+            HStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color.appPrimary.opacity(opacity))
+                    .frame(width: 120, height: 14)
+                
+                Spacer()
+                
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color.appTertiary.opacity(opacity))
+                    .frame(width: 44, height: 10)
+                
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color.appTertiary.opacity(opacity))
+                    .frame(width: 72, height: 10)
+            }
             
-            Text("Latest Results")
-                .foregroundColor(.appSecondary)
-                .font(.system(size: 16, weight: .semibold))
-                .environment(\.colorScheme, .dark)
-                .opacity(opacity)
-            
-            ForEach(1..<5) { _ in
-                VStack(alignment: .leading, spacing: 4) {
-                    
+            ForEach(0..<3, id: \.self) { index in
+                if index != 0 {
                     Divider()
-                        .overlay(Color.appSecondary)
-                        .environment(\.colorScheme, .dark)
-                    
-                    HStack(alignment: .center, spacing: 6) {
-                        Text("Cheyennem, WY")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
+                        .overlay(Color.appTertiary.opacity(0.25))
+                }
+                
+                HStack(alignment: .center, spacing: AppSpace.sm) {
+                    VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.appPrimary.opacity(opacity))
+                            .frame(width: 190, height: 14)
                         
-                        Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
-                            .opacity(opacity)
-                        
-                        Text("Sep 22, 2024")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .font(.caption)
-                            .foregroundColor(.white)
-                        
-                        Spacer()
-                        
-                        Text("Round 1")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .font(.system(size: 12))
-                            .foregroundColor(.white)
+                        HStack(spacing: AppSpace.xs) {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.appTertiary.opacity(opacity))
+                                .frame(width: 72, height: 10)
+                            
+                            Circle()
+                                .fill(Color.appSecondary.opacity(opacity))
+                                .frame(width: 4, height: 4)
+                            
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.appTertiary.opacity(opacity))
+                                .frame(width: 64, height: 10)
+                        }
                     }
                     
-                    HStack(spacing: 20) {
-                        Text("1st")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14))
-                            .frame(width: 40, alignment: .leading)
+                    Spacer()
+                    
+                    HStack(spacing: AppSpace.md) {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.appPrimary.opacity(opacity))
+                            .frame(width: 56, height: 12)
                         
-                        Spacer()
-                        
-                        Text("7.8")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .medium))
-                            .frame(width: 40)
-                        
-                        Spacer()
-                        
-                        Text("$5,250")
-                            .redacted(reason: .placeholder)
-                            .opacity(opacity)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .medium))
-                            .frame(width: 100, alignment: .trailing)
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.appPrimary.opacity(opacity))
+                            .frame(width: 92, height: 12)
                     }
                 }
             }
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 30)
-                .fill(Color.rdGreen)
-                .shadow(radius: 4, x: 0, y: 4)
-        }
+        .appCardStyle()
         .onAppear {
             withAnimation(.easeInOut(duration: 1).repeatForever()) {
                 self.opacity = 0.4

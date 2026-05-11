@@ -12,40 +12,63 @@ struct ResultsLoader: View {
     @State private var opacity = 0.2
     
     var body: some View {
-        VStack {
-            ForEach(1..<7) { block in
-                LazyVStack(alignment: .leading) {
+        VStack(spacing: AppSpace.md) {
+            ForEach(0..<2, id: \.self) { _ in
+                VStack(alignment: .leading, spacing: AppSpace.sm) {
                     HStack {
-                        Text(block.string)
-                            .font(.headline)
-                            .foregroundColor(.appSecondary)
-
-                        
-                        Image("noimage")
-                            .resizable()
-                            .opacity(opacity)
-                            .frame(width: 48, height: 48)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                        
-                        VStack(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 2).fill(Color.appPrimary.opacity(opacity))
-                                .frame(width: 105, height: 18)
-                            
-                            RoundedRectangle(cornerRadius: 2).fill(Color.appTertiary.opacity(opacity))
-                                .frame(width: 80, height: 8)
-                        }
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.appSecondary.opacity(opacity))
+                            .frame(width: 96, height: 16)
                         
                         Spacer()
                         
-                        RoundedRectangle(cornerRadius: 2).fill(Color.primary.opacity(opacity))
-                            .frame(width: 36, height: 10)
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.appTertiary.opacity(opacity))
+                            .frame(width: 44, height: 10)
                         
-                        RoundedRectangle(cornerRadius: 2).fill(Color.primary.opacity(opacity))
-                            .frame(width: 70, height: 10)
-                            .padding(.leading)
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.appTertiary.opacity(opacity))
+                            .frame(width: 74, height: 10)
+                    }
+                    
+                    ForEach(0..<4, id: \.self) { row in
+                        if row != 0 {
+                            Divider()
+                                .overlay(Color.appTertiary.opacity(0.25))
+                        }
+                        
+                        HStack(alignment: .center, spacing: AppSpace.xs) {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.appSecondary.opacity(opacity))
+                                .frame(width: 24, height: 14)
+                            
+                            RoundedRectangle(cornerRadius: AppRadius.sm, style: .continuous)
+                                .fill(Color.appPrimary.opacity(opacity))
+                                .frame(width: 44, height: 44)
+                            
+                            VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.appPrimary.opacity(opacity))
+                                    .frame(width: 120, height: 14)
+                                
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.appTertiary.opacity(opacity))
+                                    .frame(width: 94, height: 10)
+                            }
+                            
+                            Spacer()
+                            
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.appPrimary.opacity(opacity))
+                                .frame(width: 56, height: 12)
+                            
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.appPrimary.opacity(opacity))
+                                .frame(width: 80, height: 12)
+                        }
                     }
                 }
-                .padding(.top)
+                .appCardStyle()
             }
         }
         .onAppear {

@@ -24,6 +24,7 @@
 "Favorite Athlete Widget" = "Widget de Atleta Favorito";
 
 "* Unfortunately, setting a Favorite Athlete for Barrel Racing and Breakaway Roping is unavailable at this time." = "* Infelizmente, definir um Atleta Favorito para Barrel Racing e Breakaway Roping não está disponível no momento.";
+"* Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time." = "* Infelizmente, definir um Atleta Favorito para Barrel Racing e Breakaway Roping não está disponível no momento.";
 
 "* **Note:** Long press on the athlete name to change the event used in the widget." = "* **Nota:** Pressione e segure o nome do atleta para mudar o evento usado no widget.";
 
@@ -223,3 +224,117 @@ Resultados do Rodeio";
 "No Athletes" = "Nenhum Atleta";
 
 "Add athletes to favorites from the settings tab. These athletes will be available to add widgets to your home screen." = "Adicione atletas aos favoritos na aba de configurações. Esses atletas estarão disponíveis para adicionar widgets à sua tela inicial.";
+"Add athletes to favorites fromt he settings tab. These athletes will be available to add widgets to you home screen." = "Adicione atletas aos favoritos na aba de configurações. Esses atletas estarão disponíveis para adicionar widgets à sua tela inicial.";
+
+// Schedule + Follow Alerts (missing pass)
+"Rodeo" = "Rodeio";
+"Schedule" = "Agenda";
+"No Upcoming Rodeos" = "Sem rodeios próximos";
+"There are no current or upcoming rodeos for this filter." = "Não há rodeios atuais ou futuros para este filtro.";
+"Standings Could Not Load" = "Não foi possível carregar as classificações";
+"We were not able to load these standings at this time. Try again later" = "Não foi possível carregar estas classificações agora. Tente novamente mais tarde.";
+"We were not able to load the full results for this rodeo." = "Não foi possível carregar os resultados completos deste rodeio.";
+"Favorite Events" = "Eventos favoritos";
+"No Event Selected" = "Nenhum evento selecionado";
+"Follow Alerts" = "Alertas de acompanhamento";
+"Follow Alert Preferences" = "Preferências de alertas de acompanhamento";
+"Followed Athletes" = "Atletas acompanhados";
+"No follow alerts yet" = "Ainda não há alertas de acompanhamento";
+"No Alerts Yet" = "Ainda não há alertas";
+"View All Follow Alerts" = "Ver todos os alertas de acompanhamento";
+"Stay updated with follow alerts:" = "Fique por dentro com alertas de acompanhamento:";
+"Follow athletes to receive rank and result updates." = "Acompanhe atletas para receber atualizações de ranking e resultados.";
+"Rank changes and new results for athletes you follow" = "Mudanças de ranking e novos resultados dos atletas que você acompanha";
+"Rank and new result alerts are most useful. Threshold alerts are optional and off by default." = "Alertas de ranking e novos resultados são os mais úteis. Alertas de limite são opcionais e vêm desativados.";
+"Threshold alerts trigger when season earnings move from below your threshold to above it." = "Alertas de limite disparam quando os ganhos da temporada passam de abaixo do seu limite para acima dele.";
+"Alerts are generated as followed athletes update while you browse the app." = "Os alertas são gerados quando atletas acompanhados são atualizados enquanto você navega no app.";
+
+"Regular Season" = "Temporada regular";
+"Listings shown here are unofficial and may be incomplete or delayed. Visit the official site below for official listings." = "As listagens exibidas aqui não são oficiais e podem estar incompletas ou desatualizadas. Visite o site oficial abaixo para ver as listagens oficiais.";
+"Official PRCA Business Journal Listings" = "Listagens oficiais do PRCA Business Journal";
+"Notification Delivery" = "Entrega de notificações";
+"Guardrails reduce notification spam during heavy rodeo days." = "As proteções reduzem spam de notificações em dias de rodeio mais intensos.";
+"Duplicate debounce" = "Controle de duplicidade";
+"Enable Notifications" = "Ativar notificações";
+"Mark All Read" = "Marcar tudo como lido";
+"Filtered By:" = "Filtrado por:";
+"You can change this later in the Settings app." = "Você pode alterar isso depois no app Ajustes.";
+"Done" = "Concluído";
+"Rodeos" = "Rodeios";
+"Default standings and results events" = "Eventos padrão para classificações e resultados";
+"Widget athlete search and management" = "Busca e gerenciamento de atletas do widget";
+"Data Sources & Feedback" = "Fontes de dados e feedback";
+"Credits and contact links" = "Créditos e links de contato";
+"Used to populate lock screen widgets and defaults when the app opens." = "Usado para preencher os widgets da tela de bloqueio e os padrões quando o app abre.";
+"Search for an athlete to add to your favorite widget list." = "Pesquise um atleta para adicionar à sua lista de widgets favoritos.";
+"What’s New" = "Novidades";
+"All-new look and feel across the app." = "Visual totalmente novo em todo o app.";
+"New Athlete Stats experience with clearer insights and improved earnings accuracy." = "Nova experiência de Estatísticas do Atleta com insights mais claros e maior precisão nos ganhos.";
+"New Rodeos tab with listing cards and detailed event information." = "Nova aba Rodeios com cards de listagens e informações detalhadas dos eventos.";
+"Thanks for using Rodeo Daily." = "Obrigado por usar o Rodeo Daily.";
+"Home" = "Início";
+"Dashboard" = "Painel";
+"Jump straight into the section you need." = "Vá direto para a seção que você precisa.";
+"Past World Champions" = "Campeões Mundiais Históricos";
+"Historic PRCA world champions by year and event." = "Campeões mundiais históricos da PRCA por ano e evento.";
+"Past Champions" = "Campeões Históricos";
+"All Events" = "Todos os eventos";
+"No Champions Found" = "Nenhum campeão encontrado";
+"Try changing search or event filters." = "Tente ajustar a busca ou os filtros de evento.";
+"Search champions" = "Buscar campeões";
+"Your Defaults" = "Seus padrões";
+"View All" = "Ver tudo";
+"Event Snapshot" = "Resumo do evento";
+"Most World Titles" = "Mais títulos mundiais";
+"titles" = "títulos";
+"Total Titles" = "Total de títulos";
+"Unique Champions" = "Campeões únicos";
+"Year Range" = "Faixa de anos";
+"Latest Champion" = "Campeão mais recente";
+"More" = "Mais";
+"Rodeo listings and details" = "Listagens de rodeios e detalhes";
+"Search and browse athlete bios" = "Buscar e navegar por biografias de atletas";
+"Historic PRCA world champions" = "Campeões mundiais históricos da PRCA";
+"Preferences and app info" = "Preferências e informações do app";
+
+// Dashboard
+"Today’s Highlights" = "Destaques de hoje";
+"Favorites:" = "Favoritos:";
+"Active Rodeos" = "Rodeios ativos";
+"Leaders" = "Líderes";
+"Favorite Event Leaders" = "Líderes do evento favorito";
+"Open Standings" = "Abrir classificações";
+"No standings loaded yet for your favorite event." = "Ainda não há classificações carregadas para seu evento favorito.";
+"In-Progress Rodeos" = "Rodeios em andamento";
+"Open Results" = "Abrir resultados";
+"No active rodeos found in current results feed." = "Nenhum rodeio ativo encontrado no feed atual de resultados.";
+"Ends" = "Termina";
+"Favorite Athlete Pulse" = "Pulso dos atletas favoritos";
+"Manage" = "Gerenciar";
+"No favorite athletes selected yet. Add athletes to get personalized highlights." = "Ainda não há atletas favoritos selecionados. Adicione atletas para receber destaques personalizados.";
+"Add Favorite Athletes" = "Adicionar atletas favoritos";
+"No current standing" = "Sem classificação atual";
+"No current standings available for selected favorite athletes in this event." = "Não há classificações atuais disponíveis para os atletas favoritos selecionados neste evento.";
+
+// 2.1.0 / Bio + Favorites + More
+"More Features" = "Mais recursos";
+"No Image Available" = "Imagem não disponível";
+"Search athletes to add to favorites" = "Buscar atletas para adicionar aos favoritos";
+"Search below to add athletes to your favorites list." = "Pesquise abaixo para adicionar atletas à sua lista de favoritos.";
+"Tap an athlete to add to favorites" = "Toque em um atleta para adicionar aos favoritos";
+"A complete visual refresh with cleaner layouts, improved readability, and smoother transitions." = "Uma renovação visual completa com layouts mais limpos, melhor legibilidade e transições mais suaves.";
+"New tab bar navigation makes it faster to move between Standings, Results, and More Features." = "A nova navegação por barra de abas torna mais rápido alternar entre Classificações, Resultados e Mais recursos.";
+"Rebuilt Athlete BioView with enhanced header behavior and upgraded stats, results, and detail browsing." = "BioView do atleta reconstruída com comportamento de cabeçalho aprimorado e melhorias em estatísticas, resultados e navegação de detalhes.";
+"Enjoying Rodeo Daily?" = "Está gostando do Rodeo Daily?";
+"Your feedback helps us improve Rodeo Daily for every fan." = "Seu feedback nos ajuda a melhorar o Rodeo Daily para todos os fãs.";
+"Rate App" = "Avaliar app";
+"Send Feedback" = "Enviar feedback";
+"Not Now" = "Agora não";
+"No Bio Available" = "Biografia indisponível";
+"%@ does not have a published bio yet." = "%@ ainda não tem uma biografia publicada.";
+"Rebuilt Athlete Bio with enhanced header behavior and upgraded stats, results, and detail browsing." = "Biografia do atleta reconstruída com comportamento de cabeçalho aprimorado e melhorias em estatísticas, resultados e navegação de detalhes.";
+"Share Standings" = "Compartilhar classificações";
+"Share Results" = "Compartilhar resultados";
+"Check out these standings on Rodeo Daily." = "Confira estas classificações no Rodeo Daily.";
+"Check out these rodeo results on Rodeo Daily." = "Confira estes resultados de rodeio no Rodeo Daily.";
+"Get Rodeo Daily" = "Baixe o Rodeo Daily";

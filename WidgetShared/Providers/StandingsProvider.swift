@@ -36,7 +36,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
             date: Date(),
             configuration: Intent(),
             standings: widgetFamily != .accessoryRectangular ? sampleData : nil,
-            position: widgetFamily != .accessoryRectangular ? nil : sampleData[0]
+            position: widgetFamily != .accessoryRectangular ? nil : sampleData.first
         )
     }
     
@@ -62,12 +62,15 @@ struct StandingsProvider: AppIntentTimelineProvider {
         await StandingsWidgetApi().getStandings(event: config.event) { standings in
             result = standings
         }
-        
+
+        let fallback = sampleData.first
+        let firstPosition = result.first ?? fallback
+
         return Entry(
             date: Date(),
             configuration: config,
             standings: widgetFamily != .accessoryRectangular ? Array(result.prefix(numberOfResults)) : nil,
-            position: widgetFamily != .accessoryRectangular ? nil : result[0]
+            position: widgetFamily != .accessoryRectangular ? nil : firstPosition
         )
     }
     
@@ -92,70 +95,65 @@ struct StandingsProvider: AppIntentTimelineProvider {
         await StandingsWidgetApi().getStandings(event: config.event) { result in
             switch widgetFamily {
             case .systemSmall, .systemMedium:
-                for i in 0..<5 {
-                    let segment = i * 3
-                    let segmentEnd = segment + 3
-                    let positions = Array(result[segment..<segmentEnd])
-                    
-                    entries.append(Entry(
-                        date: .now.advanced(by: TimeInterval(60 * (i + 1))),
-                        configuration: config,
-                        standings: positions,
-                        position: nil)
-                    )
-                }
+                appendStandingsEntries(
+                    into: &entries,
+                    standings: result,
+                    chunkSize: 3,
+                    configuration: config
+                )
             case .systemLarge:
-                for i in 0..<5 {
-                    let segment = i * 5
-                    let segmentEnd = segment + 5
-                    let positions = Array(result[segment..<segmentEnd])
-                    
-                    entries.append(Entry(
-                        date: .now.advanced(by: TimeInterval(60 * (i + 1))),
-                        configuration: config,
-                        standings: positions,
-                        position: nil)
-                    )
-                }
+                appendStandingsEntries(
+                    into: &entries,
+                    standings: result,
+                    chunkSize: 5,
+                    configuration: config
+                )
             case .systemExtraLarge:
-                for i in 0..<5 {
-                    let segment = i * 5
-                    let segmentEnd = segment + 5
-                    let positions = Array(result[segment..<segmentEnd])
-                    
-                    entries.append(Entry(
-                        date: .now.advanced(by: TimeInterval(60 * (i + 1))),
-                        configuration: config,
-                        standings: positions,
-                        position: nil)
-                    )
-                }
+                appendStandingsEntries(
+                    into: &entries,
+                    standings: result,
+                    chunkSize: 5,
+                    configuration: config
+                )
             case .accessoryRectangular:
-                for i in 0..<15 {
+                let positions = result.isEmpty ? sampleData : result
+                if positions.isEmpty {
                     entries.append(Entry(
-                        date: .now.advanced(by: TimeInterval(15 * (i + 1))),
+                        date: .now,
                         configuration: config,
                         standings: nil,
-                        position: result[i])
-                    )
+                        position: nil
+                    ))
+                } else {
+                    for i in 0..<min(positions.count, 15) {
+                        entries.append(Entry(
+                            date: .now.advanced(by: TimeInterval(15 * (i + 1))),
+                            configuration: config,
+                            standings: nil,
+                            position: positions[i])
+                        )
+                    }
                 }
             default:
-                for i in 0..<5 {
-                    let segment = i * 5
-                    let segmentEnd = segment + 5
-                    let positions = Array(result[segment..<segmentEnd])
-                    
-                    entries.append(Entry(
-                        date: .now.advanced(by: TimeInterval(60 * (i + 1))),
-                        configuration: config,
-                        standings: positions,
-                        position: nil)
-                    )
-                }
+                appendStandingsEntries(
+                    into: &entries,
+                    standings: result,
+                    chunkSize: 5,
+                    configuration: config
+                )
             }
             
         }
-        
+
+        if entries.isEmpty {
+            entries.append(Entry(
+                date: .now,
+                configuration: config,
+                standings: widgetFamily == .accessoryRectangular ? nil : sampleData,
+                position: widgetFamily == .accessoryRectangular ? sampleData.first : nil
+            ))
+        }
+
         return Timeline(entries: entries, policy: .atEnd)
     }
     
@@ -172,5 +170,29 @@ struct StandingsProvider: AppIntentTimelineProvider {
                 let intent = AppIntentRecommendation(intent: standingsIntent, description: standingsIntent.event.title)
                 return intent
             }
+    }
+
+    private func appendStandingsEntries(
+        into entries: inout [Entry],
+        standings: [Position],
+        chunkSize: Int,
+        configuration: StandingsWidgetIntent
+    ) {
+        let data = standings.isEmpty ? sampleData : standings
+        guard !data.isEmpty else { return }
+
+        let chunks = stride(from: 0, to: data.count, by: chunkSize).map { start in
+            Array(data[start..<min(start + chunkSize, data.count)])
+        }
+
+        let limitedChunks = Array(chunks.prefix(5))
+        for (index, chunk) in limitedChunks.enumerated() {
+            entries.append(Entry(
+                date: .now.advanced(by: TimeInterval(60 * (index + 1))),
+                configuration: configuration,
+                standings: chunk,
+                position: nil
+            ))
+        }
     }
 }

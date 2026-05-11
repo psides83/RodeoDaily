@@ -82,11 +82,15 @@ extension BioData {
     
     var topEvent: StandingsEvent {
         let currentYearEarnings = earnings[Date().yearString]
+//        print("current earnings: ", currentYearEarnings)
         
         let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
         
+//        print("top event: ", topEvent)
+        
         var rankingEvent: String {
             let rank = rankings.filter { $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(topEvent?.eventDisplay.localizedLowercase ?? "AA") }
+//            print("rank: ", rank)
             
             if rank.isEmpty {
                 return ""
@@ -98,14 +102,14 @@ extension BioData {
         var finalEvent: StandingsEvent = .aa
         
         StandingsEvent.allCases.forEach { event in
-            print (rankingEvent)
-            print(event.rankingEvent.suffix(10).localizedLowercase)
+//            print ("ranking event: ", rankingEvent)
+//            print("ranking event(last 10): ", event.rankingEvent.suffix(10).localizedLowercase)
             if rankingEvent.localizedCaseInsensitiveContains(event.rankingEvent.suffix(10).localizedLowercase) {
                 finalEvent = event
             }
         }
         
-        print(finalEvent)
+        print("final event: ", finalEvent)
         
         return finalEvent
     }
@@ -158,9 +162,9 @@ extension BioData {
     }
     
     func nfrQualified(for season: Int) -> Bool {
-        print("NFR Season -", season, nfrSeasons.first(where: { $0.season == season })?.nfr)
-        
-        return nfrSeasons.first(where: { $0.season == season })?.nfr ?? false
+        let qualified = nfrSeasons.first(where: { $0.season == season })?.nfr ?? false
+        print("NFR Season - \(season) \(qualified)")
+        return qualified
     }
     
     // MARK: - Methods
@@ -312,18 +316,18 @@ extension BioData {
         }
     }
     
-    func careerSeasons(filteredBy event: String?) -> [CareerWithEarinings] {
-        let selectedEvent = event != nil ? event : topEvent.withTeamRopingConversion
-        
-        let careerRankings = rankings.filter({ $0.eventName.localizedCaseInsensitiveContains(selectedEvent!.eventDisplay) })
-        
-        let finalCareerData = careerRankings.map { season in
-            let careerEarnings = career
-                .filter({
-                    $0.eventType == event
-                    &&
-                    $0.season.string == season.season.string
-                })
+      func careerSeasons(filteredBy event: String?) -> [CareerWithEarinings] {
+          let selectedEvent = event != nil ? event : topEvent.withTeamRopingConversion
+          
+          let careerRankings = rankings.filter({ $0.eventName.localizedCaseInsensitiveContains(selectedEvent!.eventDisplay) })
+          
+          let finalCareerData = careerRankings.map { season in
+              let careerEarnings = career
+                  .filter({
+                      $0.eventType == selectedEvent
+                      &&
+                      $0.season.string == season.season.string
+                  })
             
             guard careerEarnings
                 .count > 0 else {

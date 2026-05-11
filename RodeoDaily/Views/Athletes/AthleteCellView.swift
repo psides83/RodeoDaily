@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AthleteCellView: View {
+    @Environment(\.modelContext) var modelContext
+    
     @StateObject var viewModel = BioViewModel()
     
     let athlete: WidgetAthlete
@@ -17,86 +20,107 @@ struct AthleteCellView: View {
             if viewModel.loading {
                 AthleteCellViewLoader()
             } else {
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: AppSpace.md) {
+                    HStack(alignment: .top, spacing: AppSpace.md) {
+                        VStack(alignment: .leading, spacing: AppSpace.xs) {
                             Text(viewModel.bio.name)
-                                .foregroundColor(.white)
-                                .font(.system(size: 24, weight: .bold))
-                                .fontWeight(.semibold)
-                                                    
+                                .foregroundColor(.appPrimary)
+                                .font(.appCardTitle)
+                                .fontWeight(.bold)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
                             Text(viewModel.seasonRanking())
                                 .fixedSize(horizontal: false, vertical: true)
-                                .font(.system(size: 16))
-                                .foregroundColor(.white)
-                            
-                            Text("Latest Results")
+                                .font(.appBody)
                                 .foregroundColor(.appSecondary)
-                                .font(.system(size: 16, weight: .semibold))
-                                .environment(\.colorScheme, .dark)
+                            
+                            Text(athlete.event.eventDisplay)
+                                .font(.appCaptionStrong)
+                                .foregroundColor(.appPrimary)
+                                .padding(.horizontal, AppSpace.sm)
+                                .padding(.vertical, AppSpace.xxs)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.appSecondary.opacity(0.18))
+                                )
                         }
                         
                         Spacer()
                         
-                        viewModel.bio.image.frame(width: 80, height: 80)
-                            .shadow(radius: 4, x: 0, y: 4)
+                        viewModel.bio.image
+                            .frame(width: 92, height: 92)
+                            .clipShape(RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous))
+                            .shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
                     }
                     
-                    ForEach(latestResults, id: \.rodeoResultId) { result in
-                        
-                        VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: AppSpace.sm) {
+                        HStack {
+                            Text("Latest Results")
+                                .foregroundColor(.appPrimary)
+                                .font(.appBodyStrong)
                             
-                            Divider()
-                                .overlay(Color.appSecondary)
-                                .environment(\.colorScheme, .dark)
+                            Spacer()
                             
-                            HStack(alignment: .center, spacing: 6) {
-                                Text(result.location)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                
-                                Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
-                                
-                                Text(result.endDate.medium)
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                
-                                Spacer()
-                                
-                                Text(result.roundDisplay)
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.white)
+                            HStack(spacing: AppSpace.md) {
+                                Text("Result")
+                                Text("Earnings")
+                                    .frame(width: 92, alignment: .trailing)
                             }
+                            .font(.appMetricLabel)
+                            .foregroundColor(.appTertiary)
+                        }
+                        
+                        ForEach(latestResults, id: \.rodeoResultId) { result in
+                            Divider()
+                                .overlay(Color.appTertiary.opacity(0.25))
                             
-                            HStack(spacing: 20) {
-                                Text(result.placeDisplay)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14))
-                                    .frame(width: 40, alignment: .leading)
+                            VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                                Text(result.rodeoName)
+                                    .font(.appBodyStrong)
+                                    .foregroundColor(.appPrimary)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
+                                    .allowsTightening(true)
                                 
-                                Spacer()
-                                
-                                Text(result.resultDisplay)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .frame(width: 40)
-                                
-                                Spacer()
-                                
-                                Text(result.payoutDisplay)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .frame(width: 100, alignment: .trailing)
+                                HStack(alignment: .center, spacing: AppSpace.sm) {
+                                    HStack(spacing: AppSpace.xs) {
+                                        Text(result.location)
+                                            .font(.appCaption)
+                                            .foregroundColor(.appTertiary)
+                                        
+                                        Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
+                                        
+                                        Text(result.endDate.medium)
+                                            .font(.appCaption)
+                                            .foregroundColor(.appTertiary)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    HStack(spacing: AppSpace.md) {
+                                        Text(result.resultDisplay)
+                                            .foregroundColor(.appPrimary)
+                                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                            .monospacedDigit()
+                                            .frame(width: 56, alignment: .trailing)
+                                        
+                                        Text(result.payoutDisplay)
+                                            .foregroundColor(.appPrimary)
+                                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                            .monospacedDigit()
+                                            .frame(width: 92, alignment: .trailing)
+                                    }
+                                    
+                                    Text(result.placeDisplay)
+                                        .foregroundColor(.appSecondary)
+                                        .font(.appCaptionStrong)
+                                        .frame(width: 38, alignment: .trailing)
+                                }
                             }
                         }
                     }
                 }
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color.rdGreen)
-                        .shadow(radius: 4, x: 0, y: 4)
-                }
+                .appCardStyle()
             }
         }
         .task {
@@ -104,12 +128,18 @@ struct AthleteCellView: View {
             if athlete.athleteId != 0 {
                 await viewModel.setSelectedEvent(athlete.event)
                 await viewModel.getBio(for: athlete.athleteId)
+                _ = viewModel.evaluateFollowAlerts(modelContext: modelContext)
             }
         }
     }
     
-    var latestResults: ArraySlice<BioResult> {
-        return viewModel.bio.results.filter({ $0.eventType == viewModel.selectedEvent }).sorted(by: { $0.endDate > $1.endDate }).prefix(4)
+    var latestResults: [BioResult] {
+        Array(
+            viewModel.bio.results
+                .filter({ $0.eventType == viewModel.selectedEvent })
+                .sorted(by: { $0.endDate > $1.endDate })
+                .prefix(3)
+        )
     }
 }
 

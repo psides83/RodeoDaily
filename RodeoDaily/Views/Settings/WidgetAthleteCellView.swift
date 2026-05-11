@@ -14,15 +14,34 @@ struct WidgetAthleteCellView: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: AppSpace.xxs) {
                 Text(athlete.name)
+                    .font(.appBodyStrong)
+                    .foregroundColor(.appPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .layoutPriority(1)
                 
-                Text(athlete.event.eventDisplay)
-                    .font(.caption)
+                Text("Widget Event")
+                    .font(.appCaption)
+                    .foregroundColor(.appTertiary)
             }
             
             Spacer()
+            
+            Text(athlete.event.eventDisplay)
+                .font(.appCaptionStrong)
+                .foregroundColor(.appPrimary)
+                .padding(.horizontal, AppSpace.sm)
+                .padding(.vertical, AppSpace.xxs)
+                .background(
+                    Capsule()
+                        .fill(Color.appSecondary.opacity(0.18))
+                )
+            
+            Image(systemName: "ellipsis.circle")
+                .foregroundColor(.appTertiary)
         }
+        .padding(.vertical, AppSpace.xs)
         .contextMenu {
             Picker("", selection: $athlete.event) {
                 ForEach(athlete.events, id: \.self) { event in
@@ -34,4 +53,3 @@ struct WidgetAthleteCellView: View {
         .onChange(of: athlete.event) { onChange() }
     }
 }
-

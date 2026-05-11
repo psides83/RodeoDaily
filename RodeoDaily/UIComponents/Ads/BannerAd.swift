@@ -8,56 +8,110 @@
 import SwiftUI
 import GoogleMobileAds
 
-struct BannerAd: UIViewRepresentable {
+struct BannerAd: View {
+    let style: BannerAdStyle
+    @State private var adHeight: CGFloat = 50
     
-    @ObservedObject var config = Config()
+    init(style: BannerAdStyle = .adaptive) {
+        self.style = style
+        _adHeight = State(initialValue: style == .mediumRectangle ? 250 : 50)
+    }
     
-    var width = UIScreen.main.bounds.width - 80
-        
+    var body: some View {
+        GeometryReader { proxy in
+            BannerAdRepresentable(
+                width: max(proxy.size.width, 1),
+                style: style,
+                adHeight: $adHeight
+            )
+            .frame(height: adHeight)
+        }
+        .frame(height: style == .mediumRectangle ? 250 : adHeight)
+    }
+}
+
+enum BannerAdStyle {
+    case adaptive
+    case mediumRectangle
+}
+
+private struct BannerAdRepresentable: UIViewRepresentable {
+    let config = Config()
+    let width: CGFloat
+    let style: BannerAdStyle
+    @Binding var adHeight: CGFloat
+    
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        Coordinator(self)
     }
     
     func makeUIView(context: Context) -> GADBannerView {
+        let adSize = adSize(for: width)
+        let bannerView = GADBannerView(adSize: adSize)
         
-        let adview = GADBannerView(adSize: GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width), origin: .zero)
+        bannerView.adUnitID = config.productionAdId
+        bannerView.rootViewController = UIApplication.shared.getRootViewController()
+        bannerView.delegate = context.coordinator
+        context.coordinator.lastWidth = width
         
-        adview.adUnitID = config.productionAdId
-//        adview.adSize = GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width)
-        adview.rootViewController = UIApplication.shared.getRootViewController()
-        adview.delegate = context.coordinator
-        adview.load(GADRequest())
+        bannerView.load(GADRequest())
         
-        return adview
+        return bannerView
     }
     
     func updateUIView(_ uiView: GADBannerView, context: Context) {
+        if style == .mediumRectangle {
+            return
+        }
+
+        guard abs(context.coordinator.lastWidth - width) > 1 else {
+            return
+        }
         
+        context.coordinator.lastWidth = width
+        let newAdSize = adSize(for: width)
+        uiView.adSize = newAdSize
+        
+        uiView.load(GADRequest())
+    }
+    
+    func adSize(for width: CGFloat) -> GADAdSize {
+        switch style {
+        case .adaptive:
+            return GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width)
+        case .mediumRectangle:
+            return GADAdSizeMediumRectangle
+        }
+    }
+
+    private func targetHeight(for adSize: GADAdSize) -> CGFloat {
+        if style == .mediumRectangle {
+            return 250
+        }
+        return adSize.size.height
     }
     
     class Coordinator: NSObject, GADBannerViewDelegate {
+        var parent: BannerAdRepresentable
+        var lastWidth: CGFloat = 0
+        
+        init(_ parent: BannerAdRepresentable) {
+            self.parent = parent
+        }
+        
         func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-          print("bannerViewDidReceiveAd")
+            let receivedHeight = parent.style == .mediumRectangle ? 250 : bannerView.adSize.size.height
+            guard receivedHeight > 0, parent.adHeight != receivedHeight else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.parent.adHeight = receivedHeight
+            }
         }
-
+        
         func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-          print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-        }
-
-        func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
-          print("bannerViewDidRecordImpression")
-        }
-
-        func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
-          print("bannerViewWillPresentScreen")
-        }
-
-        func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
-          print("bannerViewWillDIsmissScreen")
-        }
-
-        func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
-          print("bannerViewDidDismissScreen")
+            print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
         }
     }
 }
@@ -65,7 +119,7 @@ struct BannerAd: UIViewRepresentable {
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         BannerAd()
-            .frame(height: 100)
+            .padding()
     }
 }
 

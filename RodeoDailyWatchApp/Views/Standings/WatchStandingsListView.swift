@@ -29,20 +29,31 @@ struct WatchStandingsListView: View {
             Group {
                 if standingsApi.loading {
                     WatchLogoLoader()
+                        .listRowBackground(Color.clear)
+                } else if standingsApi.standings.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Standings", systemImage: "list.number")
+                    } description: {
+                        Text("Standings data is unavailable.")
+                    }
                 } else {
                     ForEach(
                         standingsApi.standings,
-                        id: \.place,
+                        id: \.id,
                         content: standingsCell
                     )
                 }
             }
         }
-        .navigationTitle("World Statndings")
+        .navigationTitle("World Standings")
         .onChange(of: selectedEvent) { oldValue, newValue in
+            standingsWatchEvent = newValue
             Task {
                 await standingsApi.getStandings(for: newValue)
             }
+        }
+        .refreshable {
+            await standingsApi.getStandings(for: selectedEvent)
         }
         .task {
             if initialLoad {
@@ -66,22 +77,46 @@ struct WatchStandingsListView: View {
     }
     
     func standingsCell(_ position: Position) -> some View {
-        HStack {
+        HStack(spacing: 8) {
             Text(position.place.string)
-                .font(.title3)
+                .font(.system(.footnote, design: .rounded))
                 .fontWeight(.semibold)
-                .foregroundColor(.appSecondary)
-                .padding(.trailing, 6)
+                .foregroundColor(.appSecondary.opacity(0.9))
+                .frame(width: 20, alignment: .leading)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(position.name)
-                    .font(.headline)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
                 
                 Text(position.hometownDisplay)
                     .font(.caption2)
+                    .lineLimit(1)
+                    .foregroundStyle(.secondary)
                 
                 Text(position.earnings.currencyABS)
+                    .font(.caption2.weight(.semibold))
+                    .monospacedDigit()
+                    .lineLimit(1)
             }
+        }
+        .contentShape(Rectangle())
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button {
+                WatchQuickAthleteStore.toggleFavorite(
+                    athleteId: position.id,
+                    name: position.name,
+                    event: position.event
+                )
+                WatchQuickAthleteStore.playHapticForQuickAction()
+            } label: {
+                Label(
+                    WatchQuickAthleteStore.isFavorite(athleteId: position.id) ? "Remove Favorite" : "Add Favorite",
+                    systemImage: WatchQuickAthleteStore.isFavorite(athleteId: position.id) ? "star.slash" : "star"
+                )
+            }
+            .tint(.yellow)
+
         }
     }
 }

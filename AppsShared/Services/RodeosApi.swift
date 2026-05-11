@@ -13,6 +13,29 @@ class RodeosApi: ObservableObject {
     
     @Published var rodeos = [RodeoData]()
     @Published var loading = false
+
+    private func filteredRodeos(for event: Events.CodingKeys, from data: [RodeoData]) -> [RodeoData] {
+        switch event {
+        case .bb:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("bareback") }
+        case .sw:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("steer") }
+        case .sb:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("saddle") }
+        case .td:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("tie-down") }
+        case .gb:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("racing") }
+        case .br:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("bull") && $0.htmlUnwrap.localizedCaseInsensitiveContains("riding") }
+        case .tr:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("team") }
+        case .sr:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("steer roping") }
+        case .lb:
+            return data.filter { $0.htmlUnwrap.localizedCaseInsensitiveContains("breakaway") }
+        }
+    }
     
     func getRodeos(event: Events.CodingKeys, index: Int, searchText: String, dateParams: String, _ completionHandler: @escaping () -> Void) async {
         let url = apiUrls.rodeosUrl(with: index, searchText: searchText, dateParams: dateParams)
@@ -20,28 +43,7 @@ class RodeosApi: ObservableObject {
         do {
             let data = try await APIService.fetchRodeos(from: url).data
             
-            var filteredRodeos: [RodeoData] = []
-            
-            switch event {
-            case .bb:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("bareback") })
-            case .sw:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("steer") })
-            case .sb:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("saddle") })
-            case .td:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("tie-down") })
-            case .gb:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("racing") })
-            case .br:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("bull") && $0.htmlUnwrap.localizedCaseInsensitiveContains("riding")})
-            case .tr:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("team") })
-            case .sr:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("steer roping") })
-            case .lb:
-                filteredRodeos = data.filter({ $0.htmlUnwrap.localizedCaseInsensitiveContains("breakaway") })
-            }
+            let filteredRodeos = filteredRodeos(for: event, from: data)
             
             DispatchQueue.main.async {
                 guard filteredRodeos.count > 0 else {
@@ -79,6 +81,40 @@ class RodeosApi: ObservableObject {
             
             print(self.rodeos.count)
             
+            self.endLoading()
+        }
+    }
+
+    func loadInProgressRodeos(
+        event: Events.CodingKeys,
+        maxPages: Int = 5
+    ) async {
+        setLoading()
+
+        var matches = [RodeoData]()
+
+        for page in 1...maxPages {
+            let url = apiUrls.rodeosUrl(with: page, searchText: "", dateParams: "")
+            do {
+                let data = try await APIService.fetchRodeos(from: url).data
+                let eventRodeos = filteredRodeos(for: event, from: data)
+                let inProgress = eventRodeos.filter { $0.inProgress }
+                if !inProgress.isEmpty {
+                    matches.append(contentsOf: inProgress)
+                }
+            } catch {
+                print("Error decoding: ", error)
+                break
+            }
+        }
+
+        let unique = Dictionary(grouping: matches, by: \.id).compactMap { $0.value.first }
+
+        await MainActor.run {
+            self.rodeos = unique
+                .sorted { lhs, rhs in
+                    lhs.endDate < rhs.endDate
+                }
             self.endLoading()
         }
     }

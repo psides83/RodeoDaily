@@ -28,6 +28,8 @@ struct VideoData: Codable {
 struct Video: Codable {
     let uri, name: String
     let description: String?
+    let playerEmbedURL: String?
+    let duration: Int?
     let width, height: Int
     let createdTime, modifiedTime, releaseTime, license: String
     let pictures: Pictures
@@ -35,6 +37,8 @@ struct Video: Codable {
 
     enum CodingKeys: String, CodingKey {
         case uri, name, description
+        case playerEmbedURL = "player_embed_url"
+        case duration
         case width, height
         case createdTime = "created_time"
         case modifiedTime = "modified_time"
@@ -70,4 +74,3 @@ struct Size: Codable {
         case linkWithPlayButton = "link_with_play_button"
     }
 }
-

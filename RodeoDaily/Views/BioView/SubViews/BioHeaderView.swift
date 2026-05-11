@@ -13,80 +13,51 @@ struct BioHeaderView: View {
     @Environment(\.modelContext) var modelContext
     
     @Query var widgetAthletes: [WidgetAthlete]
-
     @ObservedObject var viewModel: BioViewModel
+    let athleteId: Int
     
     // MARK: - Body
     var body: some View {
-        VStack(spacing: 6) {
-            VStack(alignment: .center, spacing: 4) {
-                Text(viewModel.seasonRanking())
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.appPrimary)
-                    .hSpacing(.leading)
-                
-                HStack {
-                    Text(viewModel.bio.careerEarnings)
-                        .foregroundColor(.appSecondary)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .padding(.vertical, 2)
-                        .hSpacing(.leading)
-                    
-                    Spacer()
-                    
-                    Button {
-                        handleFavorite()
-                    } label: {
-                        Image(systemName: favoriteIcon)
+        VStack(spacing: AppSpace.md) {
+            VStack(alignment: .leading, spacing: AppSpace.md) {
+                HStack(alignment: .center, spacing: AppSpace.md) {
+                    VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                        Text(viewModel.seasonRanking())
+                            .font(.appBodyStrong)
+                            .fontWeight(.bold)
+                            .foregroundColor(.appPrimary)
+                            .lineLimit(2)
+                        
+                        Text(viewModel.bio.careerEarnings)
                             .foregroundColor(.appSecondary)
-                            .font(.title2)
+                            .font(.appBodyStrong)
+                            .fontWeight(.semibold)
                     }
-                }
-                
-                Divider()
-                    .frame(minHeight: 2, alignment: .center)
-                    .overlay(Color.appTertiary)
-                
-                HStack {
-                    Text(viewModel.bio.nfrQuals)
-                        .font(.headline)
-                        .fontWeight(.medium)
                     
                     Spacer()
                     
-                    Divider()
-                        .frame(width: 2, height: 14, alignment: .center)
-                        .overlay(Color.appSecondary)
-                    
-                    Spacer()
-                    
-                    Text(viewModel.bio.worldTitlesCount)
-                        .font(.headline)
-                        .fontWeight(.medium)
-                    
-                    Spacer()
-                    
-                    Divider()
-                        .frame(width: 2, height: 14, alignment: .center)
-                        .overlay(Color.appSecondary)
-                    
-                    Spacer()
-                    
-                    Text(viewModel.bio.athleteAge + NSLocalizedString(" Years old", comment: ""))
-                        .font(.headline)
-                        .fontWeight(.medium)
-                }
-            }
-                    
-            Picker("", selection: $viewModel.infoType) {
-                        ForEach(BioViewModel.BioInfoType.allCases, id: \.self) { section in
-                            Text(section.rawValue).tag(section)
+                    HStack(spacing: AppSpace.sm) {
+                        actionButton(systemImage: favoriteIcon, label: "Favorite Athlete") {
+                            handleFavorite()
                         }
                     }
-                    .pickerStyle(.segmented)
-                    .hSpacing(.center)
+                }
+                
+                HStack(spacing: AppSpace.sm) {
+                    statPill(viewModel.bio.nfrQuals)
+                    statPill(viewModel.bio.worldTitlesCount)
+                    statPill(viewModel.bio.athleteAge + NSLocalizedString(" Years old", comment: ""))
+                }
+            }
+//            .padding(.top, AppSpace.sm)
+            
+            Picker("", selection: $viewModel.infoType) {
+                ForEach(BioViewModel.BioInfoType.allCases, id: \.self) { section in
+                    Text(section.rawValue).tag(section)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding(AppSpace.xs)
         }
         .environment(\.colorScheme, .dark)
         .padding(.top, 8)
@@ -95,8 +66,47 @@ struct BioHeaderView: View {
         .background(Color.rdGreen)
     }
     
+    @ViewBuilder
+    private func actionButton(systemImage: String, label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .foregroundColor(.appSecondary)
+                .font(.title3.weight(.semibold))
+                .frame(width: 36, height: 36)
+                .background(
+                    Circle()
+                        .fill(Color.appBg.opacity(0.2))
+                )
+                .overlay(
+                    Circle()
+                        .stroke(Color.appTertiary.opacity(0.35), lineWidth: AppStroke.hairline)
+                )
+        }
+        .accessibilityLabel(label)
+    }
+    
+    @ViewBuilder
+    private func statPill(_ text: String) -> some View {
+        Text(text)
+            .font(.appCaptionStrong)
+            .foregroundColor(.appPrimary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, AppSpace.sm)
+            .padding(.horizontal, AppSpace.xs)
+            .background(
+                RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                    .fill(Color.appBg.opacity(0.2))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                    .stroke(Color.appTertiary.opacity(0.35), lineWidth: AppStroke.hairline)
+            )
+    }
+    
     func handleFavorite() {
-        if let athlete = widgetAthletes.first(where: { $0.athleteId == viewModel.bio.contestantId }) {
+        if let athlete = widgetAthletes.first(where: { $0.athleteId == resolvedAthleteId }) {
             modelContext.delete(athlete)
             
             FavoriteAlert
@@ -104,7 +114,7 @@ struct BioHeaderView: View {
                 .present
         } else {
             let favorite = WidgetAthlete()
-            favorite.athleteId = viewModel.bio.contestantId
+            favorite.athleteId = resolvedAthleteId
             favorite.name = viewModel.bio.name
             favorite.event = viewModel.selectedEvent ?? viewModel.bio.topEvent.withTeamRopingConversion
             favorite.events = viewModel.bio.events
@@ -125,13 +135,17 @@ struct BioHeaderView: View {
     }
     
     var isFavorite: Bool {
-        if widgetAthletes.contains(where: { $0.athleteId == viewModel.bio.contestantId }) {
+        if widgetAthletes.contains(where: { $0.athleteId == resolvedAthleteId }) {
             return true
         }
         
         return false
     }
     
+    var resolvedAthleteId: Int {
+        viewModel.bio.contestantId != 0 ? viewModel.bio.contestantId : athleteId
+    }
+
     func alert() {
         
     }

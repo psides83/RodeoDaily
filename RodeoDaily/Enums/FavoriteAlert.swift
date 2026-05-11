@@ -12,6 +12,9 @@ import UIKit
 enum FavoriteAlert {
     case added(String)
     case removed(String)
+    case followAdded(String)
+    case followRemoved(String)
+    case followSaveFailed
     
 //    func alert(title: String, subtitle: String, icon: UIImage) -> AlertAppleMusic16View {
 //        let alert = AlertAppleMusic16View(title: title, subtitle: subtitle, icon: .custom(icon))
@@ -41,6 +44,28 @@ enum FavoriteAlert {
                 icon: .custom(.favoriteStar!),
                 style: .iOS16AppleMusic, haptic: .success
             )
+        case .followAdded:
+            AlertKitAPI.present(
+                title: text.title,
+                subtitle: text.subtitle,
+                icon: .custom(.favoriteStar!),
+                style: .iOS16AppleMusic, haptic: .success
+            )
+        case .followRemoved:
+            AlertKitAPI.present(
+                title: text.title,
+                subtitle: text.subtitle,
+                icon: .custom(.favoriteStar!),
+                style: .iOS16AppleMusic, haptic: .success
+            )
+        case .followSaveFailed:
+            AlertKitAPI.present(
+                title: text.title,
+                subtitle: text.subtitle,
+                icon: .custom(.favoriteStar!),
+                style: .iOS16AppleMusic,
+                haptic: .error
+            )
         }
     }
     
@@ -55,6 +80,21 @@ enum FavoriteAlert {
             return (
                 title: "Removed from Favorites",
                 subtitle: "\(value) was removed from Favorite Athlete Widget available selections."
+            )
+        case .followAdded(let value):
+            return (
+                title: "Following Athlete",
+                subtitle: "You will now get alerts for \(value)."
+            )
+        case .followRemoved(let value):
+            return (
+                title: "Stopped Following",
+                subtitle: "\(value) follow alerts were turned off."
+            )
+        case .followSaveFailed:
+            return (
+                title: "Follow Not Saved",
+                subtitle: "Please try again."
             )
         }
     }

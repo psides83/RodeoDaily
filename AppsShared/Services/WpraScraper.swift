@@ -115,6 +115,7 @@ enum WpraScraper {
                         hometown: hometown,
                         nickName: firstName,
                         imageUrl: nil,
+//                        hasBio: true,
                         earnings: earnings,
                         points: earnings,
                         place: place,

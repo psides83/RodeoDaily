@@ -20,6 +20,20 @@ extension View {
         return safeArea
     }
 #endif
+
+    @ViewBuilder
+    func noImageWatermark() -> some View {
+        self.overlay {
+            GeometryReader { proxy in
+                Text(NSLocalizedString("No Image Available", comment: ""))
+                    .font(.system(size: max(10, min(20, proxy.size.width * 0.13)), weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.32))
+                    .rotationEffect(.degrees(-18))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .allowsHitTesting(false)
+            }
+        }
+    }
     
 #if os(iOS)
     func pressAction(onPress: @escaping (() -> Void), onRelease: @escaping (() -> Void)) -> some View {

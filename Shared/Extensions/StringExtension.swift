@@ -87,6 +87,8 @@ extension String {
         case "TD": return "Tie-Down Roping"
         case "BR": return "Bull Riding"
         case "SR": return "Steer Roping"
+        case "GB": return "Barrel Racing"
+        case "LB": return "Breakaway Roping"
         default: return ""
         }
     }

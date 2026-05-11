@@ -76,8 +76,17 @@ class ResultsApi: ObservableObject {
                 let roundWinners = round.value
                     .unique { $0.contestant[0].id }
                     .filter { $0.payoff != 0 }
-                    .sorted { $0.payoff > $1.payoff }
-                    .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
+                    .sorted { lhs, rhs in
+                        let leftPlace = self.placementSortValue(lhs.place)
+                        let rightPlace = self.placementSortValue(rhs.place)
+                        if leftPlace != rightPlace {
+                            return leftPlace < rightPlace
+                        }
+                        if event.isRoughStock {
+                            return lhs.score > rhs.score
+                        }
+                        return lhs.time < rhs.time
+                    }
                     .map { winner in
                         let contestant = winner.contestant[0]
                         let winnerId = "\(id)\(contestant.id)"
@@ -106,7 +115,17 @@ class ResultsApi: ObservableObject {
                         let leaders = round.value
                             .unique { $0.contestant[0].id }
                             .filter { $0.time != 0 || $0.score != 0 }
-                            .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
+                            .sorted { lhs, rhs in
+                                let leftPlace = self.placementSortValue(lhs.place)
+                                let rightPlace = self.placementSortValue(rhs.place)
+                                if leftPlace != rightPlace {
+                                    return leftPlace < rightPlace
+                                }
+                                if event.isRoughStock {
+                                    return lhs.score > rhs.score
+                                }
+                                return lhs.time < rhs.time
+                            }
                             .prefix(15)
                             .enumerated()
                             .map { (index, winner) in
@@ -140,7 +159,17 @@ class ResultsApi: ObservableObject {
                             .unique { $0.contestant[0].id }
                             .filter { $0.time != 0 || $0.score != 0 }
                             .filter { $0.numberScores == currentRound || $0.numberScores == 0 }
-                            .sorted { event.isRoughStock ? $0.score > $1.score : $0.time < $1.time }
+                            .sorted { lhs, rhs in
+                                let leftPlace = self.placementSortValue(lhs.place)
+                                let rightPlace = self.placementSortValue(rhs.place)
+                                if leftPlace != rightPlace {
+                                    return leftPlace < rightPlace
+                                }
+                                if event.isRoughStock {
+                                    return lhs.score > rhs.score
+                                }
+                                return lhs.time < rhs.time
+                            }
                             .prefix(15)
                             .enumerated()
                             .map { (index, winner) in
@@ -239,6 +268,10 @@ class ResultsApi: ObservableObject {
         } else {
             return index + 1
         }
+    }
+
+    private func placementSortValue(_ place: Int) -> Int {
+        place > 0 ? place : Int.max
     }
     
     func setLoading() {

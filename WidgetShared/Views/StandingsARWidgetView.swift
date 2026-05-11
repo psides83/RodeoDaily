@@ -15,28 +15,38 @@ struct StandingsARWidgetView: View {
         if let standingsPostion = entry.position {
             VStack(alignment: .leading) {
                 Text(entry.configuration.event.title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.appSecondary)
-                    .padding(.leading, 10)
-                    .padding(.bottom, -4)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .padding(.leading, 6)
+                    .padding(.bottom, -2)
                     .widgetAccentable()
                 
-                HStack {
+                HStack(spacing: 6) {
                     Text(standingsPostion.place.string)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     
                     VStack(alignment: .leading) {
                         Text(standingsPostion.name)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 13, weight: .semibold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.72)
+                            .layoutPriority(1)
                         
                         Text(standingsPostion.earnings.currencyABS)
-                            .font(.system(size: 14, weight: .medium))
+                            .font(.system(size: 11, weight: .medium))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                     }
                     
                     Spacer()
                 }
-                .padding(6)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.appPrimary, lineWidth: 2).widgetAccentable())
+                .padding(.horizontal, 6)
+                .padding(.vertical, 4)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.appPrimary, lineWidth: 1.5).widgetAccentable())
             }
             .containerBackground(for: .widget) {
                 Color.rdGreen

@@ -7,194 +7,68 @@
 
 import SwiftData
 import SwiftUI
-import WidgetKit
 
 struct SettingsView: View {
     @Environment(\.modelContext) var modelContext
-    
-    @StateObject var viewModel = AthletesApi()
-    @StateObject var searchModel = SearchSuggetionsApi()
-    @StateObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.4)
-    
-    @Query var widgetAthletes: [WidgetAthlete]
-    
+
     @AppStorage("favoriteStandingsEvent",
                 store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily"))
     var favoriteStandingsEvent: StandingsEvent = .aa
-    
+
     @AppStorage("favoriteResultsEvent",
                 store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily"))
     var favoriteResultsEvent: Events.CodingKeys = .bb
-    
-    @FocusState var searchFieldFocused: Bool
-    
+
     var body: some View {
         Form {
-            Section(header: Text("Favorite Events"),
-                    footer: Text("The selected events will be used to populate the lock screen widget data and load in the respective tab when the app opens.")) {
-                Picker("Standings Event", selection: $favoriteStandingsEvent) {
-                    ForEach(StandingsEvent.allCases, id: \.self) { event in
-                        Text(event.title)
-                    }
+            Section("General") {
+                NavigationLink {
+                    FavoriteEventsSettingsPage(
+                        favoriteStandingsEvent: $favoriteStandingsEvent,
+                        favoriteResultsEvent: $favoriteResultsEvent
+                    )
+                } label: {
+                    settingsRow(
+                        title: NSLocalizedString("Favorite Events", comment: ""),
+                        subtitle: NSLocalizedString("Default standings and results events", comment: "")
+                    )
                 }
-                .onChange(of: favoriteStandingsEvent) {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }
-                
-                Picker("Results Event", selection: $favoriteResultsEvent) {
-                    ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Text(event.title)
-                    }
-                }
-                .onChange(of: favoriteResultsEvent) {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }
-            }
-            
-            athleteSearchSection
-            
-            if !widgetAthletes.isEmpty {
-                Section(header: favoritesSection.header, footer: favoritesSection.footer) {
-                    ForEach(widgetAthletes, id: \.id) { athlete in
-                        NavigationLink {
-                            BioView(athleteId: athlete.athleteId)
-                        } label: {
-                            WidgetAthleteCellView(athlete: athlete, onChange: saveFavoriteAthletes)
-                        }
-                    }
-                    .onDelete(perform: deleteWidgetAthlete)
+
+                NavigationLink {
+                    FavoriteAthletesSettingsPage()
+                } label: {
+                    settingsRow(
+                        title: NSLocalizedString("Favorite Athletes", comment: ""),
+                        subtitle: NSLocalizedString("Widget athlete search and management", comment: "")
+                    )
                 }
             }
-            
-            Section(footer: contactFooter) {}
+
+            Section("About") {
+                NavigationLink {
+                    AboutSettingsPage()
+                } label: {
+                    settingsRow(
+                        title: NSLocalizedString("Data Sources & Feedback", comment: ""),
+                        subtitle: NSLocalizedString("Credits and contact links", comment: "")
+                    )
+                }
+            }
         }
         .navigationTitle("Settings")
-        .onChange(of: search.text) {
-            Task {
-                await searchModel.getSearchResults(from: search.text)
-            }
+        .task {
+            await SupabasePushSyncService.shared.registerDevice()
+            await SupabasePushSyncService.shared.syncFollows(modelContext: modelContext)
         }
     }
-    
-    var contactFooter: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Link(
-                destination: URL(string: "thewaymediaco@gmail.com")!) {
-                    Label("Submit Feedback", systemImage: "envelope")
-                        .font(.caption)
-                }
-            
-            Link(
-                "Results data provided by the PRCA",
-                destination: URL(string: "https://prorodeo.com")!
-            )
-            .font(.caption)
-            
-            Link(
-                "Standings data provided by the PRCA",
-                destination: URL(string: "https://prorodeo.com")!
-            )
-            .font(.caption)
-            
-            Link(destination: URL(string: "https://wpra.com")!) {
-                Text("Barrel Racing and Breakaway standings data provided by the WPRA")
-                    .multilineTextAlignment(.leading)
-                    .font(.caption)
-            }
-            
-            Link(
-                "Cowboy Icon provided by IconScout",
-                destination: URL(string: "https://iconscout.com/icons/cowboy")!
-            )
-            .font(.caption)
+
+    private func settingsRow(title: String, subtitle: String) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(title)
+            Text(subtitle)
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
-        .tint(.appPrimary)
-    }
-    
-    var athleteSearchSection: some View {
-        Section(
-            header: Text("Athlete Search"),
-            footer: Text("Search for an athlete to add to your list of favorites for the favorite athlete widget.")
-        ) {
-            TextField(
-                "Athlete Name",
-                text: $search.text,
-                prompt: Text("Search athletes to add favorite")
-            )
-            .focused($searchFieldFocused)
-            
-            if searchModel.suggestions.count != 0 {
-                ForEach(searchModel.suggestions, id: \.id) { suggestion in
-                    Button {
-                        setAthlete(from: suggestion)
-                    } label: {
-                        Text(suggestion.term)
-                    }
-                }
-            } else if searchModel.loading && !search.text.isEmpty {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .hSpacing(.center)
-            }
-        }
-    }
-    
-    var favoritesSection: (header: some View, footer: some View) {
-        return (
-            header: HStack {
-                Label("Favorite Athlete Widget", systemImage: "star.fill")
-                    .foregroundColor(.appSecondary)
-            },
-            footer:
-                VStack(alignment: .leading, spacing: 6) {
-                    
-                    Text("* Unfortunately, setting a Favorite Athlete for Barrel Reacing and Breakaway Roping is unvailavble at this time.")
-                    
-                    Text("* **Note:** Long press on the athlete name to change the event used in the widget.")
-                }
-            
-        )
-    }
-    
-    func setAthlete(from result: SearchResultElement) {
-        Task {
-            let bioApi = BioViewModel()
-            await bioApi.getBio(for: result.id)
-            let bio = bioApi.bio
-            
-            let athlete = WidgetAthlete(
-                athleteId: bio.contestantId,
-                name: bio.name,
-                event: bio.topEvent.withTeamRopingConversion,
-                events: bio.events
-            )
-            
-            withAnimation {
-                modelContext.insert(athlete)
-                FavoriteAlert.added(athlete.name).present
-                updateWidgets()
-                searchFieldFocused = false
-                search.text = ""
-            }
-        }
-    }
-    
-    private func saveFavoriteAthletes() {
-        try? modelContext.save()
-        updateWidgets()
-    }
-    
-    private func deleteWidgetAthlete(at offsets: IndexSet) {
-        for offset in offsets {
-            let athlete = widgetAthletes[offset]
-            modelContext.delete(athlete)
-            FavoriteAlert.removed(athlete.name).present
-            updateWidgets()
-        }
-    }
-    
-    func updateWidgets() {
-        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

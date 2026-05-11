@@ -15,55 +15,70 @@ struct WatchRodeosListView: View {
     
     @State var selectedEvent: Events.CodingKeys = .bb
     @State var index = 1
-    @State var selectedRodeoId = 0
     @State var initialLoad = true
 
     // MARK: - Body
     var body: some View {
-        Group {
-            if rodeosApi.loading {
-                WatchLogoLoader()
-            } else {
-                Form {
-                    Picker("Select Event", selection: $selectedEvent) {
-                        ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                            Text(event.title)
-                                .tag(event)
-                        }
+        Form {
+            Picker("Select Event", selection: $selectedEvent) {
+                ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                    Text(event.title)
+                        .tag(event)
+                }
+            }
+            .pickerStyle(.navigationLink)
+
+            Group {
+                if rodeosApi.loading && rodeosApi.rodeos.isEmpty {
+                    WatchLogoLoader()
+                        .listRowBackground(Color.clear)
+                } else if rodeosApi.rodeos.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Results", systemImage: "list.number")
+                    } description: {
+                        Text("No rodeos were found for this event.")
                     }
-                    .pickerStyle(.navigationLink)
-                    
+                } else {
                     ForEach(rodeosApi.rodeos) { rodeo in
-                        NavigationLink {
-                            WatchRodeoResultsView(rodeoId: rodeo.id, rodeoName: rodeo.location, event: selectedEvent)
-                        } label: {
-                            WatchRodeoCellView(rodeo: rodeo)
-                        }
+                    NavigationLink {
+                        WatchRodeoResultsView(rodeoId: rodeo.id, rodeoName: rodeo.location, event: selectedEvent)
+                    } label: {
+                        WatchRodeoCellView(rodeo: rodeo)
                     }
-                    
+                }
+
+                    if rodeosApi.loading {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .listRowBackground(Color.clear)
+                    } else {
                     VStack(alignment: .center, content: loadMoreButton)
                         .listRowBackground(Color.clear)
                         .frame(maxWidth: .infinity)
-                        .onChange(of: index) { oldValue, newValue in
-                            Task {
-                                await rodeosApi.loadRodeos(event: selectedEvent, index: newValue, searchText: "", dateParams: "") {
-                                    rodeosApi.endLoading()
-                                }
-                            }
-                        }
+                    }
                 }
-                .navigationTitle("Results")
             }
         }
+        .navigationTitle("Results")
         .onChange(of: selectedEvent) { oldValue, newValue in
+            resultsWatchEvent = newValue
+            index = 1
             Task {
-                await rodeosApi.loadRodeos(event: newValue, index: index, searchText: "", dateParams: "") {}
+                await rodeosApi.loadRodeos(event: newValue, index: 1, searchText: "", dateParams: "") {}
             }
+        }
+        .refreshable {
+            index = 1
+            await rodeosApi.loadRodeos(event: selectedEvent, index: 1, searchText: "", dateParams: "") {}
         }
         .task {
             if initialLoad {
                 selectedEvent = resultsWatchEvent
-                await rodeosApi.loadRodeos(event: resultsWatchEvent, index: index, searchText: "", dateParams: "") {}
+                index = 1
+                await rodeosApi.loadRodeos(event: resultsWatchEvent, index: 1, searchText: "", dateParams: "") {}
                 initialLoad = false
             }
         }
@@ -74,12 +89,17 @@ struct WatchRodeosListView: View {
     
     // MARK: - View Methods
     func loadMoreButton() -> some View {
-        LoadMoreButton(loading: rodeosApi.loading, action: incrementIndex)
+        LoadMoreButton(loading: rodeosApi.loading, action: loadMore)
     }
     
     // MARK: - Methods
-    func incrementIndex() {
-        index += 1
+    func loadMore() {
+        let nextIndex = index + 1
+        index = nextIndex
+        
+        Task {
+            await rodeosApi.loadRodeos(event: selectedEvent, index: nextIndex, searchText: "", dateParams: "") {}
+        }
     }
 }
 

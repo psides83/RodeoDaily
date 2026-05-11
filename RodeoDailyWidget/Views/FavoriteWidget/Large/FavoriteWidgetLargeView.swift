@@ -15,7 +15,17 @@ struct FavoriteWidgetLargeView : View {
     @Environment(\.sizeCategory) var deviceSize
     
     var latestResults: ArraySlice<BioResult> {
-        return entry.bio.results.filter({ $0.eventType == entry.event }).sorted(by: { $0.endDate > $1.endDate }).prefix(4)
+        entry.bio.results
+            .filter { $0.eventType == entry.event }
+            .sorted { lhs, rhs in
+                let leftDate = parsedResultDate(lhs.endDate)
+                let rightDate = parsedResultDate(rhs.endDate)
+                if leftDate == rightDate {
+                    return lhs.rodeoResultId > rhs.rodeoResultId
+                }
+                return leftDate > rightDate
+            }
+            .prefix(4)
     }
     
     var currentYearEarnings: String {
@@ -106,6 +116,21 @@ struct FavoriteWidgetLargeView : View {
             Color.rdGreen
         }
         .environment(\.colorScheme, .light)
+    }
+
+    private func parsedResultDate(_ value: String) -> Date {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+
+        if let date = formatter.date(from: value) {
+            return date
+        }
+
+        let fallback = DateFormatter()
+        fallback.locale = Locale(identifier: "en_US_POSIX")
+        fallback.timeZone = TimeZone(secondsFromGMT: 0)
+        fallback.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return fallback.date(from: value) ?? .distantPast
     }
 }
 

@@ -10,11 +10,6 @@ import SwiftUI
 struct RodeoCell: View {
     
     let rodeo: RodeoData
-    let event: Events.CodingKeys
-    var widgetAthletes: [WidgetAthlete]
-        
-    @State private var isShowingResults = false
-    @State private var rotationAngle: Double = 0
     
     var inProgress: String {
         if rodeo.inProgress {
@@ -28,18 +23,11 @@ struct RodeoCell: View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading) {
-                    Button {
-                        withAnimation {
-                            isShowingResults.toggle()
-                            rotationAngle = rotationAngle == 0 ? 90 : 0
-                        }
-                    } label: {
-                        Text(rodeo.name)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.appPrimary)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                    }
+                    Text(rodeo.name)
+                        .multilineTextAlignment(.leading)
+                        .foregroundColor(.appPrimary)
+                        .font(.title2)
+                        .fontWeight(.bold)
                     
                     HStack {
                         Text(rodeo.location)
@@ -65,28 +53,11 @@ struct RodeoCell: View {
                 
                 Spacer()
                 
-                Button {
-                    withAnimation {
-                        isShowingResults.toggle()
-                        rotationAngle = rotationAngle == 0 ? 90 : 0
-                    }
-                } label: {
-                    Image(systemName: "chevron.right")
-                        .rotationEffect(Angle(degrees: rotationAngle))
-                        .accentColor(Color.appSecondary)
-                }
-                .buttonStyle(.clearButton)
-            }
-            
-            if isShowingResults {
-                ResultsBlock(rodeo: rodeo, event: event, widgetAthletes: widgetAthletes)
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.appSecondary)
             }
         }
-        .padding(.top)
-        .onChange(of: event) { newValue in
-            isShowingResults = false
-            rotationAngle = 0
-        }
+        .appCardStyle()
     }
 }
 

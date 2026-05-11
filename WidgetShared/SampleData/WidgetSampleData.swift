@@ -130,6 +130,7 @@ struct WidgetSampleData {
             hometown: "Milford, UT",
             nickName: "Stetson",
             imageUrl: "/images/2023/1/10/01_Stetson_Wright_2022_NFR_SB_.png",
+//            hasBio: true,
             earnings: 42626.6,
             points: 42626.6,
             place: 1,

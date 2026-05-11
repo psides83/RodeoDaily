@@ -17,38 +17,54 @@ struct WatchRodeoResultsView: View {
     
     // MARK: - Body
     var body: some View {
+        content
+            .navigationTitle("Results")
+            .task {
+                await resultsApi.loadResults(rodeoId: rodeoId, event: event) {
+                    resultsApi.endLoading()
+                }
+            }
+    }
+
+    @ViewBuilder
+    private var content: some View {
         let roundCount = resultsApi.results.rounds.count
-        
-        Group {
-            if resultsApi.loading {
-                WatchLogoLoader()
-            } else {
-                VStack(alignment: .leading) {
-                    Text(rodeoName)
-                        .font(.headline)
-                    
+
+        if resultsApi.loading {
+            WatchLogoLoader()
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(rodeoName)
+                    .font(.headline)
+                    .lineLimit(2)
+
+                if resultsApi.results.rounds.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Results", systemImage: "list.number")
+                    } description: {
+                        Text("Results are unavailable for this rodeo.")
+                    }
+                } else {
                     List {
                         ForEach(resultsApi.results.rounds) { round in
                             Section(header: Text(round.roundDisplay(roundCount: roundCount))) {
-                                ForEach(round.winners.indices, id: \.self) { index in
-                                    if event == .tr {
-                                        if index % 2 == 0 {
-                                            WatchResultsTRCellView(index: index, winners: round.winners)
-                                        }
-                                    } else {
-                                        WatchResultsCellView(winner: round.winners[index])
+                                if event == .tr {
+                                    ForEach(
+                                        Array(stride(from: 0, to: round.winners.count, by: 2)),
+                                        id: \.self
+                                    ) { index in
+                                        WatchResultsTRCellView(index: index, winners: round.winners, event: event)
+                                    }
+                                } else {
+                                    ForEach(round.winners, id: \.id) { winner in
+                                        WatchResultsCellView(winner: winner, event: event)
                                     }
                                 }
                             }
                         }
                     }
-                    .navigationTitle("Results")
+                    .listStyle(.plain)
                 }
-            }
-        }
-        .task {
-            await resultsApi.loadResults(rodeoId: rodeoId, event: event) {
-                resultsApi.endLoading()
             }
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ShapeView: Shape {
+struct ShapeView: Shape, @unchecked Sendable {
     let bezier: UIBezierPath
 
     func path(in rect: CGRect) -> Path {

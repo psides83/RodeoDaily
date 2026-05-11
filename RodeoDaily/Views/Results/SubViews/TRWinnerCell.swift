@@ -26,7 +26,6 @@ struct TRWinnerCell: View {
                 VStack(alignment: .leading) {
                     HStack {
                         team.headerImage
-//                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.headerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Header")
@@ -35,10 +34,6 @@ struct TRWinnerCell: View {
                             
                             NavigationLink {
                                 BioView(athleteId: team.headerId)
-//                                withAnimation {
-//                                    isShowingBio.toggle()
-//                                    isShowingPartnerBio = false
-//                                }
                             } label: {
                                 HStack {
                                     Text(team.headerName)
@@ -61,7 +56,6 @@ struct TRWinnerCell: View {
                     
                     HStack {
                         team.heelerImage
-//                            .overlay(Color.appTertiary.opacity(0.96)).mask(team.heelerImage)
                         
                         VStack(alignment: .leading) {
                             Text("Heeler")
@@ -70,10 +64,6 @@ struct TRWinnerCell: View {
                             
                             NavigationLink {
                                 BioView(athleteId: team.heelerId)
-//                                withAnimation {
-//                                    isShowingBio = false
-//                                    isShowingPartnerBio.toggle()
-//                                }
                             } label: {
                                 HStack {
                                     Text(team.heelerName)
@@ -95,7 +85,6 @@ struct TRWinnerCell: View {
                     }
                 }
                 
-                
                 Spacer()
                 
                 HStack {
@@ -115,14 +104,6 @@ struct TRWinnerCell: View {
                 }
                 .frame(width: 150)
             }
-            
-//            if isShowingBio {
-//                BioCellView(athleteId: team.headerId, event: .hd, isShowingBio: isShowingBio)
-//            }
-//            
-//            if isShowingPartnerBio {
-//                BioCellView(athleteId: team.heelerId, event: .hl, isShowingBio: isShowingPartnerBio)
-//            }
         }
     }
     

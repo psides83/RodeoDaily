@@ -33,36 +33,62 @@ class ApiUrls: ObservableObject {
     
     // MARK: URL for loading results data
     func rodeosUrl(with index: Int, searchText: String, dateParams: String) -> URL {
-        let searchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        let urlString =
-        baseUrl
-        + "schedule?type=results&page_size=24&index="
-        + index.string
-        + "&active=true&search_term="
-        + searchString
-        + "&search_type=&tourId=&circuitId=&combine_results=true"
-        + dateParams
-        
-        guard let url = URL(string: urlString) else { fatalError("Missing URL") }
-        
-        return url
+        return scheduleUrl(
+            type: "results",
+            index: index,
+            searchText: searchText,
+            dateParams: dateParams
+        )
     }
     
     // MARK: URL for loading schedule data
     func rodeoScheduleUrl(with index: Int, searchText: String, dateParams: String) -> URL {
-        let searchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        let urlString =
-        baseUrl
-        + "schedule?type=schedules&page_size=24&index="
-        + index.string
-        + "&active=true&search_term="
-        + searchString
-        + "&search_type=&tourId=&circuitId=&combine_results=true"
-        + dateParams
-        
-        guard let url = URL(string: urlString) else { fatalError("Missing URL") }
-        
-        return url
+        return scheduleUrl(
+            type: "schedule",
+            index: index,
+            searchText: searchText,
+            dateParams: dateParams,
+            forceActive: nil,
+            addDefaultStartDate: true
+        )
+    }
+
+    func rodeoScheduleCandidateUrls(with index: Int, searchText: String, dateParams: String) -> [URL] {
+        let urls = [
+            // Current preferred schedule variant.
+            scheduleUrl(
+                type: "schedule",
+                index: index,
+                searchText: searchText,
+                dateParams: dateParams,
+                forceActive: nil,
+                addDefaultStartDate: true
+            ),
+            // Legacy variant used by older API behavior.
+            scheduleUrl(
+                type: "schedules",
+                index: index,
+                searchText: searchText,
+                dateParams: dateParams,
+                forceActive: true,
+                addDefaultStartDate: false
+            ),
+            // Fallback without forcing active but keeping legacy type.
+            scheduleUrl(
+                type: "schedules",
+                index: index,
+                searchText: searchText,
+                dateParams: dateParams,
+                forceActive: nil,
+                addDefaultStartDate: true
+            )
+        ]
+
+        var deduped: [URL] = []
+        for url in urls where !deduped.contains(url) {
+            deduped.append(url)
+        }
+        return deduped
     }
     
     // MARK: URL for loading standings data
@@ -128,26 +154,111 @@ class ApiUrls: ObservableObject {
     }
     
     func athleteSearchUrl(from searchText: String) -> URL {
-        let searchUrl = "athletes?event_type=&letter=&page_size=10&index=1&search_term=\(searchText)&search_type=&exact_search=null"
-        
-        var url: URL {
-            guard let url = URL(string: baseUrl + searchUrl) else { fatalError("Missing URL") }
-            
-            return url
+        guard var components = URLComponents(string: baseUrl + "athletes") else {
+            fatalError("Missing URL")
         }
+        
+        components.queryItems = [
+            URLQueryItem(name: "event_type", value: ""),
+            URLQueryItem(name: "letter", value: ""),
+            URLQueryItem(name: "page_size", value: "10"),
+            URLQueryItem(name: "index", value: "1"),
+            URLQueryItem(name: "search_term", value: searchText.trimmingCharacters(in: .whitespacesAndNewlines)),
+            URLQueryItem(name: "search_type", value: ""),
+            URLQueryItem(name: "exact_search", value: "null")
+        ]
+        
+        guard let url = components.url else { fatalError("Missing URL") }
         
         return url
     }
     
     func searchSuggetionsUrl(from searchText: String) -> URL {
-        let searchUrl = "autocomplete?searchText=\(searchText)&searchType=contestant"
-        
-        var url: URL {
-            guard let url = URL(string: baseUrl + searchUrl) else { fatalError("Missing URL") }
-            
-            return url
+        guard var components = URLComponents(string: baseUrl + "autocomplete") else {
+            fatalError("Missing URL")
         }
         
+        components.queryItems = [
+            URLQueryItem(name: "searchText", value: searchText.trimmingCharacters(in: .whitespacesAndNewlines)),
+            URLQueryItem(name: "searchType", value: "contestant")
+        ]
+        
+        guard let url = components.url else { fatalError("Missing URL") }
+        
         return url
+    }
+    
+    private func scheduleUrl(
+        type: String,
+        index: Int,
+        searchText: String,
+        dateParams: String,
+        forceActive: Bool? = nil,
+        addDefaultStartDate: Bool = false
+    ) -> URL {
+        guard var components = URLComponents(string: baseUrl + "schedule") else {
+            fatalError("Missing URL")
+        }
+
+        var items: [URLQueryItem] = [
+            URLQueryItem(name: "type", value: type),
+            URLQueryItem(name: "page_size", value: "24"),
+            URLQueryItem(name: "index", value: index.string),
+            URLQueryItem(name: "search_term", value: searchText.trimmingCharacters(in: .whitespacesAndNewlines)),
+            URLQueryItem(name: "search_type", value: ""),
+            URLQueryItem(name: "tourId", value: ""),
+            URLQueryItem(name: "circuitId", value: ""),
+            URLQueryItem(name: "combine_results", value: "true")
+        ]
+
+        if let forceActive {
+            items.append(URLQueryItem(name: "active", value: forceActive ? "true" : "false"))
+        } else if type == "results" {
+            // Keep results behavior, but avoid schedule being filtered to only currently active records.
+            items.append(URLQueryItem(name: "active", value: "true"))
+        }
+
+        let parsedDateItems = dateQueryItems(from: dateParams)
+        items.append(contentsOf: parsedDateItems)
+
+        // Default schedule to today-forward when no explicit start/end is provided.
+        if addDefaultStartDate,
+           type == "schedule" || type == "schedules",
+           !parsedDateItems.contains(where: { $0.name == "start" || $0.name == "end" }) {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.timeZone = .current
+            formatter.dateFormat = "MM/d/yyyy"
+            items.append(URLQueryItem(name: "start", value: formatter.string(from: Date())))
+        }
+
+        components.queryItems = items
+
+        guard let url = components.url else { fatalError("Missing URL") }
+
+        return url
+    }
+    
+    private func dateQueryItems(from dateParams: String) -> [URLQueryItem] {
+        let trimmed = dateParams.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmed.isEmpty else {
+            return []
+        }
+        
+        let queryString = trimmed.hasPrefix("&") ? String(trimmed.dropFirst()) : trimmed
+        
+        return queryString.split(separator: "&").compactMap { pair in
+            let values = pair.split(separator: "=", maxSplits: 1, omittingEmptySubsequences: false)
+            
+            guard let key = values.first, !key.isEmpty else {
+                return nil
+            }
+            
+            let rawValue = values.count > 1 ? String(values[1]) : ""
+            let value = rawValue.removingPercentEncoding ?? rawValue
+            
+            return URLQueryItem(name: String(key), value: value)
+        }
     }
 }

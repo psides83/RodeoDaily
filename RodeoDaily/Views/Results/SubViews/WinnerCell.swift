@@ -22,7 +22,6 @@ struct WinnerCell: View {
                     .foregroundColor(.appSecondary)
    
                 winner.image
-//                    .overlay(Color.appTertiary.opacity(0.96)).mask(winner.image)
                     .shadow(radius: 4, x: 0, y: 4)
                 
                 VStack(alignment: .leading) {
@@ -49,8 +48,6 @@ struct WinnerCell: View {
                 Spacer()
                 
                 HStack {
-                    
-                    
                     Spacer()
                     Text(winner.result)
                         .font(.subheadline)
@@ -64,10 +61,6 @@ struct WinnerCell: View {
                 }
                 .frame(width: 150)
             }
-            
-//            if isShowingBio {
-//                BioCellView(athleteId: winner.contestantId, event: StandingsEvent(rawValue: event) ?? .aa, isShowingBio: isShowingBio)
-//            }
         }
     }
     

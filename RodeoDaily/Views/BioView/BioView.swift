@@ -15,6 +15,19 @@ struct BioView: View {
     @StateObject var viewModel = BioViewModel()
     
     let athleteId: Int
+    let preferredInfoTypeRawValue: String?
+    let preferredEvent: String?
+    private let bioHeaderExpandedHeight: CGFloat = 474
+    
+    init(
+        athleteId: Int,
+        preferredInfoTypeRawValue: String? = nil,
+        preferredEvent: String? = nil
+    ) {
+        self.athleteId = athleteId
+        self.preferredInfoTypeRawValue = preferredInfoTypeRawValue
+        self.preferredEvent = preferredEvent
+    }
     
     // MARK: - View Body
     var body: some View {
@@ -23,18 +36,8 @@ struct BioView: View {
                 LogoLoader()
                     .offset(y: 150)
             } else {
-                VStack(spacing: 0) {
-                    if !viewModel.showSearchBar {
-                        BioHeaderView(viewModel: viewModel)
-                            .scaleEffect(x: 1, y: viewModel.showSearchBar ? 0 : 1, anchor: .top)
-                            .transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
-                    }
-                    
+                ZStack(alignment: .top) {
                     switch viewModel.infoType {
-                    case .bio:
-                        HtmlView(htmlContent: viewModel.bio.biographyText)
-                        BannerAd()
-                            .frame(height: 200)
                     case .results:
                         if viewModel.selectedEvent != nil  {
                             ResultsListView(viewModel: viewModel)
@@ -44,6 +47,7 @@ struct BioView: View {
                             } description: {
                                 Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
                             }
+                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
                         }
                     case .stats:
                         if viewModel.selectedEvent != nil  {
@@ -54,10 +58,10 @@ struct BioView: View {
                             } description: {
                                 Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
                             }
+                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
                         }
                     case .career:
                         if viewModel.selectedEvent != nil {
-                            
                             CareerListView(viewModel: viewModel)
                         } else {
                             ContentUnavailableView {
@@ -65,25 +69,36 @@ struct BioView: View {
                             } description: {
                                 Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo career rankings.")
                             }
+                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
                         }
                     case .highlights:
                         VideoHighlightsView(viewModel: viewModel)
                     }
+
+//                    if !viewModel.showSearchBar {
+                        BioTelegramHeaderView(viewModel: viewModel)
+//                            .transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
+                            .zIndex(1)
+//                    }
                 }
+                .ignoresSafeArea(edges: .top)
+                .coordinateSpace(name: "BIO_SCROLL_SHARED")
                 .background(Color.appBg)
-                .navigationTitle(viewModel.bio.name)
-                .navigationBarTitleColor(.appSecondary)
-                //                .navigationBarTitleDisplayMode(.inline)
-                .toolbarColorScheme(.dark, for: .navigationBar)
-                .toolbarBackground(Color.rdGreen, for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
+                .navigationTitle("")
+                .toolbarBackground(.hidden, for: .navigationBar)
                 .toolbarRole(.navigationStack)
                 .toolbar {
-                    EventFilterView(
-                        events: viewModel.bio.events,
-                        selectedEvent: $viewModel.selectedEvent
-                    )
-                    .tint(.appSecondary)
+                    ToolbarItem(placement: .topBarTrailing) {
+                        EventFilterView(
+                            events: viewModel.bio.events,
+                            selectedEvent: $viewModel.selectedEvent
+                        )
+                        .tint(.appSecondary)
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        BioFavoriteToolbarButton(viewModel: viewModel, athleteId: athleteId)
+                    }
                 }
             }
         }
@@ -91,7 +106,50 @@ struct BioView: View {
             print(athleteId)
             if athleteId != 0 {
                 await viewModel.getBio(for: athleteId)
+                
+                if let preferredEvent, viewModel.bio.events.contains(preferredEvent) {
+                    print("event: ", preferredEvent)
+                    await viewModel.setSelectedEvent(preferredEvent)
+                }
+                
+                if let preferredInfoTypeRawValue,
+                   let infoType = BioViewModel.BioInfoType(rawValue: preferredInfoTypeRawValue) {
+                    viewModel.infoType = infoType
+                }
             }
+        }
+        .onChange(of: viewModel.infoType) { _, _ in
+//            viewModel.bioScrollOffset = 0
+//            viewModel.bioPullDownOffset = 0
+//            viewModel.bioHasUserScrolled = false
+        }
+        .onAppear {
+            viewModel.bioScrollOffset = 0
+            viewModel.bioPullDownOffset = 0
+            viewModel.bioHasUserScrolled = false
+#if os(iOS)
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            appearance.shadowColor = .clear
+            appearance.shadowImage = UIImage()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+            UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
+            UINavigationBar.appearance().isTranslucent = true
+#endif
+        }
+        .onChange(of: viewModel.loading) { _, isLoading in
+            guard isLoading == false else { return }
+//            viewModel.bioScrollOffset = 0
+//            viewModel.bioPullDownOffset = 0
+//            viewModel.bioHasUserScrolled = false
+        }
+        .onDisappear {
+            viewModel.bioScrollOffset = 0
+            viewModel.bioPullDownOffset = 0
+            viewModel.bioHasUserScrolled = false
         }
     }
 }

@@ -63,10 +63,6 @@ struct DatePicker: View {
             .presentationDragIndicator(.visible)
         }
         .onAppear(perform: receiveDateRange)
-        .onChange(of: dateRange) { newValue in
-//            let newDate = SelectedDate(id: dateRange.count, date: newValue)
-//            handleDateRange(newDate: <#T##SelectedDate#>)
-        }
         .frame(maxWidth: 360, maxHeight: 450)
         .padding(.vertical, 20)
     }

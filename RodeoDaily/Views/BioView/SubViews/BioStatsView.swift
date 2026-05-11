@@ -9,184 +9,374 @@ import SwiftUI
 
 struct BioStatsView: View {
     @ObservedObject var viewModel: BioViewModel
-    
-    let columns = [
-        GridItem(.adaptive(minimum: 120), alignment: .leading),
-        GridItem(.adaptive(minimum: 120), alignment: .leading),
-        GridItem(.adaptive(minimum: 120), alignment: .leading)
-    ]
-    
-    
-    // MARK: - Body
+    @State private var initialOffset: CGFloat?
+    @State private var selectedSeasonLocal: String = ""
+
     var body: some View {
-        ZStack {
-            List(content: listSection)
-                .listStyle(.insetGrouped)
-                .padding(.top, 50)
-            
-            VStack {
-                HStack(alignment: .center) {
-                    Text("Career Stats")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.appPrimary)
-                        .padding(6)
-                        .frame(
-                            maxWidth: .infinity,
-                            alignment: .leading
-                        )
+        ScrollView {
+            VStack(alignment: .leading, spacing: AppSpace.lg) {
+                Color.clear
+                    .frame(height: 0)
+                    .offset(coordinateSpcae: .named("BIO_SCROLL_SHARED")) { value in
+                        if initialOffset == nil {
+                            initialOffset = value
+                            viewModel.bioScrollOffset = 0
+                            viewModel.bioPullDownOffset = 0
+                            return
+                        }
+                        if !viewModel.bioHasUserScrolled {
+                            viewModel.bioScrollOffset = 0
+                            viewModel.bioPullDownOffset = 0
+                            return
+                        }
+                        let baseline = initialOffset ?? value
+                        let delta = value - baseline
+                        let newScroll = max(-delta, 0)
+                        viewModel.bioScrollOffset = newScroll < 1 ? 0 : newScroll
+                        viewModel.bioPullDownOffset = 0
+                    }
+
+                Color.clear
+                    .frame(height: BioTelegramHeaderView.expandedHeight - 12)
+
+                statsHeader
+                seasonChips
+
+                if selectedSeasonStats == nil {
+                    ContentUnavailableView {
+                        Label(NSLocalizedString("No Stats Available", comment: ""), systemImage: "chart.bar.xaxis")
+                    } description: {
+                        Text(NSLocalizedString("No stats are available for this season and event.", comment: ""))
+                    }
+                    .padding(.top, AppSpace.lg)
+                } else if let stats = selectedSeasonStats {
+                    seasonOverviewCard(season: selectedSeason, stats: stats)
+                    bestPerformanceCard(stats: stats)
+                    nfrSummaryCard(season: selectedSeason)
+                    monthlyEarningsCard(season: selectedSeason)
+                    BannerAd(style: .mediumRectangle)
                 }
-                .frame(height: 50)
-                .padding(.horizontal, 20)
-                .background(
-                    Color
-                        .secondarySystemGroupedBackground
-                        .shadow(radius: 2)
-                )
-                
-                Spacer()
             }
-            Spacer()
+            .padding(.horizontal)
+            .padding(.top, AppSpace.md)
+            .padding(.bottom, AppSpace.xxl)
+        }
+        .background(Color.appBg)
+        .simultaneousGesture(DragGesture(minimumDistance: 1)
+            .onChanged { _ in
+                viewModel.bioHasUserScrolled = true
+            }
+        )
+        .onAppear {
+            initialOffset = nil
+            syncSelectedSeason()
+        }
+        .onChange(of: viewModel.bio.seasons) { _, _ in
+            syncSelectedSeason()
+        }
+        .onChange(of: viewModel.selectedSeason) { _, newValue in
+            guard !newValue.isEmpty, newValue != selectedSeasonLocal else { return }
+            selectedSeasonLocal = newValue
         }
     }
-    
-    // MARK: - Computed Properties
-    
-    
-    // MARK: - View Methods
-    func listSection() -> some View {
-        Group {
-            ForEach(viewModel.bio.seasons, id: \.self) { season in
-                Section(
-                    header: VStack(alignment: .trailing) {
-                        Text(season)
-                            .font(.title)
-                            .fontWeight(.bold)
-//                            .padding(.bottom, 2)
-                        
+
+    private var seasons: [String] {
+        viewModel.bio.seasons
+    }
+
+    private var selectedSeason: String {
+        if seasons.contains(selectedSeasonLocal) {
+            return selectedSeasonLocal
+        }
+
+        if seasons.contains(viewModel.selectedSeason) {
+            return viewModel.selectedSeason
+        }
+
+        return seasons.first ?? selectedSeasonLocal
+    }
+
+    private var selectedSeasonStats: (
+        seasonEarningsAndRank: (rank: String, earnings: String),
+        bestGo: (rodeo: String, result: String),
+        earningsGo: (rodeo: String, result: String, payout: String),
+        earningRodeo: (rodeo: String, payout: String)
+    )? {
+        guard !selectedSeason.isEmpty else { return nil }
+        return viewModel.stats(season: selectedSeason)
+    }
+
+    private var statsHeader: some View {
+        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(NSLocalizedString("Career Stats", comment: ""))
+                    .font(.appSectionTitle)
+                    .foregroundColor(.appPrimary)
+
+                Spacer()
+
+                if hasBiographyContent {
+                    NavigationLink {
+                        BioDetailView(
+                            athleteName: viewModel.bio.name,
+                            biographyText: viewModel.bio.biographyText
+                        )
+                    } label: {
                         HStack {
-                            Text(viewModel.stats(season: season).seasonEarningsAndRank.rank.rankingDisplay)
-                                .font(.title3)
-                            
-                            Spacer()
-                            Text(viewModel.stats(season: season).seasonEarningsAndRank.earnings)
-                                .font(.title3)
+                            Text(NSLocalizedString("Bio", comment: ""))
+                                .font(.appBodyStrong)
+                                .foregroundColor(.appSecondary)
+
+                            Image(systemName: "chevron.right")
+                                .font(.appBodyStrong)
+                                .foregroundColor(.appSecondary)
                         }
                     }
-                ) {
-                    seasonCard(season: season)
-                    //                    .listRowBackground(Color.appBg)
+                    .buttonStyle(.plain)
                 }
             }
-            Section {
-                BannerAd().frame(height: 300)
+
+            Text(viewModel.selectedEvent?.eventDisplay ?? "")
+                .font(.appBodyStrong)
+                .foregroundColor(.appSecondary)
+        }
+        .appCardStyle()
+    }
+
+    private var hasBiographyContent: Bool {
+        let html = viewModel.bio.biographyText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !html.isEmpty else { return false }
+        let plainText = html
+            .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+        return plainText
+            .replacingOccurrences(of: "\u{00A0}", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .isEmpty == false
+    }
+
+    private var seasonChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: AppSpace.sm) {
+                ForEach(seasons, id: \.self) { season in
+                    Button {
+                        withAnimation {
+                            selectedSeasonLocal = season
+                            viewModel.selectedSeason = season
+                        }
+                    } label: {
+                        Text(season)
+                            .font(.appBodyStrong)
+                            .foregroundColor(selectedSeason == season ? .white : .appPrimary)
+                            .padding(.horizontal, AppSpace.lg)
+                            .padding(.vertical, AppSpace.sm)
+                            .background(
+                                Capsule()
+                                    .fill(selectedSeason == season ? Color.rdGreen : Color.appBg)
+                            )
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
     }
-    
-    // MARK: - Computed Property Views
-    func seasonCard(season: String) -> some View {
-        
-        VStack(alignment: .leading, spacing: 20) {
-            
-            VStack(alignment: .leading) {
-                Text(viewModel.scoreTypeText.scoreType)
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                
-                HStack {
-                    Text(viewModel.stats(season: season).bestGo.rodeo)
-                    Spacer()
-                    Text(viewModel.stats(season: season).bestGo.result)
-                }
-                .font(.subheadline)
+
+    private func seasonOverviewCard(
+        season: String,
+        stats: (
+            seasonEarningsAndRank: (rank: String, earnings: String),
+            bestGo: (rodeo: String, result: String),
+            earningsGo: (rodeo: String, result: String, payout: String),
+            earningRodeo: (rodeo: String, payout: String)
+        )
+    ) -> some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                Text(String(format: NSLocalizedString("Season %@", comment: ""), season))
+                    .font(.appMetricLabel)
+                    .foregroundColor(.appTertiary)
+                Text(stats.seasonEarningsAndRank.rank.rankingDisplay)
+                    .font(.appCardTitle)
+                    .foregroundColor(.appPrimary)
             }
-            
-            VStack(alignment: .leading) {
-                Text("Highest Earning Single \(viewModel.scoreTypeText.action):")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                
-                HStack {
-                    Text(viewModel.stats(season: season).earningsGo.rodeo)
-                    Spacer()
-                    Text(viewModel.stats(season: season).earningsGo.result)
-                    Spacer()
-                    Text(viewModel.stats(season: season).earningsGo.payout)
-                }
-                .font(.subheadline)
+
+            Spacer()
+
+            VStack(alignment: .trailing, spacing: AppSpace.xxs) {
+                Text(NSLocalizedString("Earnings", comment: ""))
+                    .font(.appMetricLabel)
+                    .foregroundColor(.appTertiary)
+                Text(stats.seasonEarningsAndRank.earnings)
+                    .font(.appCardTitle)
+                    .foregroundColor(.appSecondary)
             }
-            
-            VStack(alignment: .leading) {
-                Text("Highest Single Rodeo Earnings:")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                
-                HStack {
-                    Text(viewModel.stats(season: season).earningRodeo.rodeo)
-                    Spacer()
-                    Text(viewModel.stats(season: season).earningRodeo.payout)
-                }
-                .font(.subheadline)
+        }
+        .appCardStyle()
+    }
+
+    private func bestPerformanceCard(
+        stats: (
+            seasonEarningsAndRank: (rank: String, earnings: String),
+            bestGo: (rodeo: String, result: String),
+            earningsGo: (rodeo: String, result: String, payout: String),
+            earningRodeo: (rodeo: String, payout: String)
+        )
+    ) -> some View {
+        VStack(alignment: .leading, spacing: AppSpace.md) {
+            Text(NSLocalizedString("Best Performances", comment: ""))
+                .font(.appBodyStrong)
+                .foregroundColor(.appPrimary)
+
+            statRow(
+                title: viewModel.scoreTypeText.scoreType.replacingOccurrences(of: ":", with: ""),
+                rodeo: stats.bestGo.rodeo,
+                trailing: stats.bestGo.result
+            )
+
+            statRow(
+                title: String(format: NSLocalizedString("Best Paying %@", comment: ""), viewModel.scoreTypeText.action),
+                rodeo: stats.earningsGo.rodeo,
+                trailing: "\(stats.earningsGo.result) • \(stats.earningsGo.payout)"
+            )
+
+            statRow(
+                title: NSLocalizedString("Best Paying Rodeo", comment: ""),
+                rodeo: stats.earningRodeo.rodeo,
+                trailing: stats.earningRodeo.payout
+            )
+        }
+        .appCardStyle()
+    }
+
+    private func statRow(title: String, rodeo: String, trailing: String) -> some View {
+        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+            Text(title)
+                .font(.appMetricLabel)
+                .foregroundColor(.appTertiary)
+
+            HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
+                Text(rodeo)
+                    .font(.appBody)
+                    .foregroundColor(.appPrimary)
+                    .lineLimit(2)
+
+                Spacer()
+
+                Text(trailing)
+                    .font(.appBodyStrong)
+                    .foregroundColor(.appSecondary)
+                    .multilineTextAlignment(.trailing)
             }
-            
-//            if viewModel.bio.nfrQualified(for: season.int) {
-                if let result = (viewModel.nfrBestGo(season: season.int)) {
-                    HStack {
-                        Text("NFR \(viewModel.scoreTypeText.scoreType):")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        Text(result)
-                            .font(.subheadline)
-                    }
-                }
-                
-                if let nfrEarnings = viewModel.nfrEarnings(for: season) {
-                    HStack {
-                        Text("NFR Earnings:")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        Text(nfrEarnings)
-                            .font(.subheadline)
-                    }
-                }
-//            }
-            
-            VStack {
-                Text("Monthly Earnings:")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
+        }
+    }
+
+    private func nfrSummaryCard(season: String) -> some View {
+        VStack(alignment: .leading, spacing: AppSpace.sm) {
+            Text(NSLocalizedString("NFR Summary", comment: ""))
+                .font(.appBodyStrong)
+                .foregroundColor(.appPrimary)
+
+            if let result = viewModel.nfrBestGo(season: season.int) {
                 HStack {
+                    Text(String(format: NSLocalizedString("Best NFR %@", comment: ""), viewModel.scoreTypeText.scoreType.replacingOccurrences(of: ":", with: "")))
+                        .font(.appBody)
+                        .foregroundColor(.appPrimary)
                     Spacer()
-                    
-                    LazyVGrid(columns: columns, spacing: 12) {
-                        ForEach(viewModel.monthlyEarnings(season: season), id: \.month) { month in
-                            VStack(alignment: .leading) {
-                                Text(month.month)
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
-                                
-                                Text(month.total.currencyABS)
-                                    .font(.subheadline)
+                    Text(result)
+                        .font(.appBodyStrong)
+                        .foregroundColor(.appSecondary)
+                }
+            }
+
+            if let nfrEarnings = viewModel.nfrEarnings(for: season) {
+                HStack {
+                    Text(NSLocalizedString("NFR Earnings", comment: ""))
+                        .font(.appBody)
+                        .foregroundColor(.appPrimary)
+                    Spacer()
+                    Text(nfrEarnings)
+                        .font(.appBodyStrong)
+                        .foregroundColor(.appSecondary)
+                }
+            }
+
+            if viewModel.nfrBestGo(season: season.int) == nil && viewModel.nfrEarnings(for: season) == nil {
+                Text(NSLocalizedString("No NFR stats for this season.", comment: ""))
+                    .font(.appCaption)
+                    .foregroundColor(.appTertiary)
+            }
+        }
+        .appCardStyle()
+    }
+
+    private func monthlyEarningsCard(season: String) -> some View {
+        let data = viewModel.monthlyEarnings(season: season)
+        let maxTotal = max(data.map(\.total).max() ?? 0, 1)
+        let regularSeasonTotal = data.reduce(0) { $0 + $1.total }
+
+        return VStack(alignment: .leading, spacing: AppSpace.md) {
+            HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
+                Text(NSLocalizedString("Monthly Earnings", comment: ""))
+                    .font(.appBodyStrong)
+                    .foregroundColor(.appPrimary)
+
+                Spacer()
+
+                Text("\(NSLocalizedString("Regular Season", comment: "")): \(regularSeasonTotal.currencyABS)")
+                    .font(.appCaptionStrong)
+                    .foregroundColor(.appSecondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
+            }
+
+            VStack(spacing: AppSpace.sm) {
+                ForEach(data, id: \.month) { month in
+                    HStack(spacing: AppSpace.sm) {
+                        Text(month.month)
+                            .font(.appCaptionStrong)
+                            .foregroundColor(.appTertiary)
+                            .frame(width: 34, alignment: .leading)
+
+                        GeometryReader { proxy in
+                            let width = max(0, proxy.size.width * CGFloat(month.total / maxTotal))
+
+                            ZStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                    .fill(Color.appTertiary.opacity(0.15))
+
+                                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                    .fill(Color.appSecondary.opacity(month.total > 0 ? 0.9 : 0.3))
+                                    .frame(width: width)
                             }
                         }
+                        .frame(height: 16)
+
+                        Text(month.total.currencyABS)
+                            .font(.appCaptionStrong)
+                            .foregroundColor(.appPrimary)
+                            .frame(width: 86, alignment: .trailing)
                     }
-                    .frame(maxWidth: 360)
-                    
-                    Spacer()
+                    .frame(height: 16)
                 }
             }
-            .padding() // padding inside the background
-            .background(Color.appPrimary.opacity(0.2)) // subtle overall background
-            .cornerRadius(8)
+        }
+        .appCardStyle()
+    }
+
+    private func syncSelectedSeason() {
+        guard !seasons.isEmpty else { return }
+        let preferred = seasons.contains(viewModel.selectedSeason) ? viewModel.selectedSeason : (seasons.first ?? "")
+        guard !preferred.isEmpty else { return }
+        selectedSeasonLocal = preferred
+        if viewModel.selectedSeason != preferred {
+            viewModel.selectedSeason = preferred
         }
     }
 }

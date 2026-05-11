@@ -12,67 +12,62 @@ struct StandingsCell: View {
     let position: Position
     
     var widgetAthletes: [WidgetAthlete]
-    
-    @State private var isShowingBio = false
-    
-    // matched the position event to a StandingsEvent to be passed into the BioView
-    var standingEvent: StandingsEvent {
-        let event = StandingsEvent.allCases.filter({ $0.rawValue == position.event})
-        
-        guard event.count > 0 else { return .aa }
-        
-        return event[0]
-    }
+    var followedAthletes: [FollowedAthlete]
     
     var body: some View {
-        VStack {
-            HStack(alignment: .center) {
-                Text(position.place.string)
-                    .foregroundColor(.appSecondary)
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .frame(width: 30)
-                
-                position.image
-//                    .overlay(Color.appTertiary.opacity(0.96)).mask(position.image)
-                    .shadow(radius: 4, x: 0, y: 4)
-
-                
-                VStack(alignment: .leading, spacing: 1) {
+        ZStack {
+            HStack {
+                VStack(alignment: .leading, spacing: AppSpace.sm) {
+                    rankBadge
                     
-                    HStack {
-                        //                        Button {
-                        //                            withAnimation {
-                        //                                isShowingBio.toggle()
-                        //                            }
-                        //                        } label: {
+                    
+                    VStack(alignment: .leading, spacing: AppSpace.xs) {
                         Text(position.name)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(.appPrimary)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        //                                .padding(.bottom, -6)
+                            .font(.appCardTitle)
+                            .lineLimit(2)
                         
-                        favoriteIcon
-                        //                        }
-                        //                        .buttonStyle(.clearTextButton)
-                        
-                        Spacer()
-                    }
-                    
-                    HStack{
-                        Text(position.earnings.currency)
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .padding(.leading, 7)
-                        
-                        Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
-                        
-                        Text(position.hometownDisplay)
-                            .font(.caption)
-                            .foregroundColor(.appTertiary)
+                        if !position.hometownDisplay.isEmpty {
+                            Text(position.hometownDisplay)
+                                .font(.appCaption)
+                                .foregroundColor(.appTertiary)
+                                .lineLimit(1)
+                        }
                     }
                 }
+                
                 Spacer()
+                
+                metrics
+            }
+            .appCardStyle()
+            
+            position.image
+                .scaleEffect(2.5)
+                .offset(x: 20, y: -19)
+                .shadow(color: .black.opacity(0.18), radius: 6, x: 0, y: 3)
+                .padding(.trailing, AppSpace.xs)
+        }
+    }
+    
+    var rankBadge: some View {
+        Text("#\(position.place)")
+            .font(.appRank)
+            .foregroundColor(.appBg)
+            .padding(.horizontal, AppSpace.sm)
+            .padding(.vertical, AppSpace.xs)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(Color.appSecondary)
+            )
+    }
+    
+    var metrics: some View {
+        VStack(alignment: .trailing, spacing: AppSpace.xs) {
+            HStack {
+                followedIcon
+                favoriteIcon
                 
                 if position.hasBio {
                     Image(systemName: "chevron.right")
@@ -80,9 +75,18 @@ struct StandingsCell: View {
                 }
             }
             
-            //            if isShowingBio && position.id != 0 {
-            //                BioCellView(athleteId: position.id, event: StandingsEvent(rawValue: position.event) ?? .aa, isShowingBio: isShowingBio)
-            //            }
+            Spacer()
+            
+            Text("Earnings")
+                .font(.appMetricLabel)
+                .foregroundColor(.appTertiary)
+                .textCase(.uppercase)
+            
+            Text(position.earnings.currency)
+                .font(.appMetricValue)
+                .foregroundColor(.appPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
     }
     
@@ -94,12 +98,29 @@ struct StandingsCell: View {
         return false
     }
     
+    var isFollowed: Bool {
+        followedAthletes.contains(where: { $0.athleteId == position.id })
+    }
+    
+    @ViewBuilder
+    var followedIcon: some View {
+        switch isFollowed {
+        case true:
+            Image(systemName: "bell.fill")
+                .foregroundColor(.appSecondary)
+                .accessibilityLabel("Followed")
+        case false:
+            EmptyView()
+        }
+    }
+    
     @ViewBuilder
     var favoriteIcon: some View {
         switch isFavorite {
-        case true: 
+        case true:
             Image(systemName: "star.fill")
                 .foregroundColor(.appSecondary)
+                .accessibilityLabel("Favorite")
         case false:
             EmptyView()
         }

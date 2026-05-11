@@ -22,6 +22,8 @@ struct Position: Codable, Identifiable {
     let earnings, points: Double
     let place, standingId, seasonYear: Int
     let tourId, circuitId: Int?
+    var contestantId: Int? = nil
+    var hasBio: Bool = true
 
     enum CodingKeys: String, CodingKey {
         case id = "ContestantId"
@@ -78,10 +80,10 @@ extension Position {
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
-    var hasBio: Bool {
-        switch event {
-            case "GB", "LB": return false
-            default: return true
-        }
-    }
+//    var hasBio: Bool {
+//        switch event {
+//            case "GB", "LB": return false
+//            default: return true
+//        }
+//    }
 }

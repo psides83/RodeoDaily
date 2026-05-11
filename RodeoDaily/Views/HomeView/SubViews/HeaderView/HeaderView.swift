@@ -22,6 +22,10 @@ extension HomeView {
             }
             
             HStack(spacing: 0) {
+//                CustomButton(symbolImage: .home, title: NSLocalizedString("Home", comment: "")) {
+//                    selectedTab = .dashboard
+//                }
+
                 CustomButton(symbolImage: .standings, title: NSLocalizedString("Standings", comment: "")) {
                     selectedTab = .standings
                 }
@@ -29,17 +33,10 @@ extension HomeView {
                 CustomButton(symbolImage: .results, title: NSLocalizedString("Results", comment: "")) {
                     selectedTab = .results
                 }
-                
-                CustomButton(symbolImage: .cowboy, title: NSLocalizedString("Athletes", comment: "")) {
-                    selectedTab = .cowboys
+
+                CustomButton(symbolImage: .more, title: NSLocalizedString("More", comment: "")) {
+                    selectedTab = .more
                 }
-                
-                CustomButton(symbolImage: .settings, title: NSLocalizedString("Settings", comment: "")) {
-                    navigatedToSettings = true
-                }
-            }
-            .navigationDestination(isPresented: $navigatedToSettings) {
-                SettingsView()
             }
             // Shrinking Horizontal
             .padding(.horizontal, -progress * 50)

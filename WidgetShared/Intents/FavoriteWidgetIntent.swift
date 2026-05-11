@@ -14,7 +14,7 @@ struct FavoriteWidgetIntent: WidgetConfigurationIntent {
     
     static var description = IntentDescription("Selects the favorite athlete to display in the widget.")
     
-    @Parameter(title: "Athlete") var athlete: WidgetAthleteEntity
+    @Parameter(title: "Athlete") var athlete: WidgetAthleteEntity?
     
     init() {}
 }

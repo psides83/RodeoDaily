@@ -11,7 +11,9 @@ import SwiftUI
 
 class ATTHandler: ObservableObject {
     
-    let status = ATTrackingManager.trackingAuthorizationStatus
+    var status: ATTrackingManager.AuthorizationStatus {
+        ATTrackingManager.trackingAuthorizationStatus
+    }
     
     @AppStorage("needsATTRequest") var needsATTRequest = true
 

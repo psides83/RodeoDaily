@@ -50,6 +50,11 @@
 		1C0D3A942C8762B500286449 /* VideoHighlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */; };
 		1C0D3A962C8762F200286449 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A952C8762F200286449 /* Video.swift */; };
 		1C0D3A982C877F2A00286449 /* UnavailableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */; };
+		1C0D46B62FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
+		1C0D46B72FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
+		1C0D46B82FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
+		1C0D46B92FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
+		1C0D46BA2FB016D70074264A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4288299BDB98008F4F9A /* ColorExtension.swift */; };
 		1C1127672EC27A8D0089AEE1 /* ScheduleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1127662EC27A880089AEE1 /* ScheduleApi.swift */; };
 		1C1127682EC27A8D0089AEE1 /* ScheduleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1127662EC27A880089AEE1 /* ScheduleApi.swift */; };
 		1C11276B2EC27B910089AEE1 /* ScheduleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */; };
@@ -77,7 +82,6 @@
 		1C5432702C9887D300CFF362 /* FavoriteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C54326F2C9887D300CFF362 /* FavoriteAlert.swift */; };
 		1C5A6F8A2C98AAD300B5F624 /* FavoriteWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A6F892C98AAD300B5F624 /* FavoriteWidgetSmallView.swift */; };
 		1C5A6F8E2C990A9300B5F624 /* FavoriteWidgetSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A6F8D2C990A9300B5F624 /* FavoriteWidgetSmall.swift */; };
-		1C5BFCFF2DEE43260093F30A /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C5BFCFE2DEE43260093F30A /* SwiftSoup */; };
 		1C5BFD012DEE51940093F30A /* WpraUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BFD002DEE51850093F30A /* WpraUrl.swift */; };
 		1C5BFD022DEE524A0093F30A /* WpraUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BFD002DEE51850093F30A /* WpraUrl.swift */; };
 		1C5BFD032DEE525C0093F30A /* WpraUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BFD002DEE51850093F30A /* WpraUrl.swift */; };
@@ -278,7 +282,6 @@
 		1CEA4A6429A4FC92007F7B53 /* JSONStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64355B298C595D0032CFC2 /* JSONStructs.swift */; };
 		1CEA4A6729A4FCAC007F7B53 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4282299BDB3B008F4F9A /* CGFloatExtension.swift */; };
 		1CEA4A6829A4FCAC007F7B53 /* DateExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4285299BDB65008F4F9A /* DateExtansion.swift */; };
-		1CEA4A6929A4FCAC007F7B53 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4288299BDB98008F4F9A /* ColorExtension.swift */; };
 		1CEA4A6A29A4FCAC007F7B53 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A427C299BD52A008F4F9A /* StringExtension.swift */; };
 		1CEA4A6B29A4FCAC007F7B53 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4279299BD4B2008F4F9A /* IntExtension.swift */; };
 		1CEA4A6C29A4FCAC007F7B53 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A427F299BD583008F4F9A /* DoubleExtension.swift */; };
@@ -294,6 +297,8 @@
 		1CEF10D6298EAFD70078A809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C093118298AFE5B00BB016D /* Assets.xcassets */; };
 		1CEF10D7298EAFDA0078A809 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C2C55298D4FDC002FE8EC /* Images.xcassets */; };
 		1CF097382998BE8F000D7499 /* ExpandingSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF097372998BE8F000D7499 /* ExpandingSearchBar.swift */; };
+		1CF0A1B22F6A100000A1B2C3 /* ScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0A1B12F6A100000A1B2C3 /* ScheduleListView.swift */; };
+		1CF0A1B42F6A200000A1B2C3 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0A1B32F6A200000A1B2C3 /* DesignTokens.swift */; };
 		1CF409F029B02FB200958513 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF409EF29B02FB200958513 /* Team.swift */; };
 		1CF409F129B02FB200958513 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF409EF29B02FB200958513 /* Team.swift */; };
 		1CF409F229B02FB200958513 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF409EF29B02FB200958513 /* Team.swift */; };
@@ -302,6 +307,34 @@
 		1CF9ED932EBFAB140065C6E0 /* LayoutAlt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED922EBFAAFD0065C6E0 /* LayoutAlt.swift */; };
 		1CF9ED952EBFB7060065C6E0 /* StandingsListProt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED942EBFB6FD0065C6E0 /* StandingsListProt.swift */; };
 		1CF9ED972EBFB9AA0065C6E0 /* StandingsCellProt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED962EBFB9A20065C6E0 /* StandingsCellProt.swift */; };
+		F0AA00112F6A300000A1B2C3 /* AthleteNotificationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */; };
+		F0AA00122F6A300000A1B2C3 /* FollowNotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */; };
+		F0AA00132F6A300000A1B2C3 /* AppBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */; };
+		F0AA00142F6A300000A1B2C3 /* SupabasePushSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00042F6A300000A1B2C3 /* SupabasePushSyncService.swift */; };
+		F0AA00152F6A300000A1B2C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */; };
+		F0AA00162F6A300000A1B2C3 /* AppReviewPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00062F6A300000A1B2C3 /* AppReviewPromptManager.swift */; };
+		F0BB00112F70000000A1B2C3 /* PBJFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */; };
+		F0BB00122F70000000A1B2C3 /* PBJFeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */; };
+		F0BB00132F70000000A1B2C3 /* PBJFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */; };
+		F0BB00142F70000000A1B2C3 /* PBJFeedDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */; };
+		F0BB00172F70000000A1B2C3 /* PBJFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */; };
+		F0BB00A12F71011100A1B2C3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00A02F71011100A1B2C3 /* DashboardView.swift */; };
+		F0BB00C02F71022200A1B2C3 /* PastChampion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B02F71022200A1B2C3 /* PastChampion.swift */; };
+		F0BB00C12F71022200A1B2C3 /* PastChampionsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B12F71022200A1B2C3 /* PastChampionsApi.swift */; };
+		F0BB00C22F71022200A1B2C3 /* PastChampionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B22F71022200A1B2C3 /* PastChampionsListView.swift */; };
+		F0BB00C32F71022200A1B2C3 /* FavoriteEventsSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B72F71022200A1B2C3 /* FavoriteEventsSettingsPage.swift */; };
+		F0BB00C42F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B82F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift */; };
+		F0BB00C52F71022200A1B2C3 /* AboutSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B92F71022200A1B2C3 /* AboutSettingsPage.swift */; };
+		F0BB00C62F71022200A1B2C3 /* FollowAlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00BA2F71022200A1B2C3 /* FollowAlertsView.swift */; };
+		F0BB00D02F71033300A1B2C3 /* PBJFeedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */; };
+		F0BB00D12F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */; };
+		F0BB00D22F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */; };
+		F0BB00E12F71044400A1B2C3 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00E02F71044400A1B2C3 /* MoreView.swift */; };
+		F0CC01012F72000100A1B2C3 /* HomeNativeStyleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC01002F72000100A1B2C3 /* HomeNativeStyleHeader.swift */; };
+		F0CC02012F72010100A1B2C3 /* BioTelegramHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02002F72010100A1B2C3 /* BioTelegramHeaderView.swift */; };
+		F0CC02052F72051300A1B2C3 /* BioFavoriteToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02042F72051300A1B2C3 /* BioFavoriteToolbarButton.swift */; };
+		F0CC02072F7207A100A1B2C3 /* BioDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02062F7207A100A1B2C3 /* BioDetailView.swift */; };
+		F0CC02092F7208C100A1B2C3 /* BioDetailDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02082F7208C100A1B2C3 /* BioDetailDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -414,6 +447,7 @@
 		1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHighlightsView.swift; sourceTree = "<group>"; };
 		1C0D3A952C8762F200286449 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableContentView.swift; sourceTree = "<group>"; };
+		1C0D46B52FB00D830074264A /* SupabaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseConfig.swift; sourceTree = "<group>"; };
 		1C1127662EC27A880089AEE1 /* ScheduleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleApi.swift; sourceTree = "<group>"; };
 		1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMapView.swift; sourceTree = "<group>"; };
 		1C129F572995B29F00EB052E /* FavoriteWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetApi.swift; sourceTree = "<group>"; };
@@ -541,11 +575,40 @@
 		1CEA4A7429A52FEE007F7B53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1CEF10D9298EB32B0078A809 /* RodeoDailyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RodeoDailyWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1CF097372998BE8F000D7499 /* ExpandingSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingSearchBar.swift; sourceTree = "<group>"; };
+		1CF0A1B12F6A100000A1B2C3 /* ScheduleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListView.swift; sourceTree = "<group>"; };
+		1CF0A1B32F6A200000A1B2C3 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		1CF409EF29B02FB200958513 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		1CF41FE1298CC80300214324 /* WinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinnerCell.swift; sourceTree = "<group>"; };
 		1CF9ED922EBFAAFD0065C6E0 /* LayoutAlt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAlt.swift; sourceTree = "<group>"; };
 		1CF9ED942EBFB6FD0065C6E0 /* StandingsListProt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsListProt.swift; sourceTree = "<group>"; };
 		1CF9ED962EBFB9A20065C6E0 /* StandingsCellProt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsCellProt.swift; sourceTree = "<group>"; };
+		F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteNotificationRoute.swift; sourceTree = "<group>"; };
+		F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationRouter.swift; sourceTree = "<group>"; };
+		F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgeManager.swift; sourceTree = "<group>"; };
+		F0AA00042F6A300000A1B2C3 /* SupabasePushSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabasePushSyncService.swift; sourceTree = "<group>"; };
+		F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F0AA00062F6A300000A1B2C3 /* AppReviewPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewPromptManager.swift; sourceTree = "<group>"; };
+		F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedItem.swift; sourceTree = "<group>"; };
+		F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedApi.swift; sourceTree = "<group>"; };
+		F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedView.swift; sourceTree = "<group>"; };
+		F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedDetailView.swift; sourceTree = "<group>"; };
+		F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedResponse.swift; sourceTree = "<group>"; };
+		F0BB00A02F71011100A1B2C3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F0BB00B02F71022200A1B2C3 /* PastChampion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChampion.swift; sourceTree = "<group>"; };
+		F0BB00B12F71022200A1B2C3 /* PastChampionsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChampionsApi.swift; sourceTree = "<group>"; };
+		F0BB00B22F71022200A1B2C3 /* PastChampionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChampionsListView.swift; sourceTree = "<group>"; };
+		F0BB00B72F71022200A1B2C3 /* FavoriteEventsSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventsSettingsPage.swift; sourceTree = "<group>"; };
+		F0BB00B82F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAthletesSettingsPage.swift; sourceTree = "<group>"; };
+		F0BB00B92F71022200A1B2C3 /* AboutSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPage.swift; sourceTree = "<group>"; };
+		F0BB00BA2F71022200A1B2C3 /* FollowAlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAlertsView.swift; sourceTree = "<group>"; };
+		F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedParser.swift; sourceTree = "<group>"; };
+		F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BioViewModel+Earnings.swift"; sourceTree = "<group>"; };
+		F0BB00E02F71044400A1B2C3 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
+		F0CC01002F72000100A1B2C3 /* HomeNativeStyleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNativeStyleHeader.swift; sourceTree = "<group>"; };
+		F0CC02002F72010100A1B2C3 /* BioTelegramHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTelegramHeaderView.swift; sourceTree = "<group>"; };
+		F0CC02042F72051300A1B2C3 /* BioFavoriteToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioFavoriteToolbarButton.swift; sourceTree = "<group>"; };
+		F0CC02062F7207A100A1B2C3 /* BioDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioDetailView.swift; sourceTree = "<group>"; };
+		F0CC02082F7208C100A1B2C3 /* BioDetailDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioDetailDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,7 +639,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C5BFCFF2DEE43260093F30A /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +763,7 @@
 			children = (
 				1C0C2C81298D9EBA002FE8EC /* CustomButtonView.swift */,
 				1C0C2C7F298D9EBA002FE8EC /* HeaderView.swift */,
+				F0CC01002F72000100A1B2C3 /* HomeNativeStyleHeader.swift */,
 				1C0C2C80298D9EBA002FE8EC /* SearchBarView.swift */,
 			);
 			path = HeaderView;
@@ -756,6 +819,7 @@
 		1C1127692EC27B7C0089AEE1 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				1CF0A1B12F6A100000A1B2C3 /* ScheduleListView.swift */,
 				1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */,
 			);
 			path = Schedule;
@@ -772,7 +836,14 @@
 		1C15E9B9298C548D008AC131 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB00B42F71022200A1B2C3 /* Champions */,
+				F0BB000B2F70000000A1B2C3 /* PBJ */,
+				F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */,
+				F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */,
+				F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */,
+				F0AA00062F6A300000A1B2C3 /* AppReviewPromptManager.swift */,
 				1CC2C565299EA46700011270 /* SearchModel.swift */,
+				F0AA00042F6A300000A1B2C3 /* SupabasePushSyncService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -780,6 +851,9 @@
 		1C15E9BA298C54A6008AC131 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB00B32F71022200A1B2C3 /* Champions */,
+				F0BB000A2F70000000A1B2C3 /* PBJ */,
+				F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */,
 				1C5BFD002DEE51850093F30A /* WpraUrl.swift */,
 				1C1CBC8D299E7EA700C7888D /* Tab.swift */,
 				1C0D3A952C8762F200286449 /* Video.swift */,
@@ -801,6 +875,7 @@
 		1C2F3B3E29A8738B00519787 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				1C0D46B52FB00D830074264A /* SupabaseConfig.swift */,
 				1C40A674298F820500CAA13D /* Circuit.swift */,
 				1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */,
 				1C40A677298F865C00CAA13D /* StandingType.swift */,
@@ -858,6 +933,7 @@
 				1C9A42A3299C0010008F4F9A /* ApiUrls.swift */,
 				1C9219A82C936FD000A9CECD /* AthletesApi.swift */,
 				1C0C2C5F298D7A60002FE8EC /* BioViewModel.swift */,
+				F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */,
 				1C643567298C73040032CFC2 /* ResultsApi.swift */,
 				1C1127662EC27A880089AEE1 /* ScheduleApi.swift */,
 				1C64356E298C7E830032CFC2 /* RodeosApi.swift */,
@@ -911,6 +987,8 @@
 		1C64355D298C71C70032CFC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB00B52F71022200A1B2C3 /* Champions */,
+				F0BB000C2F70000000A1B2C3 /* PBJ */,
 				1C1127692EC27B7C0089AEE1 /* Schedule */,
 				1C14B5EA2E047C7700B57FF7 /* SingleRodeoResults */,
 				1CB14A9F2CA3C2B800165D91 /* Athletes */,
@@ -930,6 +1008,7 @@
 			isa = PBXGroup;
 			children = (
 				1C9A4278299BD497008F4F9A /* Extensions */,
+				1CF0A1B32F6A200000A1B2C3 /* DesignTokens.swift */,
 				1C643561298C71E80032CFC2 /* Modifiers.swift */,
 				1C643562298C71E80032CFC2 /* OffsetKey.swift */,
 				1CC2C562299E9A0100011270 /* Debouncer.swift */,
@@ -952,6 +1031,7 @@
 		1C85DA28298E117A00CA6F35 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB00B62F71022200A1B2C3 /* SubViews */,
 				1C85DA29298E118A00CA6F35 /* SettingsView.swift */,
 				1C894BE32C966CB300AC9AF7 /* WidgetAthleteCellView.swift */,
 			);
@@ -1000,6 +1080,10 @@
 				1C9A429A299BE3F9008F4F9A /* CareerListView.swift */,
 				1C9A429C299BE4C7008F4F9A /* ResultsListView.swift */,
 				1C9A429E299BE8A6008F4F9A /* BioHeaderView.swift */,
+				F0CC02002F72010100A1B2C3 /* BioTelegramHeaderView.swift */,
+				F0CC02042F72051300A1B2C3 /* BioFavoriteToolbarButton.swift */,
+				F0CC02062F7207A100A1B2C3 /* BioDetailView.swift */,
+				F0CC02082F7208C100A1B2C3 /* BioDetailDocument.swift */,
 				1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */,
 			);
 			path = SubViews;
@@ -1044,7 +1128,9 @@
 			isa = PBXGroup;
 			children = (
 				1C0C2C7E298D9EA3002FE8EC /* HeaderView */,
+				F0BB00A02F71011100A1B2C3 /* DashboardView.swift */,
 				1CC2C56C299EE3DA00011270 /* HomeMainView.swift */,
+				F0BB00E02F71044400A1B2C3 /* MoreView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -1312,6 +1398,68 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		F0BB000A2F70000000A1B2C3 /* PBJ */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */,
+				F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */,
+				F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */,
+			);
+			path = PBJ;
+			sourceTree = "<group>";
+		};
+		F0BB000B2F70000000A1B2C3 /* PBJ */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */,
+			);
+			path = PBJ;
+			sourceTree = "<group>";
+		};
+		F0BB000C2F70000000A1B2C3 /* PBJ */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */,
+				F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */,
+			);
+			path = PBJ;
+			sourceTree = "<group>";
+		};
+		F0BB00B32F71022200A1B2C3 /* Champions */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00B02F71022200A1B2C3 /* PastChampion.swift */,
+			);
+			path = Champions;
+			sourceTree = "<group>";
+		};
+		F0BB00B42F71022200A1B2C3 /* Champions */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00B12F71022200A1B2C3 /* PastChampionsApi.swift */,
+			);
+			path = Champions;
+			sourceTree = "<group>";
+		};
+		F0BB00B52F71022200A1B2C3 /* Champions */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00B22F71022200A1B2C3 /* PastChampionsListView.swift */,
+			);
+			path = Champions;
+			sourceTree = "<group>";
+		};
+		F0BB00B62F71022200A1B2C3 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB00B92F71022200A1B2C3 /* AboutSettingsPage.swift */,
+				F0BB00B82F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift */,
+				F0BB00B72F71022200A1B2C3 /* FavoriteEventsSettingsPage.swift */,
+				F0BB00BA2F71022200A1B2C3 /* FollowAlertsView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1378,7 +1526,6 @@
 			);
 			name = RodeoDailyWatchApp;
 			packageProductDependencies = (
-				1C5BFCFE2DEE43260093F30A /* SwiftSoup */,
 			);
 			productName = "RodeoDailyWatchApp Watch App";
 			productReference = 1CE1514F29A4A7DE00B7AA26 /* RodeoDailyWatchApp.app */;
@@ -1411,7 +1558,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					1C09310B298AFE5A00BB016D = {
 						CreatedOnToolsVersion = 14.2;
@@ -1521,6 +1668,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C9A429F299BE8A6008F4F9A /* BioHeaderView.swift in Sources */,
+				F0CC02012F72010100A1B2C3 /* BioTelegramHeaderView.swift in Sources */,
+				F0CC02052F72051300A1B2C3 /* BioFavoriteToolbarButton.swift in Sources */,
+				F0CC02072F7207A100A1B2C3 /* BioDetailView.swift in Sources */,
+				F0CC02092F7208C100A1B2C3 /* BioDetailDocument.swift in Sources */,
 				1C64355A298C58BD0032CFC2 /* RodeoResults.swift in Sources */,
 				1C894BE42C966CB300AC9AF7 /* WidgetAthleteCellView.swift in Sources */,
 				1C9A429D299BE4C7008F4F9A /* ResultsListView.swift in Sources */,
@@ -1531,9 +1682,14 @@
 				1C9A427D299BD52A008F4F9A /* StringExtension.swift in Sources */,
 				1C80302129A7D2480080CF9A /* ApiService.swift in Sources */,
 				1C093110298AFE5A00BB016D /* RodeoDailyApp.swift in Sources */,
+				F0AA00152F6A300000A1B2C3 /* AppDelegate.swift in Sources */,
+				F0AA00132F6A300000A1B2C3 /* AppBadgeManager.swift in Sources */,
+				F0AA00162F6A300000A1B2C3 /* AppReviewPromptManager.swift in Sources */,
+				F0AA00112F6A300000A1B2C3 /* AthleteNotificationRoute.swift in Sources */,
 				1C0C2C78298D97BF002FE8EC /* Buttons.swift in Sources */,
 				1C5082092C97BC9200A60E68 /* StandingsWidgetApi.swift in Sources */,
 				1C0C2C9E298DA068002FE8EC /* BannerAd.swift in Sources */,
+				F0AA00122F6A300000A1B2C3 /* FollowNotificationRouter.swift in Sources */,
 				1C0A5863298E9B7600A70F61 /* StandingsApi.swift in Sources */,
 				1C902A172CA4F85A007AC200 /* AthleteCellViewLoader.swift in Sources */,
 				1C40A675298F820500CAA13D /* Circuit.swift in Sources */,
@@ -1554,6 +1710,7 @@
 				1CB3B4AC2E1C9775006CC6B2 /* ArrayExtension.swift in Sources */,
 				1CB14AA32CA3C4F700165D91 /* AthleteCellView.swift in Sources */,
 				1C643565298C71E80032CFC2 /* Modifiers.swift in Sources */,
+				1CF0A1B42F6A200000A1B2C3 /* DesignTokens.swift in Sources */,
 				1C64355C298C595D0032CFC2 /* JSONStructs.swift in Sources */,
 				1C0C2C70298D7B2C002FE8EC /* LogoLoader.swift in Sources */,
 				1C9A429B299BE3F9008F4F9A /* CareerListView.swift in Sources */,
@@ -1563,8 +1720,20 @@
 				1C40A67B298F87AF00CAA13D /* Tour.swift in Sources */,
 				1C9A42AD299C2C41008F4F9A /* CircuitFilterView.swift in Sources */,
 				1CF097382998BE8F000D7499 /* ExpandingSearchBar.swift in Sources */,
+				1C0D46B92FB00D930074264A /* SupabaseConfig.swift in Sources */,
 				1C9A428F299BDC27008F4F9A /* TextExtension.swift in Sources */,
 				1CC2C56D299EE3DA00011270 /* HomeMainView.swift in Sources */,
+				F0BB00A12F71011100A1B2C3 /* DashboardView.swift in Sources */,
+				F0BB00C22F71022200A1B2C3 /* PastChampionsListView.swift in Sources */,
+				F0BB00C12F71022200A1B2C3 /* PastChampionsApi.swift in Sources */,
+				F0BB00C02F71022200A1B2C3 /* PastChampion.swift in Sources */,
+				F0BB00C32F71022200A1B2C3 /* FavoriteEventsSettingsPage.swift in Sources */,
+				F0BB00C42F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift in Sources */,
+				F0BB00C52F71022200A1B2C3 /* AboutSettingsPage.swift in Sources */,
+				F0BB00C62F71022200A1B2C3 /* FollowAlertsView.swift in Sources */,
+				F0BB00142F70000000A1B2C3 /* PBJFeedDetailView.swift in Sources */,
+				F0BB00132F70000000A1B2C3 /* PBJFeedView.swift in Sources */,
+				F0BB00E12F71044400A1B2C3 /* MoreView.swift in Sources */,
 				1C0C2C77298D97BF002FE8EC /* LogoShape.swift in Sources */,
 				1C0C2C5E298D7A57002FE8EC /* Bio.swift in Sources */,
 				1C643554298C57DE0032CFC2 /* RodeoSchedule.swift in Sources */,
@@ -1579,6 +1748,7 @@
 				1C0C2C91298D9EDC002FE8EC /* FilterChip.swift in Sources */,
 				1C6E4CE3299F2E5300FBFF9E /* ATTHandler.swift in Sources */,
 				1C11276B2EC27B910089AEE1 /* ScheduleMapView.swift in Sources */,
+				1CF0A1B22F6A100000A1B2C3 /* ScheduleListView.swift in Sources */,
 				1C0D3A922C875E0900286449 /* VimeoPlayer.swift in Sources */,
 				1C0C2C82298D9EBA002FE8EC /* HeaderView.swift in Sources */,
 				1C9A4298299BE287008F4F9A /* SeasonFilterView.swift in Sources */,
@@ -1615,11 +1785,17 @@
 				1CB14AA12CA3C2D300165D91 /* AthletesView.swift in Sources */,
 				1C0C2C9F298DA068002FE8EC /* ATTRequestView.swift in Sources */,
 				1CC2C563299E9A0100011270 /* Debouncer.swift in Sources */,
+				F0AA00142F6A300000A1B2C3 /* SupabasePushSyncService.swift in Sources */,
+				F0BB00112F70000000A1B2C3 /* PBJFeedItem.swift in Sources */,
+				F0BB00D02F71033300A1B2C3 /* PBJFeedParser.swift in Sources */,
+				F0BB00172F70000000A1B2C3 /* PBJFeedResponse.swift in Sources */,
+				F0BB00122F70000000A1B2C3 /* PBJFeedApi.swift in Sources */,
 				1C0C2C5A298D7660002FE8EC /* TRWinnerCell.swift in Sources */,
 				1C9219AF2C939D7700A9CECD /* SearchSuggetionsApi.swift in Sources */,
 				1CCE134C2C88120A000A3063 /* WidgetSampleData.swift in Sources */,
 				1C0C2C95298D9EF0002FE8EC /* StandingsCell.swift in Sources */,
 				1C0D3A962C8762F200286449 /* Video.swift in Sources */,
+				F0CC01012F72000100A1B2C3 /* HomeNativeStyleHeader.swift in Sources */,
 				1C0C2C83298D9EBA002FE8EC /* SearchBarView.swift in Sources */,
 				1C9A42A4299C0010008F4F9A /* ApiUrls.swift in Sources */,
 				1C14B5EC2E047C9C00B57FF7 /* SingleRodeoResults.swift in Sources */,
@@ -1631,6 +1807,7 @@
 				1C9A4280299BD583008F4F9A /* DoubleExtension.swift in Sources */,
 				1CF9ED972EBFB9AA0065C6E0 /* StandingsCellProt.swift in Sources */,
 				1C0C2C60298D7A60002FE8EC /* BioViewModel.swift in Sources */,
+				F0BB00D12F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */,
 				1C64356D298C7DF60032CFC2 /* Tabs.swift in Sources */,
 				1C9219A92C936FD000A9CECD /* AthletesApi.swift in Sources */,
 				1C0C2C8C298D9EDC002FE8EC /* ResultsList.swift in Sources */,
@@ -1670,6 +1847,8 @@
 				1C80302229A7D2480080CF9A /* ApiService.swift in Sources */,
 				1CDCBC762C861EE900AB1850 /* WidgetSampleData.swift in Sources */,
 				1C9219B82C95DEC500A9CECD /* BioViewModel.swift in Sources */,
+				F0BB00D22F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */,
+				1C0D46B82FB00D930074264A /* SupabaseConfig.swift in Sources */,
 				1CDCBC622C860FD500AB1850 /* FavoriteWidgetProvider.swift in Sources */,
 				1CDCBC6E2C86162A00AB1850 /* StandingsProvider.swift in Sources */,
 				1C85DA4C298E2A5E00CA6F35 /* Athlete.swift in Sources */,
@@ -1707,6 +1886,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C0D46B72FB00D930074264A /* SupabaseConfig.swift in Sources */,
 				1CADD47A2C95F6D600D26B87 /* TransitionExtension.swift in Sources */,
 				1CE1518F29A4AB5200B7AA26 /* Buttons.swift in Sources */,
 				1CE1517429A4A8F800B7AA26 /* CGFloatExtension.swift in Sources */,
@@ -1764,6 +1944,7 @@
 				1CB3B4AF2E1C9AB7006CC6B2 /* ArrayExtension.swift in Sources */,
 				1C9219AD2C93761200A9CECD /* AthleteList.swift in Sources */,
 				1CEA4A6B29A4FCAC007F7B53 /* IntExtension.swift in Sources */,
+				1C0D46B62FB00D930074264A /* SupabaseConfig.swift in Sources */,
 				1CEA4A6029A4FC92007F7B53 /* RodeoSchedule.swift in Sources */,
 				1CEA4A5E29A4FC92007F7B53 /* RodeoResult.swift in Sources */,
 				1C3109D129A7F23B0088B7F7 /* StandingsEvent.swift in Sources */,
@@ -1778,6 +1959,7 @@
 				1CEA4A6729A4FCAC007F7B53 /* CGFloatExtension.swift in Sources */,
 				1CEA4A6129A4FC92007F7B53 /* BioExtension.swift in Sources */,
 				1CDCBC542C86086200AB1850 /* StandingsARWidget.swift in Sources */,
+				1C0D46BA2FB016D70074264A /* ColorExtension.swift in Sources */,
 				1CEA4A6A29A4FCAC007F7B53 /* StringExtension.swift in Sources */,
 				1CDCBC782C862AA500AB1850 /* WidgetSampleData.swift in Sources */,
 				1CDCBC7F2C869E3C00AB1850 /* StandingsWidgetEntry.swift in Sources */,
@@ -1792,7 +1974,6 @@
 				1CEA4A6329A4FC92007F7B53 /* Athlete.swift in Sources */,
 				1CDCBC802C869F6A00AB1850 /* StandingsWidgetApi.swift in Sources */,
 				1CEA4A6D29A4FCAF007F7B53 /* ImageExtension.swift in Sources */,
-				1CEA4A6929A4FCAC007F7B53 /* ColorExtension.swift in Sources */,
 				1CEA4A6E29A4FD08007F7B53 /* StandingsARWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1836,6 +2017,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1868,6 +2050,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1889,6 +2072,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -1899,6 +2083,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1931,6 +2116,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1945,6 +2131,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -1955,7 +2142,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
@@ -1964,8 +2150,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RodeoDaily-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Rodeo Daily";
@@ -1985,7 +2173,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2004,7 +2192,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDaily/RodeoDaily.entitlements;
@@ -2013,8 +2200,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDaily/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RodeoDaily-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Rodeo Daily";
@@ -2034,7 +2223,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2057,7 +2246,6 @@
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWidget;
@@ -2068,11 +2256,14 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2087,7 +2278,6 @@
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWidget;
@@ -2098,11 +2288,14 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2113,31 +2306,31 @@
 		1CE1515E29A4A7DF00B7AA26 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchApp/RodeoDailyWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rodeo Daily";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = PaytonSides.RodeoDaily;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2148,31 +2341,31 @@
 		1CE1515F29A4A7DF00B7AA26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchApp/RodeoDailyWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RodeoDailyWatchApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rodeo Daily";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = PaytonSides.RodeoDaily;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2189,7 +2382,6 @@
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWatchWidget;
@@ -2200,11 +2392,12 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2220,7 +2413,6 @@
 				CODE_SIGN_ENTITLEMENTS = RodeoDailyWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZFLY6KKY9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RodeoDailyWatchWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWatchWidget;
@@ -2231,11 +2423,12 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2344,11 +2537,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C54326A2C9882AD00CFF362 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = AlertKit;
-		};
-		1C5BFCFE2DEE43260093F30A /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 		1C902A192CA51AB8007AC200 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -61,7 +61,7 @@ public struct FavoriteAthlete: Codable, Identifiable, Equatable, AppEntity {
     }
 }
 
-extension Optional: RawRepresentable where Wrapped == FavoriteAthlete {
+extension Optional: @retroactive RawRepresentable where Wrapped == FavoriteAthlete {
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
               let result = try? JSONDecoder().decode(FavoriteAthlete.self, from: data)

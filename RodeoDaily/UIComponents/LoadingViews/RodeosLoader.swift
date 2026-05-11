@@ -12,41 +12,43 @@ struct RodeosLoader: View {
     @State private var opacity = 0.2
     
     var body: some View {
-        ZStack{
-            VStack {
-                ForEach(0..<7) { _ in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                RoundedRectangle(cornerRadius: 2).fill(Color.appPrimary.opacity(opacity))
-                                    .frame(width: 230, height: 28)
+        LazyVStack(spacing: AppSpace.lg) {
+            ForEach(0..<6, id: \.self) { _ in
+                VStack(alignment: .leading, spacing: AppSpace.sm) {
+                    HStack(alignment: .top, spacing: AppSpace.sm) {
+                        VStack(alignment: .leading, spacing: AppSpace.xs) {
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color.appPrimary.opacity(opacity))
+                                .frame(height: 22)
+                            
+                            HStack(spacing: AppSpace.xs) {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.appPrimary.opacity(opacity))
+                                    .frame(width: 94, height: 11)
                                 
-                                HStack {
-                                    RoundedRectangle(cornerRadius: 2).fill(Color.primary.opacity(opacity))
-                                        .frame(width: 80, height: 12)
-                                    
-                                    Circle().fill(Color.appSecondary.opacity(0.4)).frame(width: 4, height: 4)
-                                    
-                                    RoundedRectangle(cornerRadius: 2).fill(Color.appTertiary.opacity(opacity))
-                                        .frame(width: 80, height: 12)
-                                }
-                                .padding(.bottom, 8)
+                                Circle()
+                                    .fill(Color.appSecondary.opacity(opacity))
+                                    .frame(width: 4, height: 4)
+                                
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.appTertiary.opacity(opacity))
+                                    .frame(width: 74, height: 11)
+                                
+                                Capsule()
+                                    .fill(Color.appSecondary.opacity(opacity * 0.8))
+                                    .frame(width: 78, height: 20)
                             }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color.appTertiary)
                         }
-                        .padding(.bottom, 10)
                         
-                        Divider()
+                        Spacer()
+                        
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.appSecondary.opacity(opacity))
+                            .frame(width: 8, height: 10)
                     }
-                    .padding(.top)
                 }
+                .appCardStyle()
             }
-            
-            LogoLoader()
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 1).repeatForever()) {

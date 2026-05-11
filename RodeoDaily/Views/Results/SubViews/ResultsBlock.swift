@@ -54,8 +54,7 @@ struct ResultsBlock: View {
                     }
                 }
                 
-                BannerAd()
-                    .frame(height: 340)
+                BannerAd(style: .mediumRectangle)
             }
         }
         .task {

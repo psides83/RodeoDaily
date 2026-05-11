@@ -1,0 +1,16 @@
+project_id = "achpzqhveafdqkdufwhk"
+
+[functions.register-device]
+verify_jwt = false
+
+[functions.sync-follows]
+verify_jwt = false
+
+[functions.run-follow-alerts]
+verify_jwt = false
+
+[functions.send-apns]
+verify_jwt = false
+
+[functions.test-push]
+verify_jwt = false

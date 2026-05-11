@@ -18,8 +18,11 @@ struct HomeView: View {
     
     @StateObject var standingsApi = StandingsApi()
     @StateObject var rodeosApi = RodeosApi()
+    @StateObject var scheduleApi = RodeoScheduleApi()
+    @StateObject var pbjApi = PBJFeedApi()
     
     @Query var widgetAthletes: [WidgetAthlete]
+    @Query var followedAthletes: [FollowedAthlete]
     
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     @AppStorage("favoriteResultsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteResultsEvent: Events.CodingKeys = .bb
@@ -41,12 +44,28 @@ struct HomeView: View {
     @State var index = 1
     @State var dateRange = Set<DateComponents>()
     @State var navigatedToSettings = false
+    @State var tabBarHidden = false
+    @State var lastTrackedScrollOffset: CGFloat = 0
+    @State var isTabBarSearchActive = false
+    @State var homeHeaderScrollOffset: CGFloat = 0
     
     // MARK: - Computed Properties
     var dateParams: String {
-        var range = dateRange.compactMap { components in
+        dateParams(from: dateRange)
+    }
+    
+    // MARK: - Methods
+    func clearSearch() {
+        search.text = ""
+        index = 1
+        searchFieldFocused = false
+    }
+    
+    private func dateParams(from selectedRange: Set<DateComponents>) -> String {
+        var range = selectedRange.compactMap { components in
             calendar.date(from: components)
         }.sorted(by: { $0 < $1 })
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/d/yyyy"
         
@@ -60,8 +79,6 @@ struct HomeView: View {
             }
             
             let firstDate = formatter.string(from: first).replacingOccurrences(of: "/", with: "%2F")
-            
-            
             let secondDate = formatter.string(from: last).replacingOccurrences(of: "/", with: "%2F")
             
             return "&start=\(firstDate)&end=\(secondDate)"
@@ -69,12 +86,13 @@ struct HomeView: View {
         
         return ""
     }
-    
-    // MARK: - Methods
-    func clearSearch() {
-        search.text = ""
-        index = 1
-        searchFieldFocused = false
+
+    var usesCustomNativeHeader: Bool {
+        selectedTab == .standings || selectedTab == .results
+    }
+
+    var customHeaderTopPadding: CGFloat {
+        usesCustomNativeHeader ? 120 : 0
     }
 }
 

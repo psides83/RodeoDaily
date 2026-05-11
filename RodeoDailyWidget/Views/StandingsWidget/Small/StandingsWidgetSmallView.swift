@@ -16,88 +16,106 @@ struct StandingsWidgetSmallView : View {
 //    @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     
     var body: some View {
-        let standings = entry.standings
+        let standings = entry.standings ?? []
         
-        VStack(alignment: .leading, spacing: widgetFamily == .systemSmall ? 4 : 6) {
-            
-            HStack {
-                Text(entry.configuration.event.title)
-                    .font(.system(size: widgetFamily == .systemSmall ? 16 : 22, weight: .semibold))
-                    .foregroundColor(.white)
-                
-                Spacer()
-                
-                Image("rodeo-daily-iOS-icon-sm")
-                    .resizable()
-                    .frame(width: widgetFamily == .systemSmall ? 24 : 32, height: widgetFamily == .systemSmall ? 24 : 32)
+        if standings.isEmpty {
+            ContentUnavailableView {
+                Label("No Standings", systemImage: "list.number")
+            } description: {
+                Text("Standings data is unavailable")
             }
+            .containerBackground(for: .widget) {
+                Color.rdGreen
+            }
+            .environment(\.colorScheme, .dark)
+        } else {
+            VStack(alignment: .leading, spacing: widgetFamily == .systemSmall ? 4 : 6) {
             
-            ForEach(standings ?? [], id: \.earnings) { position in
+                HStack {
+                    Text(entry.configuration.event.title)
+                        .font(.system(size: widgetFamily == .systemSmall ? 16 : 22, weight: .semibold))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Image("rodeo-daily-iOS-icon-sm")
+                        .resizable()
+                        .frame(width: widgetFamily == .systemSmall ? 24 : 32, height: widgetFamily == .systemSmall ? 24 : 32)
+                }
+            
+                ForEach(Array(standings.enumerated()), id: \.offset) { _, position in
                 
-                Divider()
-                    .overlay(Color.appSecondary)
+                    Divider()
+                        .overlay(Color.appSecondary)
                 
-                switch widgetFamily {
-                case .systemSmall:
-                    HStack(spacing: 10) {
-                        Text(position.place.string)
-                            .font(.system(size: 16, weight: .semibold))
-                            .fontWeight(.medium)
-                            .foregroundColor(.appSecondary)
+                    switch widgetFamily {
+                    case .systemSmall:
+                        HStack(spacing: 10) {
+                            Text(position.place.string)
+                                .font(.system(size: 16, weight: .semibold))
+                                .fontWeight(.medium)
+                                .foregroundColor(.appSecondary)
+                            
+                            VStack(alignment: .leading) {
+                                Text(position.name)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .layoutPriority(1)
+                                
+                                Text(position.earnings.currency)
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.white)
+                            }
+                        }
                         
-                        VStack(alignment: .leading) {
+                    case .systemMedium:
+                        HStack(spacing: 16) {
+                            Text(position.place.string)
+                                .font(.system(size: 16, weight: .semibold))
+                                .fontWeight(.semibold)
+                                .foregroundColor(.appSecondary)
+                            
                             Text(position.name)
                                 .foregroundColor(.white)
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.system(size: 16, weight: .medium))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .layoutPriority(1)
+                            
+                            Spacer()
                             
                             Text(position.earnings.currency)
-                                .font(.system(size: 12, weight: .medium))
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
+                            
+                        }
+                    default:
+                        HStack {
+                            Text(position.place.string)
+                                .font(.headline)
+                                .fontWeight(.medium)
+                                .foregroundColor(.appSecondary)
+                            
+                            Text(position.name)
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .layoutPriority(1)
+                            
+                            Spacer()
+                            
+                            Text(position.earnings.currency)
+                                .font(.subheadline)
                                 .foregroundColor(.white)
                         }
                     }
-                    
-                case .systemMedium:
-                    HStack(spacing: 16) {
-                        Text(position.place.string)
-                            .font(.system(size: 16, weight: .semibold))
-                            .fontWeight(.semibold)
-                            .foregroundColor(.appSecondary)
-                        
-                        Text(position.name)
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
-                        
-                        Spacer()
-                        
-                        Text(position.earnings.currency)
-                            .font(.system(size: 14))
-                            .foregroundColor(.white)
-                        
-                    }
-                default:
-                    HStack {
-                        Text(position.place.string)
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.appSecondary)
-                        
-                        Text(position.name)
-                            .foregroundColor(.white)
-                            .font(.system(size: 18, weight: .semibold))
-                        
-                        Spacer()
-                        
-                        Text(position.earnings.currency)
-                            .font(.subheadline)
-                            .foregroundColor(.white)
-                    }
                 }
             }
+            .containerBackground(for: .widget) {
+                Color.rdGreen
+            }
+            .environment(\.colorScheme, .dark)
         }
-        .containerBackground(for: .widget) {
-            Color.rdGreen
-        }
-        .environment(\.colorScheme, .dark)
     }
 }
 
