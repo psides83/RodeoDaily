@@ -95,6 +95,10 @@ public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum
         case .lb: return "Breakaway Roping"
         }
     }
+
+    var localizedTitle: String {
+        NSLocalizedString(title, comment: "")
+    }
     
     var rankingEvent: String {
         switch self {
@@ -126,11 +130,11 @@ public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum
     var displayWithTeamRopingConversion: String {
         switch self {
         case .aa, .bb, .sw, .sb, .td, .gb, .br, .sr, .lb, .tr, .xb:
-            return self.title
+            return self.localizedTitle
         case .hd:
-            return "Team Roping (Headers)"
+            return NSLocalizedString("Team Roping (Headers)", comment: "")
         case .hl:
-            return "Team Roping (Heelers)"
+            return NSLocalizedString("Team Roping (Heelers)", comment: "")
         }
     }
     

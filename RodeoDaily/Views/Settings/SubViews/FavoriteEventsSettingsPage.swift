@@ -13,7 +13,7 @@ struct FavoriteEventsSettingsPage: View {
             ) {
                 Picker("Standings Event", selection: $favoriteStandingsEvent) {
                     ForEach(StandingsEvent.standingsFilterEvents, id: \.self) { event in
-                        Text(event.title)
+                        Text(event.localizedTitle)
                     }
                 }
                 .onChange(of: favoriteStandingsEvent) {
@@ -24,7 +24,7 @@ struct FavoriteEventsSettingsPage: View {
 
                 Picker("Results Event", selection: $favoriteResultsEvent) {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Text(event.title)
+                        Text(event.localizedTitle)
                     }
                 }
                 .onChange(of: favoriteResultsEvent) {

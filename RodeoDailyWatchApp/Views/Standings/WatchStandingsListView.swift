@@ -32,7 +32,7 @@ struct WatchStandingsListView: View {
                 .pickerStyle(.navigationLink)
             } header: {
                 WatchListHeader(
-                    title: selectedEvent.title,
+                    title: selectedEvent.localizedTitle,
                     subtitle: "Top \(standingsApi.standings.count)",
                     systemImage: "list.number"
                 )
@@ -103,7 +103,7 @@ struct WatchStandingsListView: View {
     }
     
     func pickerCell(_ event: StandingsEvent) -> some View {
-        Text(event.title)
+        Text(event.localizedTitle)
             .tag(event)
     }
     

@@ -67,7 +67,7 @@ struct NFRStandingsView: View {
                         .font(.appSectionTitle)
                         .fontWeight(.bold)
 
-                    Text(selectedEvent.title)
+                    Text(selectedEvent.localizedTitle)
                         .foregroundColor(.appSecondary)
                         .font(.appCardTitle)
                         .fontWeight(.bold)
@@ -78,7 +78,7 @@ struct NFRStandingsView: View {
                 HStack(spacing: AppSpace.sm) {
                     Menu {
                         ForEach(events, id: \.self) { event in
-                            Button(event.title) {
+                            Button(event.localizedTitle) {
                                 selectedEvent = event
                             }
                         }

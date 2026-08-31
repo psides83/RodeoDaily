@@ -57,7 +57,7 @@ public struct FavoriteAthlete: Codable, Identifiable, Equatable, AppEntity {
     public static var typeDisplayRepresentation: TypeDisplayRepresentation = TypeDisplayRepresentation(name: "Widget Athlete")
     
     public var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(title: "\(name)", subtitle: "\(event.title)")
+        DisplayRepresentation(title: "\(name)", subtitle: "\(event.localizedTitle)")
     }
 }
 

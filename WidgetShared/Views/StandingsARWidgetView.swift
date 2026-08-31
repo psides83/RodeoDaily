@@ -14,7 +14,7 @@ struct StandingsARWidgetView: View {
     var body: some View {
         if let standingsPostion = entry.position {
             VStack(alignment: .leading) {
-                Text(entry.configuration.event.title)
+                Text(entry.configuration.event.localizedTitle)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.appSecondary)
                     .lineLimit(1)

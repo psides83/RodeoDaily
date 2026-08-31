@@ -477,12 +477,34 @@
 "Upcoming rodeos and times for a favorite athlete." = "Upcoming rodeos and times for a favorite athlete.";
 "TO" = "TO";
 
+// Event names
+"All Around" = "All Around";
+"Bareback" = "Bareback";
+"Steer Wrestling" = "Steer Wrestling";
+"Team Roping" = "Team Roping";
+"Team Roping (Headers)" = "Team Roping (Headers)";
+"Team Roping (Heelers)" = "Team Roping (Heelers)";
+"Heading" = "Heading";
+"Heeling" = "Heeling";
+"Saddle Bronc" = "Saddle Bronc";
+"Tie-Down Roping" = "Tie-Down Roping";
+"Barrel Racing" = "Barrel Racing";
+"Bull Riding" = "Bull Riding";
+"Xtreme Bulls" = "Xtreme Bulls";
+"Steer Roping" = "Steer Roping";
+"Breakaway Roping" = "Breakaway Roping";
+
 // Results detail filters and daysheets
 "View" = "View";
 "Loading daysheets..." = "Loading daysheets...";
 "Show results or daysheets" = "Show results or daysheets";
 "Select Results Event" = "Select Results Event";
 "Bracket Help" = "Bracket Help";
+"Top Money Earners" = "Top Money Earners";
+"Top $ Earners" = "Top $ Earners";
+"No Payouts Found" = "No Payouts Found";
+"Top money earners will appear as soon as this rodeo reports payouts for the selected event." = "Top money earners will appear as soon as this rodeo reports payouts for the selected event.";
+"Show results, top money earners, or daysheets" = "Show results, top money earners, or daysheets";
 
 // Latest update notes
 "Results now let you switch events without leaving the rodeo detail view." = "Results now let you switch events without leaving the rodeo detail view.";

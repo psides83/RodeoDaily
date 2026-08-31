@@ -94,7 +94,7 @@ struct StandingsList: View {
 
     private var standingsCollapsedStickyHeader: some View {
         VStack(alignment: .center, spacing: 2) {
-            Text(selectedEvent.title)
+            Text(selectedEvent.localizedTitle)
                 .font(.system(size: 26, weight: .bold, design: .rounded))
                 .foregroundColor(.appPrimary)
                 .lineLimit(1)
@@ -230,10 +230,10 @@ struct StandingsList: View {
             if standingType.hasEvents {
                 filterMenuChip(
                     title: NSLocalizedString("Event", comment: ""),
-                    value: selectedEvent.title
+                    value: selectedEvent.localizedTitle
                 ) {
                     ForEach(availableStandingEvents, id: \.self) { event in
-                        Button(event.title) {
+                        Button(event.localizedTitle) {
                             withAnimation {
                                 setEvent(event)
                             }
@@ -302,7 +302,7 @@ struct StandingsList: View {
         }
         
         if standingType.isNotSingleEvent {
-            return "\(selectedEvent.title) \(standingType.title)"
+            return "\(selectedEvent.localizedTitle) \(standingType.title)"
         }
         
         return standingType.title
@@ -341,7 +341,7 @@ struct StandingsList: View {
                 if standingType.hasEvents {
                     Menu {
                         ForEach(availableStandingEvents, id: \.self) { event in
-                            Button(event.title) {
+                            Button(event.localizedTitle) {
                                 withAnimation {
                                     setEvent(event)
                                 }
@@ -425,7 +425,7 @@ struct StandingsList: View {
 
         let snapshot = StandingsShareCardView(
             title: headerTitle,
-            subtitle: "\(selectedYear) • \(selectedEvent.title)",
+            subtitle: "\(selectedYear) • \(selectedEvent.localizedTitle)",
             rows: rows,
             rangeTitle: option.title
         )

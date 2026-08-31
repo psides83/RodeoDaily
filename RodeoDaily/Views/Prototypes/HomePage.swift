@@ -35,7 +35,7 @@ struct EventCard: View {
         VStack(alignment: .leading, spacing: 6) {
             
             HStack {
-                Text(event.title)
+                Text(event.localizedTitle)
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.white)
                 

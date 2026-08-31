@@ -30,7 +30,7 @@ struct StandingsEventFilterView: View {
                     action(event)
                 }
             } label: {
-                Text(event.title)
+                Text(event.localizedTitle)
             }
         }
     }

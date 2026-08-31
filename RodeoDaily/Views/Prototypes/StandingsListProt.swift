@@ -105,7 +105,7 @@ struct StandingsListProt: View {
     var listTitle: some View {
         Group {
             if standingType.isNotSingleEvent {
-                Text(selectedEvent.title)
+                Text(selectedEvent.localizedTitle)
                     .foregroundColor(.appPrimary)
                     .font(.title)
                     .fontWeight(.bold)

@@ -20,7 +20,7 @@ struct ResultsEventFilter: View {
                         action(event)
                     }
                 } label: {
-                    Text(event.title)
+                    Text(event.localizedTitle)
                 }
             }
             

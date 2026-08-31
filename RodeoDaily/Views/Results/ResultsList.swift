@@ -120,7 +120,7 @@ struct ResultsList: View {
                 .fontWeight(.bold)
             
             HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
-                Text(String(format: NSLocalizedString("%@ Rodeo Results", comment: ""), selectedEvent.title))
+                Text(String(format: NSLocalizedString("%@ Rodeo Results", comment: ""), selectedEvent.localizedTitle))
                     .foregroundColor(.appSecondary)
                     .font(.appCardTitle)
                     .fontWeight(.bold)
@@ -137,10 +137,10 @@ struct ResultsList: View {
             HStack(spacing: AppSpace.sm) {
                 filterMenuChip(
                     title: NSLocalizedString("Event", comment: ""),
-                    value: selectedEvent.title
+                    value: selectedEvent.localizedTitle
                 ) {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Button(event.title) {
+                        Button(event.localizedTitle) {
                             withAnimation {
                                 selectedEvent = event
                             }
@@ -164,7 +164,7 @@ struct ResultsList: View {
 
     private var resultsCollapsedStickyHeader: some View {
         VStack(alignment: .center, spacing: AppSpace.xxs) {
-            Text(selectedEvent.title)
+            Text(selectedEvent.localizedTitle)
                 .font(.system(size: 26, weight: .bold, design: .rounded))
                 .foregroundColor(.appPrimary)
                 .lineLimit(1)
@@ -279,7 +279,7 @@ struct ResultsList: View {
             VStack(spacing: AppSpace.sm) {
                 Menu {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Button(event.title) {
+                        Button(event.localizedTitle) {
                             withAnimation {
                                 selectedEvent = event
                             }

@@ -11,6 +11,7 @@ import WidgetKit
 
 private enum ResultsDetailContent: String, CaseIterable, Identifiable {
     case results
+    case topMoneyEarners
     case daysheets
 
     var id: String { rawValue }
@@ -18,8 +19,13 @@ private enum ResultsDetailContent: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .results: return "Results"
+        case .topMoneyEarners: return "Top $ Earners"
         case .daysheets: return "Daysheets"
         }
+    }
+
+    static func availableContent(hasDaysheets: Bool) -> [ResultsDetailContent] {
+        hasDaysheets ? allCases : [.results, .topMoneyEarners]
     }
 }
 
@@ -65,7 +71,14 @@ struct SingleRodeoResults: View {
 
         let savedContent = UserDefaults.standard.string(forKey: Self.selectedContentDefaultsKey)
             .flatMap(ResultsDetailContent.init(rawValue:))
-        _selectedContent = State(initialValue: hasDaysheets ? savedContent ?? .results : .results)
+        let availableContent = ResultsDetailContent.availableContent(hasDaysheets: hasDaysheets)
+        let initialContent: ResultsDetailContent
+        if let savedContent, availableContent.contains(savedContent) {
+            initialContent = savedContent
+        } else {
+            initialContent = .results
+        }
+        _selectedContent = State(initialValue: initialContent)
     }
     
     var body: some View {
@@ -73,9 +86,7 @@ struct SingleRodeoResults: View {
             VStack(alignment: .leading, spacing: AppSpace.sm) {
                 header
 
-                if hasDaysheets {
-                    contentPicker
-                }
+                contentPicker
 
                 eventFilter
 
@@ -126,7 +137,6 @@ struct SingleRodeoResults: View {
             AppShareSheet(items: shareItems)
         }
         .onChange(of: selectedContent) { _, newValue in
-            guard hasDaysheets else { return }
             UserDefaults.standard.set(newValue.rawValue, forKey: Self.selectedContentDefaultsKey)
         }
     }
@@ -136,6 +146,8 @@ struct SingleRodeoResults: View {
         switch selectedContent {
         case .results:
             resultsSection
+        case .topMoneyEarners:
+            topMoneyEarnersSection
         case .daysheets:
             daysheetsSection
         }
@@ -155,10 +167,12 @@ struct SingleRodeoResults: View {
             } actions: {
                 Menu {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Button(event.title) {
+                        Button {
                             withAnimation {
                                 selectedEvent = event
                             }
+                        } label: {
+                            Text(event.localizedTitle)
                         }
                     }
                 } label: {
@@ -179,7 +193,7 @@ struct SingleRodeoResults: View {
                 .padding(.horizontal, AppSpace.xs)
 
             HStack(spacing: AppSpace.sm) {
-                ForEach(ResultsDetailContent.allCases) { content in
+                ForEach(ResultsDetailContent.availableContent(hasDaysheets: hasDaysheets)) { content in
                     contentChip(for: content)
                 }
             }
@@ -187,13 +201,13 @@ struct SingleRodeoResults: View {
             .padding(.vertical, AppSpace.xs)
         }
         .padding(.vertical, AppSpace.xs)
-        .accessibilityLabel("Show results or daysheets")
+        .accessibilityLabel("Show results, top money earners, or daysheets")
     }
     
     var header: some View {
         VStack(alignment: .leading, spacing: AppSpace.sm) {
             HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
-                Text(selectedContent == .daysheets ? "Daysheets" : selectedEvent.title)
+                Text(selectedEvent.localizedTitle)
                     .foregroundColor(.appSecondary)
                     .font(.appSectionTitle)
                     .fontWeight(.bold)
@@ -310,7 +324,7 @@ struct SingleRodeoResults: View {
                 selectedContent = content
             }
         } label: {
-            Text(content.title)
+            Text(LocalizedStringKey(content.title))
                 .font(.appCaptionStrong)
                 .foregroundColor(isSelected ? .white : .appPrimary)
                 .lineLimit(1)
@@ -356,7 +370,7 @@ struct SingleRodeoResults: View {
                 selectedEvent = event
             }
         } label: {
-            Text(event.title)
+            Text(event.localizedTitle)
                 .font(.appCaptionStrong)
                 .foregroundColor(isSelected ? .white : .appPrimary)
                 .lineLimit(1)
@@ -460,10 +474,6 @@ struct SingleRodeoResults: View {
         let roundCount = resultsApi.results.rounds.count
         
         return VStack(spacing: AppSpace.md) {
-            if !topMoneyEarners.isEmpty {
-                topMoneyEarnersCard
-            }
-
             ForEach(resultsApi.results.rounds, id: \.id) { round in
                 VStack(alignment: .leading, spacing: AppSpace.sm) {
                     HStack(alignment: .firstTextBaseline) {
@@ -510,6 +520,38 @@ struct SingleRodeoResults: View {
                 
                 BannerAd(placement: .resultsDetailSection)
             }
+        }
+    }
+
+    @ViewBuilder
+    private var topMoneyEarnersSection: some View {
+        if resultsApi.loading {
+            ResultsLoader()
+        } else if topMoneyEarners.isEmpty {
+            ContentUnavailableView {
+                Label("No Payouts Found", systemImage: "dollarsign.circle")
+                    .foregroundColor(.appPrimary)
+            } description: {
+                Text("Top money earners will appear as soon as this rodeo reports payouts for the selected event.")
+                    .foregroundColor(.appPrimary)
+            } actions: {
+                Menu {
+                    ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                        Button {
+                            withAnimation {
+                                selectedEvent = event
+                            }
+                        } label: {
+                            Text(event.localizedTitle)
+                        }
+                    }
+                } label: {
+                    Label("Change Event", systemImage: "slider.horizontal.3")
+                }
+                .buttonStyle(.loadingButton(false))
+            }
+        } else {
+            topMoneyEarnersCard
         }
     }
 
@@ -913,7 +955,7 @@ struct SingleRodeoResults: View {
         guard !winners.isEmpty else { return }
 
         let snapshot = RodeoResultsShareCardView(
-            eventTitle: selectedEvent.title,
+            eventTitle: selectedEvent.localizedTitle,
             rodeoName: rodeoName,
             location: location,
             dateText: endDate.medium,

@@ -59,6 +59,10 @@ struct Events: Codable {
             case .lb: return "Breakaway Roping"
             }
         }
+
+        var localizedTitle: String {
+            NSLocalizedString(title, comment: "")
+        }
         
         var isRoughStock: Bool {
             switch self {

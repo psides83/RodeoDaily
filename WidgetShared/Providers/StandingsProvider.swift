@@ -136,7 +136,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
             .map { event in
                 let standingsIntent = StandingsWidgetIntent()
                 standingsIntent.event = event
-                let intent = AppIntentRecommendation(intent: standingsIntent, description: standingsIntent.event.title)
+                let intent = AppIntentRecommendation(intent: standingsIntent, description: standingsIntent.event.localizedTitle)
                 return intent
             }
     }

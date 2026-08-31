@@ -27,14 +27,14 @@ struct WatchRodeosListView: View {
             Section {
                 Picker("Event", selection: $selectedEvent) {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Text(event.title)
+                        Text(event.localizedTitle)
                             .tag(event)
                     }
                 }
                 .pickerStyle(.navigationLink)
             } header: {
                 WatchListHeader(
-                    title: selectedEvent.title,
+                    title: selectedEvent.localizedTitle,
                     subtitle: "\(rodeosApi.rodeos.count) rodeos",
                     systemImage: "trophy"
                 )

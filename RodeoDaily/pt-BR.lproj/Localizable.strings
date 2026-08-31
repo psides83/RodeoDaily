@@ -478,12 +478,34 @@
 "Upcoming rodeos and times for a favorite athlete." = "Próximos rodeios e horários de um atleta favorito.";
 "TO" = "TO";
 
+// Event names
+"All Around" = "All Around";
+"Bareback" = "Monta sem sela";
+"Steer Wrestling" = "Derrubada de novilho";
+"Team Roping" = "Laço em dupla";
+"Team Roping (Headers)" = "Laço em dupla (cabeceiros)";
+"Team Roping (Heelers)" = "Laço em dupla (peseiros)";
+"Heading" = "Cabeceiro";
+"Heeling" = "Peseiro";
+"Saddle Bronc" = "Monta em cavalo com sela";
+"Tie-Down Roping" = "Laço de bezerro";
+"Barrel Racing" = "Três tambores";
+"Bull Riding" = "Monta em touro";
+"Xtreme Bulls" = "Xtreme Bulls";
+"Steer Roping" = "Laço de novilho";
+"Breakaway Roping" = "Laço breakaway";
+
 // Results detail filters and daysheets
 "View" = "Visualização";
 "Loading daysheets..." = "Carregando daysheets...";
 "Show results or daysheets" = "Mostrar resultados ou daysheets";
 "Select Results Event" = "Selecionar evento dos resultados";
 "Bracket Help" = "Ajuda sobre brackets";
+"Top Money Earners" = "Maiores ganhadores em dinheiro";
+"Top $ Earners" = "Maiores ganhadores em $";
+"No Payouts Found" = "Nenhum pagamento encontrado";
+"Top money earners will appear as soon as this rodeo reports payouts for the selected event." = "Os maiores ganhadores em dinheiro aparecerão assim que este rodeio informar pagamentos para o evento selecionado.";
+"Show results, top money earners, or daysheets" = "Mostrar resultados, maiores ganhadores em dinheiro ou daysheets";
 
 // Latest update notes
 "Results now let you switch events without leaving the rodeo detail view." = "Agora os resultados permitem trocar de evento sem sair da tela de detalhes do rodeio.";

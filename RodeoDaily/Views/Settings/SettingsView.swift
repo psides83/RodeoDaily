@@ -65,8 +65,8 @@ struct SettingsView: View {
     private var favoriteEventsSummary: String {
         String(
             format: NSLocalizedString("Standings: %@ • Results: %@", comment: ""),
-            favoriteStandingsEvent.normalizedForStandingsFilter.title,
-            favoriteResultsEvent.title
+            favoriteStandingsEvent.normalizedForStandingsFilter.localizedTitle,
+            favoriteResultsEvent.localizedTitle
         )
     }
 
