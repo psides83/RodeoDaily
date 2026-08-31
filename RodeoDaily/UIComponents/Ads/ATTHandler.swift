@@ -6,9 +6,9 @@
 //
 
 import AppTrackingTransparency
-import GoogleMobileAds
 import SwiftUI
 
+@MainActor
 class ATTHandler: ObservableObject {
     
     var status: ATTrackingManager.AuthorizationStatus {
@@ -21,32 +21,18 @@ class ATTHandler: ObservableObject {
         switch status {
         case .notDetermined:
             needsATTRequest = true
-            break
         case .restricted:
-            print("tracking restricted")
-            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
-            [ "2077ef9a63d2b398840261c8221a0c9b" ]
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
-            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "2077ef9a63d2b398840261c8221a0c9b" ]
-            GADMobileAds.sharedInstance().disableSDKCrashReporting()
-            GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
-            break
+            needsATTRequest = false
+            AdMobService.shared.configure()
         case .denied:
-            print("tracking denied")
-            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
-                [ "2077ef9a63d2b398840261c8221a0c9b" ]
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
-            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "2077ef9a63d2b398840261c8221a0c9b" ]
-            GADMobileAds.sharedInstance().disableSDKCrashReporting()
-            GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
-            break
+            needsATTRequest = false
+            AdMobService.shared.configure()
         case .authorized:
-            print("tracking authorized")
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
-            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "2077ef9a63d2b398840261c8221a0c9b" ]
-            break
+            needsATTRequest = false
+            AdMobService.shared.configure()
         @unknown default:
-            break
+            needsATTRequest = false
+            AdMobService.shared.configure()
         }
     }
     
@@ -56,30 +42,16 @@ class ATTHandler: ObservableObject {
                 switch status {
                 case .notDetermined:
                     break
-                case .restricted:
-                    GADMobileAds.sharedInstance().start(completionHandler: nil)
-                    GADMobileAds.sharedInstance().disableSDKCrashReporting()
-                    GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
-                    DispatchQueue.main.async {
+                case .restricted, .denied, .authorized:
+                    Task { @MainActor in
                         self.needsATTRequest = false
+                        AdMobService.shared.configure()
                     }
-                    break
-                case .denied:
-                    GADMobileAds.sharedInstance().start(completionHandler: nil)
-                    GADMobileAds.sharedInstance().disableSDKCrashReporting()
-                    GADMobileAds.sharedInstance().requestConfiguration.setPublisherFirstPartyIDEnabled(false)
-                    DispatchQueue.main.async {
-                        self.needsATTRequest = false
-                    }
-                    break
-                case .authorized:
-                    GADMobileAds.sharedInstance().start(completionHandler: nil)
-                    DispatchQueue.main.async {
-                        self.needsATTRequest = false
-                    }
-                    break
                 @unknown default:
-                    break
+                    Task { @MainActor in
+                        self.needsATTRequest = false
+                        AdMobService.shared.configure()
+                    }
                 }
             }
         }

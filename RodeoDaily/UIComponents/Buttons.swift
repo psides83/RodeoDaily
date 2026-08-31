@@ -45,11 +45,16 @@ struct Buttons: View {
 struct LoadMoreButton: View {
     
     let loading : Bool
+    var animateAction = true
     var action: () -> Void
     
     var body: some View {
         Button {
-            withAnimation {
+            if animateAction {
+                withAnimation {
+                    action()
+                }
+            } else {
                 action()
             }
         } label: {
@@ -62,6 +67,7 @@ struct LoadMoreButton: View {
         }
         .buttonStyle(.loadingButton(loading))
         .disabled(loading)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 

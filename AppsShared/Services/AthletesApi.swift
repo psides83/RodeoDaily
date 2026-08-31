@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class AthletesApi: ObservableObject {
-    @ObservedObject var apiUrls = ApiUrls()
+    private let apiUrls = ApiUrls()
     
     @Published var athletes = [AthleteData]()
     @Published var loading = true
@@ -20,14 +20,11 @@ class AthletesApi: ObservableObject {
         let url = apiUrls.athleteSearchUrl(from: searchText)
         
         do {
-            self.athletes = try await APIService.fetchSearchAthletes(from: url).data
-//            print(self.bio)
-//            print(url)
-//            print(self.bio.videoHighlights as Any)
+            let response = try await APIClient.fetch(AthleteList.self, from: url)
+            self.athletes = response.data
             self.endLoading()
         } catch {
             self.endLoading()
-            print("Error decoding: ", error)
         }
     }
     
@@ -40,7 +37,6 @@ class AthletesApi: ObservableObject {
     func endLoading() {
         DispatchQueue.main.async {
             self.loading = false
-            print("loading ended")
         }
     }
 }

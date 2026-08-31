@@ -83,6 +83,8 @@ extension String {
         case "BB": return "Bareback"
         case "SW": return "Steer Wrestling"
         case "TR": return "Team Roping"
+        case "TRHD": return "Team Roping (Headers)"
+        case "TRHL": return "Team Roping (Heelers)"
         case "SB": return "Saddle Bronc"
         case "TD": return "Tie-Down Roping"
         case "BR": return "Bull Riding"

@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-class ResultsApi: ObservableObject {
-    @ObservedObject var apiUrls = ApiUrls()
+@MainActor
+final class ResultsApi: ObservableObject {
+    private let apiUrls = ApiUrls()
     
     @Published var results = RodeoResult(id: 0, city: "", state: "", name: "", rounds: [])
     @Published var loading = true
@@ -22,41 +23,14 @@ class ResultsApi: ObservableObject {
         let url = apiUrls.resultsUrl(for: rodeoId)
         
         do {
-            let data = try await APIService.fetchResults(from: url).data
-            
-            guard data![0].events != nil else { return }
-            
-            switch event {
-            case .bb:
-                guard data![0].events?.bb != nil else { return }
-                completionHandler(data![0], (data![0].events?.bb!)!)
-            case .sw:
-                guard data![0].events?.sw != nil else { return }
-                completionHandler(data![0], (data![0].events?.sw!)!)
-            case .sb:
-                guard data![0].events?.sb != nil else { return }
-                completionHandler(data![0], (data![0].events?.sb!)!)
-            case .td:
-                guard data![0].events?.td != nil else { return }
-                completionHandler(data![0], (data![0].events?.td!)!)
-            case .gb:
-                guard data![0].events?.gb != nil else { return }
-                completionHandler(data![0], (data![0].events?.gb!)!)
-            case .br:
-                guard data![0].events?.br != nil else { return }
-                completionHandler(data![0], (data![0].events?.br!)!)
-            case .tr:
-                guard data![0].events?.tr != nil else { return }
-                completionHandler(data![0], (data![0].events?.tr!)!)
-            case .lb:
-                guard data![0].events?.lb != nil else { return }
-                completionHandler(data![0], (data![0].events?.lb!)!)
-            case .sr:
-                guard data![0].events?.sr != nil else { return }
-                completionHandler(data![0], (data![0].events?.sr!)!)
+            let response = try await APIClient.fetch(RodeoResults.self, from: url)
+
+            guard let resultData = ResultsMapper.rodeoAndRounds(from: response, event: event) else {
+                return
             }
+
+            completionHandler(resultData.rodeo, resultData.rounds)
         } catch {
-            print("Error decoding: ", error)
         }
     }
     
@@ -69,172 +43,7 @@ class ResultsApi: ObservableObject {
             rodeoId: rodeoId,
             event: event,
         ) { (rodeo, rounds) in
-            let winners = rounds.map { round in
-                
-                let id = round.key
-                
-                let roundWinners = round.value
-                    .unique { $0.contestant[0].id }
-                    .filter { $0.payoff != 0 }
-                    .sorted { lhs, rhs in
-                        let leftPlace = self.placementSortValue(lhs.place)
-                        let rightPlace = self.placementSortValue(rhs.place)
-                        if leftPlace != rightPlace {
-                            return leftPlace < rightPlace
-                        }
-                        if event.isRoughStock {
-                            return lhs.score > rhs.score
-                        }
-                        return lhs.time < rhs.time
-                    }
-                    .map { winner in
-                        let contestant = winner.contestant[0]
-                        let winnerId = "\(id)\(contestant.id)"
-                        
-                        return Winner(
-                            id: winnerId.int,
-                            contestantId: contestant.id,
-                            roundLabel: winner.goRoundLabel,
-                            name: contestant.name,
-                            hometown: contestant.hometown,
-                            imageUrl: contestant.imageUrl,
-                            payoff: winner.payoff,
-                            time: winner.time,
-                            score: winner.score,
-                            place: winner.place,
-                            round: winner.goRound,
-                            teamId: winner.teamId,
-                            numberScores: winner.numberScores ?? 0
-                        )
-                    }
-                
-                guard roundWinners.count != 0 else {
-                    let currentRound = round.value.sorted(by: { $0.numberScores ?? 0 > $1.numberScores ?? 0 })[0].numberScores
-                    
-                    if id.int < 555 {
-                        let leaders = round.value
-                            .unique { $0.contestant[0].id }
-                            .filter { $0.time != 0 || $0.score != 0 }
-                            .sorted { lhs, rhs in
-                                let leftPlace = self.placementSortValue(lhs.place)
-                                let rightPlace = self.placementSortValue(rhs.place)
-                                if leftPlace != rightPlace {
-                                    return leftPlace < rightPlace
-                                }
-                                if event.isRoughStock {
-                                    return lhs.score > rhs.score
-                                }
-                                return lhs.time < rhs.time
-                            }
-                            .prefix(15)
-                            .enumerated()
-                            .map { (index, winner) in
-                                let contestant = winner.contestant[0]
-                                let winnerId = "\(id)\(contestant.id)"
-                                
-                                return Winner(
-                                    id: winnerId.int,
-                                    contestantId: contestant.id,
-                                    roundLabel: winner.goRoundLabel,
-                                    name: contestant.name,
-                                    hometown: contestant.hometown,
-                                    imageUrl: contestant.imageUrl,
-                                    payoff: winner.payoff,
-                                    time: winner.time,
-                                    score: winner.score,
-                                    place: self.setPlacement(for: event, from: winner.place, at: index),
-                                    round: winner.goRound,
-                                    teamId: winner.teamId,
-                                    numberScores: winner.numberScores ?? 0
-                                )
-                            }
-                        
-                        return RoundWinners(
-                            id: id.int,
-                            round: leaders[0].roundLabel,
-                            winners: leaders
-                        )
-                    } else {
-                        let leaders = round.value
-                            .unique { $0.contestant[0].id }
-                            .filter { $0.time != 0 || $0.score != 0 }
-                            .filter { $0.numberScores == currentRound || $0.numberScores == 0 }
-                            .sorted { lhs, rhs in
-                                let leftPlace = self.placementSortValue(lhs.place)
-                                let rightPlace = self.placementSortValue(rhs.place)
-                                if leftPlace != rightPlace {
-                                    return leftPlace < rightPlace
-                                }
-                                if event.isRoughStock {
-                                    return lhs.score > rhs.score
-                                }
-                                return lhs.time < rhs.time
-                            }
-                            .prefix(15)
-                            .enumerated()
-                            .map { (index, winner) in
-                                let contestant = winner.contestant[0]
-                                let winnerId = "\(id)\(contestant.id)"
-                                
-                                return Winner(
-                                    id: winnerId.int,
-                                    contestantId: contestant.id,
-                                    roundLabel: winner.goRoundLabel,
-                                    name: contestant.name,
-                                    hometown: contestant.hometown,
-                                    imageUrl: contestant.imageUrl,
-                                    payoff: winner.payoff,
-                                    time: winner.time,
-                                    score: winner.score,
-                                    place: self.setPlacement(for: event, from: winner.place, at: index),
-                                    round: winner.goRound,
-                                    teamId: winner.teamId,
-                                    numberScores: winner.numberScores ?? 0
-                                )
-                            }
-                        
-                        guard !leaders.isEmpty else {
-                            print(leaders)
-                            return RoundWinners(
-                                id: id.int,
-                                round: "1",
-                                winners: leaders
-                            )
-                        }
-                        
-                        return RoundWinners(
-                            id: id.int,
-                            round: leaders[0].roundLabel,
-                            winners: leaders
-                        )
-                    }
-                }
-                
-                return RoundWinners(
-                    id: id.int,
-                    round: roundWinners[0].roundLabel,
-                    winners: roundWinners
-                )
-            }
-            
-            let result = RodeoResult(
-                id: rodeoId,
-                city: rodeo.city,
-                state: rodeo.state,
-                name: rodeo.name,
-                rounds: winners.sorted {
-                    $0.id < 555
-                    ||
-                    $1.id < 555
-                    ?
-                    $0.id < $1.id
-                    :
-                    $0.id > $1.id
-                }
-            )
-                    
-//            print(result)
-            
+            let result = ResultsMapper.map(rodeoId: rodeoId, rodeo: rodeo, rounds: rounds, event: event)
             completionHandler(result)
         }
     }
@@ -244,46 +53,24 @@ class ResultsApi: ObservableObject {
         event: Events.CodingKeys,
         _ completionHandler: @escaping () -> Void
     ) async {
-        await getWinners(
-            rodeoId: rodeoId,
-            event: event
-        ) { data in
-            DispatchQueue.main.async {
-                self.results = data
-                
-                completionHandler()
-            }
-        }
-    }
-    
-    func setPlacement(
-        for event: Events.CodingKeys,
-        from place: Int,
-        at index: Int
-    ) -> Int {
-        if place > 0 { return place }
-        
-        if event == .tr {
-            return (index / 2) + 1
-        } else {
-            return index + 1
-        }
-    }
+        let url = apiUrls.resultsUrl(for: rodeoId)
 
-    private func placementSortValue(_ place: Int) -> Int {
-        place > 0 ? place : Int.max
+        do {
+            let response = try await APIClient.fetch(RodeoResults.self, from: url)
+            self.results = ResultsMapper.map(rodeoId: rodeoId, response: response, event: event)
+                ?? RodeoResult(id: rodeoId, city: "", state: "", name: "", rounds: [])
+        } catch {
+            self.results = RodeoResult(id: rodeoId, city: "", state: "", name: "", rounds: [])
+        }
+
+        completionHandler()
     }
     
     func setLoading() {
-        DispatchQueue.main.async {
-            self.loading = true
-        }
+        loading = true
     }
     
     func endLoading() {
-        DispatchQueue.main.async {
-            self.loading = false
-            //            print("loading ended")
-        }
+        loading = false
     }
 }

@@ -48,6 +48,7 @@ struct BioTelegramHeaderView: View {
 
             ZStack(alignment: .top) {
                 headerBackground(topInset: topInset)
+                    .allowsHitTesting(false)
 
                 VStack(alignment: .leading, spacing: 0) {
                     Color.clear.frame(height: topInset)
@@ -137,6 +138,7 @@ struct BioTelegramHeaderView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .offset(y: 10 * progress)
+            .allowsHitTesting(false)
 
             VStack(spacing: AppSpace.sm) {
                 Text(viewModel.seasonRanking())
@@ -155,6 +157,7 @@ struct BioTelegramHeaderView: View {
             .offset(y: -10 * detailsProgress)
             .frame(height: 78 * (1 - detailsProgress), alignment: .top)
             .clipped()
+            .allowsHitTesting(false)
 
             Picker("", selection: $viewModel.infoType) {
                 ForEach(BioViewModel.BioInfoType.allCases, id: \.self) { section in

@@ -42,7 +42,6 @@
 		1C0C2C98298D9EF8002FE8EC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C97298D9EF8002FE8EC /* OnboardingView.swift */; };
 		1C0C2C9E298DA068002FE8EC /* BannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C9C298DA068002FE8EC /* BannerAd.swift */; };
 		1C0C2C9F298DA068002FE8EC /* ATTRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C9D298DA068002FE8EC /* ATTRequestView.swift */; };
-		1C0C2CA2298DA07F002FE8EC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CA1298DA07F002FE8EC /* Config.swift */; };
 		1C0C2CA8298DA0D2002FE8EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0C2CA7298DA0D2002FE8EC /* AdSupport.framework */; };
 		1C0C2CAD298DBC65002FE8EC /* StandingsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */; };
 		1C0D3A902C8750D500286449 /* EventFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A8F2C8750D500286449 /* EventFilterView.swift */; };
@@ -50,22 +49,28 @@
 		1C0D3A942C8762B500286449 /* VideoHighlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */; };
 		1C0D3A962C8762F200286449 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A952C8762F200286449 /* Video.swift */; };
 		1C0D3A982C877F2A00286449 /* UnavailableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */; };
-		1C0D46B62FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
-		1C0D46B72FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
-		1C0D46B82FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
-		1C0D46B92FB00D930074264A /* SupabaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* SupabaseConfig.swift */; };
+		1C0D46B62FB00D930074264A /* StandingsServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */; };
+		1C0D46B72FB00D930074264A /* StandingsServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */; };
+		1C0D46B82FB00D930074264A /* StandingsServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */; };
+		1C0D46B92FB00D930074264A /* StandingsServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */; };
 		1C0D46BA2FB016D70074264A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A4288299BDB98008F4F9A /* ColorExtension.swift */; };
 		1C1127672EC27A8D0089AEE1 /* ScheduleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1127662EC27A880089AEE1 /* ScheduleApi.swift */; };
 		1C1127682EC27A8D0089AEE1 /* ScheduleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1127662EC27A880089AEE1 /* ScheduleApi.swift */; };
 		1C11276B2EC27B910089AEE1 /* ScheduleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */; };
+		1C12612B2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */; };
+		1C12612C2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */; };
+		1C12612D2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */; };
+		1C12612E2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */; };
 		1C129F582995B29F00EB052E /* FavoriteWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C129F572995B29F00EB052E /* FavoriteWidgetApi.swift */; };
 		1C129F5A2995B44400EB052E /* FavoriteWidgetLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C129F592995B44400EB052E /* FavoriteWidgetLarge.swift */; };
 		1C14B5EC2E047C9C00B57FF7 /* SingleRodeoResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C14B5EB2E047C9C00B57FF7 /* SingleRodeoResults.swift */; };
-		1C179A0F2C85677A002A7D69 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C179A0E2C85677A002A7D69 /* SwiftSoup */; };
-		1C179A112C85678D002A7D69 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C179A102C85678D002A7D69 /* SwiftSoup */; };
 		1C1CBC8E299E7EA700C7888D /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CBC8D299E7EA700C7888D /* Tab.swift */; };
 		1C1D76C42994471900AA0142 /* ResultsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D76C32994471900AA0142 /* ResultsWidget.swift */; };
 		1C1D76C6299466D200AA0142 /* ResultsWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D76C5299466D200AA0142 /* ResultsWidgetApi.swift */; };
+		1C2686112FBAA60600206CA4 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2686102FBAA60600206CA4 /* TelemetryClient */; };
+		1C2686132FBAA60600206CA4 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2686122FBAA60600206CA4 /* TelemetryDeck */; };
+		1C2686152FBAA62400206CA4 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2686142FBAA62400206CA4 /* TelemetryClient */; };
+		1C2686172FBAA62400206CA4 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2686162FBAA62400206CA4 /* TelemetryDeck */; };
 		1C3109CB29A7ED220088B7F7 /* StandingsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 1C3109CA29A7ED220088B7F7 /* StandingsWidget.intentdefinition */; };
 		1C3109D129A7F23B0088B7F7 /* StandingsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */; };
 		1C40A675298F820500CAA13D /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A674298F820500CAA13D /* Circuit.swift */; };
@@ -74,10 +79,12 @@
 		1C40A679298F865C00CAA13D /* StandingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A677298F865C00CAA13D /* StandingType.swift */; };
 		1C40A67B298F87AF00CAA13D /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A67A298F87AF00CAA13D /* Tour.swift */; };
 		1C40A67C298F87AF00CAA13D /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40A67A298F87AF00CAA13D /* Tour.swift */; };
-		1C47B6F829A9CAB400937B8E /* WpraScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C47B6F729A9CAB400937B8E /* WpraScraper.swift */; };
-		1C47B70229A9E22D00937B8E /* WpraScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C47B6F729A9CAB400937B8E /* WpraScraper.swift */; };
 		1C5082062C96880B00A60E68 /* WidgetAthleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C894BE52C966E5700AC9AF7 /* WidgetAthleteQuery.swift */; };
 		1C5082092C97BC9200A60E68 /* StandingsWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A5861298E9B4C00A70F61 /* StandingsWidgetApi.swift */; };
+		1C53F7CD2FB37B76005DA7D5 /* Daysheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */; };
+		1C53F7CE2FB37B76005DA7D5 /* Daysheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */; };
+		1C53F7CF2FB37B76005DA7D5 /* Daysheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */; };
+		1C53F7D02FB37B76005DA7D5 /* Daysheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */; };
 		1C54326C2C9882DE00CFF362 /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C54326B2C9882DE00CFF362 /* AlertKit */; };
 		1C5432702C9887D300CFF362 /* FavoriteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C54326F2C9887D300CFF362 /* FavoriteAlert.swift */; };
 		1C5A6F8A2C98AAD300B5F624 /* FavoriteWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A6F892C98AAD300B5F624 /* FavoriteWidgetSmallView.swift */; };
@@ -99,10 +106,6 @@
 		1C64356F298C7E830032CFC2 /* RodeosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64356E298C7E830032CFC2 /* RodeosApi.swift */; };
 		1C65AD8929AC5E8F000CF5C7 /* StandingsWidgetSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C65AD8829AC5E8F000CF5C7 /* StandingsWidgetSmall.swift */; };
 		1C6E4CE3299F2E5300FBFF9E /* ATTHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6E4CE2299F2E5300FBFF9E /* ATTHandler.swift */; };
-		1C80302129A7D2480080CF9A /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80302029A7D2480080CF9A /* ApiService.swift */; };
-		1C80302229A7D2480080CF9A /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80302029A7D2480080CF9A /* ApiService.swift */; };
-		1C80302329A7D2480080CF9A /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80302029A7D2480080CF9A /* ApiService.swift */; };
-		1C80302429A7D2480080CF9A /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80302029A7D2480080CF9A /* ApiService.swift */; };
 		1C85DA2A298E118A00CA6F35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85DA29298E118A00CA6F35 /* SettingsView.swift */; };
 		1C85DA31298E294500CA6F35 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C85DA30298E294500CA6F35 /* WidgetKit.framework */; };
 		1C85DA33298E294500CA6F35 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C85DA32298E294500CA6F35 /* SwiftUI.framework */; };
@@ -173,6 +176,7 @@
 		1C9A8ABE29B542D000D372E2 /* WatchRodeoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A8ABD29B542D000D372E2 /* WatchRodeoCellView.swift */; };
 		1CA0C9BA2C87E92D00A90361 /* RodeoDailyWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1CE1514F29A4A7DE00B7AA26 /* RodeoDailyWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1CA0C9BD2C87E96B00A90361 /* RodeoDailyWatchWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CEA4A3C29A4FB72007F7B53 /* RodeoDailyWatchWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1CA427993042A37900AB449F /* LabelStylesModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA427983042A36700AB449F /* LabelStylesModifier.swift */; };
 		1CACDDDD299C522700E7CCC9 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDC299C522700E7CCC9 /* Bundle-Decodable.swift */; };
 		1CACDDDF299C523200E7CCC9 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDDE299C523200E7CCC9 /* Binding-OnChange.swift */; };
 		1CACDDE1299C585100E7CCC9 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CACDDE0299C585100E7CCC9 /* FilterType.swift */; };
@@ -196,7 +200,6 @@
 		1CCE134C2C88120A000A3063 /* WidgetSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDCBC752C861EE900AB1850 /* WidgetSampleData.swift */; };
 		1CD76B8C299A95E2002E5B08 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD76B8B299A95E2002E5B08 /* HtmlView.swift */; };
 		1CDC39DB29913CA40014935A /* WpraCircuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC39DA29913CA40014935A /* WpraCircuit.swift */; };
-		1CDCBC4A2C85FEF500AB1850 /* RodeoDailyWatchWidgetExtension.appex in Resources */ = {isa = PBXBuildFile; fileRef = 1CEA4A3C29A4FB72007F7B53 /* RodeoDailyWatchWidgetExtension.appex */; };
 		1CDCBC502C8604D100AB1850 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C093118298AFE5B00BB016D /* Assets.xcassets */; };
 		1CDCBC512C8604D200AB1850 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C093118298AFE5B00BB016D /* Assets.xcassets */; };
 		1CDCBC542C86086200AB1850 /* StandingsARWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDCBC522C86076B00AB1850 /* StandingsARWidget.swift */; };
@@ -260,7 +263,6 @@
 		1CE1519929A4ABD600B7AA26 /* StandingsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C99298D9FA5002FE8EC /* StandingsApi.swift */; };
 		1CE1519A29A4ABED00B7AA26 /* LogoShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C2C74298D97BF002FE8EC /* LogoShape.swift */; };
 		1CE2EBEE2EB9333400BCC7D7 /* BioStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2EBED2EB9332600BCC7D7 /* BioStatsView.swift */; };
-		1CE2EBF02EB9401000BCC7D7 /* json.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2EBEF2EB9400900BCC7D7 /* json.json */; };
 		1CE451CE299FF73A006DD531 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451CD299FF73A006DD531 /* Localizable.stringsdict */; };
 		1CE451CF299FFBE9006DD531 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451D1299FFBE9006DD531 /* Localizable.strings */; };
 		1CE451D529A0296B006DD531 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CE451D1299FFBE9006DD531 /* Localizable.strings */; };
@@ -307,17 +309,31 @@
 		1CF9ED932EBFAB140065C6E0 /* LayoutAlt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED922EBFAAFD0065C6E0 /* LayoutAlt.swift */; };
 		1CF9ED952EBFB7060065C6E0 /* StandingsListProt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED942EBFB6FD0065C6E0 /* StandingsListProt.swift */; };
 		1CF9ED972EBFB9AA0065C6E0 /* StandingsCellProt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9ED962EBFB9A20065C6E0 /* StandingsCellProt.swift */; };
+		1CFA12A12FB4000100A1B2C3 /* ScheduleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA12A02FB4000100A1B2C3 /* ScheduleDetailView.swift */; };
+		F0A110012FB8220000A1B2C3 /* WatchHomeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A110002FB8220000A1B2C3 /* WatchHomeHeader.swift */; };
+		F0A110032FB8220100A1B2C3 /* WatchHomeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A110022FB8220100A1B2C3 /* WatchHomeRow.swift */; };
+		F0A110052FB8220200A1B2C3 /* WatchListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A110042FB8220200A1B2C3 /* WatchListHeader.swift */; };
+		F0A110072FB8220300A1B2C3 /* WatchToolbarIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A110062FB8220300A1B2C3 /* WatchToolbarIconButton.swift */; };
+		F0A1100A2FB8220400A1B2C3 /* WatchScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A110092FB8220400A1B2C3 /* WatchScheduleListView.swift */; };
 		F0AA00112F6A300000A1B2C3 /* AthleteNotificationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */; };
 		F0AA00122F6A300000A1B2C3 /* FollowNotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */; };
 		F0AA00132F6A300000A1B2C3 /* AppBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */; };
 		F0AA00142F6A300000A1B2C3 /* SupabasePushSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00042F6A300000A1B2C3 /* SupabasePushSyncService.swift */; };
 		F0AA00152F6A300000A1B2C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */; };
 		F0AA00162F6A300000A1B2C3 /* AppReviewPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA00062F6A300000A1B2C3 /* AppReviewPromptManager.swift */; };
-		F0BB00112F70000000A1B2C3 /* PBJFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */; };
-		F0BB00122F70000000A1B2C3 /* PBJFeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */; };
-		F0BB00132F70000000A1B2C3 /* PBJFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */; };
-		F0BB00142F70000000A1B2C3 /* PBJFeedDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */; };
-		F0BB00172F70000000A1B2C3 /* PBJFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */; };
+		F0AA01012FBAA70000A1B2C3 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA01002FBAA70000A1B2C3 /* AnalyticsService.swift */; };
+		F0AD00012FB9170000A1B2C3 /* AdMobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD00002FB9170000A1B2C3 /* AdMobService.swift */; };
+		F0AD00032FB91B0000A1B2C3 /* AdEntitlementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD00022FB91B0000A1B2C3 /* AdEntitlementService.swift */; };
+		F0AD00052FB91B0000A1B2C3 /* AdPlacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD00042FB91B0000A1B2C3 /* AdPlacementPolicy.swift */; };
+		F0AD00072FB91C0000A1B2C3 /* NativeAdCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD00062FB91C0000A1B2C3 /* NativeAdCard.swift */; };
+		F0AD00092FB9220000A1B2C3 /* NativeAdPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD00082FB9220000A1B2C3 /* NativeAdPlaceholder.swift */; };
+		F0AD000B2FB9230000A1B2C3 /* MRECAdPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD000A2FB9230000A1B2C3 /* MRECAdPlaceholder.swift */; };
+		F0AFC0022FC0000100A1B2C3 /* AthleteFavoriteConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AFC0012FC0000100A1B2C3 /* AthleteFavoriteConfirmationView.swift */; };
+		F0BB00112F70000000A1B2C3 /* BusinessJournalFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00012F70000000A1B2C3 /* BusinessJournalFeedItem.swift */; };
+		F0BB00122F70000000A1B2C3 /* BusinessJournalApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00022F70000000A1B2C3 /* BusinessJournalApi.swift */; };
+		F0BB00132F70000000A1B2C3 /* BusinessJournalListingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00032F70000000A1B2C3 /* BusinessJournalListingsView.swift */; };
+		F0BB00142F70000000A1B2C3 /* BusinessJournalListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00042F70000000A1B2C3 /* BusinessJournalListingDetailView.swift */; };
+		F0BB00172F70000000A1B2C3 /* BusinessJournalFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00072F70000000A1B2C3 /* BusinessJournalFeedResponse.swift */; };
 		F0BB00A12F71011100A1B2C3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00A02F71011100A1B2C3 /* DashboardView.swift */; };
 		F0BB00C02F71022200A1B2C3 /* PastChampion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B02F71022200A1B2C3 /* PastChampion.swift */; };
 		F0BB00C12F71022200A1B2C3 /* PastChampionsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B12F71022200A1B2C3 /* PastChampionsApi.swift */; };
@@ -326,15 +342,52 @@
 		F0BB00C42F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B82F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift */; };
 		F0BB00C52F71022200A1B2C3 /* AboutSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00B92F71022200A1B2C3 /* AboutSettingsPage.swift */; };
 		F0BB00C62F71022200A1B2C3 /* FollowAlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00BA2F71022200A1B2C3 /* FollowAlertsView.swift */; };
-		F0BB00D02F71033300A1B2C3 /* PBJFeedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */; };
+		F0BB00D02F71033300A1B2C3 /* BusinessJournalListingsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CE2F71033300A1B2C3 /* BusinessJournalListingsParser.swift */; };
 		F0BB00D12F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */; };
 		F0BB00D22F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */; };
 		F0BB00E12F71044400A1B2C3 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB00E02F71044400A1B2C3 /* MoreView.swift */; };
+		F0C520012FBDB00000A1B2C3 /* ScheduleSeasonMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C520002FBDB00000A1B2C3 /* ScheduleSeasonMapView.swift */; };
 		F0CC01012F72000100A1B2C3 /* HomeNativeStyleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC01002F72000100A1B2C3 /* HomeNativeStyleHeader.swift */; };
 		F0CC02012F72010100A1B2C3 /* BioTelegramHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02002F72010100A1B2C3 /* BioTelegramHeaderView.swift */; };
 		F0CC02052F72051300A1B2C3 /* BioFavoriteToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02042F72051300A1B2C3 /* BioFavoriteToolbarButton.swift */; };
 		F0CC02072F7207A100A1B2C3 /* BioDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02062F7207A100A1B2C3 /* BioDetailView.swift */; };
 		F0CC02092F7208C100A1B2C3 /* BioDetailDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC02082F7208C100A1B2C3 /* BioDetailDocument.swift */; };
+		F0DD10012FB7000100A1B2C3 /* StandingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD10002FB7000100A1B2C3 /* StandingsService.swift */; };
+		F0DD10022FB7000100A1B2C3 /* StandingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD10002FB7000100A1B2C3 /* StandingsService.swift */; };
+		F0DD10032FB7000100A1B2C3 /* StandingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD10002FB7000100A1B2C3 /* StandingsService.swift */; };
+		F0DD10042FB7000100A1B2C3 /* StandingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD10002FB7000100A1B2C3 /* StandingsService.swift */; };
+		F0DD11012FB7002200A1B2C3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD11002FB7002200A1B2C3 /* APIClient.swift */; };
+		F0DD11022FB7002200A1B2C3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD11002FB7002200A1B2C3 /* APIClient.swift */; };
+		F0DD11032FB7002200A1B2C3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD11002FB7002200A1B2C3 /* APIClient.swift */; };
+		F0DD11042FB7002200A1B2C3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD11002FB7002200A1B2C3 /* APIClient.swift */; };
+		F0DD12012FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */; };
+		F0DD12022FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */; };
+		F0DD12032FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */; };
+		F0DD12042FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */; };
+		F0DD13012FB7006600A1B2C3 /* ResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */; };
+		F0DD13022FB7006600A1B2C3 /* ResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */; };
+		F0DD13032FB7006600A1B2C3 /* ResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */; };
+		F0DD13042FB7006600A1B2C3 /* ResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */; };
+		F0DD14012FB7008800A1B2C3 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD14002FB7008800A1B2C3 /* LoadingState.swift */; };
+		F0DD14022FB7008800A1B2C3 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD14002FB7008800A1B2C3 /* LoadingState.swift */; };
+		F0DD14032FB7008800A1B2C3 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD14002FB7008800A1B2C3 /* LoadingState.swift */; };
+		F0DD14042FB7008800A1B2C3 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD14002FB7008800A1B2C3 /* LoadingState.swift */; };
+		F0DD15012FB700AA00A1B2C3 /* BusinessJournalFeedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD15002FB700AA00A1B2C3 /* BusinessJournalFeedCard.swift */; };
+		F0DD16012FB700CC00A1B2C3 /* ScheduleDaysheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DD16002FB700CC00A1B2C3 /* ScheduleDaysheetView.swift */; };
+		F0EE17012FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE17002FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift */; };
+		F0EE17022FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE17002FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift */; };
+		F0F100012FB9000100A1B2C3 /* DaysheetAthleteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F100002FB9000100A1B2C3 /* DaysheetAthleteWidget.swift */; };
+		F0F100032FB9000200A1B2C3 /* DaysheetAthleteWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F100022FB9000200A1B2C3 /* DaysheetAthleteWidgetView.swift */; };
+		F0F100052FB9000300A1B2C3 /* DaysheetAthleteWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F100042FB9000300A1B2C3 /* DaysheetAthleteWidgetEntry.swift */; };
+		F0F100072FB9000400A1B2C3 /* DaysheetAthleteWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F100062FB9000400A1B2C3 /* DaysheetAthleteWidgetProvider.swift */; };
+		F0F100092FB9000500A1B2C3 /* DaysheetAthleteWidgetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F100082FB9000500A1B2C3 /* DaysheetAthleteWidgetApi.swift */; };
+		F0F1000B2FB9000600A1B2C3 /* DaysheetAthleteWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F1000A2FB9000600A1B2C3 /* DaysheetAthleteWidgetIntent.swift */; };
+		F0F200012FB9200100A1B2C3 /* NFRStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F200002FB9200100A1B2C3 /* NFRStandings.swift */; };
+		F0F200032FB9200200A1B2C3 /* NFRStandingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F200022FB9200200A1B2C3 /* NFRStandingsService.swift */; };
+		F0F200052FB9200300A1B2C3 /* NFRStandingsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F200042FB9200300A1B2C3 /* NFRStandingsApi.swift */; };
+		F0F200072FB9200400A1B2C3 /* NFRStandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F200062FB9200400A1B2C3 /* NFRStandingsView.swift */; };
+		F0F2000A2FB9200600A1B2C3 /* NFRContestantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F200092FB9200600A1B2C3 /* NFRContestantCard.swift */; };
+		F0F2000C2FB9200700A1B2C3 /* NFRRoundResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F2000B2FB9200700A1B2C3 /* NFRRoundResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -437,7 +490,6 @@
 		1C0C2C99298D9FA5002FE8EC /* StandingsApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandingsApi.swift; sourceTree = "<group>"; };
 		1C0C2C9C298DA068002FE8EC /* BannerAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
 		1C0C2C9D298DA068002FE8EC /* ATTRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATTRequestView.swift; sourceTree = "<group>"; };
-		1C0C2CA1298DA07F002FE8EC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		1C0C2CA7298DA0D2002FE8EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		1C0C2CA9298DA0D8002FE8EC /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
 		1C0C2CAB298DB20E002FE8EC /* RodeoDaily-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RodeoDaily-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -447,9 +499,10 @@
 		1C0D3A932C8762B500286449 /* VideoHighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHighlightsView.swift; sourceTree = "<group>"; };
 		1C0D3A952C8762F200286449 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1C0D3A972C877F2A00286449 /* UnavailableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableContentView.swift; sourceTree = "<group>"; };
-		1C0D46B52FB00D830074264A /* SupabaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseConfig.swift; sourceTree = "<group>"; };
+		1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsServiceConfig.swift; sourceTree = "<group>"; };
 		1C1127662EC27A880089AEE1 /* ScheduleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleApi.swift; sourceTree = "<group>"; };
 		1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMapView.swift; sourceTree = "<group>"; };
+		1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteImage.swift; sourceTree = "<group>"; };
 		1C129F572995B29F00EB052E /* FavoriteWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetApi.swift; sourceTree = "<group>"; };
 		1C129F592995B44400EB052E /* FavoriteWidgetLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetLarge.swift; sourceTree = "<group>"; };
 		1C14B5EB2E047C9C00B57FF7 /* SingleRodeoResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRodeoResults.swift; sourceTree = "<group>"; };
@@ -460,7 +513,7 @@
 		1C40A674298F820500CAA13D /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
 		1C40A677298F865C00CAA13D /* StandingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingType.swift; sourceTree = "<group>"; };
 		1C40A67A298F87AF00CAA13D /* Tour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tour.swift; sourceTree = "<group>"; };
-		1C47B6F729A9CAB400937B8E /* WpraScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WpraScraper.swift; sourceTree = "<group>"; };
+		1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Daysheet.swift; sourceTree = "<group>"; };
 		1C54326F2C9887D300CFF362 /* FavoriteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlert.swift; sourceTree = "<group>"; };
 		1C5A6F892C98AAD300B5F624 /* FavoriteWidgetSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetSmallView.swift; sourceTree = "<group>"; };
 		1C5A6F8D2C990A9300B5F624 /* FavoriteWidgetSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetSmall.swift; sourceTree = "<group>"; };
@@ -478,7 +531,6 @@
 		1C64356E298C7E830032CFC2 /* RodeosApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodeosApi.swift; sourceTree = "<group>"; };
 		1C65AD8829AC5E8F000CF5C7 /* StandingsWidgetSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsWidgetSmall.swift; sourceTree = "<group>"; };
 		1C6E4CE2299F2E5300FBFF9E /* ATTHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTHandler.swift; sourceTree = "<group>"; };
-		1C80302029A7D2480080CF9A /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		1C85DA29298E118A00CA6F35 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1C85DA2F298E294500CA6F35 /* RodeoDailyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RodeoDailyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C85DA30298E294500CA6F35 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -519,6 +571,7 @@
 		1C9A42AC299C2C41008F4F9A /* CircuitFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFilterView.swift; sourceTree = "<group>"; };
 		1C9A42AF299C361A008F4F9A /* ResultsEventFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsEventFilter.swift; sourceTree = "<group>"; };
 		1C9A8ABD29B542D000D372E2 /* WatchRodeoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRodeoCellView.swift; sourceTree = "<group>"; };
+		1CA427983042A36700AB449F /* LabelStylesModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStylesModifier.swift; sourceTree = "<group>"; };
 		1CACDDDC299C522700E7CCC9 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		1CACDDDE299C523200E7CCC9 /* Binding-OnChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		1CACDDE0299C585100E7CCC9 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
@@ -561,7 +614,6 @@
 		1CE1519229A4AB6600B7AA26 /* WatchLogoLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchLogoLoadingView.swift; sourceTree = "<group>"; };
 		1CE1519B29A4AC4D00B7AA26 /* RodeoDailyWatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RodeoDailyWatchApp.entitlements; sourceTree = "<group>"; };
 		1CE2EBED2EB9332600BCC7D7 /* BioStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioStatsView.swift; sourceTree = "<group>"; };
-		1CE2EBEF2EB9400900BCC7D7 /* json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = json.json; sourceTree = "<group>"; };
 		1CE451CD299FF73A006DD531 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		1CE451D0299FFBE9006DD531 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1CE451D2299FFBF6006DD531 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -582,17 +634,31 @@
 		1CF9ED922EBFAAFD0065C6E0 /* LayoutAlt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAlt.swift; sourceTree = "<group>"; };
 		1CF9ED942EBFB6FD0065C6E0 /* StandingsListProt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsListProt.swift; sourceTree = "<group>"; };
 		1CF9ED962EBFB9A20065C6E0 /* StandingsCellProt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsCellProt.swift; sourceTree = "<group>"; };
+		1CFA12A02FB4000100A1B2C3 /* ScheduleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailView.swift; sourceTree = "<group>"; };
+		F0A110002FB8220000A1B2C3 /* WatchHomeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHomeHeader.swift; sourceTree = "<group>"; };
+		F0A110022FB8220100A1B2C3 /* WatchHomeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHomeRow.swift; sourceTree = "<group>"; };
+		F0A110042FB8220200A1B2C3 /* WatchListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListHeader.swift; sourceTree = "<group>"; };
+		F0A110062FB8220300A1B2C3 /* WatchToolbarIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchToolbarIconButton.swift; sourceTree = "<group>"; };
+		F0A110092FB8220400A1B2C3 /* WatchScheduleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchScheduleListView.swift; sourceTree = "<group>"; };
 		F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteNotificationRoute.swift; sourceTree = "<group>"; };
 		F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationRouter.swift; sourceTree = "<group>"; };
 		F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgeManager.swift; sourceTree = "<group>"; };
 		F0AA00042F6A300000A1B2C3 /* SupabasePushSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabasePushSyncService.swift; sourceTree = "<group>"; };
 		F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0AA00062F6A300000A1B2C3 /* AppReviewPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewPromptManager.swift; sourceTree = "<group>"; };
-		F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedItem.swift; sourceTree = "<group>"; };
-		F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedApi.swift; sourceTree = "<group>"; };
-		F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedView.swift; sourceTree = "<group>"; };
-		F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedDetailView.swift; sourceTree = "<group>"; };
-		F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedResponse.swift; sourceTree = "<group>"; };
+		F0AA01002FBAA70000A1B2C3 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		F0AD00002FB9170000A1B2C3 /* AdMobService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdMobService.swift; sourceTree = "<group>"; };
+		F0AD00022FB91B0000A1B2C3 /* AdEntitlementService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdEntitlementService.swift; sourceTree = "<group>"; };
+		F0AD00042FB91B0000A1B2C3 /* AdPlacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdPlacementPolicy.swift; sourceTree = "<group>"; };
+		F0AD00062FB91C0000A1B2C3 /* NativeAdCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdCard.swift; sourceTree = "<group>"; };
+		F0AD00082FB9220000A1B2C3 /* NativeAdPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdPlaceholder.swift; sourceTree = "<group>"; };
+		F0AD000A2FB9230000A1B2C3 /* MRECAdPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRECAdPlaceholder.swift; sourceTree = "<group>"; };
+		F0AFC0012FC0000100A1B2C3 /* AthleteFavoriteConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteFavoriteConfirmationView.swift; sourceTree = "<group>"; };
+		F0BB00012F70000000A1B2C3 /* BusinessJournalFeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalFeedItem.swift; sourceTree = "<group>"; };
+		F0BB00022F70000000A1B2C3 /* BusinessJournalApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalApi.swift; sourceTree = "<group>"; };
+		F0BB00032F70000000A1B2C3 /* BusinessJournalListingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalListingsView.swift; sourceTree = "<group>"; };
+		F0BB00042F70000000A1B2C3 /* BusinessJournalListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalListingDetailView.swift; sourceTree = "<group>"; };
+		F0BB00072F70000000A1B2C3 /* BusinessJournalFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalFeedResponse.swift; sourceTree = "<group>"; };
 		F0BB00A02F71011100A1B2C3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		F0BB00B02F71022200A1B2C3 /* PastChampion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChampion.swift; sourceTree = "<group>"; };
 		F0BB00B12F71022200A1B2C3 /* PastChampionsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChampionsApi.swift; sourceTree = "<group>"; };
@@ -601,14 +667,35 @@
 		F0BB00B82F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAthletesSettingsPage.swift; sourceTree = "<group>"; };
 		F0BB00B92F71022200A1B2C3 /* AboutSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPage.swift; sourceTree = "<group>"; };
 		F0BB00BA2F71022200A1B2C3 /* FollowAlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAlertsView.swift; sourceTree = "<group>"; };
-		F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBJFeedParser.swift; sourceTree = "<group>"; };
+		F0BB00CE2F71033300A1B2C3 /* BusinessJournalListingsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalListingsParser.swift; sourceTree = "<group>"; };
 		F0BB00CF2F71033300A1B2C3 /* BioViewModel+Earnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BioViewModel+Earnings.swift"; sourceTree = "<group>"; };
 		F0BB00E02F71044400A1B2C3 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
+		F0C520002FBDB00000A1B2C3 /* ScheduleSeasonMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSeasonMapView.swift; sourceTree = "<group>"; };
 		F0CC01002F72000100A1B2C3 /* HomeNativeStyleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNativeStyleHeader.swift; sourceTree = "<group>"; };
 		F0CC02002F72010100A1B2C3 /* BioTelegramHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTelegramHeaderView.swift; sourceTree = "<group>"; };
 		F0CC02042F72051300A1B2C3 /* BioFavoriteToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioFavoriteToolbarButton.swift; sourceTree = "<group>"; };
 		F0CC02062F7207A100A1B2C3 /* BioDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioDetailView.swift; sourceTree = "<group>"; };
 		F0CC02082F7208C100A1B2C3 /* BioDetailDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioDetailDocument.swift; sourceTree = "<group>"; };
+		F0DD10002FB7000100A1B2C3 /* StandingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsService.swift; sourceTree = "<group>"; };
+		F0DD11002FB7002200A1B2C3 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedRodeoLoader.swift; sourceTree = "<group>"; };
+		F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMapper.swift; sourceTree = "<group>"; };
+		F0DD14002FB7008800A1B2C3 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
+		F0DD15002FB700AA00A1B2C3 /* BusinessJournalFeedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessJournalFeedCard.swift; sourceTree = "<group>"; };
+		F0DD16002FB700CC00A1B2C3 /* ScheduleDaysheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDaysheetView.swift; sourceTree = "<group>"; };
+		F0EE17002FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventSettingsSync.swift; sourceTree = "<group>"; };
+		F0F100002FB9000100A1B2C3 /* DaysheetAthleteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidget.swift; sourceTree = "<group>"; };
+		F0F100022FB9000200A1B2C3 /* DaysheetAthleteWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidgetView.swift; sourceTree = "<group>"; };
+		F0F100042FB9000300A1B2C3 /* DaysheetAthleteWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidgetEntry.swift; sourceTree = "<group>"; };
+		F0F100062FB9000400A1B2C3 /* DaysheetAthleteWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidgetProvider.swift; sourceTree = "<group>"; };
+		F0F100082FB9000500A1B2C3 /* DaysheetAthleteWidgetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidgetApi.swift; sourceTree = "<group>"; };
+		F0F1000A2FB9000600A1B2C3 /* DaysheetAthleteWidgetIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysheetAthleteWidgetIntent.swift; sourceTree = "<group>"; };
+		F0F200002FB9200100A1B2C3 /* NFRStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRStandings.swift; sourceTree = "<group>"; };
+		F0F200022FB9200200A1B2C3 /* NFRStandingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRStandingsService.swift; sourceTree = "<group>"; };
+		F0F200042FB9200300A1B2C3 /* NFRStandingsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRStandingsApi.swift; sourceTree = "<group>"; };
+		F0F200062FB9200400A1B2C3 /* NFRStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRStandingsView.swift; sourceTree = "<group>"; };
+		F0F200092FB9200600A1B2C3 /* NFRContestantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRContestantCard.swift; sourceTree = "<group>"; };
+		F0F2000B2FB9200700A1B2C3 /* NFRRoundResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFRRoundResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -617,10 +704,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C923A732C87EDAF00D3626E /* AppTrackingTransparency.framework in Frameworks */,
+				1C2686112FBAA60600206CA4 /* TelemetryClient in Frameworks */,
 				1C54326C2C9882DE00CFF362 /* AlertKit in Frameworks */,
 				1C902A1A2CA51AB8007AC200 /* GoogleMobileAds in Frameworks */,
-				1C179A0F2C85677A002A7D69 /* SwiftSoup in Frameworks */,
 				1CAD0D412CA51E34001DAF18 /* GoogleUserMessagingPlatform in Frameworks */,
+				1C2686132FBAA60600206CA4 /* TelemetryDeck in Frameworks */,
 				1C0C2CA8298DA0D2002FE8EC /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,7 +719,6 @@
 			files = (
 				1C85DA33298E294500CA6F35 /* SwiftUI.framework in Frameworks */,
 				1C85DA31298E294500CA6F35 /* WidgetKit.framework in Frameworks */,
-				1C179A112C85678D002A7D69 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +726,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C2686152FBAA62400206CA4 /* TelemetryClient in Frameworks */,
+				1C2686172FBAA62400206CA4 /* TelemetryDeck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,7 +881,13 @@
 			children = (
 				1C6E4CE2299F2E5300FBFF9E /* ATTHandler.swift */,
 				1C0C2C9D298DA068002FE8EC /* ATTRequestView.swift */,
+				F0AD00022FB91B0000A1B2C3 /* AdEntitlementService.swift */,
+				F0AD00002FB9170000A1B2C3 /* AdMobService.swift */,
+				F0AD00042FB91B0000A1B2C3 /* AdPlacementPolicy.swift */,
 				1C0C2C9C298DA068002FE8EC /* BannerAd.swift */,
+				F0AD000A2FB9230000A1B2C3 /* MRECAdPlaceholder.swift */,
+				F0AD00062FB91C0000A1B2C3 /* NativeAdCard.swift */,
+				F0AD00082FB9220000A1B2C3 /* NativeAdPlaceholder.swift */,
 			);
 			path = Ads;
 			sourceTree = "<group>";
@@ -800,7 +895,6 @@
 		1C0C2CA0298DA073002FE8EC /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				1C0C2CA1298DA07F002FE8EC /* Config.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -821,6 +915,9 @@
 			children = (
 				1CF0A1B12F6A100000A1B2C3 /* ScheduleListView.swift */,
 				1C11276A2EC27B860089AEE1 /* ScheduleMapView.swift */,
+				F0C520002FBDB00000A1B2C3 /* ScheduleSeasonMapView.swift */,
+				1CFA12A02FB4000100A1B2C3 /* ScheduleDetailView.swift */,
+				F0DD16002FB700CC00A1B2C3 /* ScheduleDaysheetView.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -837,7 +934,8 @@
 			isa = PBXGroup;
 			children = (
 				F0BB00B42F71022200A1B2C3 /* Champions */,
-				F0BB000B2F70000000A1B2C3 /* PBJ */,
+				F0BB000B2F70000000A1B2C3 /* BusinessJournal */,
+				F0AA01002FBAA70000A1B2C3 /* AnalyticsService.swift */,
 				F0AA00052F6A300000A1B2C3 /* AppDelegate.swift */,
 				F0AA00032F6A300000A1B2C3 /* AppBadgeManager.swift */,
 				F0AA00022F6A300000A1B2C3 /* FollowNotificationRouter.swift */,
@@ -854,6 +952,7 @@
 				F0BB00B32F71022200A1B2C3 /* Champions */,
 				F0BB000A2F70000000A1B2C3 /* PBJ */,
 				F0AA00012F6A300000A1B2C3 /* AthleteNotificationRoute.swift */,
+				F0F200002FB9200100A1B2C3 /* NFRStandings.swift */,
 				1C5BFD002DEE51850093F30A /* WpraUrl.swift */,
 				1C1CBC8D299E7EA700C7888D /* Tab.swift */,
 				1C0D3A952C8762F200286449 /* Video.swift */,
@@ -875,7 +974,8 @@
 		1C2F3B3E29A8738B00519787 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				1C0D46B52FB00D830074264A /* SupabaseConfig.swift */,
+				1C12612A2FB6DBAF00D951C5 /* AthleteImage.swift */,
+				1C0D46B52FB00D830074264A /* StandingsServiceConfig.swift */,
 				1C40A674298F820500CAA13D /* Circuit.swift */,
 				1C0C2CAC298DBC65002FE8EC /* StandingsEvent.swift */,
 				1C40A677298F865C00CAA13D /* StandingType.swift */,
@@ -888,9 +988,11 @@
 		1C2F3B3F29A873A500519787 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1C53F7CC2FB37B6B005DA7D5 /* Daysheet.swift */,
 				1C0C2C5B298D7A4D002FE8EC /* Athlete.swift */,
 				1C0C2C5D298D7A57002FE8EC /* Bio.swift */,
 				1C0C2C71298D7BBB002FE8EC /* BioExtension.swift */,
+				F0DD14002FB7008800A1B2C3 /* LoadingState.swift */,
 				1C9A4292299BDEF1008F4F9A /* FavoriteAthlete.swift */,
 				1C643569298C78490032CFC2 /* RodeoResult.swift */,
 				1C643559298C58BD0032CFC2 /* RodeoResults.swift */,
@@ -906,7 +1008,11 @@
 		1C2F3B4029A873C900519787 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1C80302029A7D2480080CF9A /* ApiService.swift */,
+				F0DD11002FB7002200A1B2C3 /* APIClient.swift */,
+				F0EE17002FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift */,
+				F0DD12002FB7004400A1B2C3 /* PaginatedRodeoLoader.swift */,
+				F0DD13002FB7006600A1B2C3 /* ResultsMapper.swift */,
+				F0DD10002FB7000100A1B2C3 /* StandingsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -938,7 +1044,8 @@
 				1C1127662EC27A880089AEE1 /* ScheduleApi.swift */,
 				1C64356E298C7E830032CFC2 /* RodeosApi.swift */,
 				1C0C2C99298D9FA5002FE8EC /* StandingsApi.swift */,
-				1C47B6F729A9CAB400937B8E /* WpraScraper.swift */,
+				F0F200042FB9200300A1B2C3 /* NFRStandingsApi.swift */,
+				F0F200022FB9200200A1B2C3 /* NFRStandingsService.swift */,
 				1C9219AE2C939D7700A9CECD /* SearchSuggetionsApi.swift */,
 			);
 			path = Services;
@@ -988,7 +1095,8 @@
 			isa = PBXGroup;
 			children = (
 				F0BB00B52F71022200A1B2C3 /* Champions */,
-				F0BB000C2F70000000A1B2C3 /* PBJ */,
+				F0BB000C2F70000000A1B2C3 /* BusinessJournalListings */,
+				F0F200082FB9200500A1B2C3 /* NFR */,
 				1C1127692EC27B7C0089AEE1 /* Schedule */,
 				1C14B5EA2E047C7700B57FF7 /* SingleRodeoResults */,
 				1CB14A9F2CA3C2B800165D91 /* Athletes */,
@@ -1007,6 +1115,7 @@
 		1C64355E298C71D20032CFC2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1CA427983042A36700AB449F /* LabelStylesModifier.swift */,
 				1C9A4278299BD497008F4F9A /* Extensions */,
 				1CF0A1B32F6A200000A1B2C3 /* DesignTokens.swift */,
 				1C643561298C71E80032CFC2 /* Modifiers.swift */,
@@ -1073,7 +1182,6 @@
 		1C9A4299299BE392008F4F9A /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				1CE2EBEF2EB9400900BCC7D7 /* json.json */,
 				1CE2EBED2EB9332600BCC7D7 /* BioStatsView.swift */,
 				1C9A4295299BE0B0008F4F9A /* SortMenuView.swift */,
 				1C89A3EC299AF559003D915F /* BioResultCellView.swift */,
@@ -1120,6 +1228,7 @@
 				1C8CC8A12CA64A0400B0BD85 /* AthletesViewModel.swift */,
 				1CB14AA02CA3C2D300165D91 /* AthletesView.swift */,
 				1CB14AA22CA3C4F700165D91 /* AthleteCellView.swift */,
+				F0AFC0012FC0000100A1B2C3 /* AthleteFavoriteConfirmationView.swift */,
 			);
 			path = Athletes;
 			sourceTree = "<group>";
@@ -1166,6 +1275,7 @@
 		1CDC39DE2991430C0014935A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F0F1000C2FB9000700A1B2C3 /* DaysheetAthleteWidget */,
 				1CDCBC602C860FAE00AB1850 /* FavoriteWidget */,
 				1CDCBC742C86191700AB1850 /* ResultsWidget */,
 				1CDCBC5B2C860D8900AB1850 /* StandingsWidget */,
@@ -1297,6 +1407,7 @@
 			children = (
 				1CDCBC7B2C86479F00AB1850 /* StandingsWidgetIntent.swift */,
 				1C9219B02C940E2000A9CECD /* FavoriteWidgetIntent.swift */,
+				F0F1000A2FB9000600A1B2C3 /* DaysheetAthleteWidgetIntent.swift */,
 			);
 			path = Intents;
 			sourceTree = "<group>";
@@ -1328,6 +1439,7 @@
 			children = (
 				1CE1517B29A4AA1D00B7AA26 /* ContentView.swift */,
 				1CE1517D29A4AA4800B7AA26 /* Results */,
+				F0A110082FB8220400A1B2C3 /* Schedule */,
 				1CEA4A7329A52FDA007F7B53 /* Settings */,
 				1CE1518729A4AAC600B7AA26 /* Standings */,
 			);
@@ -1366,7 +1478,11 @@
 			isa = PBXGroup;
 			children = (
 				1CE1518E29A4AB5200B7AA26 /* Buttons.swift */,
+				F0A110002FB8220000A1B2C3 /* WatchHomeHeader.swift */,
+				F0A110022FB8220100A1B2C3 /* WatchHomeRow.swift */,
+				F0A110042FB8220200A1B2C3 /* WatchListHeader.swift */,
 				1CE1519029A4AB5A00B7AA26 /* WatchLogo.swift */,
+				F0A110062FB8220300A1B2C3 /* WatchToolbarIconButton.swift */,
 				1CE1518D29A4AB4100B7AA26 /* LoadingViews */,
 			);
 			path = ViewComponents;
@@ -1398,31 +1514,40 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		F0A110082FB8220400A1B2C3 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				F0A110092FB8220400A1B2C3 /* WatchScheduleListView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
 		F0BB000A2F70000000A1B2C3 /* PBJ */ = {
 			isa = PBXGroup;
 			children = (
-				F0BB00012F70000000A1B2C3 /* PBJFeedItem.swift */,
-				F0BB00CE2F71033300A1B2C3 /* PBJFeedParser.swift */,
-				F0BB00072F70000000A1B2C3 /* PBJFeedResponse.swift */,
+				F0BB00012F70000000A1B2C3 /* BusinessJournalFeedItem.swift */,
+				F0BB00CE2F71033300A1B2C3 /* BusinessJournalListingsParser.swift */,
+				F0BB00072F70000000A1B2C3 /* BusinessJournalFeedResponse.swift */,
 			);
 			path = PBJ;
 			sourceTree = "<group>";
 		};
-		F0BB000B2F70000000A1B2C3 /* PBJ */ = {
+		F0BB000B2F70000000A1B2C3 /* BusinessJournal */ = {
 			isa = PBXGroup;
 			children = (
-				F0BB00022F70000000A1B2C3 /* PBJFeedApi.swift */,
+				F0BB00022F70000000A1B2C3 /* BusinessJournalApi.swift */,
 			);
-			path = PBJ;
+			path = BusinessJournal;
 			sourceTree = "<group>";
 		};
-		F0BB000C2F70000000A1B2C3 /* PBJ */ = {
+		F0BB000C2F70000000A1B2C3 /* BusinessJournalListings */ = {
 			isa = PBXGroup;
 			children = (
-				F0BB00042F70000000A1B2C3 /* PBJFeedDetailView.swift */,
-				F0BB00032F70000000A1B2C3 /* PBJFeedView.swift */,
+				F0BB00042F70000000A1B2C3 /* BusinessJournalListingDetailView.swift */,
+				F0DD15002FB700AA00A1B2C3 /* BusinessJournalFeedCard.swift */,
+				F0BB00032F70000000A1B2C3 /* BusinessJournalListingsView.swift */,
 			);
-			path = PBJ;
+			path = BusinessJournalListings;
 			sourceTree = "<group>";
 		};
 		F0BB00B32F71022200A1B2C3 /* Champions */ = {
@@ -1460,6 +1585,36 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		F0F1000C2FB9000700A1B2C3 /* DaysheetAthleteWidget */ = {
+			isa = PBXGroup;
+			children = (
+				F0F1000D2FB9000800A1B2C3 /* Services */,
+				F0F100002FB9000100A1B2C3 /* DaysheetAthleteWidget.swift */,
+				F0F100022FB9000200A1B2C3 /* DaysheetAthleteWidgetView.swift */,
+				F0F100042FB9000300A1B2C3 /* DaysheetAthleteWidgetEntry.swift */,
+				F0F100062FB9000400A1B2C3 /* DaysheetAthleteWidgetProvider.swift */,
+			);
+			path = DaysheetAthleteWidget;
+			sourceTree = "<group>";
+		};
+		F0F1000D2FB9000800A1B2C3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F0F100082FB9000500A1B2C3 /* DaysheetAthleteWidgetApi.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F0F200082FB9200500A1B2C3 /* NFR */ = {
+			isa = PBXGroup;
+			children = (
+				F0F200092FB9200600A1B2C3 /* NFRContestantCard.swift */,
+				F0F2000B2FB9200700A1B2C3 /* NFRRoundResultView.swift */,
+				F0F200062FB9200400A1B2C3 /* NFRStandingsView.swift */,
+			);
+			path = NFR;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1481,10 +1636,11 @@
 			);
 			name = RodeoDaily;
 			packageProductDependencies = (
-				1C179A0E2C85677A002A7D69 /* SwiftSoup */,
 				1C54326B2C9882DE00CFF362 /* AlertKit */,
 				1C902A192CA51AB8007AC200 /* GoogleMobileAds */,
 				1CAD0D402CA51E34001DAF18 /* GoogleUserMessagingPlatform */,
+				1C2686102FBAA60600206CA4 /* TelemetryClient */,
+				1C2686122FBAA60600206CA4 /* TelemetryDeck */,
 			);
 			productName = "Rodeo Daily";
 			productReference = 1C09310C298AFE5A00BB016D /* RodeoDaily.app */;
@@ -1504,7 +1660,6 @@
 			);
 			name = RodeoDailyWidgetExtension;
 			packageProductDependencies = (
-				1C179A102C85678D002A7D69 /* SwiftSoup */,
 			);
 			productName = RodeoDailyWidgetExtension;
 			productReference = 1C85DA2F298E294500CA6F35 /* RodeoDailyWidgetExtension.appex */;
@@ -1526,6 +1681,8 @@
 			);
 			name = RodeoDailyWatchApp;
 			packageProductDependencies = (
+				1C2686142FBAA62400206CA4 /* TelemetryClient */,
+				1C2686162FBAA62400206CA4 /* TelemetryDeck */,
 			);
 			productName = "RodeoDailyWatchApp Watch App";
 			productReference = 1CE1514F29A4A7DE00B7AA26 /* RodeoDailyWatchApp.app */;
@@ -1587,10 +1744,10 @@
 			);
 			mainGroup = 1C093103298AFE5A00BB016D;
 			packageReferences = (
-				1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				1C54326A2C9882AD00CFF362 /* XCRemoteSwiftPackageReference "SPAlert" */,
 				1C902A182CA51AB8007AC200 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				1CAD0D3F2CA51E34001DAF18 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+				1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */,
 			);
 			productRefGroup = 1C09310D298AFE5A00BB016D /* Products */;
 			projectDirPath = "";
@@ -1615,7 +1772,6 @@
 				1CDCBC552C86095B00AB1850 /* Colors.xcassets in Resources */,
 				1C093119298AFE5B00BB016D /* Assets.xcassets in Resources */,
 				1CE451CE299FF73A006DD531 /* Localizable.stringsdict in Resources */,
-				1CE2EBF02EB9401000BCC7D7 /* json.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1639,7 +1795,6 @@
 				1CEA4A7629A5319C007F7B53 /* Localizable.strings in Resources */,
 				1CE1516129A4A8CB00B7AA26 /* Images.xcassets in Resources */,
 				1CE1515929A4A7DF00B7AA26 /* Preview Assets.xcassets in Resources */,
-				1CDCBC4A2C85FEF500AB1850 /* RodeoDailyWatchWidgetExtension.appex in Resources */,
 				1CE1515629A4A7DF00B7AA26 /* Assets.xcassets in Resources */,
 				1CDCBC572C86095C00AB1850 /* Colors.xcassets in Resources */,
 				1CDCBC502C8604D100AB1850 /* Assets.xcassets in Resources */,
@@ -1679,16 +1834,29 @@
 				1C85DA2A298E118A00CA6F35 /* SettingsView.swift in Sources */,
 				1CC2C566299EA46700011270 /* SearchModel.swift in Sources */,
 				1C0D3A982C877F2A00286449 /* UnavailableContentView.swift in Sources */,
+				1C53F7CE2FB37B76005DA7D5 /* Daysheet.swift in Sources */,
 				1C9A427D299BD52A008F4F9A /* StringExtension.swift in Sources */,
-				1C80302129A7D2480080CF9A /* ApiService.swift in Sources */,
+				F0DD11012FB7002200A1B2C3 /* APIClient.swift in Sources */,
+				F0DD14012FB7008800A1B2C3 /* LoadingState.swift in Sources */,
+				F0DD12012FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */,
+				F0DD13012FB7006600A1B2C3 /* ResultsMapper.swift in Sources */,
+				F0DD10012FB7000100A1B2C3 /* StandingsService.swift in Sources */,
+				F0EE17012FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift in Sources */,
 				1C093110298AFE5A00BB016D /* RodeoDailyApp.swift in Sources */,
 				F0AA00152F6A300000A1B2C3 /* AppDelegate.swift in Sources */,
 				F0AA00132F6A300000A1B2C3 /* AppBadgeManager.swift in Sources */,
 				F0AA00162F6A300000A1B2C3 /* AppReviewPromptManager.swift in Sources */,
 				F0AA00112F6A300000A1B2C3 /* AthleteNotificationRoute.swift in Sources */,
+				F0AA01012FBAA70000A1B2C3 /* AnalyticsService.swift in Sources */,
 				1C0C2C78298D97BF002FE8EC /* Buttons.swift in Sources */,
 				1C5082092C97BC9200A60E68 /* StandingsWidgetApi.swift in Sources */,
+				F0AD00032FB91B0000A1B2C3 /* AdEntitlementService.swift in Sources */,
+				F0AD00012FB9170000A1B2C3 /* AdMobService.swift in Sources */,
+				F0AD00052FB91B0000A1B2C3 /* AdPlacementPolicy.swift in Sources */,
 				1C0C2C9E298DA068002FE8EC /* BannerAd.swift in Sources */,
+				F0AD000B2FB9230000A1B2C3 /* MRECAdPlaceholder.swift in Sources */,
+				F0AD00072FB91C0000A1B2C3 /* NativeAdCard.swift in Sources */,
+				F0AD00092FB9220000A1B2C3 /* NativeAdPlaceholder.swift in Sources */,
 				F0AA00122F6A300000A1B2C3 /* FollowNotificationRouter.swift in Sources */,
 				1C0A5863298E9B7600A70F61 /* StandingsApi.swift in Sources */,
 				1C902A172CA4F85A007AC200 /* AthleteCellViewLoader.swift in Sources */,
@@ -1709,6 +1877,7 @@
 				1C1127682EC27A8D0089AEE1 /* ScheduleApi.swift in Sources */,
 				1CB3B4AC2E1C9775006CC6B2 /* ArrayExtension.swift in Sources */,
 				1CB14AA32CA3C4F700165D91 /* AthleteCellView.swift in Sources */,
+				F0AFC0022FC0000100A1B2C3 /* AthleteFavoriteConfirmationView.swift in Sources */,
 				1C643565298C71E80032CFC2 /* Modifiers.swift in Sources */,
 				1CF0A1B42F6A200000A1B2C3 /* DesignTokens.swift in Sources */,
 				1C64355C298C595D0032CFC2 /* JSONStructs.swift in Sources */,
@@ -1720,7 +1889,8 @@
 				1C40A67B298F87AF00CAA13D /* Tour.swift in Sources */,
 				1C9A42AD299C2C41008F4F9A /* CircuitFilterView.swift in Sources */,
 				1CF097382998BE8F000D7499 /* ExpandingSearchBar.swift in Sources */,
-				1C0D46B92FB00D930074264A /* SupabaseConfig.swift in Sources */,
+				1C0D46B92FB00D930074264A /* StandingsServiceConfig.swift in Sources */,
+				1C12612E2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */,
 				1C9A428F299BDC27008F4F9A /* TextExtension.swift in Sources */,
 				1CC2C56D299EE3DA00011270 /* HomeMainView.swift in Sources */,
 				F0BB00A12F71011100A1B2C3 /* DashboardView.swift in Sources */,
@@ -1731,8 +1901,15 @@
 				F0BB00C42F71022200A1B2C3 /* FavoriteAthletesSettingsPage.swift in Sources */,
 				F0BB00C52F71022200A1B2C3 /* AboutSettingsPage.swift in Sources */,
 				F0BB00C62F71022200A1B2C3 /* FollowAlertsView.swift in Sources */,
-				F0BB00142F70000000A1B2C3 /* PBJFeedDetailView.swift in Sources */,
-				F0BB00132F70000000A1B2C3 /* PBJFeedView.swift in Sources */,
+				F0BB00142F70000000A1B2C3 /* BusinessJournalListingDetailView.swift in Sources */,
+				F0DD15012FB700AA00A1B2C3 /* BusinessJournalFeedCard.swift in Sources */,
+				F0F200012FB9200100A1B2C3 /* NFRStandings.swift in Sources */,
+				F0F200032FB9200200A1B2C3 /* NFRStandingsService.swift in Sources */,
+				F0F200052FB9200300A1B2C3 /* NFRStandingsApi.swift in Sources */,
+				F0F2000A2FB9200600A1B2C3 /* NFRContestantCard.swift in Sources */,
+				F0F2000C2FB9200700A1B2C3 /* NFRRoundResultView.swift in Sources */,
+				F0F200072FB9200400A1B2C3 /* NFRStandingsView.swift in Sources */,
+				F0BB00132F70000000A1B2C3 /* BusinessJournalListingsView.swift in Sources */,
 				F0BB00E12F71044400A1B2C3 /* MoreView.swift in Sources */,
 				1C0C2C77298D97BF002FE8EC /* LogoShape.swift in Sources */,
 				1C0C2C5E298D7A57002FE8EC /* Bio.swift in Sources */,
@@ -1742,13 +1919,15 @@
 				1C0C2C76298D97BF002FE8EC /* Logo.swift in Sources */,
 				1C9219B42C95C98400A9CECD /* BioEvent.swift in Sources */,
 				1C9A42AB299C2AE8008F4F9A /* StandingsEventFilterView.swift in Sources */,
-				1C47B6F829A9CAB400937B8E /* WpraScraper.swift in Sources */,
 				1C0C2C84298D9EBA002FE8EC /* CustomButtonView.swift in Sources */,
 				1C9A4289299BDB98008F4F9A /* ColorExtension.swift in Sources */,
 				1C0C2C91298D9EDC002FE8EC /* FilterChip.swift in Sources */,
 				1C6E4CE3299F2E5300FBFF9E /* ATTHandler.swift in Sources */,
 				1C11276B2EC27B910089AEE1 /* ScheduleMapView.swift in Sources */,
+				F0C520012FBDB00000A1B2C3 /* ScheduleSeasonMapView.swift in Sources */,
 				1CF0A1B22F6A100000A1B2C3 /* ScheduleListView.swift in Sources */,
+				1CFA12A12FB4000100A1B2C3 /* ScheduleDetailView.swift in Sources */,
+				F0DD16012FB700CC00A1B2C3 /* ScheduleDaysheetView.swift in Sources */,
 				1C0D3A922C875E0900286449 /* VimeoPlayer.swift in Sources */,
 				1C0C2C82298D9EBA002FE8EC /* HeaderView.swift in Sources */,
 				1C9A4298299BE287008F4F9A /* SeasonFilterView.swift in Sources */,
@@ -1778,18 +1957,18 @@
 				1C5432702C9887D300CFF362 /* FavoriteAlert.swift in Sources */,
 				1C0C2C6C298D7B2C002FE8EC /* BioViewLoader.swift in Sources */,
 				1CC98B072996F9EA0024A197 /* BioView.swift in Sources */,
-				1C0C2CA2298DA07F002FE8EC /* Config.swift in Sources */,
 				1C9A42B0299C361A008F4F9A /* ResultsEventFilter.swift in Sources */,
 				1C0C2C98298D9EF8002FE8EC /* OnboardingView.swift in Sources */,
 				1C0C2C8E298D9EDC002FE8EC /* ResultsBlock.swift in Sources */,
 				1CB14AA12CA3C2D300165D91 /* AthletesView.swift in Sources */,
 				1C0C2C9F298DA068002FE8EC /* ATTRequestView.swift in Sources */,
+				1CA427993042A37900AB449F /* LabelStylesModifier.swift in Sources */,
 				1CC2C563299E9A0100011270 /* Debouncer.swift in Sources */,
 				F0AA00142F6A300000A1B2C3 /* SupabasePushSyncService.swift in Sources */,
-				F0BB00112F70000000A1B2C3 /* PBJFeedItem.swift in Sources */,
-				F0BB00D02F71033300A1B2C3 /* PBJFeedParser.swift in Sources */,
-				F0BB00172F70000000A1B2C3 /* PBJFeedResponse.swift in Sources */,
-				F0BB00122F70000000A1B2C3 /* PBJFeedApi.swift in Sources */,
+				F0BB00112F70000000A1B2C3 /* BusinessJournalFeedItem.swift in Sources */,
+				F0BB00D02F71033300A1B2C3 /* BusinessJournalListingsParser.swift in Sources */,
+				F0BB00172F70000000A1B2C3 /* BusinessJournalFeedResponse.swift in Sources */,
+				F0BB00122F70000000A1B2C3 /* BusinessJournalApi.swift in Sources */,
 				1C0C2C5A298D7660002FE8EC /* TRWinnerCell.swift in Sources */,
 				1C9219AF2C939D7700A9CECD /* SearchSuggetionsApi.swift in Sources */,
 				1CCE134C2C88120A000A3063 /* WidgetSampleData.swift in Sources */,
@@ -1837,26 +2016,36 @@
 				1CF409F129B02FB200958513 /* Team.swift in Sources */,
 				1C894BE12C964CC600AC9AF7 /* WidgetAthlete.swift in Sources */,
 				1C129F5A2995B44400EB052E /* FavoriteWidgetLarge.swift in Sources */,
+				F0F100012FB9000100A1B2C3 /* DaysheetAthleteWidget.swift in Sources */,
 				1C5A6F8E2C990A9300B5F624 /* FavoriteWidgetSmall.swift in Sources */,
 				1CEF10D5298EAD050078A809 /* StandingsWidgetApi.swift in Sources */,
+				1C53F7D02FB37B76005DA7D5 /* Daysheet.swift in Sources */,
+				F0F100092FB9000500A1B2C3 /* DaysheetAthleteWidgetApi.swift in Sources */,
+				F0F1000B2FB9000600A1B2C3 /* DaysheetAthleteWidgetIntent.swift in Sources */,
+				F0F100052FB9000300A1B2C3 /* DaysheetAthleteWidgetEntry.swift in Sources */,
 				1C9219BA2C95DEDB00A9CECD /* ApiUrls.swift in Sources */,
 				1CDCBC6A2C8613AF00AB1850 /* StandingsWidgetEntry.swift in Sources */,
 				1C40A67C298F87AF00CAA13D /* Tour.swift in Sources */,
 				1C9A427B299BD4BE008F4F9A /* IntExtension.swift in Sources */,
 				1C9219B22C940E2000A9CECD /* FavoriteWidgetIntent.swift in Sources */,
-				1C80302229A7D2480080CF9A /* ApiService.swift in Sources */,
+				F0DD11022FB7002200A1B2C3 /* APIClient.swift in Sources */,
+				F0DD14022FB7008800A1B2C3 /* LoadingState.swift in Sources */,
+				F0DD12022FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */,
+				F0DD13022FB7006600A1B2C3 /* ResultsMapper.swift in Sources */,
+				F0DD10022FB7000100A1B2C3 /* StandingsService.swift in Sources */,
 				1CDCBC762C861EE900AB1850 /* WidgetSampleData.swift in Sources */,
 				1C9219B82C95DEC500A9CECD /* BioViewModel.swift in Sources */,
 				F0BB00D22F71033300A1B2C3 /* BioViewModel+Earnings.swift in Sources */,
-				1C0D46B82FB00D930074264A /* SupabaseConfig.swift in Sources */,
+				1C0D46B82FB00D930074264A /* StandingsServiceConfig.swift in Sources */,
 				1CDCBC622C860FD500AB1850 /* FavoriteWidgetProvider.swift in Sources */,
+				F0F100072FB9000400A1B2C3 /* DaysheetAthleteWidgetProvider.swift in Sources */,
+				F0F100032FB9000200A1B2C3 /* DaysheetAthleteWidgetView.swift in Sources */,
 				1CDCBC6E2C86162A00AB1850 /* StandingsProvider.swift in Sources */,
 				1C85DA4C298E2A5E00CA6F35 /* Athlete.swift in Sources */,
 				1C9A4281299BD583008F4F9A /* DoubleExtension.swift in Sources */,
 				1CDCBC8B2C86B1F100AB1850 /* StandingsARWidget.swift in Sources */,
 				1C9219B62C95DDEB00A9CECD /* DebouncedObservedObject.swift in Sources */,
 				1C5BFD032DEE525C0093F30A /* WpraUrl.swift in Sources */,
-				1C47B70229A9E22D00937B8E /* WpraScraper.swift in Sources */,
 				1C9219AC2C93760700A9CECD /* AthleteList.swift in Sources */,
 				1C9A42A2299BFEAE008F4F9A /* ImageExtension.swift in Sources */,
 				1C85DA56298E2B3000CA6F35 /* StandingsEvent.swift in Sources */,
@@ -1875,6 +2064,7 @@
 				1C85DA3A298E294500CA6F35 /* StandingsWidgetLargeView.swift in Sources */,
 				1CDCBC5F2C860E6500AB1850 /* StandingsWidgetLarge.swift in Sources */,
 				1C85DA53298E2A7200CA6F35 /* JSONStructs.swift in Sources */,
+				1C12612D2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */,
 				1C40A679298F865C00CAA13D /* StandingType.swift in Sources */,
 				1CDCBC682C86119D00AB1850 /* FavoriteWidgetLargeView.swift in Sources */,
 				1C9A428A299BDB98008F4F9A /* ColorExtension.swift in Sources */,
@@ -1886,15 +2076,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C0D46B72FB00D930074264A /* SupabaseConfig.swift in Sources */,
+				1C53F7CD2FB37B76005DA7D5 /* Daysheet.swift in Sources */,
+				1C0D46B72FB00D930074264A /* StandingsServiceConfig.swift in Sources */,
 				1CADD47A2C95F6D600D26B87 /* TransitionExtension.swift in Sources */,
 				1CE1518F29A4AB5200B7AA26 /* Buttons.swift in Sources */,
+				F0A110012FB8220000A1B2C3 /* WatchHomeHeader.swift in Sources */,
+				F0A110032FB8220100A1B2C3 /* WatchHomeRow.swift in Sources */,
+				F0A110052FB8220200A1B2C3 /* WatchListHeader.swift in Sources */,
+				F0A110072FB8220300A1B2C3 /* WatchToolbarIconButton.swift in Sources */,
 				1CE1517429A4A8F800B7AA26 /* CGFloatExtension.swift in Sources */,
 				1CE1519829A4ABD600B7AA26 /* RodeosApi.swift in Sources */,
 				1CE1518B29A4AAD800B7AA26 /* WatchStandingsListView.swift in Sources */,
 				1C9A8ABE29B542D000D372E2 /* WatchRodeoCellView.swift in Sources */,
 				1CE1516A29A4A8EA00B7AA26 /* RodeoResults.swift in Sources */,
 				1CE1516D29A4A8EA00B7AA26 /* RodeoResult.swift in Sources */,
+				1C12612B2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */,
 				1CF409F229B02FB200958513 /* Team.swift in Sources */,
 				1C5BFD022DEE524A0093F30A /* WpraUrl.swift in Sources */,
 				1CE1516529A4A8E600B7AA26 /* Circuit.swift in Sources */,
@@ -1906,14 +2102,20 @@
 				1CE1519129A4AB5A00B7AA26 /* WatchLogo.swift in Sources */,
 				1CE1518429A4AA8D00B7AA26 /* WatchResultsCellView.swift in Sources */,
 				1C9219A72C936A1F00A9CECD /* AthleteList.swift in Sources */,
+				F0DD11032FB7002200A1B2C3 /* APIClient.swift in Sources */,
+				F0DD14032FB7008800A1B2C3 /* LoadingState.swift in Sources */,
+				F0DD12032FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */,
+				F0DD13032FB7006600A1B2C3 /* ResultsMapper.swift in Sources */,
+				F0EE17022FB8001100A1B2C3 /* FavoriteEventSettingsSync.swift in Sources */,
 				1CE1519429A4ABAF00B7AA26 /* ImageExtension.swift in Sources */,
 				1CE1518629A4AA9000B7AA26 /* WatchResultsTRCellView.swift in Sources */,
 				1CE1517529A4A8F800B7AA26 /* DateExtansion.swift in Sources */,
-				1C80302329A7D2480080CF9A /* ApiService.swift in Sources */,
+				F0DD10032FB7000100A1B2C3 /* StandingsService.swift in Sources */,
 				1CE1516C29A4A8EA00B7AA26 /* Standings.swift in Sources */,
 				1CE1516329A4A8E600B7AA26 /* Tour.swift in Sources */,
 				1CE1519329A4AB6600B7AA26 /* WatchLogoLoadingView.swift in Sources */,
 				1CE1517C29A4AA1D00B7AA26 /* ContentView.swift in Sources */,
+				F0A1100A2FB8220400A1B2C3 /* WatchScheduleListView.swift in Sources */,
 				1CE1518029A4AA5A00B7AA26 /* WatchRodeoResultsView.swift in Sources */,
 				1CE1517629A4A8F800B7AA26 /* ColorExtension.swift in Sources */,
 				1CE1519629A4ABD600B7AA26 /* ResultsApi.swift in Sources */,
@@ -1944,7 +2146,7 @@
 				1CB3B4AF2E1C9AB7006CC6B2 /* ArrayExtension.swift in Sources */,
 				1C9219AD2C93761200A9CECD /* AthleteList.swift in Sources */,
 				1CEA4A6B29A4FCAC007F7B53 /* IntExtension.swift in Sources */,
-				1C0D46B62FB00D930074264A /* SupabaseConfig.swift in Sources */,
+				1C0D46B62FB00D930074264A /* StandingsServiceConfig.swift in Sources */,
 				1CEA4A6029A4FC92007F7B53 /* RodeoSchedule.swift in Sources */,
 				1CEA4A5E29A4FC92007F7B53 /* RodeoResult.swift in Sources */,
 				1C3109D129A7F23B0088B7F7 /* StandingsEvent.swift in Sources */,
@@ -1964,13 +2166,19 @@
 				1CDCBC782C862AA500AB1850 /* WidgetSampleData.swift in Sources */,
 				1CDCBC7F2C869E3C00AB1850 /* StandingsWidgetEntry.swift in Sources */,
 				1C3109CB29A7ED220088B7F7 /* StandingsWidget.intentdefinition in Sources */,
+				1C53F7CF2FB37B76005DA7D5 /* Daysheet.swift in Sources */,
 				1CEA4A6C29A4FCAC007F7B53 /* DoubleExtension.swift in Sources */,
 				1CEA4A5C29A4FC7E007F7B53 /* ResultsWidgetApi.swift in Sources */,
-				1C80302429A7D2480080CF9A /* ApiService.swift in Sources */,
+				F0DD11042FB7002200A1B2C3 /* APIClient.swift in Sources */,
+				F0DD14042FB7008800A1B2C3 /* LoadingState.swift in Sources */,
+				F0DD12042FB7004400A1B2C3 /* PaginatedRodeoLoader.swift in Sources */,
+				F0DD13042FB7006600A1B2C3 /* ResultsMapper.swift in Sources */,
+				F0DD10042FB7000100A1B2C3 /* StandingsService.swift in Sources */,
 				1CF409F329B02FB200958513 /* Team.swift in Sources */,
 				1CEA4A6229A4FC92007F7B53 /* Standings.swift in Sources */,
 				1CEA4A5D29A4FC92007F7B53 /* Bio.swift in Sources */,
 				1CEA4A5029A4FC56007F7B53 /* StandingType.swift in Sources */,
+				1C12612C2FB6DBBE00D951C5 /* AthleteImage.swift in Sources */,
 				1CEA4A6329A4FC92007F7B53 /* Athlete.swift in Sources */,
 				1CDCBC802C869F6A00AB1850 /* StandingsWidgetApi.swift in Sources */,
 				1CEA4A6D29A4FCAF007F7B53 /* ImageExtension.swift in Sources */,
@@ -2169,11 +2377,11 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2219,11 +2427,11 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2250,13 +2458,13 @@
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2282,13 +2490,13 @@
 				INFOPLIST_FILE = RodeoDailyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RodeoDailyWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.RodeoDailyWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2325,7 +2533,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2334,7 +2542,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -2360,7 +2568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2370,7 +2578,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -2392,7 +2600,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2401,7 +2609,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -2423,7 +2631,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = PaytonSides.RodeoDaily.watchkitapp.RodeoDailyWatchWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2433,7 +2641,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -2488,12 +2696,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+		1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			repositoryURL = "https://github.com/TelemetryDeck/SwiftSDK";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.5;
+				minimumVersion = 2.12.0;
 			};
 		};
 		1C54326A2C9882AD00CFF362 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
@@ -2523,15 +2731,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1C179A0E2C85677A002A7D69 /* SwiftSoup */ = {
+		1C2686102FBAA60600206CA4 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
+			package = 1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryClient;
 		};
-		1C179A102C85678D002A7D69 /* SwiftSoup */ = {
+		1C2686122FBAA60600206CA4 /* TelemetryDeck */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C179A0D2C85677A002A7D69 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
+			package = 1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryDeck;
+		};
+		1C2686142FBAA62400206CA4 /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryClient;
+		};
+		1C2686162FBAA62400206CA4 /* TelemetryDeck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C26860F2FBAA60600206CA4 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryDeck;
 		};
 		1C54326B2C9882DE00CFF362 /* AlertKit */ = {
 			isa = XCSwiftPackageProductDependency;

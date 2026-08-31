@@ -40,9 +40,16 @@ extension Int {
     }
 }
 
-//MARK: - Int
+//MARK: - Int16
 extension Int16 {
     var int: Int {
         return Int(self)
+    }
+}
+
+//MARK: - Int6
+extension Int8 {
+    var string: String {
+        return String(self)
     }
 }

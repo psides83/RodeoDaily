@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-class SearchSuggetionsApi: ObservableObject {
-    @ObservedObject var apiUrls = ApiUrls()
+@MainActor
+final class SearchSuggetionsApi: ObservableObject {
+    private let apiUrls = ApiUrls()
     
     @Published var suggestions = [SearchResultElement]()
     @Published var loading = true
@@ -17,38 +18,29 @@ class SearchSuggetionsApi: ObservableObject {
 //    @Published var searchText = ""
     
     func getSearchResults(from searchText: String) async {
-        setLoading()
+        loading = true
+        suggestions = []
+
+        guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            loading = false
+            return
+        }
         
         let url = apiUrls.searchSuggetionsUrl(from: searchText)
                 
         do {
-            suggestions = []
-            
-            try await APIService.fetchSearchSuggestions(from: url).data.forEach {
-                suggestion in
-//                print(suggestion.value.data[0])
-                suggestions.append(suggestion.value.data[0])
-            }
-//            print(self.bio)
-//            print(url)
-//            print(self.bio.videoHighlights as Any)
-            self.endLoading()
+            let response = try await APIClient.fetch(SearchSuggestion.self, from: url)
+            suggestions = response.data.values
+                .flatMap(\.data)
+                .reduce(into: [SearchResultElement]()) { results, suggestion in
+                    guard !results.contains(where: { $0.id == suggestion.id }) else {
+                        return
+                    }
+                    results.append(suggestion)
+                }
+            loading = false
         } catch {
-            self.endLoading()
-            print("Error decoding: ", error)
-        }
-    }
-    
-    func setLoading() {
-        DispatchQueue.main.async {
-            self.loading = true
-        }
-    }
-    
-    func endLoading() {
-        DispatchQueue.main.async {
-            self.loading = false
-//            print("loading ended")
+            loading = false
         }
     }
 }

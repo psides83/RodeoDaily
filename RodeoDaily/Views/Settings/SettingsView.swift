@@ -30,7 +30,7 @@ struct SettingsView: View {
                 } label: {
                     settingsRow(
                         title: NSLocalizedString("Favorite Events", comment: ""),
-                        subtitle: NSLocalizedString("Default standings and results events", comment: "")
+                        subtitle: favoriteEventsSummary
                     )
                 }
 
@@ -60,6 +60,14 @@ struct SettingsView: View {
             await SupabasePushSyncService.shared.registerDevice()
             await SupabasePushSyncService.shared.syncFollows(modelContext: modelContext)
         }
+    }
+
+    private var favoriteEventsSummary: String {
+        String(
+            format: NSLocalizedString("Standings: %@ • Results: %@", comment: ""),
+            favoriteStandingsEvent.normalizedForStandingsFilter.title,
+            favoriteResultsEvent.title
+        )
     }
 
     private func settingsRow(title: String, subtitle: String) -> some View {

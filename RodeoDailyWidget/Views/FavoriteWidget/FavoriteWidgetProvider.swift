@@ -10,20 +10,20 @@ import WidgetKit
 
 struct FavoriteProvider: AppIntentTimelineProvider {
     typealias Intent = FavoriteWidgetIntent
-    
+
     public typealias Entry = FavoriteWidgetEntry
     
     let sampleData = WidgetSampleData().favoriteSampleData
-    
+
     func placeholder(in context: Context) -> FavoriteWidgetEntry {
-        Entry(date: Date(), bio: sampleData, event: "TD")
+        Entry(date: Date(), bio: sampleData, event: "TD", athleteId: nil)
     }
     
     func snapshot(for configuration: FavoriteWidgetIntent, in context: Context) async -> FavoriteWidgetEntry {
         guard let athlete = configuration.athlete else {
-            return Entry(date: Date(), bio: sampleData, event: "TD")
+            return Entry(date: Date(), bio: sampleData, event: "TD", athleteId: nil)
         }
-        
+
         var bioData: BioData?
         
         await FavoriteWidgetApi().loadBio(for: athlete.athleteId) { bio in
@@ -31,20 +31,20 @@ struct FavoriteProvider: AppIntentTimelineProvider {
         }
         
         if let data = bioData {
-            return Entry(date: Date(), bio: data, event: athlete.event)
+            return Entry(date: Date(), bio: data, event: athlete.event, athleteId: athlete.athleteId)
         } else {
-            return Entry(date: Date(), bio: sampleData, event: "TD")
+            return Entry(date: Date(), bio: sampleData, event: "TD", athleteId: nil)
         }
     }
     
     func timeline(for configuration: FavoriteWidgetIntent, in context: Context) async -> Timeline<FavoriteWidgetEntry> {
         guard let athlete = configuration.athlete else {
             return Timeline(
-                entries: [Entry(date: Date(), bio: sampleData, event: "TD")],
+                entries: [Entry(date: Date(), bio: sampleData, event: "TD", athleteId: nil)],
                 policy: .after(.now.advanced(by: 60 * 60 * 12))
             )
         }
-        
+
         var bioData: BioData?
         
         var entries: [Entry] = []
@@ -53,12 +53,12 @@ struct FavoriteProvider: AppIntentTimelineProvider {
             bioData = bio
             
             if let data = bioData {
-                entries.append(Entry(date: Date(), bio: data, event: athlete.event))
+                entries.append(Entry(date: Date(), bio: data, event: athlete.event, athleteId: athlete.athleteId))
             }
         }
         
         if entries.isEmpty {
-            entries.append(Entry(date: Date(), bio: sampleData, event: "TD"))
+            entries.append(Entry(date: Date(), bio: sampleData, event: "TD", athleteId: nil))
         }
         
         return Timeline(entries: entries, policy: .after(.now.advanced(by: 60 * 60 * 12)))

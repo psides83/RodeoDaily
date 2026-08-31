@@ -79,7 +79,7 @@ struct WhatsNewOnboardingView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            VStack {
+            ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
                         Spacer()
@@ -96,16 +96,20 @@ struct WhatsNewOnboardingView: View {
 
                     VStack(alignment: .leading, spacing: 14) {
                         whatsNewRow(
+                            icon: "list.bullet.rectangle",
+                            text: NSLocalizedString("Results now let you switch events without leaving the rodeo detail view.", comment: "")
+                        )
+                        whatsNewRow(
+                            icon: "doc.text.magnifyingglass",
+                            text: NSLocalizedString("Daysheets are available from results when a rodeo provides them, with quick Results and Daysheets switching.", comment: "")
+                        )
+                        whatsNewRow(
+                            icon: "calendar.badge.clock",
+                            text: NSLocalizedString("Schedule filtering now shows current rodeos and supports custom date ranges.", comment: "")
+                        )
+                        whatsNewRow(
                             icon: "sparkles",
-                            text: NSLocalizedString("A complete visual refresh with cleaner layouts, improved readability, and smoother transitions.", comment: "")
-                        )
-                        whatsNewRow(
-                            icon: "menubar.rectangle",
-                            text: NSLocalizedString("New tab bar navigation makes it faster to move between Standings, Results, and More Features.", comment: "")
-                        )
-                        whatsNewRow(
-                            icon: "person.crop.rectangle.stack",
-                            text: NSLocalizedString("Rebuilt Athlete Bio with enhanced header behavior and upgraded stats, results, and detail browsing.", comment: "")
+                            text: NSLocalizedString("Other minor bugs and UI issues have been corrected.", comment: "")
                         )
                     }
 
@@ -130,6 +134,7 @@ struct WhatsNewOnboardingView: View {
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, max(24, proxy.safeAreaInsets.top + 8))
+                .padding(.bottom, max(24, proxy.safeAreaInsets.bottom + 16))
             }
             .frame(width: proxy.size.width, height: proxy.size.height)
             .background(Color.rdGreen.gradient)
@@ -144,10 +149,13 @@ struct WhatsNewOnboardingView: View {
                 .padding(8)
                 .background(.white)
                 .clipShape(Circle())
+                .fixedSize()
 
             Text(text)
                 .font(.title3.weight(.medium))
                 .foregroundColor(.white)
+                .fixedSize(horizontal: false, vertical: true)
+                .layoutPriority(1)
         }
     }
 }

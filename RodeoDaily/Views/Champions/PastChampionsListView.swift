@@ -17,10 +17,14 @@ struct PastChampionsListView: View {
                     Text(api.errorMessage ?? "Try changing search or event filters.")
                 }
             } else if selectedEvent == allEventsTitle {
-                ForEach(groupedByYear, id: \.year) { group in
+                ForEach(Array(groupedByYear.enumerated()), id: \.element.year) { index, group in
                     Section(group.year) {
                         ForEach(group.champions) { champion in
                             championRow(champion)
+                        }
+
+                        if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 2, repeatEvery: 4) {
+                            championAdRow
                         }
                     }
                 }
@@ -40,8 +44,16 @@ struct PastChampionsListView: View {
                     Text(NSLocalizedString("Most World Titles", comment: ""))
                 }
 
-                ForEach(filteredChampions) { champion in
+                ForEach(Array(filteredChampions.enumerated()), id: \.element.id) { index, champion in
+                    if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 10, repeatEvery: 12) {
+                        championAdRow
+                    }
+
                     championRow(champion)
+                }
+
+                if AdPlacementPolicy.shouldShowBottomAd(itemCount: filteredChampions.count, minimumItems: 10) {
+                    championAdRow
                 }
             }
         }
@@ -53,6 +65,7 @@ struct PastChampionsListView: View {
                     ForEach(eventOptions, id: \.self) { event in
                         Button(event) {
                             selectedEvent = event
+                            AnalyticsService.shared.track(.pastChampionsViewed(event: event))
                         }
                     }
                 } label: {
@@ -61,10 +74,19 @@ struct PastChampionsListView: View {
             }
         }
         .task {
-            await api.load()
+            do {
+                try await api.load()
+            } catch {
+            }
         }
         .refreshable {
-            await api.load()
+            do {
+                try await api.load()
+            } catch {
+            }
+        }
+        .onAppear {
+            AnalyticsService.shared.track(.pastChampionsViewed(event: selectedEvent))
         }
     }
 
@@ -95,17 +117,17 @@ struct PastChampionsListView: View {
                 guard !trimmed.isEmpty else { return true }
                 return champion.athlete.localizedCaseInsensitiveContains(trimmed)
                     || champion.event.localizedCaseInsensitiveContains(trimmed)
-                    || champion.year.localizedCaseInsensitiveContains(trimmed)
-                    || (champion.hometown?.localizedCaseInsensitiveContains(trimmed) ?? false)
+                    || champion.year.string.localizedCaseInsensitiveContains(trimmed)
+                    || champion.hometown.localizedCaseInsensitiveContains(trimmed)
             }
             .sorted { lhs, rhs in
-                if lhs.yearValue == rhs.yearValue {
+                if lhs.year == rhs.year {
                     if lhs.event == rhs.event {
                         return lhs.athlete < rhs.athlete
                     }
                     return lhs.event < rhs.event
                 }
-                return lhs.yearValue > rhs.yearValue
+                return lhs.year > rhs.year
             }
     }
 
@@ -113,7 +135,7 @@ struct PastChampionsListView: View {
         let grouped = Dictionary(grouping: filteredChampions, by: \.year)
         return grouped
             .map { key, value in
-                (year: key, champions: value.sorted { lhs, rhs in
+                (year: key.string, champions: value.sorted { lhs, rhs in
                     if lhs.event == rhs.event {
                         return lhs.athlete < rhs.athlete
                     }
@@ -121,7 +143,7 @@ struct PastChampionsListView: View {
                 })
             }
             .sorted { lhs, rhs in
-                (Int(lhs.year) ?? 0) > (Int(rhs.year) ?? 0)
+                (lhs.year) > (rhs.year)
             }
     }
 
@@ -141,13 +163,19 @@ struct PastChampionsListView: View {
         return Array(counts.prefix(5))
     }
 
+    private var championAdRow: some View {
+        BannerAd(placement: .pastChampionsList)
+            .listRowInsets(EdgeInsets(top: AppSpace.sm, leading: AppSpace.sm, bottom: AppSpace.sm, trailing: AppSpace.sm))
+            .listRowBackground(Color.clear)
+    }
+
     private func championRow(_ champion: PastChampion) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(champion.athlete)
                     .font(.appBodyStrong)
                 Spacer()
-                Text(champion.year)
+                Text(champion.year.string)
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
             }
@@ -158,11 +186,11 @@ struct PastChampionsListView: View {
                     .foregroundStyle(.secondary)
             }
 
-            if let hometown = champion.hometown, !hometown.isEmpty {
-                Text(hometown)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
+//            if let hometown = champion.hometown, !hometown.isEmpty {
+            Text(champion.hometown)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+//            }
         }
         .padding(.vertical, 2)
     }

@@ -11,11 +11,13 @@ final class SupabasePushSyncService {
     static let shared = SupabasePushSyncService()
 
     private enum Constants {
-        static let projectURL = SupabaseConfig.projectURL
-        static let publishableKey = SupabaseConfig.publishableKey
+        static let projectURL = "https://achpzqhveafdqkdufwhk.supabase.co"
+        static let publishableKey = "sb_publishable_61Zt6GCmZ6eoowr3YqgGsw_ZvHj_UQX"
         static let installationIdKey = "supabase_installation_id"
         static let apnsTokenKey = "apns_device_token_hex"
         static let mutedUntilKeyPrefix = "follow_alert_muted_until_"
+        static let registerPayloadFingerprintKey = "supabase_register_device_payload_fingerprint"
+        static let registerLastSuccessAtKey = "supabase_register_device_last_success_at"
     }
 
     private init() {}
@@ -73,7 +75,19 @@ final class SupabasePushSyncService {
             "digest_enabled": defaults.object(forKey: "follow_alert_digest_enabled") as? Bool ?? true
         ]
 
-        await post(function: "register-device", payload: payload)
+        let fingerprint = payloadFingerprint(for: payload)
+        let previousFingerprint = defaults.string(forKey: Constants.registerPayloadFingerprintKey) ?? ""
+        let hasSuccessfulRegistration = defaults.object(forKey: Constants.registerLastSuccessAtKey) != nil
+
+        if hasSuccessfulRegistration, fingerprint == previousFingerprint {
+            return
+        }
+
+        let didSucceed = await post(function: "register-device", payload: payload)
+        if didSucceed {
+            defaults.set(fingerprint, forKey: Constants.registerPayloadFingerprintKey)
+            defaults.set(Date().timeIntervalSince1970, forKey: Constants.registerLastSuccessAtKey)
+        }
     }
 
     @MainActor
@@ -116,13 +130,13 @@ final class SupabasePushSyncService {
             "follows": follows
         ]
 
-        await post(function: "sync-follows", payload: payload)
+        _ = await post(function: "sync-follows", payload: payload)
     }
 
-    private func post(function: String, payload: [String: Any]) async {
-        guard let url = URL(string: "\(Constants.projectURL)/functions/v1/\(function)") else { return }
-        guard JSONSerialization.isValidJSONObject(payload) else { return }
-        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+    private func post(function: String, payload: [String: Any]) async -> Bool {
+        guard let url = URL(string: "\(Constants.projectURL)/functions/v1/\(function)") else { return false }
+        guard JSONSerialization.isValidJSONObject(payload) else { return false }
+        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return false }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -132,17 +146,24 @@ final class SupabasePushSyncService {
         request.setValue("Bearer \(Constants.publishableKey)", forHTTPHeaderField: "Authorization")
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            let code = (response as? HTTPURLResponse)?.statusCode ?? -1
-
-            if code >= 300 {
-                let bodyText = String(data: data, encoding: .utf8) ?? "<empty>"
-                print("Supabase \(function) failed [\(code)]: \(bodyText)")
-            } else {
-                print("Supabase \(function) ok [\(code)]")
-            }
+            _ = try await APIClient.data(for: request)
+            return true
+        } catch APIClientError.invalidStatusCode {
+            return false
         } catch {
-            print("Supabase push sync failed:", error.localizedDescription)
+            return false
         }
+    }
+
+    private func payloadFingerprint(for payload: [String: Any]) -> String {
+        guard
+            JSONSerialization.isValidJSONObject(payload),
+            let data = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys]),
+            let json = String(data: data, encoding: .utf8)
+        else {
+            return ""
+        }
+
+        return json
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct PBJFeedResponse: Decodable {
+struct BusinessJournalFeedResponse: Decodable {
     let scrapedAt: String?
     let source: String?
     let runDate: String?

@@ -25,22 +25,9 @@ struct Athlete: Codable, Identifiable {
     }
     
     var image: some View {
-        guard let url = imageUrl else {
-            return AsyncImage(url: URL(string: "https://psides83.github.io/listJSON/noimage.png")) { image in
-                image.resizable()
-            } placeholder: {
-                Color.gray.opacity(0.5)
-            }
-            .frame(width: 48, height: 48)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-        
-        return AsyncImage(url: URL(string: "https://d1kfpvgfupbmyo.cloudfront.net\(url)?width=315&height=315&mode=crop&scale=both&anchor=topcenter")) {
-            image in image.resizable()
-        } placeholder: {
+        AthleteImageView(preferredImageUrl: imageUrl) {
             Color.gray.opacity(0.5)
         }
-        .frame(width: 48, height: 48)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
+
 }

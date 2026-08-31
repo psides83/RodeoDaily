@@ -7,8 +7,11 @@
 
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct StandingsCell: View {
+    @Environment(\.modelContext) private var modelContext
+
     let position: Position
     
     var widgetAthletes: [WidgetAthlete]
@@ -49,6 +52,17 @@ struct StandingsCell: View {
                 .shadow(color: .black.opacity(0.18), radius: 6, x: 0, y: 3)
                 .padding(.trailing, AppSpace.xs)
         }
+        .contextMenu {
+            if isFavorite {
+                Label(NSLocalizedString("Favorite", comment: ""), systemImage: "star.fill")
+            } else {
+                Button {
+                    addFavoriteAthlete()
+                } label: {
+                    Label(NSLocalizedString("Add to Favorites", comment: ""), systemImage: "star.badge.plus")
+                }
+            }
+        }
     }
     
     var rankBadge: some View {
@@ -77,12 +91,12 @@ struct StandingsCell: View {
             
             Spacer()
             
-            Text("Earnings")
+            Text(position.standingsMetricTitle)
                 .font(.appMetricLabel)
                 .foregroundColor(.appTertiary)
                 .textCase(.uppercase)
-            
-            Text(position.earnings.currency)
+	            
+            Text(position.standingsMetricValue)
                 .font(.appMetricValue)
                 .foregroundColor(.appPrimary)
                 .lineLimit(1)
@@ -100,6 +114,36 @@ struct StandingsCell: View {
     
     var isFollowed: Bool {
         followedAthletes.contains(where: { $0.athleteId == position.id })
+    }
+
+    private var nextAthleteSortOrder: Int {
+        max((widgetAthletes.compactMap(\.sortOrder).max() ?? -1) + 1, widgetAthletes.count)
+    }
+
+    private var widgetEvent: String {
+        StandingsEvent(rawValue: position.event)?.withTeamRopingConversion ?? position.event
+    }
+
+    private func addFavoriteAthlete() {
+        guard !isFavorite else { return }
+
+        let athlete = WidgetAthlete(
+            athleteId: position.id,
+            name: position.name,
+            event: widgetEvent,
+            events: [widgetEvent],
+            sortOrder: nextAthleteSortOrder
+        )
+
+        modelContext.insert(athlete)
+
+        do {
+            try modelContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
+            FavoriteAlert.added(position.name).present
+        } catch {
+            modelContext.delete(athlete)
+        }
     }
     
     @ViewBuilder

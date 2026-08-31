@@ -38,7 +38,7 @@ struct ResultsBlock: View {
                         ForEach(teams(from: round)) { team in
                             //
                             
-                            TRWinnerCell(team: team, widgetAthletes: widgetAthletes)
+                            TRWinnerCell(team: team, event: event.rawValue, widgetAthletes: widgetAthletes)
                             
                             Divider()
                                 .overlay(Color.appTertiary)
@@ -54,7 +54,7 @@ struct ResultsBlock: View {
                     }
                 }
                 
-                BannerAd(style: .mediumRectangle)
+                BannerAd(placement: .resultsDetailSection)
             }
         }
         .task {

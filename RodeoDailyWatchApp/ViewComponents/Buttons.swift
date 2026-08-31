@@ -58,7 +58,10 @@ struct LoadMoreButton: View {
                     ProgressView()
                 }
                 Text(loading ? "Loading..." : "Load More")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
+            .frame(maxWidth: .infinity)
         }
         .buttonStyle(.loadingButton(loading))
         .disabled(loading)
@@ -81,13 +84,14 @@ struct LoadingButtonStyle: ButtonStyle {
         let isPressed = configuration.isPressed
         
         configuration.label
-            .font(.subheadline.weight(.semibold))
+            .font(.footnote.weight(.semibold))
             .textCase(.none)
             .foregroundColor(.white)
-            .padding(6)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 10)
             .background(isPressed ? Color.rdGreen.opacity(0.6) : loading ? Color.rdGray.opacity(0.8) : Color.rdGreen)
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
+            .clipShape(Capsule())
+            .shadow(color: .black.opacity(0.18), radius: 2, x: 0, y: 1)
     }
 }
 

@@ -37,6 +37,14 @@ extension HomeView {
                     dateRange: $dateRange
                 )
 
+            case .schedule:
+                ScheduleListView(
+                    rodeos: scheduleApi.rodeos,
+                    loading: scheduleApi.loading,
+                    index: $index,
+                    dateRange: $dateRange
+                )
+
             case .more:
                 MoreView()
             }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "8757c6622f05ddbe3d1c1f878fd4e432f4d47233232dffc5df47ffd3609b1f12",
+  "originHash" : "eef1608c4a86d2b36f372130c3e36296dba46d01a5066706dfadf7c7477bc05e",
   "pins" : [
     {
       "identity" : "spalert",
@@ -29,12 +29,12 @@
       }
     },
     {
-      "identity" : "swiftsoup",
+      "identity" : "swiftsdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/scinfu/SwiftSoup.git",
+      "location" : "https://github.com/TelemetryDeck/SwiftSDK",
       "state" : {
-        "revision" : "3c2c7e1e72b8abd96eafbae80323c5c1e5317437",
-        "version" : "2.7.5"
+        "revision" : "d41d6e86265dc182ba4474f9ef53ecddbbe052b8",
+        "version" : "2.12.0"
       }
     }
   ],

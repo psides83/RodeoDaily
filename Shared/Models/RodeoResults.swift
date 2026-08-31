@@ -114,8 +114,61 @@ struct Contestant: Codable {
         case lastName = "LastName"
         case nickName = "NickName"
         case hometown = "Hometown"
+        case image315Url = "image_315_url"
+        case image315PascalUrl = "Image315Url"
         case imageUrl = "PhotoUrl"
+        case photoSnakeUrl = "photo_url"
+        case sidearmPhotoUrl = "SidearmPhotoUrl"
+        case sidearmPhotoSnakeUrl = "sidearm_photo_url"
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try container.decode(Int.self, forKey: .id)
+        firstName = try container.decode(String.self, forKey: .firstName)
+        lastName = try container.decode(String.self, forKey: .lastName)
+        nickName = try container.decodeIfPresent(String.self, forKey: .nickName)
+        hometown = try container.decodeIfPresent(String.self, forKey: .hometown)
+        imageUrl = try Contestant.decodeFirstImageUrl(from: container)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(firstName, forKey: .firstName)
+        try container.encode(lastName, forKey: .lastName)
+        try container.encodeIfPresent(nickName, forKey: .nickName)
+        try container.encodeIfPresent(hometown, forKey: .hometown)
+        try container.encodeIfPresent(imageUrl, forKey: .imageUrl)
+    }
+}
+
+private extension Contestant {
+    static func decodeFirstImageUrl(from container: KeyedDecodingContainer<CodingKeys>) throws -> String? {
+        for key in imageUrlKeys {
+            guard let imageUrl = try container.decodeIfPresent(String.self, forKey: key)?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+                !imageUrl.isEmpty
+            else {
+                continue
+            }
+
+            return imageUrl
+        }
+
+        return nil
+    }
+
+    static let imageUrlKeys: [CodingKeys] = [
+        .image315Url,
+        .image315PascalUrl,
+        .imageUrl,
+        .photoSnakeUrl,
+        .sidearmPhotoUrl,
+        .sidearmPhotoSnakeUrl
+    ]
 }
 
 extension Contestant {
@@ -183,4 +236,3 @@ struct Contractor: Codable {
         case state = "State"
     }
 }
-

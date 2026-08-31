@@ -15,7 +15,7 @@ struct FavoriteWidgetSmallView : View {
     
     var latestResults: ArraySlice<BioResult> {
         entry.bio.results
-            .filter { $0.eventType == entry.event }
+            .filter { selectedBioEventTypes.contains($0.eventType) }
             .sorted { lhs, rhs in
                 let leftDate = parsedResultDate(lhs.endDate)
                 let rightDate = parsedResultDate(rhs.endDate)
@@ -27,14 +27,30 @@ struct FavoriteWidgetSmallView : View {
             .prefix(1)
     }
     
-    func currentYearEarnings(for event: String) -> String {
-        return entry.bio.career.filter({ $0.season == Date().yearInt && $0.eventType == event })[0].earnings.currencyABS
+    func currentYearEarnings(for event: String) -> String? {
+        return entry.bio.career.first {
+            $0.season == Date().yearInt && bioEventTypes(for: event).contains($0.eventType)
+        }?.earnings.currencyABS
     }
     
     func currentYearRank(for event: String) -> String {
-        let rankData = entry.bio.rankings.filter({ $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(event.eventDisplay.localizedLowercase) })[0]
+        let rankData = entry.bio.rankings.first { ranking in
+            ranking.season == Date().yearInt
+            &&
+            rankingSearchTerms(for: event).contains { term in
+                ranking.eventName.localizedCaseInsensitiveContains(term)
+            }
+        }
+
+        guard let rankData else {
+            return String(format: NSLocalizedString("Latest %@ results", comment: ""), event.eventDisplay)
+        }
         
-        return "\(rankData.rank) in \(rankData.eventName) with \(currentYearEarnings(for: event))"
+        if let earnings = currentYearEarnings(for: event) {
+            return "\(rankData.rank) in \(rankData.eventName) with \(earnings)"
+        }
+
+        return "\(rankData.rank) in \(rankData.eventName)"
     }
     
     var body: some View {
@@ -94,21 +110,37 @@ struct FavoriteWidgetSmallView : View {
             Color.rdGreen
         }
         .environment(\.colorScheme, .light)
+        .widgetURL(entry.athleteBioURL)
     }
 
     private func parsedResultDate(_ value: String) -> Date {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        value.rodeoDate ?? .distantPast
+    }
 
-        if let date = formatter.date(from: value) {
-            return date
+    private var selectedBioEventTypes: Set<String> {
+        bioEventTypes(for: entry.event)
+    }
+
+    private func bioEventTypes(for event: String) -> Set<String> {
+        switch event {
+        case "TR", "TRHD", "TRHL":
+            return ["TR", "TRHD", "TRHL"]
+        default:
+            return [event]
         }
+    }
 
-        let fallback = DateFormatter()
-        fallback.locale = Locale(identifier: "en_US_POSIX")
-        fallback.timeZone = TimeZone(secondsFromGMT: 0)
-        fallback.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return fallback.date(from: value) ?? .distantPast
+    private func rankingSearchTerms(for event: String) -> [String] {
+        switch event {
+        case "TR":
+            return ["Team Roping"]
+        case "TRHD":
+            return ["Team Roping (Headers)", "Team Roping"]
+        case "TRHL":
+            return ["Team Roping (Heelers)", "Team Roping"]
+        default:
+            return [event.eventDisplay]
+        }
     }
 }
 
@@ -118,7 +150,7 @@ struct FavoriteWidgetSmall_Previews: PreviewProvider {
             //            FavoriteWidgetLargeView(entry: FavoriteWidgetEntry(date: Date(), bio: exampleData, event: .td))
             //                .previewContext(WidgetPreviewContext(family: .systemMedium))
             
-            FavoriteWidgetSmallView(entry: FavoriteWidgetEntry(date: Date(), bio: WidgetSampleData().favoriteSampleData, event: "TD"))
+            FavoriteWidgetSmallView(entry: FavoriteWidgetEntry(date: Date(), bio: WidgetSampleData().favoriteSampleData, event: "TD", athleteId: nil))
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
         }
     }

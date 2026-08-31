@@ -2,10 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>rodeodaily</string>
+			</array>
+		</dict>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-4837925489125062~2856587845</string>
-	<key>GADIsAdManagerApp</key>
-	<true/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Rodeo Daily uses this permission to show more relevant ads and keep the app supported.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -18,7 +27,7 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>4pfyvq9l8r.skadnetwork </string>
+			<string>4pfyvq9l8r.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -207,6 +216,42 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>3qcr597p9d.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>wg4vff78zm.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>su67r6k2v3.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>vutu7akeur.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>44jx6755aq.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>k674qkevps.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>kbmxgpxpgc.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>tl55sbb4fm.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>c3frkrj4fj.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>97r2b46745.skadnetwork</string>
 		</dict>
 	</array>
 	<key>UIApplicationSceneManifest</key>

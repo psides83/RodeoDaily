@@ -10,7 +10,6 @@ import SwiftUI
 struct BioStatsView: View {
     @ObservedObject var viewModel: BioViewModel
     @State private var initialOffset: CGFloat?
-    @State private var selectedSeasonLocal: String = ""
 
     var body: some View {
         ScrollView {
@@ -69,14 +68,10 @@ struct BioStatsView: View {
         )
         .onAppear {
             initialOffset = nil
-            syncSelectedSeason()
+            syncSelectedSeasonIfNeeded()
         }
         .onChange(of: viewModel.bio.seasons) { _, _ in
-            syncSelectedSeason()
-        }
-        .onChange(of: viewModel.selectedSeason) { _, newValue in
-            guard !newValue.isEmpty, newValue != selectedSeasonLocal else { return }
-            selectedSeasonLocal = newValue
+            syncSelectedSeasonIfNeeded()
         }
     }
 
@@ -85,15 +80,11 @@ struct BioStatsView: View {
     }
 
     private var selectedSeason: String {
-        if seasons.contains(selectedSeasonLocal) {
-            return selectedSeasonLocal
-        }
-
         if seasons.contains(viewModel.selectedSeason) {
             return viewModel.selectedSeason
         }
 
-        return seasons.first ?? selectedSeasonLocal
+        return seasons.first ?? viewModel.selectedSeason
     }
 
     private var selectedSeasonStats: (
@@ -164,7 +155,6 @@ struct BioStatsView: View {
                 ForEach(seasons, id: \.self) { season in
                     Button {
                         withAnimation {
-                            selectedSeasonLocal = season
                             viewModel.selectedSeason = season
                         }
                     } label: {
@@ -370,11 +360,10 @@ struct BioStatsView: View {
         .appCardStyle()
     }
 
-    private func syncSelectedSeason() {
+    private func syncSelectedSeasonIfNeeded() {
         guard !seasons.isEmpty else { return }
         let preferred = seasons.contains(viewModel.selectedSeason) ? viewModel.selectedSeason : (seasons.first ?? "")
         guard !preferred.isEmpty else { return }
-        selectedSeasonLocal = preferred
         if viewModel.selectedSeason != preferred {
             viewModel.selectedSeason = preferred
         }

@@ -15,12 +15,21 @@ class WidgetAthlete {
     var name: String = ""
     var event: String = ""
     var events: [String] = []
+    // Optional so stores created before ordering was introduced migrate without a required value.
+    var sortOrder: Int?
     
-    init(athleteId: Int = 0, name: String = "", event: String = "", events: [String] = []) {
+    init(
+        athleteId: Int = 0,
+        name: String = "",
+        event: String = "",
+        events: [String] = [],
+        sortOrder: Int? = nil
+    ) {
         self.athleteId = athleteId
         self.name = name
         self.event = event
         self.events = events
+        self.sortOrder = sortOrder
     }
 }
 

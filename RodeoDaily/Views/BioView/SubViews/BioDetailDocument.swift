@@ -102,7 +102,7 @@ enum BioDetailParser {
         return false
     }
 
-    private static func htmlToPlainText(_ html: String) -> String {
+    static func htmlToPlainText(_ html: String) -> String {
         guard let data = html.data(using: .utf8) else { return html }
 
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [

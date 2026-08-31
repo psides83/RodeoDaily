@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ScheduleListView: View {
+    @Environment(\.colorScheme) private var colorScheme
     let rodeos: [RodeoData]
     let loading: Bool
     
@@ -17,51 +18,82 @@ struct ScheduleListView: View {
     @State private var dateRangeDisplay = ""
     @State private var isShowingCalendar = false
     @State private var hasAttemptedLoad = false
+    @State private var scrollOffset: CGFloat = 0
     
     var body: some View {
-        let sortedRodeos = upcomingRodeos
+        let sortedRodeos = displayedRodeos
+        let listRows = scheduleListRows(for: sortedRodeos)
         
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: AppSpace.xxl) {
             listHeader
+                .padding(.bottom, -20)
+                .opacity(1 - collapseProgress)
+                .offset(y: -collapseProgress * 10)
+
+            scheduleFilters
+                .opacity(1 - collapseProgress)
+                .offset(y: -collapseProgress * 8)
+
+            daysheetsResultsNote
+                .opacity(1 - collapseProgress)
+                .offset(y: -collapseProgress * 8)
             
             if dateRange.count > 1 {
                 FilterChip(dateRangeDisplay: dateRangeDisplay, dateRange: $dateRange)
+                    .opacity(1 - collapseProgress)
+                    .offset(y: -collapseProgress * 8)
             }
             
             if loading || (rodeos.isEmpty && !hasAttemptedLoad) {
                 RodeosLoader()
             } else if !sortedRodeos.isEmpty {
-                LazyVStack(spacing: 0) {
-                    ForEach(sortedRodeos.indices, id: \.self) { listIndex in
-                        let rodeo = sortedRodeos[listIndex]
-                        
-                        NavigationLink {
-                            VenueMapView(city: rodeo.location, venue: rodeo.venueName)
-                        } label: {
-                            ScheduleCell(rodeo: rodeo)
-                        }
-                        
-                        if listIndex != sortedRodeos.count - 1 {
-                            Divider()
-                                .overlay(Color.appTertiary)
+                LazyVStack(spacing: AppSpace.lg) {
+                    ForEach(listRows) { row in
+                        switch row {
+                        case .ad:
+                            NativeAdCard(placement: .scheduleListInline)
+                        case .rodeo(let rodeo):
+                            NavigationLink {
+                                RodeoScheduleDetailView(rodeo: rodeo)
+                            } label: {
+                                RodeoCell(rodeo: rodeo)
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
                 }
             } else {
                 ContentUnavailableView {
-                    Label("No Upcoming Rodeos", systemImage: "calendar.badge.exclamationmark")
+                    Label("No Rodeos Found", systemImage: "calendar.badge.exclamationmark")
                         .foregroundColor(.appPrimary)
                 } description: {
-                    Text("There are no current or upcoming rodeos for this filter.")
+                    Text("There are no rodeos for this filter.")
                         .foregroundColor(.appPrimary)
+                } actions: {
+                    if dateRange.count > 1 {
+                        Button {
+                            withAnimation {
+                                dateRange.removeAll()
+                                dateRangeDisplay = ""
+                            }
+                        } label: {
+                            Label("Clear Date Filter", systemImage: "xmark.circle")
+                        }
+                        .buttonStyle(.loadingButton(false))
+                    } else {
+                        Button {
+                            isShowingCalendar = true
+                        } label: {
+                            Label("Select Dates", systemImage: "calendar")
+                        }
+                        .buttonStyle(.loadingButton(false))
+                    }
                 }
             }
             
-            LoadMoreButton(loading: loading) {
+            LoadMoreButton(loading: loading, animateAction: false) {
                 index += 1
             }
-            
-            BannerAd(style: .mediumRectangle)
         }
         .padding(.bottom)
         .onChange(of: isShowingCalendar) { old, newValue in
@@ -73,173 +105,204 @@ struct ScheduleListView: View {
             DatePicker(
                 dateRange: $dateRange,
                 dateRangeDisplay: $dateRangeDisplay,
-                isShowingCalendar: $isShowingCalendar
+                isShowingCalendar: $isShowingCalendar,
+                allowsFutureDates: true
             )
         }
         .onAppear {
             if !rodeos.isEmpty {
                 hasAttemptedLoad = true
             }
-            logScheduleCounts()
         }
         .onChange(of: loading) { _, isLoading in
             if !isLoading {
                 hasAttemptedLoad = true
             }
         }
-        .onChange(of: rodeos.count) { _, _ in
-            logScheduleCounts()
+        .offset(coordinateSpcae: .named("HOME_TAB_SCROLL")) { value in
+            scrollOffset = value
+        }
+        .overlay(alignment: .topLeading) {
+            scheduleCollapsedStickyHeader
+                .padding(.top, AppSpace.xs)
+                .opacity(collapseProgress)
+                .scaleEffect(0.96 + (0.04 * collapseProgress), anchor: .top)
+                .offset(y: (1 - collapseProgress) * -14)
+                .offset(y: -scrollOffset)
         }
     }
     
-    var upcomingRodeos: [RodeoData] {
-        let startOfToday = Calendar.current.startOfDay(for: Date())
-
-        return rodeos.filter { rodeo in
-            let parsedEnd = parseDate(rodeo.endDate)
-            let parsedStart = parseDate(rodeo.startDate)
-            
-            switch (parsedStart, parsedEnd) {
-            case let (start?, end?):
-                // Some feeds have inconsistent EndDate values; keep upcoming if either date is upcoming.
-                return start >= startOfToday || end >= startOfToday
-            case let (start?, nil):
-                return start >= startOfToday
-            case let (nil, end?):
-                return end >= startOfToday
-            case (nil, nil):
-                // Keep rendering instead of dropping all rows when upstream date format shifts.
+    var displayedRodeos: [RodeoData] {
+        let filteredRodeos = dateRange.count > 1 ? rodeos : rodeos.filter { rodeo in
+            guard let endDate = rodeo.endDate.rodeoDate else {
                 return true
             }
+
+            return rodeo.inProgress || endDate >= Calendar.current.startOfDay(for: Date.now)
         }
-        .sorted { first, second in
-            let firstDate = parseDate(first.startDate) ?? parseDate(first.endDate) ?? .distantFuture
-            let secondDate = parseDate(second.startDate) ?? parseDate(second.endDate) ?? .distantFuture
+
+        return filteredRodeos.sorted { first, second in
+            let firstDate = first.startDate.rodeoDate ?? first.endDate.rodeoDate ?? .distantFuture
+            let secondDate = second.startDate.rodeoDate ?? second.endDate.rodeoDate ?? .distantFuture
             return firstDate < secondDate
         }
     }
 
-    func parseDate(_ dateString: String) -> Date? {
-        let raw = dateString.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !raw.isEmpty else { return nil }
-
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
-        if let parsed = isoFormatter.date(from: raw) {
-            return parsed
-        }
-
-        isoFormatter.formatOptions = [.withInternetDateTime]
-        if let parsed = isoFormatter.date(from: raw) {
-            return parsed
-        }
-
-        let formats = [
-            "yyyy-MM-dd'T'HH:mm:ss",
-            "yyyy-MM-dd'T'HH:mm:ss.SSS",
-            "yyyy-MM-dd'T'HH:mm:ssZ",
-            "yyyy-MM-dd",
-            "MM/d/yyyy"
-        ]
-
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
-
-        for format in formats {
-            formatter.dateFormat = format
-            if let parsed = formatter.date(from: raw) {
-                return parsed
-            }
-        }
-
-        return nil
-    }
-    
-    private func logScheduleCounts() {
-        let upcoming = upcomingRodeos
-        print("Schedule UI - fetched: \(rodeos.count), upcoming: \(upcoming.count)")
-        if let first = rodeos.first {
-            print("Schedule UI sample dates - start: \(first.startDate), end: \(first.endDate)")
-        }
-    }
-    
     var listHeader: some View {
-        HStack(alignment: .top, spacing: 22) {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Rodeo")
-                    .foregroundColor(.appPrimary)
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                Text("Schedule")
+        VStack(alignment: .leading, spacing: AppSpace.sm) {
+            Text("Schedule")
+                .foregroundColor(.appPrimary)
+                .font(.appSectionTitle)
+                .fontWeight(.bold)
+
+            HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
+                Text("Upcoming Rodeos")
                     .foregroundColor(.appSecondary)
-                    .font(.title)
+                    .font(.appCardTitle)
                     .fontWeight(.bold)
+                    .lineLimit(2)
+
+                Spacer()
             }
-            
-            Spacer()
-            
+        }
+        .appCardStyle()
+    }
+
+    var scheduleFilters: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
             Button {
                 isShowingCalendar = true
             } label: {
-                VStack {
-                    Image.calendar
-                        .foregroundColor(.appPrimary)
-                        .imageScale(.large)
-                    
-                    Text("Dates")
-                        .font(.caption)
-                        .foregroundColor(.appSecondary)
-                }
+                chipContent(
+                    title: NSLocalizedString("Dates", comment: ""),
+                    value: dateRange.count > 1 ? dateRangeDisplay.replacingOccurrences(of: "Current Range: ", with: "") : "Select Range",
+                    trailingSystemImage: "calendar"
+                )
             }
-            .buttonStyle(.clearButton)
+            .buttonStyle(.plain)
         }
     }
-}
 
-struct ScheduleCell: View {
-    let rodeo: RodeoData
-    
-    var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(rodeo.name)
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(.appPrimary)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                
-                HStack(spacing: 8) {
-                    Text(rodeo.location)
-                        .font(.subheadline)
-                    
-                    Circle()
-                        .fill(Color.appSecondary)
-                        .frame(width: 4, height: 4)
-                    
-                    Text(rodeo.startDate.medium)
-                        .font(.subheadline)
-                        .foregroundColor(.appTertiary)
-                }
-                
-                if !rodeo.venueName.isEmpty {
-                    Text(rodeo.venueName)
-                        .font(.caption)
-                        .foregroundColor(.appTertiary)
-                }
-            }
-            
-            Spacer()
-            
-            Image(systemName: "map")
+    private var daysheetsResultsNote: some View {
+        HStack(alignment: .top, spacing: AppSpace.sm) {
+            Image(systemName: "info.circle")
+                .font(.appCaptionStrong)
                 .foregroundColor(.appSecondary)
-            
-            Image(systemName: "chevron.right")
-                .foregroundColor(.appSecondary)
+
+            Text(NSLocalizedString("Day sheets for \"In Progress\" rodeos can be viewed in Rodeo Results.", comment: ""))
+                .font(.appCaption)
+                .foregroundColor(.appTertiary)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.top, 8)
+        .padding(.horizontal, AppSpace.xs)
+    }
+
+    private var scheduleCollapsedStickyHeader: some View {
+        VStack(alignment: .center, spacing: AppSpace.xxs) {
+            Text("Schedule")
+                .font(.system(size: 26, weight: .bold, design: .rounded))
+                .foregroundColor(.appPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .frame(maxWidth: .infinity, alignment: .center)
+
+            if dateRange.count > 1 {
+                Text(dateRangeDisplay.replacingOccurrences(of: "Current Range: ", with: ""))
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .opacity(0.85)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.horizontal, AppSpace.lg)
+        .padding(.vertical, AppSpace.xs)
+        .padding(.horizontal, AppSpace.sm)
+        .background {
+            Capsule(style: .continuous)
+                .stroke(.gray.opacity(0.25), lineWidth: 1.5)
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(colorScheme == .dark ? Color.black.opacity(0.42) : Color.appBg.opacity(0.8))
+                )
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(.ultraThinMaterial)
+                )
+                .compositingGroup()
+        }
+    }
+
+    private func chipContent(title: String, value: String, trailingSystemImage: String) -> some View {
+        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+            Text(title.uppercased())
+                .font(.appMetricLabel)
+                .foregroundColor(.appTertiary)
+
+            HStack(spacing: AppSpace.xs) {
+                Text(value)
+                    .font(.appBodyStrong)
+                    .foregroundColor(.appPrimary)
+                    .lineLimit(1)
+
+                Image(systemName: trailingSystemImage)
+                    .font(.caption2)
+                    .foregroundColor(.appSecondary)
+            }
+        }
+        .padding(.vertical, AppSpace.sm)
+        .padding(.horizontal, AppSpace.md)
+        .background(
+            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                .fill(Color.appBg)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+        )
+    }
+
+    private var collapseProgress: CGFloat {
+        let y = -scrollOffset
+        let start: CGFloat = 30
+        let distance: CGFloat = 70
+        let progress = (y - start) / distance
+        return min(max(progress, 0), 1)
+    }
+
+    private func scheduleListRows(for rodeos: [RodeoData]) -> [ScheduleListRow] {
+        var rows: [ScheduleListRow] = []
+        var adSlot = 0
+
+        for (listIndex, rodeo) in rodeos.enumerated() {
+            if shouldShowScheduleAd(beforeItemAt: listIndex, adSlot: adSlot) {
+                rows.append(.ad(adSlot))
+                adSlot += 1
+            }
+
+            rows.append(.rodeo(rodeo))
+        }
+
+        return rows
+    }
+
+    private func shouldShowScheduleAd(beforeItemAt index: Int, adSlot: Int) -> Bool {
+        guard adSlot < 2 else { return false }
+        return AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 8, repeatEvery: 20)
+    }
+
+    private enum ScheduleListRow: Identifiable {
+        case rodeo(RodeoData)
+        case ad(Int)
+
+        var id: String {
+            switch self {
+            case .rodeo(let rodeo):
+                return "rodeo-\(rodeo.id)"
+            case .ad(let slot):
+                return "schedule-ad-\(slot)"
+            }
+        }
     }
 }
 

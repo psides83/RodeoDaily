@@ -16,7 +16,7 @@ struct LayoutAltView: View {
     @StateObject var standingsApi = StandingsApi()
     @StateObject var rodeosApi = RodeosApi()
     
-    @Query var widgetAthletes: [WidgetAthlete]
+    @Query(sort: \WidgetAthlete.sortOrder) var widgetAthletes: [WidgetAthlete]
     
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
     @AppStorage("favoriteResultsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteResultsEvent: Events.CodingKeys = .bb

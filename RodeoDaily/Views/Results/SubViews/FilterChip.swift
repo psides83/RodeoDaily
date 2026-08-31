@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FilterChip: View {
+    @Environment(\.colorScheme) private var colorScheme
     
     let dateRangeDisplay: String
     
@@ -35,11 +36,25 @@ struct FilterChip: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(Color.appPrimary)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                .background(
+                    Capsule()
+                        .fill(chipBackground)
+                )
+                .overlay(
+                    Capsule()
+                        .stroke(Color.appSecondary.opacity(colorScheme == .dark ? 0.35 : 0.22), lineWidth: 1)
+                )
+                .foregroundColor(chipForeground)
             }
             Spacer()
         }
+    }
+
+    private var chipBackground: Color {
+        colorScheme == .dark ? Color.white.opacity(0.10) : Color.appSecondary.opacity(0.12)
+    }
+
+    private var chipForeground: Color {
+        colorScheme == .dark ? .white : .appPrimary
     }
 }

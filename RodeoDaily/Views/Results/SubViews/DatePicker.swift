@@ -18,9 +18,9 @@ struct DatePicker: View {
     @Binding var dateRange: Set<DateComponents>
     @Binding var dateRangeDisplay: String
     @Binding var isShowingCalendar: Bool
+    var allowsFutureDates = false
     
     @State var selectedDateRange = Set<DateComponents>()
-    @State var selectedDates = [SelectedDate]()
     
     var body: some View {
         VStack(spacing: 4) {
@@ -53,9 +53,7 @@ struct DatePicker: View {
                     .disabled(dateRange.count == 0)
             }
             
-            MultiDatePicker(selection: $selectedDateRange, in: bounds) {
-                Label("Dates", systemImage: "calendar")
-            }
+            calendarPicker
             .tint(.appPrimary)
             .padding()
             .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.appSecondary))
@@ -65,6 +63,19 @@ struct DatePicker: View {
         .onAppear(perform: receiveDateRange)
         .frame(maxWidth: 360, maxHeight: 450)
         .padding(.vertical, 20)
+    }
+
+    @ViewBuilder
+    var calendarPicker: some View {
+        if allowsFutureDates {
+            MultiDatePicker(selection: $selectedDateRange) {
+                Label("Dates", systemImage: "calendar")
+            }
+        } else {
+            MultiDatePicker(selection: $selectedDateRange, in: bounds) {
+                Label("Dates", systemImage: "calendar")
+            }
+        }
     }
     
     // MARK: - View Methods
@@ -150,16 +161,4 @@ struct DatePicker: View {
             dateRange.removeAll()
         }
     }
-    
-    func handleDateRange(newDate: SelectedDate) {
-//        guard dateRange.count > 0 else { return }
-//        let newRange = dateRange.filter({ dateRange.firstIndex(of: $0) == dateRange.startIndex || dateRange.firstIndex(of: $0) == dateRange.endIndex })
-        
-        print("new date range", dateRange)
-    }
-}
-
-struct SelectedDate: Identifiable {
-    let id: Int
-    let date: DateComponents
 }

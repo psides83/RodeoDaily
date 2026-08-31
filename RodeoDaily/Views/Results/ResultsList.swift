@@ -22,11 +22,12 @@ struct ResultsList: View {
     @State private var hasAttemptedLoad = false
     @State private var scrollOffset: CGFloat = 0
     
-    let adPlacement: Int = 5
-    
     //MARK: - Body
     var body: some View {
         let filteredRodeos = rodeos.sorted(by: { $0.endDate > $1.endDate })
+        let inProgressRodeos = filteredRodeos.filter(\.inProgress)
+        let completedRodeos = filteredRodeos.filter { !$0.inProgress }
+        let completedRows = resultsListRows(for: completedRodeos)
         
         VStack(alignment: .leading, spacing: AppSpace.xxl) {
             resultsHeader
@@ -46,36 +47,37 @@ struct ResultsList: View {
             if loading || (rodeos.isEmpty && !hasAttemptedLoad) {
                 RodeosLoader()
             } else if rodeos.count > 0 {
-                LazyVStack(spacing: AppSpace.lg) {
-                    ForEach(filteredRodeos.indices, id: \.self) { index in
-                        if (index % adPlacement) == 0 && index != 0 {
-                            BannerAd(style: .mediumRectangle)
+                LazyVStack(alignment: .leading, spacing: AppSpace.lg) {
+                    if !inProgressRodeos.isEmpty {
+                        resultsSectionHeader(
+                            title: NSLocalizedString("In Progress", comment: "")
+                        )
+
+                        ForEach(inProgressRodeos) { rodeo in
+                            resultsRodeoLink(rodeo)
                         }
-                        
-                        NavigationLink {
-                            SingleRodeoResults(
-                                rodeoId: filteredRodeos[index].id,
-                                rodeoName: filteredRodeos[index].name,
-                                location: filteredRodeos[index].location,
-                                endDate: filteredRodeos[index].endDate,
-                                event: selectedEvent
-                            )
-                        } label: {
-                            RodeoCell(rodeo: filteredRodeos[index])
+                    }
+
+                    if !completedRodeos.isEmpty {
+                        resultsSectionHeader(
+                            title: NSLocalizedString("Completed Rodeos", comment: "")
+                        )
+
+                        ForEach(completedRows) { row in
+                            switch row {
+                            case .ad:
+                                NativeAdCard(placement: .resultsListInline)
+                            case .rodeo(let rodeo):
+                                resultsRodeoLink(rodeo)
+                            }
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             } else if rodeos.count == 0 {
-                ContentUnavailableView {
-                    Label("No Results Found", systemImage: "list.number")
-                        .foregroundColor(.appPrimary)
-                }
+                noResultsView
             }
             
-            LoadMoreButton(loading: loading, action: incrementIndex)
-            
-            BannerAd(style: .mediumRectangle)
+            LoadMoreButton(loading: loading, animateAction: false, action: incrementIndex)
         }
         .padding(.bottom)
         .onChange(of: isShowingCalendar) { old, newValue in
@@ -104,7 +106,6 @@ struct ResultsList: View {
                 .offset(y: (1 - collapseProgress) * -14)
             .offset(y: -scrollOffset)
         }
-        .animation(.easeOut(duration: 0.2), value: collapseProgress)
         .sheet(isPresented: $isShowingCalendar) {
             DatePicker(dateRange: $dateRange, dateRangeDisplay: $dateRangeDisplay, isShowingCalendar: $isShowingCalendar)
         }
@@ -119,7 +120,7 @@ struct ResultsList: View {
                 .fontWeight(.bold)
             
             HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
-                Text("\(selectedEvent.title) Rodeo Results")
+                Text(String(format: NSLocalizedString("%@ Rodeo Results", comment: ""), selectedEvent.title))
                     .foregroundColor(.appSecondary)
                     .font(.appCardTitle)
                     .fontWeight(.bold)
@@ -235,6 +236,74 @@ struct ResultsList: View {
                 .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
         )
     }
+
+    private func resultsSectionHeader(title: String) -> some View {
+        HStack(spacing: AppSpace.xs) {
+            Text(title)
+                .font(.appCardTitle)
+                .foregroundColor(.appPrimary)
+                .fontWeight(.bold)
+        }
+        .padding(.horizontal, AppSpace.xs)
+    }
+
+    private func resultsRodeoLink(_ rodeo: RodeoData) -> some View {
+        NavigationLink {
+            SingleRodeoResults(
+                rodeoId: rodeo.id,
+                rodeoName: rodeo.name,
+                location: rodeo.location,
+                endDate: rodeo.endDate,
+                event: selectedEvent,
+                hasDaysheets: rodeo.hasDaysheets
+            )
+            .onAppear {
+                AnalyticsService.shared.track(
+                    .rodeoDetailViewed(source: "results", rodeoID: rodeo.id)
+                )
+            }
+        } label: {
+            RodeoCell(rodeo: rodeo)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var noResultsView: some View {
+        ContentUnavailableView {
+            Label("No Results Found", systemImage: "list.number")
+                .foregroundColor(.appPrimary)
+        } description: {
+            Text("There are no results for this filter.")
+                .foregroundColor(.appPrimary)
+        } actions: {
+            VStack(spacing: AppSpace.sm) {
+                Menu {
+                    ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                        Button(event.title) {
+                            withAnimation {
+                                selectedEvent = event
+                            }
+                        }
+                    }
+                } label: {
+                    Label("Change Event", systemImage: "slider.horizontal.3")
+                }
+                .buttonStyle(.loadingButton(false))
+
+                if dateRange.count > 1 {
+                    Button {
+                        withAnimation {
+                            dateRange.removeAll()
+                            dateRangeDisplay = ""
+                        }
+                    } label: {
+                        Label("Clear Date Filter", systemImage: "xmark.circle")
+                    }
+                    .buttonStyle(.clearTextButton)
+                }
+            }
+        }
+    }
     
     // MARK: - Methods
     func showCalendar() {
@@ -251,6 +320,41 @@ struct ResultsList: View {
         let distance: CGFloat = 70
         let progress = (y - start) / distance
         return min(max(progress, 0), 1)
+    }
+
+    private func resultsListRows(for rodeos: [RodeoData]) -> [ResultsListRow] {
+        var rows: [ResultsListRow] = []
+        var adSlot = 0
+
+        for (listIndex, rodeo) in rodeos.enumerated() {
+            if shouldShowResultsAd(beforeItemAt: listIndex, adSlot: adSlot) {
+                rows.append(.ad(adSlot))
+                adSlot += 1
+            }
+
+            rows.append(.rodeo(rodeo))
+        }
+
+        return rows
+    }
+
+    private func shouldShowResultsAd(beforeItemAt index: Int, adSlot: Int) -> Bool {
+        guard adSlot < 2 else { return false }
+        return AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 8, repeatEvery: 20)
+    }
+
+    private enum ResultsListRow: Identifiable {
+        case rodeo(RodeoData)
+        case ad(Int)
+
+        var id: String {
+            switch self {
+            case .rodeo(let rodeo):
+                return "rodeo-\(rodeo.id)"
+            case .ad(let slot):
+                return "results-ad-\(slot)"
+            }
+        }
     }
 
 }

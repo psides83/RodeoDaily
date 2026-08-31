@@ -141,24 +141,18 @@ extension BioViewModel {
                 $0.eventType == selectedEvent
             }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        
         // Build PRCA season month order: Oct -> Sep.
         let fiscalMonths = ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]
         
         // Filter for results belonging to this PRCA season window based on event end date.
         let filteredResults = seasonResults.filter { result in
-            guard let date = formatter.date(from: result.endDate) else { return false }
+            guard let date = result.endDate.rodeoDate else { return false }
             return prcaSeasonYear(for: date) == season.int
         }
         
         // Group by month abbreviation
         let grouped = filteredResults.reduce(into: [String: Double]()) { totals, result in
-            guard let date = formatter.date(from: result.endDate) else { return }
+            guard let date = result.endDate.rodeoDate else { return }
             let month = date.monthAbreviated
             
             // Exclude NFR unless you want to count it separately

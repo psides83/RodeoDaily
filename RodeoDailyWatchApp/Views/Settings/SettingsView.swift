@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("standingsWatchEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")) var standingsWatchEvent: StandingsEvent = .aa
+    @AppStorage(
+        FavoriteEventSettingsSync.favoriteStandingsEventKey,
+        store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")
+    )
+    var favoriteStandingsEvent: StandingsEvent = .aa
     
-    @AppStorage("resultsWatchEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")) var resultsWatchEvent: Events.CodingKeys = .bb
+    @AppStorage(
+        FavoriteEventSettingsSync.favoriteResultsEventKey,
+        store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")
+    )
+    var favoriteResultsEvent: Events.CodingKeys = .bb
 
     @AppStorage("watchQuickActionHapticsEnabled", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")) var quickActionHapticsEnabled = true
     
@@ -20,18 +28,23 @@ struct SettingsView: View {
                 header: Text("Default Events"),
                 footer: Text("Standings and Results open to these events by default.")
             ) {
-                Picker("Standings Event", selection: $standingsWatchEvent) {
-                    let events = StandingsEvent.allCases.filter { $0.rawValue != "GB" && $0.rawValue != "LB" }
-                    
-                    ForEach(events) { event in
+                Picker("Standings Event", selection: $favoriteStandingsEvent) {
+                    ForEach(StandingsEvent.standingsFilterEvents) { event in
                         Text(event.title).tag(event)
                     }
                 }
+                .onChange(of: favoriteStandingsEvent) {
+                    favoriteStandingsEvent = favoriteStandingsEvent.normalizedForStandingsFilter
+                    FavoriteEventSettingsSync.shared.updateStandingsEvent(favoriteStandingsEvent)
+                }
                 
-                Picker("Results Event", selection: $resultsWatchEvent) {
+                Picker("Results Event", selection: $favoriteResultsEvent) {
                     ForEach(Events.CodingKeys.allCases, id: \.self) { event in
                         Text(event.title).tag(event)
                     }
+                }
+                .onChange(of: favoriteResultsEvent) {
+                    FavoriteEventSettingsSync.shared.updateResultsEvent(favoriteResultsEvent)
                 }
             }
 
@@ -54,6 +67,9 @@ struct SettingsView: View {
                 }
                 .disabled(WatchQuickAthleteStore.followed().isEmpty)
             }
+        }
+        .onAppear {
+            favoriteStandingsEvent = favoriteStandingsEvent.normalizedForStandingsFilter
         }
         .navigationTitle("Settings")
     }

@@ -28,6 +28,14 @@
 
 "* **Note:** Long press on the athlete name to change the event used in the widget." = "* **Nota:** Mantén presionado el nombre del atleta para cambiar el evento usado en el widget.";
 
+"Privacy Policy" = "Política de privacidad";
+
+"View full privacy policy" = "Ver política de privacidad completa";
+
+"Support" = "Soporte";
+
+"Get help, report issues, or contact support about privacy questions" = "Obtén ayuda, reporta problemas o contacta a soporte sobre preguntas de privacidad";
+
 "Settings" = "Ajustes";
 
 "Favorites" = "Favoritas";
@@ -67,6 +75,7 @@
 "Cancel" = "Cancelar";
 
 "Rodeo Results" = "Resultados del rodeo";
+"%@ Rodeo Results" = "Resultados de rodeo de %@";
 
 "No Results Found" = "No se han encontrado resultados";
 
@@ -261,6 +270,7 @@
 "Done" = "Listo";
 "Rodeos" = "Rodeos";
 "Default standings and results events" = "Eventos predeterminados para clasificaciones y resultados";
+"Standings: %@ • Results: %@" = "Clasificaciones: %@ • Resultados: %@";
 "Widget athlete search and management" = "Búsqueda y gestión de atletas del widget";
 "Data Sources & Feedback" = "Fuentes de datos y comentarios";
 "Credits and contact links" = "Créditos y enlaces de contacto";
@@ -315,7 +325,7 @@
 "No current standing" = "Sin clasificación actual";
 "No current standings available for selected favorite athletes in this event." = "No hay clasificaciones actuales para los atletas favoritos seleccionados en este evento.";
 
-// 2.1.0 / Bio + Favorites + More
+// Bio + Favorites + More
 "More Features" = "Más funciones";
 "No Image Available" = "Imagen no disponible";
 "Search athletes to add to favorites" = "Buscar atletas para agregar a favoritos";
@@ -337,3 +347,184 @@
 "Check out these standings on Rodeo Daily." = "Mira estas clasificaciones en Rodeo Daily.";
 "Check out these rodeo results on Rodeo Daily." = "Mira estos resultados de rodeo en Rodeo Daily.";
 "Get Rodeo Daily" = "Consigue Rodeo Daily";
+
+// Schedule, maps, daysheets, and listings
+"Rodeo Listings" = "Listados de rodeos";
+"Browse your selected favorite athlete bios" = "Explora las biografías de tus atletas favoritos seleccionados";
+"No Rodeos" = "No hay rodeos";
+"Retry" = "Reintentar";
+"All Months" = "Todos los meses";
+"Month" = "Mes";
+"Month: %@" = "Mes: %@";
+"Date Range" = "Rango de fechas";
+"Edit Date Range" = "Editar rango de fechas";
+"Clear" = "Borrar";
+"Apply" = "Aplicar";
+"Open Full Listing" = "Abrir listado completo";
+"Publish Date: %@" = "Fecha de publicación: %@";
+"Special Entry Fees:" = "Cuotas especiales de inscripción:";
+"No Rodeos Found" = "No se encontraron rodeos";
+"There are no rodeos for this filter." = "No hay rodeos para este filtro.";
+"Upcoming Rodeos" = "Próximos rodeos";
+"Day sheets for \"In Progress\" rodeos can be viewed in Rodeo Results." = "Los daysheets de rodeos \"En curso\" se pueden ver en Resultados de rodeo.";
+"Select Range" = "Seleccionar rango";
+"Loading map..." = "Cargando mapa...";
+"Added Money: %@" = "Dinero añadido: %@";
+"Dates TBD" = "Fechas por confirmar";
+"TBD" = "Por confirmar";
+"In Progress" = "En curso";
+"Circuits" = "Circuitos";
+"No circuit tags." = "No hay etiquetas de circuito.";
+"Venue could not be located" = "No se pudo localizar el recinto";
+"Preview map. Open full screen for full controls." = "Vista previa del mapa. Abre en pantalla completa para ver todos los controles.";
+"Daysheets" = "Daysheets";
+"%@ events" = "%@ eventos";
+"No daysheets returned yet for this rodeo." = "Aún no se devolvieron daysheets para este rodeo.";
+"No daysheets listed for this rodeo." = "No hay daysheets listados para este rodeo.";
+"Open Rodeo Website" = "Abrir sitio web del rodeo";
+"Rodeo Details" = "Detalles del rodeo";
+"No entries" = "No hay entradas";
+"No day sheets for %@" = "No hay daysheets para %@";
+"%@ Rerides" = "%@ rerides";
+"No. %@" = "N.º %@";
+"Brand %@" = "Marca %@";
+"Round" = "Ronda";
+"Open in Maps" = "Abrir en Mapas";
+"Map Modes" = "Modos de mapa";
+"Traffic" = "Tráfico";
+"Labels" = "Etiquetas";
+"Explore" = "Explorar";
+"Driving" = "Conducción";
+"Transit" = "Transporte";
+"Satellite" = "Satélite";
+"© OpenStreetMap and other data providers" = "© OpenStreetMap y otros proveedores de datos";
+"Filters" = "Filtros";
+"Load Season" = "Cargar temporada";
+"Load Whole Season" = "Cargar temporada completa";
+"Preparing the map pins" = "Preparando los marcadores del mapa";
+"Reset" = "Restablecer";
+"Use Next 2 Weeks" = "Usar próximas 2 semanas";
+"Whole season loaded" = "Temporada completa cargada";
+"Open an athlete to view bio, results, and follow updates." = "Abre un atleta para ver biografía, resultados y actualizaciones de seguimiento.";
+"No Career Data" = "No hay datos de carrera";
+"No career rankings are available for this event." = "No hay rankings de carrera disponibles para este evento.";
+"Try a different season, sort option, or search term." = "Prueba una temporada, opción de ordenamiento o término de búsqueda diferente.";
+"No Stats Available" = "No hay estadísticas disponibles";
+"No stats are available for this season and event." = "No hay estadísticas disponibles para esta temporada y evento.";
+"Best Performances" = "Mejores actuaciones";
+"NFR Summary" = "Resumen de NFR";
+"No NFR stats for this season." = "No hay estadísticas de NFR para esta temporada.";
+
+// Additional shared app, watch, and widget strings
+"About" = "Acerca de";
+"General" = "General";
+"Feedback" = "Comentarios";
+"Credits" = "Créditos";
+"Data Sources" = "Fuentes de datos";
+"Best NFR %@" = "Mejor NFR %@";
+"NFR %@" = "NFR %@";
+"Season %@" = "Temporada %@";
+"Best Paying %@" = "%@ con más ganancias";
+"Best Paying Rodeo" = "Rodeo con más ganancias";
+"Monthly Earnings" = "Ganancias mensuales";
+"NFR Earnings" = "Ganancias de NFR";
+"Highlights" = "Destacados";
+"Rank" = "Rango";
+"Result" = "Resultado";
+"Playoff Series" = "Serie de Playoffs";
+"Points" = "Puntos";
+"Header" = "Header";
+"Heeler" = "Heeler";
+"No live placements available yet." = "Aún no hay posiciones en vivo disponibles.";
+"No Standings" = "Sin clasificaciones";
+"Standings data is unavailable" = "Los datos de clasificaciones no están disponibles";
+"Standings data is unavailable." = "Los datos de clasificaciones no están disponibles.";
+"Clear Favorites" = "Borrar favoritos";
+"Clear Following" = "Borrar seguidos";
+"Default Events" = "Eventos predeterminados";
+"Quick Actions" = "Acciones rápidas";
+"Standings and Results open to these events by default." = "Clasificaciones y Resultados abren estos eventos de forma predeterminada.";
+"Use long-press on standings and results rows to add favorites or follows." = "Mantén presionadas las filas de clasificaciones y resultados para agregar favoritos o seguidos.";
+"There are no current or upcoming rodeos right now." = "No hay rodeos actuales o próximos en este momento.";
+"No rodeos were found for this event." = "No se encontraron rodeos para este evento.";
+"Results are unavailable for this rodeo." = "Los resultados no están disponibles para este rodeo.";
+"Special Entry Fees: " = "Cuotas especiales de inscripción: ";
+
+// NFR standings
+"NFR Standings" = "Clasificaciones de NFR";
+"Round-by-round NFR average rankings" = "Clasificaciones de promedio de NFR ronda por ronda";
+"NFR standings unavailable" = "Las clasificaciones de NFR no están disponibles";
+"No NFR standings found" = "No se encontraron clasificaciones de NFR";
+"Check back once rankings are posted for this event." = "Vuelve cuando se publiquen las clasificaciones de este evento.";
+"Current through Round %d" = "Actualizado hasta la ronda %d";
+"Sorted by %@" = "Ordenado por %@";
+"Filter NFR event" = "Filtrar evento de NFR";
+"Sort NFR standings" = "Ordenar clasificaciones de NFR";
+"Average" = "Promedio";
+"Pending" = "Pendiente";
+"Round %d" = "Ronda %d";
+"%@ - %@ on %d" = "%@ - %@ en %d";
+"%@ in the average with %@ on %d" = "%@ en el promedio con %@ en %d";
+"%@ in the AVG with %@ on %d" = "%@ en el promedio con %@ en %d";
+"NFR" = "NFR";
+
+// Daysheet athlete widget
+"Select Daysheet Athlete" = "Seleccionar atleta de daysheets";
+"Selects the favorite athlete to track in upcoming daysheets." = "Selecciona el atleta favorito para seguirlo en próximos daysheets.";
+"Favorite Athlete" = "Atleta favorito";
+"Select an athlete to track upcoming daysheets." = "Selecciona un atleta para seguir próximos daysheets.";
+"No upcoming daysheet entries found." = "No se encontraron próximas entradas de daysheet.";
+"Athlete Daysheets" = "Daysheets del atleta";
+"Upcoming rodeos and times for a favorite athlete." = "Próximos rodeos y horarios de un atleta favorito.";
+"TO" = "TO";
+
+// Results detail filters and daysheets
+"View" = "Vista";
+"Loading daysheets..." = "Cargando daysheets...";
+"Show results or daysheets" = "Mostrar resultados o daysheets";
+"Select Results Event" = "Seleccionar evento de resultados";
+"Bracket Help" = "Ayuda sobre brackets";
+
+// Latest update notes
+"Results now let you switch events without leaving the rodeo detail view." = "Los resultados ahora te permiten cambiar de evento sin salir de la vista de detalle del rodeo.";
+"Daysheets are available from results when a rodeo provides them, with quick Results and Daysheets switching." = "Los daysheets están disponibles desde resultados cuando el rodeo los proporciona, con cambio rápido entre Resultados y Daysheets.";
+"Schedule filtering now shows current rodeos and supports custom date ranges." = "El filtro de calendario ahora muestra rodeos activos y admite rangos de fechas personalizados.";
+"Other minor bugs and UI issues have been corrected." = "También se corrigieron errores menores y problemas de interfaz.";
+"Privacy" = "Privacidad";
+"Manage Ad Privacy Choices" = "Administrar opciones de privacidad de anuncios";
+
+// Additional hard-coded UI strings
+"Ad" = "Anuncio";
+"Add athletes to favorites from the settings tab. These athletes will be available to add widgets to your home screen." = "Agrega atletas a favoritos desde la pestaña de configuración. Estos atletas estarán disponibles para agregar widgets a tu pantalla de inicio.";
+"Favorite" = "Favorito";
+"Followed" = "Seguido";
+"Map Filters" = "Filtros del mapa";
+"No current day sheets" = "No hay daysheets actuales";
+"OK" = "OK";
+"Profile" = "Perfil";
+"Season Map" = "Mapa de temporada";
+"Share results" = "Compartir resultados";
+"Share standings" = "Compartir clasificaciones";
+"Upcoming Rodeo Entries" = "Próximas entradas de rodeo";
+"with" = "con";
+
+// Favorite athlete save errors
+"Unable to Add Favorite" = "No se pudo agregar el favorito";
+"Unable to load athlete details for %@ (ID %d). %@" = "No se pudieron cargar los detalles del atleta %@ (ID %d). %@";
+"Unable to add %@ (ID %d) because the athlete profile did not include an athlete ID and name." = "No se pudo agregar %@ (ID %d) porque el perfil del atleta no incluyó un identificador ni un nombre.";
+"Unable to save %@ as a favorite. %@" = "No se pudo guardar a %@ como favorito. %@";
+"Unable to Load Athlete" = "No se pudo cargar el atleta";
+"Try Again" = "Intentar de nuevo";
+"The athlete profile response did not include the required athlete ID and name." = "La respuesta del perfil no incluyó el identificador y nombre requeridos del atleta.";
+"The selected athlete profile does not include competition details." = "El perfil del atleta seleccionado no incluye detalles de competencia.";
+"The athlete profile response returned a different athlete ID." = "La respuesta del perfil devolvió un identificador de atleta diferente.";
+"Unable to save %@ because the loaded profile did not match the selected athlete." = "No se pudo guardar a %@ porque el perfil cargado no coincide con el atleta seleccionado.";
+"Confirm Athlete" = "Confirmar atleta";
+"Athlete ID: %d" = "ID del atleta: %d";
+"No Competition Data" = "Sin datos de competencia";
+"This athlete record has no results, rankings, or earnings available. Select another matching record if one is listed." = "Este registro no tiene resultados, clasificaciones ni ganancias disponibles. Selecciona otro registro coincidente si aparece alguno.";
+"Add to Favorites" = "Agregar a favoritos";
+"Use Manage above to reorder athletes." = "Usa Administrar arriba para reordenar atletas.";
+"Open" = "Abrir";
+"Latest %@ results" = "Últimos resultados de %@";
+"No recent results for %@." = "No hay resultados recientes de %@.";

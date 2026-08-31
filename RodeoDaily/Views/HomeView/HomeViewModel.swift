@@ -13,15 +13,17 @@ import SwiftUI
 /// The view sections are housed in sseperate files and only house View code.
 struct HomeView: View {
     @Environment(\.calendar) var calendar
+    @Environment(\.colorScheme) var homeColorScheme
+    @Binding var widgetStandingsEvent: StandingsEvent?
         
      let coordinateSpace = "SCROLL"
     
     @StateObject var standingsApi = StandingsApi()
     @StateObject var rodeosApi = RodeosApi()
     @StateObject var scheduleApi = RodeoScheduleApi()
-    @StateObject var pbjApi = PBJFeedApi()
+    @StateObject var pbjApi = BusinessJournalApi()
     
-    @Query var widgetAthletes: [WidgetAthlete]
+    @Query(sort: \WidgetAthlete.sortOrder) var widgetAthletes: [WidgetAthlete]
     @Query var followedAthletes: [FollowedAthlete]
     
     @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
@@ -48,6 +50,9 @@ struct HomeView: View {
     @State var lastTrackedScrollOffset: CGFloat = 0
     @State var isTabBarSearchActive = false
     @State var homeHeaderScrollOffset: CGFloat = 0
+    @State var didTrackInitialTabView = false
+    @State var refreshFeedbackMessage: String?
+    @State var refreshFeedbackTask: Task<Void, Never>?
     
     // MARK: - Computed Properties
     var dateParams: String {
@@ -88,7 +93,7 @@ struct HomeView: View {
     }
 
     var usesCustomNativeHeader: Bool {
-        selectedTab == .standings || selectedTab == .results
+        selectedTab == .standings || selectedTab == .results || selectedTab == .schedule
     }
 
     var customHeaderTopPadding: CGFloat {

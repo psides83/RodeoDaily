@@ -24,6 +24,7 @@ struct StandingsWidgetLargeView : View {
                 Color.rdGreen
             }
             .environment(\.colorScheme, .dark)
+            .widgetURL(URL(string: "rodeodaily://standings?event=\(entry.configuration.event.rawValue)"))
         } else {
             VStack(alignment: .leading, spacing: 6) {
             
@@ -85,6 +86,7 @@ struct StandingsWidgetLargeView : View {
                 Color.rdGreen
             }
             .environment(\.colorScheme, .dark)
+            .widgetURL(URL(string: "rodeodaily://standings?event=\(entry.configuration.event.rawValue)"))
         }
     }
 }

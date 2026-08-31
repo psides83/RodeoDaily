@@ -16,5 +16,6 @@ struct RodeoDailyWidgetBundle: WidgetBundle {
         PhoneStandingsARWidget()
         FavoriteWidgetLarge()
         FavoriteWidgetSmall()
+        DaysheetAthleteWidget()
     }
 }

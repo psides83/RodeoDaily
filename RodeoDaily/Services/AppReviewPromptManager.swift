@@ -62,7 +62,7 @@ final class AppReviewPromptManager {
             return
         }
 
-        SKStoreReviewController.requestReview(in: scene)
+        AppStore.requestReview(in: scene)
     }
 
     func feedbackEmailURL() -> URL? {

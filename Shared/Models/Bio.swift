@@ -25,6 +25,7 @@ struct BioData: Codable {
     var lastName: String = ""
     var nickName: String?
     var hometown: String = ""
+    var image315Url: String?
     var imageUrl: String?
     var featured: Bool = false
     var birthDate: String = ""
@@ -33,7 +34,7 @@ struct BioData: Codable {
     var yearEarnings: Int?
     var worldTitles: Int?
     var nfrQualifications: Int?
-    var dateJoined: String = ""
+    var dateJoined: String?
     var eventTypes: [String]?
     var biographyText: String = ""
     var videoHighlights: String?
@@ -49,6 +50,7 @@ struct BioData: Codable {
         case lastName = "LastName"
         case nickName = "NickName"
         case hometown = "Hometown"
+        case image315Url = "image_315_url"
         case imageUrl = "PhotoUrl"
         case featured = "Featured"
         case birthDate = "BirthDate"
@@ -259,5 +261,3 @@ extension URLSession {
         return self.codableTask(with: url, completionHandler: completionHandler)
     }
 }
-
-

@@ -15,6 +15,45 @@ struct BioRodeoResultGroup: Identifiable {
     let endDate: String
     let eventType: String
     var results: [BioResult]
+
+    var totalPayoff: Double {
+        results.reduce(0) { $0 + $1.payoff }
+    }
+
+    var totalPayoffDisplay: String {
+        totalPayoff == 0 ? "-  " : totalPayoff.currencyABS
+    }
+
+    var displayResults: [BioResult] {
+        results.sorted { lhs, rhs in
+            let lhsRank = roundSortRank(lhs.round)
+            let rhsRank = roundSortRank(rhs.round)
+
+            if lhsRank == rhsRank {
+                return lhs.rodeoResultId < rhs.rodeoResultId
+            }
+
+            return lhsRank < rhsRank
+        }
+    }
+
+    private func roundSortRank(_ round: String) -> Int {
+        let normalized = round.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+        if let roundNumber = Int(normalized) {
+            return roundNumber
+        }
+
+        if normalized == "finals" || normalized == "final" {
+            return 9_998
+        }
+
+        if normalized == "avg" || normalized == "ave" || normalized == "average" {
+            return 9_999
+        }
+
+        return 9_000
+    }
 }
 
 struct BioResultCellView: View {
@@ -23,6 +62,8 @@ struct BioResultCellView: View {
     
     // MARK: - Body
     var body: some View {
+        let displayResults = group.displayResults
+
         VStack(alignment: .leading, spacing: AppSpace.sm) {
             HStack(alignment: .top, spacing: AppSpace.sm) {
                 Text(group.rodeoName)
@@ -31,16 +72,13 @@ struct BioResultCellView: View {
                     .lineLimit(2)
                 
                 Spacer()
-                
-                Text("\(group.results.count)")
-                    .font(.appCaptionStrong)
-                    .foregroundColor(.appPrimary)
-                    .padding(.horizontal, AppSpace.sm)
-                    .padding(.vertical, AppSpace.xxs)
-                    .background(
-                        Capsule()
-                            .fill(Color.appSecondary.opacity(0.2))
-                    )
+
+                VStack(alignment: .trailing, spacing: AppSpace.xxs) {
+                    Text(group.totalPayoffDisplay)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundColor(.appPrimary)
+                        .monospacedDigit()
+                }
             }
             
             HStack(spacing: AppSpace.xs) {
@@ -55,8 +93,8 @@ struct BioResultCellView: View {
                     .foregroundColor(.appTertiary)
             }
             
-            ForEach(group.results.indices, id: \.self) { index in
-                let result = group.results[index]
+            ForEach(displayResults.indices, id: \.self) { index in
+                let result = displayResults[index]
                 
                 HStack(spacing: AppSpace.sm) {
                     Text(result.roundDisplay)
@@ -84,7 +122,7 @@ struct BioResultCellView: View {
                         .frame(width: 96, alignment: .trailing)
                 }
                 
-                if index != group.results.count - 1 {
+                if index != displayResults.count - 1 {
                     Divider()
                         .overlay(Color.appTertiary.opacity(0.25))
                 }

@@ -15,8 +15,11 @@ struct AthletesView: View {
     @StateObject private var searchModel = SearchSuggetionsApi()
     @StateObject private var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.4)
     @FocusState private var searchFieldFocused: Bool
+    @State private var favoriteSaveError: String?
+    @State private var selectedSuggestion: SearchResultElement?
+    @AppStorage("hasSeenFavoriteAthleteReorderTip") private var hasSeenReorderTip = false
 
-    @Query var widgetAthletes: [WidgetAthlete]
+    @Query(sort: \WidgetAthlete.sortOrder) var widgetAthletes: [WidgetAthlete]
     
     init(searchText: String = "") {
         self.initialSearchText = searchText
@@ -35,7 +38,7 @@ struct AthletesView: View {
             VStack(alignment: .leading, spacing: AppSpace.lg) {
                 headerCard
                 
-                if !searchModel.suggestions.isEmpty {
+                if !availableSuggestions.isEmpty {
                     suggestionsCard
                 } else if searchModel.loading && !search.text.isEmpty {
                     ProgressView()
@@ -64,16 +67,15 @@ struct AthletesView: View {
                     }
                 } else {
                     LazyVStack(spacing: AppSpace.md) {
-                        ForEach(widgetAthletes.indices, id: \.self) { index in
-                            let athlete = widgetAthletes[index]
+                        ForEach(Array(widgetAthletes.enumerated()), id: \.element.id) { index, athlete in
                             
                             if (index % 2) == 0 && index != 0 {
-                                BannerAd(style: .mediumRectangle)
+                                BannerAd(placement: .athleteBioSection)
                                     .frame(height: 250)
                             }
                             
                             NavigationLink {
-                                BioView(athleteId: athlete.athleteId)
+                                BioView(athleteId: athlete.athleteId, preferredEvent: athlete.event)
                             } label: {
                                 AthleteCellView(athlete: athlete)
                             }
@@ -82,7 +84,7 @@ struct AthletesView: View {
                     }
                 }
                 
-                BannerAd(style: .mediumRectangle)
+                BannerAd(placement: .athleteBioSection)
                     .frame(height: 250)
                     .transaction { transaction in
                         transaction.animation = nil
@@ -93,7 +95,17 @@ struct AthletesView: View {
             .padding(.bottom, AppSpace.xxl)
         }
         .background(Color.appBg)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    FavoriteAthletesSettingsPage()
+                } label: {
+                    Label("Manage", systemImage: "slider.horizontal.3")
+                }
+            }
+        }
         .onAppear {
+            normalizeAthleteOrder()
             if search.text.isEmpty && !initialSearchText.isEmpty {
                 search.text = initialSearchText
             }
@@ -102,6 +114,26 @@ struct AthletesView: View {
             Task {
                 await searchModel.getSearchResults(from: newValue)
             }
+        }
+        .sheet(item: $selectedSuggestion) { suggestion in
+            AthleteFavoriteConfirmationView(suggestion: suggestion) { bio in
+                saveAthlete(bio, from: suggestion)
+                selectedSuggestion = nil
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .alert(
+            Text("Unable to Add Favorite"),
+            isPresented: Binding(
+                get: { favoriteSaveError != nil },
+                set: { if !$0 { favoriteSaveError = nil } }
+            )
+        ) {
+            Button("OK") {
+                favoriteSaveError = nil
+            }
+        } message: {
+            Text(favoriteSaveError ?? "")
         }
     }
     
@@ -123,6 +155,27 @@ struct AthletesView: View {
             Text("Search below to add athletes to your favorites list.")
                 .foregroundColor(.appTertiary)
                 .font(.appCaption)
+
+            if widgetAthletes.count > 1 && !hasSeenReorderTip {
+                Divider()
+
+                HStack(spacing: AppSpace.sm) {
+                    Text("Use Manage above to reorder athletes.")
+                        .foregroundColor(.appTertiary)
+                        .font(.appCaption)
+
+                    Spacer()
+
+                    NavigationLink {
+                        FavoriteAthletesSettingsPage()
+                    } label: {
+                        Text("Open")
+                            .font(.appCaptionStrong)
+                            .foregroundStyle(Color.appSecondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
             
             HStack(spacing: AppSpace.sm) {
                 Image(systemName: "magnifyingglass")
@@ -170,15 +223,17 @@ struct AthletesView: View {
                 .font(.appCaptionStrong)
                 .foregroundColor(.appTertiary)
             
-            ForEach(sortedSuggestions, id: \.id) { suggestion in
+            ForEach(availableSuggestions, id: \.id) { suggestion in
                 Button {
-                    setAthlete(from: suggestion)
+                    selectedSuggestion = suggestion
                 } label: {
                     HStack {
-                        Text(suggestion.term)
-                            .font(.appBodyStrong)
-                            .foregroundColor(.appPrimary)
-                            .lineSpacing(2)
+                        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                            Text(suggestion.term)
+                                .font(.appBodyStrong)
+                                .foregroundColor(.appPrimary)
+                                .lineSpacing(2)
+                        }
                         Spacer()
                         Image(systemName: "plus.circle")
                             .foregroundColor(.appSecondary)
@@ -187,7 +242,7 @@ struct AthletesView: View {
                 }
                 .buttonStyle(.plain)
 
-                if suggestion.id != sortedSuggestions.last?.id {
+                if suggestion.id != availableSuggestions.last?.id {
                     Divider()
                 }
             }
@@ -214,34 +269,84 @@ struct AthletesView: View {
         }
     }
 
-    private func setAthlete(from result: SearchResultElement) {
-        Task {
-            let bioApi = BioViewModel()
-            await bioApi.getBio(for: result.id)
-            let bio = bioApi.bio
+    private var availableSuggestions: [SearchResultElement] {
+        sortedSuggestions.filter { suggestion in
+            !widgetAthletes.contains { $0.athleteId == suggestion.id }
+        }
+    }
 
-            let alreadyExists = widgetAthletes.contains { $0.athleteId == bio.contestantId }
-            guard !alreadyExists else {
-                searchFieldFocused = false
-                search.text = ""
-                return
-            }
+    private func saveAthlete(_ bio: BioData, from result: SearchResultElement) {
+        let athleteName = bio.name.trimmingCharacters(in: .whitespacesAndNewlines)
 
-            let athlete = WidgetAthlete(
-                athleteId: bio.contestantId,
-                name: bio.name,
-                event: bio.topEvent.withTeamRopingConversion,
-                events: bio.events
+        guard bio.contestantId == result.id, !athleteName.isEmpty else {
+            favoriteSaveError = String(
+                format: NSLocalizedString("Unable to save %@ because the loaded profile did not match the selected athlete.", comment: ""),
+                result.term
             )
+            print("[FavoriteAthlete] Rejected favorite ID \(result.id): loaded ID \(bio.contestantId).")
+            return
+        }
 
-            withAnimation {
-                modelContext.insert(athlete)
-                try? modelContext.save()
-                WidgetCenter.shared.reloadAllTimelines()
-                FavoriteAlert.added(athlete.name).present
-                searchFieldFocused = false
-                search.text = ""
-            }
+        guard !widgetAthletes.contains(where: { $0.athleteId == bio.contestantId }) else {
+            searchFieldFocused = false
+            search.text = ""
+            return
+        }
+
+        let athlete = WidgetAthlete(
+            athleteId: bio.contestantId,
+            name: athleteName,
+            event: bio.topEvent.withTeamRopingConversion,
+            events: bio.events,
+            sortOrder: nextAthleteSortOrder
+        )
+
+        withAnimation {
+            modelContext.insert(athlete)
+        }
+
+        do {
+            try modelContext.save()
+        } catch {
+            modelContext.delete(athlete)
+            favoriteSaveError = String(
+                format: NSLocalizedString("Unable to save %@ as a favorite. %@", comment: ""),
+                athleteName,
+                error.localizedDescription
+            )
+            print("[FavoriteAthlete] SwiftData save failed for athlete ID \(bio.contestantId): \(error.localizedDescription)")
+            return
+        }
+
+        WidgetCenter.shared.reloadAllTimelines()
+        FavoriteAlert.added(athlete.name).present
+        searchFieldFocused = false
+        search.text = ""
+    }
+
+    private var nextAthleteSortOrder: Int {
+        max((widgetAthletes.compactMap(\.sortOrder).max() ?? -1) + 1, widgetAthletes.count)
+    }
+
+    private func normalizeAthleteOrder() {
+        persistAthleteOrder(widgetAthletes)
+    }
+
+    private func persistAthleteOrder(_ athletes: [WidgetAthlete]) {
+        var didChange = false
+        for (index, athlete) in athletes.enumerated() where athlete.sortOrder != index {
+            athlete.sortOrder = index
+            didChange = true
+        }
+
+        guard didChange else { return }
+
+        do {
+            try modelContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            favoriteSaveError = error.localizedDescription
+            print("[FavoriteAthlete] Failed saving reordered athletes: \(error.localizedDescription)")
         }
     }
 }

@@ -7,7 +7,7 @@ struct PBJDetailField: Identifiable, Hashable {
     let value: String
 }
 
-struct PBJFeedItem: Identifiable, Hashable {
+struct BusinessJournalFeedItem: Identifiable, Hashable {
     let id: String
     let title: String
     let subtitle: String?

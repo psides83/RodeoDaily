@@ -18,6 +18,31 @@ struct RodeoCell: View {
             return ""
         }
     }
+
+    private func displayDate(_ raw: String) -> String {
+        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty || trimmed.hasPrefix("0001-01-01") {
+            return "TBD"
+        }
+        return raw.medium
+    }
+
+    private var dateRangeDisplay: String {
+        let start = displayDate(rodeo.startDate)
+        let end = displayDate(rodeo.endDate)
+
+        if start == "TBD" && end == "TBD" {
+            return "Dates TBD"
+        }
+        if start == end {
+            return start
+        }
+        return "\(start) - \(end)"
+    }
+
+    private var tagTitles: [String] {
+        rodeo.tourTitles
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -35,9 +60,33 @@ struct RodeoCell: View {
                         
                         Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
                         
-                        Text(rodeo.endDate.medium)
+                        Text("Added: \(rodeo.payout.currencyABS)")
                             .foregroundColor(.appTertiary)
                             .font(.subheadline)
+                        
+                    }
+                    .padding(.bottom, 8)
+
+                    if !tagTitles.isEmpty || rodeo.inProgress {
+                        HStack(spacing: 6) {
+                            ForEach(tagTitles, id: \.self) { tag in
+                                Text(tag)
+                                    .foregroundColor(.appSecondary)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 5)
+                                    .background(RoundedRectangle(cornerRadius: 50).fill(Color.appSecondary.opacity(0.15)))
+                            }
+                        }
+                        .padding(.bottom, 8)
+                    }
+
+                    HStack {
+                        Text(dateRangeDisplay)
+                            .foregroundColor(.appPrimary)
+                            .font(.appMetricValue)
+                        
+                        Spacer()
                         
                         if rodeo.inProgress {
                             Text(inProgress)
@@ -48,7 +97,6 @@ struct RodeoCell: View {
                                 .background(RoundedRectangle(cornerRadius: 50).fill(Color.appSecondary))
                         }
                     }
-                    .padding(.bottom, 8)
                 }
                 
                 Spacer()

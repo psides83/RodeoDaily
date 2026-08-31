@@ -9,7 +9,11 @@ import SwiftUI
 
 struct WatchStandingsListView: View {
     // MARK: - Properties
-    @AppStorage("standingsWatchEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")) var standingsWatchEvent: StandingsEvent = .aa
+    @AppStorage(
+        FavoriteEventSettingsSync.favoriteStandingsEventKey,
+        store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")
+    )
+    var favoriteStandingsEvent: StandingsEvent = .aa
     
     @StateObject var standingsApi = StandingsApi()
     
@@ -18,14 +22,22 @@ struct WatchStandingsListView: View {
     
     // MARK: - Body
     var body: some View {
-        Form {
-            Picker(
-                "Select Event",
-                selection: $selectedEvent,
-                content: pickerContent
-            )
-            .pickerStyle(.navigationLink)
-            
+        List {
+            Section {
+                Picker(
+                    "Event",
+                    selection: $selectedEvent,
+                    content: pickerContent
+                )
+                .pickerStyle(.navigationLink)
+            } header: {
+                WatchListHeader(
+                    title: selectedEvent.title,
+                    subtitle: "Top \(standingsApi.standings.count)",
+                    systemImage: "list.number"
+                )
+            }
+
             Group {
                 if standingsApi.loading {
                     WatchLogoLoader()
@@ -45,11 +57,30 @@ struct WatchStandingsListView: View {
                 }
             }
         }
+        .listStyle(.carousel)
         .navigationTitle("World Standings")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                WatchToolbarIconButton(
+                    systemImage: "arrow.clockwise",
+                    accessibilityLabel: "Refresh Standings",
+                    isDisabled: standingsApi.loading
+                ) {
+                    Task {
+                        await standingsApi.getStandings(for: selectedEvent)
+                    }
+                }
+            }
+        }
         .onChange(of: selectedEvent) { oldValue, newValue in
-            standingsWatchEvent = newValue
+            let normalizedEvent = newValue.normalizedForStandingsFilter
+            if normalizedEvent != newValue {
+                selectedEvent = normalizedEvent
+                return
+            }
+
             Task {
-                await standingsApi.getStandings(for: newValue)
+                await standingsApi.getStandings(for: normalizedEvent)
             }
         }
         .refreshable {
@@ -57,8 +88,8 @@ struct WatchStandingsListView: View {
         }
         .task {
             if initialLoad {
-                selectedEvent = standingsWatchEvent
-                await standingsApi.getStandings(for: standingsWatchEvent)
+                selectedEvent = favoriteStandingsEvent.normalizedForStandingsFilter
+                await standingsApi.getStandings(for: selectedEvent)
                 initialLoad = false
             }
         }
@@ -66,7 +97,7 @@ struct WatchStandingsListView: View {
     
     // MARK: - View Methods
     func pickerContent() -> some View {
-        let events = StandingsEvent.allCases
+        let events = StandingsEvent.standingsFilterEvents
 
         return ForEach(events, content: pickerCell)
     }

@@ -1,9 +1,9 @@
 import Foundation
 
-enum PBJFeedParser {
-    static func parse(response: PBJFeedResponse) -> [PBJFeedItem] {
+enum BusinessJournalListingsParser {
+    static func parse(response: BusinessJournalFeedResponse) -> [BusinessJournalFeedItem] {
         var seenIds = Set<String>()
-        var parsed = [PBJFeedItem]()
+        var parsed = [BusinessJournalFeedItem]()
 
         for (index, listing) in response.listings.enumerated() {
             guard let item = makeItem(from: listing, fallbackIndex: index, sourceURL: response.source) else { continue }
@@ -15,11 +15,11 @@ enum PBJFeedParser {
         return parsed
     }
 
-    static func parse(jsonObject: Any) -> [PBJFeedItem] {
+    static func parse(jsonObject: Any) -> [BusinessJournalFeedItem] {
         guard
             JSONSerialization.isValidJSONObject(jsonObject),
             let data = try? JSONSerialization.data(withJSONObject: jsonObject),
-            let response = try? JSONDecoder().decode(PBJFeedResponse.self, from: data)
+            let response = try? JSONDecoder().decode(BusinessJournalFeedResponse.self, from: data)
         else {
             return []
         }
@@ -27,7 +27,7 @@ enum PBJFeedParser {
         return parse(response: response)
     }
 
-    private static func makeItem(from listing: PBJListingDTO, fallbackIndex: Int, sourceURL: String?) -> PBJFeedItem? {
+    private static func makeItem(from listing: PBJListingDTO, fallbackIndex: Int, sourceURL: String?) -> BusinessJournalFeedItem? {
         let detailFields = buildDetailFields(from: listing)
 
         let startDate = listing.fields?.eventDateRange?.startDate
@@ -66,7 +66,7 @@ enum PBJFeedParser {
 
         let id = "rodeo-\(listing.index ?? fallbackIndex)-\(cardTitle)"
 
-        return PBJFeedItem(
+        return BusinessJournalFeedItem(
             id: id,
             title: cardTitle,
             subtitle: subtitle,

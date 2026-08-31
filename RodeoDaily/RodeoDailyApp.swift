@@ -16,12 +16,16 @@ struct RodeoDailyApp: App {
     private let appModelContainer: ModelContainer
     @Environment(\.scenePhase) private var scenePhase
     @State private var shouldShowReviewPrompt = false
+    @State private var didTrackAppOpen = false
+    @State private var pendingDeepLinkURL: URL?
 
     @AppStorage("needsATTRequest") var needsATTRequest = true
     @AppStorage("lastSeenWhatsNewVersion") var lastSeenWhatsNewVersion = ""
-    private let currentWhatsNewVersion = "2.1.0"
+    private let currentWhatsNewVersion = "2.4.0"
     
     init() {
+        AnalyticsService.shared.configure()
+
         do {
             appModelContainer = try Self.makeModelContainer()
         } catch {
@@ -37,12 +41,18 @@ struct RodeoDailyApp: App {
                 } else if lastSeenWhatsNewVersion != currentWhatsNewVersion {
                     WhatsNewOnboardingView(version: currentWhatsNewVersion)
                 } else {
-                    ContentView()
+                    ContentView(pendingDeepLinkURL: $pendingDeepLinkURL)
                 }
             }
             .onAppear {
+                if !didTrackAppOpen {
+                    AnalyticsService.shared.track(.appOpened)
+                    didTrackAppOpen = true
+                }
+
                 attHandler.checkATTStatus()
                 followNotificationRouter.configure(modelContainer: appModelContainer)
+                FavoriteEventSettingsSync.shared.syncCurrentSettings()
                 SupabasePushSyncService.shared.registerForRemoteNotificationsIfAuthorized()
                 Task {
                     await SupabasePushSyncService.shared.registerDevice()
@@ -72,6 +82,9 @@ struct RodeoDailyApp: App {
             } message: {
                 Text(NSLocalizedString("Your feedback helps us improve Rodeo Daily for every fan.", comment: ""))
             }
+            .onOpenURL { url in
+                pendingDeepLinkURL = url
+            }
         }
         .modelContainer(appModelContainer)
     }
@@ -88,20 +101,7 @@ struct RodeoDailyApp: App {
     private static func makeModelContainer() throws -> ModelContainer {
         let schema = Schema([WidgetAthlete.self, FollowedAthlete.self, FollowAlertEvent.self])
         let configuration = ModelConfiguration(schema: schema, url: sharedStoreURL)
-        let container = try ModelContainer(for: schema, configurations: [configuration])
-
-        do {
-            let descriptor = FetchDescriptor<FollowedAthlete>()
-            _ = try container.mainContext.fetch(descriptor)
-            return container
-        } catch {
-            guard isMissingFollowedAthleteTable(error) else {
-                throw error
-            }
-
-            try purgeStoreFiles(at: sharedStoreURL)
-            return try ModelContainer(for: schema, configurations: [configuration])
-        }
+        return try ModelContainer(for: schema, configurations: [configuration])
     }
 
     private static var sharedStoreURL: URL {
@@ -119,21 +119,4 @@ struct RodeoDailyApp: App {
         return storeDirectory.appendingPathComponent("default.store")
     }
 
-    private static func purgeStoreFiles(at storeURL: URL) throws {
-        let fileManager = FileManager.default
-        let candidates = [
-            storeURL,
-            URL(fileURLWithPath: storeURL.path + "-wal"),
-            URL(fileURLWithPath: storeURL.path + "-shm")
-        ]
-
-        for candidate in candidates where fileManager.fileExists(atPath: candidate.path) {
-            try fileManager.removeItem(at: candidate)
-        }
-    }
-
-    private static func isMissingFollowedAthleteTable(_ error: Error) -> Bool {
-        let description = (error as NSError).localizedDescription
-        return description.localizedCaseInsensitiveContains("no such table: zfollowedathlete")
-    }
 }

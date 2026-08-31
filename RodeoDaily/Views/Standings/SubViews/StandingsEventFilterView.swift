@@ -24,7 +24,7 @@ struct StandingsEventFilterView: View {
     
     // MARK: - View Methods
     func menuContent() -> some View {
-        ForEach(StandingsEvent.allCases, id: \.self) { event in
+        ForEach(StandingsEvent.standingsFilterEvents, id: \.self) { event in
             Button {
                 withAnimation {
                     action(event)

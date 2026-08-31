@@ -115,9 +115,6 @@ struct BioCellView: View {
     func setFavorite() {
         withAnimation {
             let favorite = FavoriteAthlete(id: athleteId, name: bioAPI.bio.name, event: event, teamRopingEvent: bioAPI.bio.teamRopingEvent, events: bioAPI.bio.events)
-            
-            print(favorite)
-            
             favoriteAthlete = favorite
             WidgetCenter.shared.reloadAllTimelines()
         }

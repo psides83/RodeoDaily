@@ -138,11 +138,11 @@ struct ResultsListView: View {
                         Button {
                             viewModel.sortResultsBy = keyPath
                         } label: {
-                            Text(keyPath.title)
+                            Text(keyPath.title(for: viewModel.selectedEvent))
                         }
                     }
                 } label: {
-                    compactFilterChip(value: viewModel.sortResultsBy.title)
+                    compactFilterChip(value: viewModel.sortResultsBy.title(for: viewModel.selectedEvent))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -310,6 +310,20 @@ struct ResultsListView: View {
             }
         }
         
+        if viewModel.sortResultsBy == .rodeoEarnings {
+            return grouped.sorted { lhs, rhs in
+                if lhs.totalPayoff == rhs.totalPayoff {
+                    if lhs.endDate == rhs.endDate {
+                        return lhs.rodeoName > rhs.rodeoName
+                    }
+
+                    return lhs.endDate > rhs.endDate
+                }
+
+                return lhs.totalPayoff > rhs.totalPayoff
+            }
+        }
+
         return grouped
     }
     

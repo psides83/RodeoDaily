@@ -10,12 +10,14 @@ import SwiftUI
 fileprivate enum HomeTabItem: String, CaseIterable {
     case standings = "Standings"
     case results = "Results"
+    case schedule = "Schedule"
     case more = "More"
 
     var symbol: String {
         switch self {
         case .standings: return "list.number"
         case .results: return "dollarsign.square"
+        case .schedule: return "calendar"
         case .more: return "ellipsis.circle"
         }
     }
@@ -28,6 +30,7 @@ fileprivate enum HomeTabItem: String, CaseIterable {
         switch self {
         case .standings: return .standings
         case .results: return .results
+        case .schedule: return .schedule
         case .more: return .more
         }
     }
@@ -36,6 +39,7 @@ fileprivate enum HomeTabItem: String, CaseIterable {
         switch tab {
         case .standings: return .standings
         case .results: return .results
+        case .schedule: return .schedule
         case .more: return .more
         }
     }
@@ -297,6 +301,10 @@ extension HomeView {
             await rodeosApi.searchRodeos(for: resultsEvent, by: search.text, in: dateParams) {
                 rodeosApi.endLoading()
             }
+        case .schedule:
+            await scheduleApi.searchRodeos(for: .bb, by: search.text, in: dateParams) {
+                scheduleApi.endLoading()
+            }
         default:
             break
         }
@@ -326,6 +334,9 @@ extension HomeView {
                 }
             }
             .coordinateSpace(name: "HOME_TAB_SCROLL")
+            .refreshable {
+                await refreshCurrentTab(.standings)
+            }
 
         case .results:
             ScrollView(.vertical, showsIndicators: false) {
@@ -344,6 +355,28 @@ extension HomeView {
                 }
             }
             .coordinateSpace(name: "HOME_TAB_SCROLL")
+            .refreshable {
+                await refreshCurrentTab(.results)
+            }
+
+        case .schedule:
+            ScrollView(.vertical, showsIndicators: false) {
+                ScheduleListView(
+                    rodeos: scheduleApi.rodeos,
+                    loading: scheduleApi.loading,
+                    index: $index,
+                    dateRange: $dateRange
+                )
+                .padding()
+                .padding(.bottom, 86)
+                .offset(coordinateSpcae: .named("HOME_TAB_SCROLL")) { value in
+                    trackScrollOffset(-value)
+                }
+            }
+            .coordinateSpace(name: "HOME_TAB_SCROLL")
+            .refreshable {
+                await refreshCurrentTab(.schedule)
+            }
 
         case .more:
             ScrollView(.vertical, showsIndicators: false) {
@@ -398,6 +431,14 @@ extension HomeView {
             .opacity(tabBarHidden ? 0 : 1)
             .allowsHitTesting(false)
 
+            if let refreshFeedbackMessage {
+                refreshFeedbackBanner(refreshFeedbackMessage)
+                    .padding(.horizontal, AppSpace.lg)
+                    .padding(.bottom, tabBarHidden ? 28 : 104)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .zIndex(2)
+            }
+
             HomeCustomTabBar(
                 showsSearchBar: true,
                 activeTab: activeCustomTab,
@@ -424,11 +465,18 @@ extension HomeView {
             .allowsHitTesting(!tabBarHidden)
         }
         .toolbar(.hidden, for: .navigationBar)
+        .onDisappear {
+            refreshFeedbackTask?.cancel()
+        }
         .onAppear {
             if initialLoad {
-                standingsEvent = favoriteStandingsEvent
+                standingsEvent = favoriteStandingsEvent.normalizedForStandingsFilter
                 resultsEvent = favoriteResultsEvent
                 initialLoad = false
+            }
+            if !didTrackInitialTabView {
+                AnalyticsService.shared.track(.tabViewed(name: selectedTab.analyticsName))
+                didTrackInitialTabView = true
             }
             tabBarHidden = false
             lastTrackedScrollOffset = 0
@@ -445,6 +493,7 @@ extension HomeView {
         .onChange(of: selectedTab) { oldValue, newValue in
             tabBarHidden = false
             lastTrackedScrollOffset = 0
+            AnalyticsService.shared.track(.tabViewed(name: newValue.analyticsName))
             
             Task {
                 if newValue == .standings {
@@ -470,7 +519,32 @@ extension HomeView {
                         dateParams: dateParams
                     ) { rodeosApi.endLoading() }
                 }
+
+                if newValue == .schedule {
+                    clearSearch()
+                    dateRange.removeAll()
+                    index = 1
+                    await scheduleApi.loadRodeos(
+                        event: .bb,
+                        index: 1,
+                        searchText: "",
+                        dateParams: ""
+                    ) { scheduleApi.endLoading() }
+                }
             }
+        }
+        .onChange(of: widgetStandingsEvent) { _, event in
+            guard let event else { return }
+            let normalizedEvent = event.normalizedForStandingsFilter
+
+            if selectedTab != .standings {
+                standingsEvent = normalizedEvent
+                selectedTab = .standings
+            } else {
+                standingsEvent = normalizedEvent
+            }
+
+            widgetStandingsEvent = nil
         }
 //        .task(id: selectedTab) {
 //            switch selectedTab {
@@ -495,7 +569,14 @@ extension HomeView {
 //            }
 //        }
         .onChange(of: standingsEvent) { _, newValue in
+            let normalizedEvent = newValue.normalizedForStandingsFilter
+            if normalizedEvent != newValue {
+                standingsEvent = normalizedEvent
+                return
+            }
+
             guard selectedTab == .standings else { return }
+            trackStandingsFilterChange(event: newValue, type: standingType, circuit: circuit, year: selectedYear)
             Task {
                 await standingsApi.getStandings(
                     for: newValue,
@@ -507,6 +588,7 @@ extension HomeView {
         }
         .onChange(of: standingType) { _, newValue in
             guard selectedTab == .standings else { return }
+            trackStandingsFilterChange(event: standingsEvent, type: newValue, circuit: circuit, year: selectedYear)
             Task {
                 await standingsApi.getStandings(
                     for: standingsEvent,
@@ -518,6 +600,7 @@ extension HomeView {
         }
         .onChange(of: circuit) { _, newValue in
             guard selectedTab == .standings else { return }
+            trackStandingsFilterChange(event: standingsEvent, type: standingType, circuit: newValue, year: selectedYear)
             Task {
                 await standingsApi.getStandings(
                     for: standingsEvent,
@@ -529,6 +612,7 @@ extension HomeView {
         }
         .onChange(of: selectedYear) { _, newValue in
             guard selectedTab == .standings else { return }
+            trackStandingsFilterChange(event: standingsEvent, type: standingType, circuit: circuit, year: newValue)
             Task {
                 await standingsApi.getStandings(
                     for: standingsEvent,
@@ -540,6 +624,7 @@ extension HomeView {
         }
         .onChange(of: resultsEvent) {
             guard selectedTab == .results else { return }
+            AnalyticsService.shared.track(.resultsFilterChanged(event: resultsEvent.rawValue, hasDateRange: !dateParams.isEmpty))
             Task {
                 await rodeosApi.loadRodeos(
                     event: resultsEvent,
@@ -550,50 +635,179 @@ extension HomeView {
             }
         }
         .onChange(of: index) { _, newValue in
-            guard selectedTab == .results else { return }
+            guard selectedTab == .results || selectedTab == .schedule else { return }
             Task {
-                await rodeosApi.loadRodeos(
-                    event: resultsEvent,
-                    index: newValue,
-                    searchText: search.text,
-                    dateParams: dateParams
-                ) { rodeosApi.endLoading() }
-            }
-        }
-        .onChange(of: dateRange) { _, newValue in
-            guard selectedTab == .results else { return }
-            Task {
-                if !dateParams.isEmpty {
-                    await rodeosApi.loadRodeos(
-                        for: resultsEvent,
-                        in: dateParams,
-                        with: search.text
-                    ) { rodeosApi.endLoading() }
-                }
-
-                if newValue.isEmpty {
+                if selectedTab == .results {
                     await rodeosApi.loadRodeos(
                         event: resultsEvent,
-                        index: 1,
+                        index: newValue,
                         searchText: search.text,
                         dateParams: dateParams
                     ) { rodeosApi.endLoading() }
+                } else {
+                    await scheduleApi.loadRodeos(
+                        event: .bb,
+                        index: newValue,
+                        searchText: search.text,
+                        dateParams: dateParams
+                    ) { scheduleApi.endLoading() }
+                }
+            }
+        }
+        .onChange(of: dateRange) { _, newValue in
+            guard selectedTab == .results || selectedTab == .schedule else { return }
+            if index != 1 {
+                index = 1
+            }
+            Task {
+                if selectedTab == .results {
+                    AnalyticsService.shared.track(.resultsFilterChanged(event: resultsEvent.rawValue, hasDateRange: !newValue.isEmpty))
+                    if !dateParams.isEmpty {
+                        await rodeosApi.loadRodeos(
+                            for: resultsEvent,
+                            in: dateParams,
+                            with: search.text
+                        ) { rodeosApi.endLoading() }
+                    }
+
+                    if newValue.isEmpty {
+                        await rodeosApi.loadRodeos(
+                            event: resultsEvent,
+                            index: 1,
+                            searchText: search.text,
+                            dateParams: dateParams
+                        ) { rodeosApi.endLoading() }
+                    }
+                } else {
+                    AnalyticsService.shared.track(.scheduleFilterChanged(hasDateRange: !newValue.isEmpty))
+                    if !dateParams.isEmpty {
+                        await scheduleApi.loadRodeos(
+                            for: .bb,
+                            in: dateParams,
+                            with: search.text
+                        ) { scheduleApi.endLoading() }
+                    }
+
+                    if newValue.isEmpty {
+                        await scheduleApi.loadRodeos(
+                            event: .bb,
+                            index: 1,
+                            searchText: search.text,
+                            dateParams: dateParams
+                        ) { scheduleApi.endLoading() }
+                    }
                 }
             }
         }
         .onChange(of: search.text) { _, newValue in
-            guard selectedTab == .results else { return }
+            guard selectedTab == .results || selectedTab == .schedule else { return }
             guard newValue.isEmpty else { return }
             Task {
-                await rodeosApi.loadRodeos(
-                    event: resultsEvent,
-                    index: 1,
-                    searchText: "",
-                    dateParams: dateParams
-                ) { rodeosApi.endLoading() }
+                if selectedTab == .results {
+                    await rodeosApi.loadRodeos(
+                        event: resultsEvent,
+                        index: 1,
+                        searchText: "",
+                        dateParams: dateParams
+                    ) { rodeosApi.endLoading() }
+                } else {
+                    await scheduleApi.loadRodeos(
+                        event: .bb,
+                        index: 1,
+                        searchText: "",
+                        dateParams: dateParams
+                    ) { scheduleApi.endLoading() }
+                }
             }
         }
     }
+
+    private func trackStandingsFilterChange(event: StandingsEvent, type: StandingType, circuit: Circuit, year: String) {
+        AnalyticsService.shared.track(
+            .standingsFilterChanged(
+                event: event.rawValue,
+                type: type.rawValue,
+                circuit: circuit.title,
+                year: year
+            )
+        )
+    }
+
+    @ViewBuilder
+    private func refreshFeedbackBanner(_ message: String) -> some View {
+        HStack(spacing: AppSpace.xs) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.appCaptionStrong)
+                .foregroundColor(.appSecondary)
+
+            Text(message)
+                .font(.appCaptionStrong)
+                .foregroundColor(.appPrimary)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, AppSpace.md)
+        .padding(.vertical, AppSpace.sm)
+        .background(
+            Capsule(style: .continuous)
+                .fill(homeColorScheme == .dark ? Color.black.opacity(0.82) : Color.appBg.opacity(0.96))
+        )
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+        )
+        .shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
+    }
+
+    private func refreshCurrentTab(_ tab: Tabs) async {
+        switch tab {
+        case .standings:
+            await standingsApi.getStandings(
+                for: standingsEvent,
+                type: standingType,
+                circuit: circuit,
+                selectedYear: selectedYear
+            )
+            showRefreshFeedback(NSLocalizedString("Standings refreshed", comment: ""))
+        case .results:
+            await rodeosApi.loadRodeos(
+                event: resultsEvent,
+                index: 1,
+                searchText: search.text,
+                dateParams: dateParams
+            ) { rodeosApi.endLoading() }
+            showRefreshFeedback(NSLocalizedString("Results refreshed", comment: ""))
+        case .schedule:
+            await scheduleApi.loadRodeos(
+                event: .bb,
+                index: 1,
+                searchText: search.text,
+                dateParams: dateParams
+            ) { scheduleApi.endLoading() }
+            showRefreshFeedback(NSLocalizedString("Schedule refreshed", comment: ""))
+        case .more:
+            break
+        }
+    }
+
+    private func showRefreshFeedback(_ message: String) {
+        refreshFeedbackTask?.cancel()
+
+        withAnimation(.spring(response: 0.28, dampingFraction: 0.86)) {
+            refreshFeedbackMessage = message
+        }
+
+        refreshFeedbackTask = Task {
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                withAnimation(.easeOut(duration: 0.22)) {
+                    refreshFeedbackMessage = nil
+                }
+            }
+        }
+    }
+
 }
 
 extension View {

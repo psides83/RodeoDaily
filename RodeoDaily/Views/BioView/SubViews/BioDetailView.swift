@@ -4,18 +4,18 @@ import Foundation
 struct BioDetailView: View {
     let athleteName: String
     let biographyText: String
-    private let parsed: LocalBioDetailDocument
+    private let parsed: BioDetailDocument
     private let hasNoBioContent: Bool
 
     init(athleteName: String, biographyText: String) {
         self.athleteName = athleteName
         self.biographyText = biographyText
-        let plainText = LocalBioDetailParser
+        let plainText = BioDetailParser
             .htmlToPlainText(biographyText)
             .replacingOccurrences(of: "\u{00A0}", with: " ")
             .trimmingCharacters(in: .whitespacesAndNewlines)
         self.hasNoBioContent = plainText.isEmpty
-        self.parsed = hasNoBioContent ? LocalBioDetailDocument(blocks: []) : LocalBioDetailParser.parse(html: biographyText)
+        self.parsed = hasNoBioContent ? BioDetailDocument(blocks: []) : BioDetailParser.parse(html: biographyText)
     }
 
     var body: some View {
@@ -28,7 +28,7 @@ struct BioDetailView: View {
                 } else {
                     nativeBioContent
                 }
-                BannerAd(style: .mediumRectangle)
+                BannerAd(placement: .athleteBioSection)
             }
             .padding(.horizontal)
             .padding(.top, AppSpace.md)
@@ -37,6 +37,9 @@ struct BioDetailView: View {
         .background(Color.appBg)
         .navigationTitle(athleteName)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            AnalyticsService.shared.track(.athleteBioViewed(source: "bio_detail"))
+        }
     }
 
     private var noBioState: some View {
@@ -104,76 +107,5 @@ struct BioDetailView: View {
                 }
             }
         }
-    }
-}
-
-private struct LocalBioDetailDocument {
-    let blocks: [LocalBioDetailBlock]
-    var isEmpty: Bool { blocks.isEmpty }
-}
-
-private enum LocalBioDetailBlock {
-    case heading(String)
-    case keyValue(String, String)
-    case paragraph(String)
-    case bullet(String)
-}
-
-private enum LocalBioDetailParser {
-    static func parse(html: String) -> LocalBioDetailDocument {
-        let trimmed = html.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return LocalBioDetailDocument(blocks: []) }
-
-        let plain = htmlToPlainText(trimmed).replacingOccurrences(of: "\u{00A0}", with: " ")
-        let lines = plain
-            .components(separatedBy: .newlines)
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-
-        var blocks: [LocalBioDetailBlock] = []
-        for line in lines where !line.isEmpty {
-            if isSectionHeading(line) {
-                blocks.append(.heading(line))
-                continue
-            }
-            if line.hasPrefix("•") {
-                let t = String(line.dropFirst()).trimmingCharacters(in: .whitespacesAndNewlines)
-                if !t.isEmpty { blocks.append(.bullet(t)) }
-            } else if line.hasPrefix("- ") {
-                let t = String(line.dropFirst(2)).trimmingCharacters(in: .whitespacesAndNewlines)
-                if !t.isEmpty { blocks.append(.bullet(t)) }
-            } else if let kv = parseKeyValue(line) {
-                blocks.append(.keyValue(kv.0, kv.1))
-            } else {
-                blocks.append(.paragraph(line))
-            }
-        }
-        return LocalBioDetailDocument(blocks: blocks)
-    }
-
-    private static func parseKeyValue(_ line: String) -> (String, String)? {
-        guard let idx = line.firstIndex(of: ":") else { return nil }
-        let key = String(line[..<idx]).trimmingCharacters(in: .whitespacesAndNewlines)
-        let value = String(line[line.index(after: idx)...]).trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !key.isEmpty, !value.isEmpty, key.count <= 48, !key.contains("  ") else { return nil }
-        return (key, value)
-    }
-
-    private static func isSectionHeading(_ line: String) -> Bool {
-        let cleaned = line.trimmingCharacters(in: .whitespacesAndNewlines)
-        if cleaned.isEmpty { return false }
-        let exact = Set(["Professional", "Personal", "Career Highlights", "2026 Highlights", "2025 Highlights", "2024 Highlights"])
-        if exact.contains(cleaned) { return true }
-        return cleaned.hasSuffix("Highlights") && cleaned.count <= 24
-    }
-
-    static func htmlToPlainText(_ html: String) -> String {
-        html
-            .replacingOccurrences(of: "<br\\s*/?>", with: "\n", options: .regularExpression)
-            .replacingOccurrences(of: "</p>", with: "\n", options: .regularExpression)
-            .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "&nbsp;", with: " ")
-            .replacingOccurrences(of: "&amp;", with: "&")
-            .replacingOccurrences(of: "&#39;", with: "'")
-            .replacingOccurrences(of: "&quot;", with: "\"")
     }
 }

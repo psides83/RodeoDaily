@@ -37,43 +37,8 @@ struct BioView: View {
                     .offset(y: 150)
             } else {
                 ZStack(alignment: .top) {
-                    switch viewModel.infoType {
-                    case .results:
-                        if viewModel.selectedEvent != nil  {
-                            ResultsListView(viewModel: viewModel)
-                        } else {
-                            ContentUnavailableView {
-                                Label("No Event Selected", systemImage: "list.number")
-                            } description: {
-                                Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
-                            }
-                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
-                        }
-                    case .stats:
-                        if viewModel.selectedEvent != nil  {
-                            BioStatsView(viewModel: viewModel)
-                        } else {
-                            ContentUnavailableView {
-                                Label("No Event Selected", systemImage: "list.number")
-                            } description: {
-                                Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
-                            }
-                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
-                        }
-                    case .career:
-                        if viewModel.selectedEvent != nil {
-                            CareerListView(viewModel: viewModel)
-                        } else {
-                            ContentUnavailableView {
-                                Label("No Event Selected", systemImage: "list.number")
-                            } description: {
-                                Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo career rankings.")
-                            }
-                            .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
-                        }
-                    case .highlights:
-                        VideoHighlightsView(viewModel: viewModel)
-                    }
+                    selectedInfoView
+                        .id(selectedInfoViewID)
 
 //                    if !viewModel.showSearchBar {
                         BioTelegramHeaderView(viewModel: viewModel)
@@ -102,7 +67,7 @@ struct BioView: View {
                 }
             }
         }
-        .task {
+        .task(id: athleteId) {
             print(athleteId)
             if athleteId != 0 {
                 await viewModel.getBio(for: athleteId)
@@ -151,6 +116,56 @@ struct BioView: View {
             viewModel.bioPullDownOffset = 0
             viewModel.bioHasUserScrolled = false
         }
+    }
+
+    @ViewBuilder
+    private var selectedInfoView: some View {
+        switch viewModel.infoType {
+        case .results:
+            if viewModel.selectedEvent != nil  {
+                ResultsListView(viewModel: viewModel)
+            } else {
+                ContentUnavailableView {
+                    Label("No Event Selected", systemImage: "list.number")
+                } description: {
+                    Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
+                }
+                .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
+            }
+        case .stats:
+            if viewModel.selectedEvent != nil  {
+                BioStatsView(viewModel: viewModel)
+            } else {
+                ContentUnavailableView {
+                    Label("No Event Selected", systemImage: "list.number")
+                } description: {
+                    Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo results.")
+                }
+                .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
+            }
+        case .career:
+            if viewModel.selectedEvent != nil {
+                CareerListView(viewModel: viewModel)
+            } else {
+                ContentUnavailableView {
+                    Label("No Event Selected", systemImage: "list.number")
+                } description: {
+                    Text("Select an a event in the top right corner to view \(viewModel.bio.name)'s rodeo career rankings.")
+                }
+                .padding(.top, viewModel.showSearchBar ? 0 : bioHeaderExpandedHeight)
+            }
+        case .highlights:
+            VideoHighlightsView(viewModel: viewModel)
+        }
+    }
+
+    private var selectedInfoViewID: String {
+        [
+            viewModel.infoType.rawValue,
+            viewModel.selectedEvent ?? "",
+            viewModel.selectedSeason,
+            viewModel.bio.contestantId.string
+        ].joined(separator: "-")
     }
 }
 

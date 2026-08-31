@@ -40,6 +40,43 @@ public enum StandingsEvent: String, CaseIterable, Codable, Identifiable, AppEnum
     case xb = "XB"
     case sr = "SR"
     case lb = "LB"
+
+    static var standingsFilterEvents: [StandingsEvent] {
+        allCases.filter { event in
+            switch event {
+            case .tr, .xb:
+                return false
+            default:
+                return true
+            }
+        }
+    }
+
+    static func standingsFilterEvents(for type: StandingType) -> [StandingsEvent] {
+        guard type == .playoff else {
+            return standingsFilterEvents
+        }
+
+        return standingsFilterEvents.filter { event in
+            switch event {
+            case .aa, .gb, .lb:
+                return false
+            default:
+                return true
+            }
+        }
+    }
+
+    var normalizedForStandingsFilter: StandingsEvent {
+        switch self {
+        case .tr:
+            return .hd
+        case .xb:
+            return .aa
+        default:
+            return self
+        }
+    }
     
     var title: String {
         switch self {

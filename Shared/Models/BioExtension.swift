@@ -57,34 +57,52 @@ extension BioData {
     }
     
     var image: some View {
-        guard let url = imageUrl else {
-            return AsyncImage(url: URL(string: "https://psides83.github.io/listJSON/noimage.png")) { image in
-                image.resizable()
-            } placeholder: {
-                Color.gray.opacity(0.5)
-            }
-        }
-        
-        return AsyncImage(url: URL(string: "https://d1kfpvgfupbmyo.cloudfront.net\(url)?width=315&height=315&mode=crop&scale=both&anchor=topcenter")) {
-            image in image.resizable()
-        } placeholder: {
+        AthleteImageView(
+            preferredImageUrl: image315Url,
+            fallbackImageUrl: imageUrl,
+            width: nil,
+            height: nil,
+            cornerRadius: nil
+        ) {
             Color.gray.opacity(0.5)
         }
     }
-    
+
     // Retreives all events competed in by tthe athlete
     var events: [String] {
-        Array(Set(results.map { result in
-            //            print(result.eventType)
-            return result.eventType
-        }))
+        let resultEvents = results.map(\.eventType)
+        let averageEvents = averages.map(\.eventType)
+        let careerEvents = career.map(\.eventType)
+        let earningEvents = earnings.values.flatMap { $0.map(\.eventType) }
+        let rankingEvents = rankings.compactMap { ranking in
+            StandingsEvent.allCases.first {
+                ranking.eventName.localizedCaseInsensitiveContains($0.rankingEvent)
+                || ranking.eventName.localizedCaseInsensitiveContains($0.title)
+            }?.withTeamRopingConversion
+        }
+
+        return Array(
+            Set(resultEvents + averageEvents + careerEvents + earningEvents + rankingEvents + (eventTypes ?? []))
+        )
+        .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        .sorted { $0.eventDisplay < $1.eventDisplay }
+    }
+
+    var defaultSelectedEvent: String? {
+        let convertedTopEvent = topEvent.withTeamRopingConversion
+
+        if events.contains(convertedTopEvent) {
+            return convertedTopEvent
+        }
+
+        return events.first
     }
     
     var topEvent: StandingsEvent {
         let currentYearEarnings = earnings[Date().yearString]
 //        print("current earnings: ", currentYearEarnings)
         
-        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings })[0].eventType
+        let topEvent = currentYearEarnings?.sorted(by: { $0.earnings > $1.earnings }).first?.eventType
         
 //        print("top event: ", topEvent)
         
@@ -108,8 +126,6 @@ extension BioData {
                 finalEvent = event
             }
         }
-        
-        print("final event: ", finalEvent)
         
         return finalEvent
     }
@@ -163,7 +179,6 @@ extension BioData {
     
     func nfrQualified(for season: Int) -> Bool {
         let qualified = nfrSeasons.first(where: { $0.season == season })?.nfr ?? false
-        print("NFR Season - \(season) \(qualified)")
         return qualified
     }
     
@@ -258,7 +273,7 @@ extension BioData {
             }
         
         switch keyPath {
-        case .rodeoDate:
+        case .rodeoDate, .rodeoEarnings:
             return searchedResults
 //                .unique { $0.uniqueId }
                 .filter { $0.eventType == event }
@@ -444,13 +459,28 @@ extension BioResult {
     }
     
     enum SortingKeyPath: String, CaseIterable, Equatable, Identifiable {
-        case rodeoDate, result, earnings
+        case rodeoDate, rodeoEarnings, earnings, result
         
         var title: String {
+            title(for: nil)
+        }
+
+        func title(for event: String?) -> String {
             switch self {
             case .rodeoDate: return NSLocalizedString("Date", comment: "")
-            case .result: return NSLocalizedString("Time/Score", comment: "")
-            case .earnings: return NSLocalizedString("Earnings", comment: "")
+            case .rodeoEarnings: return NSLocalizedString("Earnings by Rodeo", comment: "")
+            case .result:
+                if event == "BR" || event == "BB" || event == "SB" {
+                    return NSLocalizedString("Score", comment: "")
+                }
+
+                return NSLocalizedString("Time", comment: "")
+            case .earnings:
+                if event == "BR" || event == "BB" || event == "SB" {
+                    return NSLocalizedString("Earnings by Ride", comment: "")
+                }
+
+                return NSLocalizedString("Earnings by Run", comment: "")
             }
         }
         

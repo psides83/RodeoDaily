@@ -26,6 +26,14 @@
 
 "* **Note:** Long press on the athlete name to change the event used in the widget." = "* **Note:** Long press on the athlete name to change the event used in the widget.";
 
+"Privacy Policy" = "Privacy Policy";
+
+"View full privacy policy" = "View full privacy policy";
+
+"Support" = "Support";
+
+"Get help, report issues, or contact support about privacy questions" = "Get help, report issues, or contact support about privacy questions";
+
 "Settings" = "Settings";
 
 "Favorites" = "Favorites";
@@ -65,6 +73,7 @@
 "Cancel" = "Cancel";
 
 "Rodeo Results" = "Rodeo Results";
+"%@ Rodeo Results" = "%@ Rodeo Results";
 
 "No Results Found" = "No Results Found";
 
@@ -259,6 +268,7 @@
 "Done" = "Done";
 "Rodeos" = "Rodeos";
 "Default standings and results events" = "Default standings and results events";
+"Standings: %@ • Results: %@" = "Standings: %@ • Results: %@";
 "Widget athlete search and management" = "Widget athlete search and management";
 "Data Sources & Feedback" = "Data Sources & Feedback";
 "Credits and contact links" = "Credits and contact links";
@@ -314,7 +324,7 @@
 "No current standing" = "No current standing";
 "No current standings available for selected favorite athletes in this event." = "No current standings available for selected favorite athletes in this event.";
 
-// 2.1.0 / Bio + Favorites + More
+// Bio + Favorites + More
 "More Features" = "More Features";
 "No Image Available" = "No Image Available";
 "Search athletes to add to favorites" = "Search athletes to add to favorites";
@@ -336,3 +346,184 @@
 "Check out these standings on Rodeo Daily." = "Check out these standings on Rodeo Daily.";
 "Check out these rodeo results on Rodeo Daily." = "Check out these rodeo results on Rodeo Daily.";
 "Get Rodeo Daily" = "Get Rodeo Daily";
+
+// Schedule, maps, daysheets, and listings
+"Rodeo Listings" = "Rodeo Listings";
+"Browse your selected favorite athlete bios" = "Browse your selected favorite athlete bios";
+"No Rodeos" = "No Rodeos";
+"Retry" = "Retry";
+"All Months" = "All Months";
+"Month" = "Month";
+"Month: %@" = "Month: %@";
+"Date Range" = "Date Range";
+"Edit Date Range" = "Edit Date Range";
+"Clear" = "Clear";
+"Apply" = "Apply";
+"Open Full Listing" = "Open Full Listing";
+"Publish Date: %@" = "Publish Date: %@";
+"Special Entry Fees:" = "Special Entry Fees:";
+"No Rodeos Found" = "No Rodeos Found";
+"There are no rodeos for this filter." = "There are no rodeos for this filter.";
+"Upcoming Rodeos" = "Upcoming Rodeos";
+"Day sheets for \"In Progress\" rodeos can be viewed in Rodeo Results." = "Day sheets for \"In Progress\" rodeos can be viewed in Rodeo Results.";
+"Select Range" = "Select Range";
+"Loading map..." = "Loading map...";
+"Added Money: %@" = "Added Money: %@";
+"Dates TBD" = "Dates TBD";
+"TBD" = "TBD";
+"In Progress" = "In Progress";
+"Circuits" = "Circuits";
+"No circuit tags." = "No circuit tags.";
+"Venue could not be located" = "Venue could not be located";
+"Preview map. Open full screen for full controls." = "Preview map. Open full screen for full controls.";
+"Daysheets" = "Daysheets";
+"%@ events" = "%@ events";
+"No daysheets returned yet for this rodeo." = "No daysheets returned yet for this rodeo.";
+"No daysheets listed for this rodeo." = "No daysheets listed for this rodeo.";
+"Open Rodeo Website" = "Open Rodeo Website";
+"Rodeo Details" = "Rodeo Details";
+"No entries" = "No entries";
+"No day sheets for %@" = "No day sheets for %@";
+"%@ Rerides" = "%@ Rerides";
+"No. %@" = "No. %@";
+"Brand %@" = "Brand %@";
+"Round" = "Round";
+"Open in Maps" = "Open in Maps";
+"Map Modes" = "Map Modes";
+"Traffic" = "Traffic";
+"Labels" = "Labels";
+"Explore" = "Explore";
+"Driving" = "Driving";
+"Transit" = "Transit";
+"Satellite" = "Satellite";
+"© OpenStreetMap and other data providers" = "© OpenStreetMap and other data providers";
+"Filters" = "Filters";
+"Load Season" = "Load Season";
+"Load Whole Season" = "Load Whole Season";
+"Preparing the map pins" = "Preparing the map pins";
+"Reset" = "Reset";
+"Use Next 2 Weeks" = "Use Next 2 Weeks";
+"Whole season loaded" = "Whole season loaded";
+"Open an athlete to view bio, results, and follow updates." = "Open an athlete to view bio, results, and follow updates.";
+"No Career Data" = "No Career Data";
+"No career rankings are available for this event." = "No career rankings are available for this event.";
+"Try a different season, sort option, or search term." = "Try a different season, sort option, or search term.";
+"No Stats Available" = "No Stats Available";
+"No stats are available for this season and event." = "No stats are available for this season and event.";
+"Best Performances" = "Best Performances";
+"NFR Summary" = "NFR Summary";
+"No NFR stats for this season." = "No NFR stats for this season.";
+
+// Additional shared app, watch, and widget strings
+"About" = "About";
+"General" = "General";
+"Feedback" = "Feedback";
+"Credits" = "Credits";
+"Data Sources" = "Data Sources";
+"Best NFR %@" = "Best NFR %@";
+"NFR %@" = "NFR %@";
+"Season %@" = "Season %@";
+"Best Paying %@" = "Best Paying %@";
+"Best Paying Rodeo" = "Best Paying Rodeo";
+"Monthly Earnings" = "Monthly Earnings";
+"NFR Earnings" = "NFR Earnings";
+"Highlights" = "Highlights";
+"Rank" = "Rank";
+"Result" = "Result";
+"Playoff Series" = "Playoff Series";
+"Points" = "Points";
+"Header" = "Header";
+"Heeler" = "Heeler";
+"No live placements available yet." = "No live placements available yet.";
+"No Standings" = "No Standings";
+"Standings data is unavailable" = "Standings data is unavailable";
+"Standings data is unavailable." = "Standings data is unavailable.";
+"Clear Favorites" = "Clear Favorites";
+"Clear Following" = "Clear Following";
+"Default Events" = "Default Events";
+"Quick Actions" = "Quick Actions";
+"Standings and Results open to these events by default." = "Standings and Results open to these events by default.";
+"Use long-press on standings and results rows to add favorites or follows." = "Use long-press on standings and results rows to add favorites or follows.";
+"There are no current or upcoming rodeos right now." = "There are no current or upcoming rodeos right now.";
+"No rodeos were found for this event." = "No rodeos were found for this event.";
+"Results are unavailable for this rodeo." = "Results are unavailable for this rodeo.";
+"Special Entry Fees: " = "Special Entry Fees: ";
+
+// NFR standings
+"NFR Standings" = "NFR Standings";
+"Round-by-round NFR average rankings" = "Round-by-round NFR average rankings";
+"NFR standings unavailable" = "NFR standings unavailable";
+"No NFR standings found" = "No NFR standings found";
+"Check back once rankings are posted for this event." = "Check back once rankings are posted for this event.";
+"Current through Round %d" = "Current through Round %d";
+"Sorted by %@" = "Sorted by %@";
+"Filter NFR event" = "Filter NFR event";
+"Sort NFR standings" = "Sort NFR standings";
+"Average" = "Average";
+"Pending" = "Pending";
+"Round %d" = "Round %d";
+"%@ - %@ on %d" = "%@ - %@ on %d";
+"%@ in the average with %@ on %d" = "%@ in the average with %@ on %d";
+"%@ in the AVG with %@ on %d" = "%@ in the AVG with %@ on %d";
+"NFR" = "NFR";
+
+// Daysheet athlete widget
+"Select Daysheet Athlete" = "Select Daysheet Athlete";
+"Selects the favorite athlete to track in upcoming daysheets." = "Selects the favorite athlete to track in upcoming daysheets.";
+"Favorite Athlete" = "Favorite Athlete";
+"Select an athlete to track upcoming daysheets." = "Select an athlete to track upcoming daysheets.";
+"No upcoming daysheet entries found." = "No upcoming daysheet entries found.";
+"Athlete Daysheets" = "Athlete Daysheets";
+"Upcoming rodeos and times for a favorite athlete." = "Upcoming rodeos and times for a favorite athlete.";
+"TO" = "TO";
+
+// Results detail filters and daysheets
+"View" = "View";
+"Loading daysheets..." = "Loading daysheets...";
+"Show results or daysheets" = "Show results or daysheets";
+"Select Results Event" = "Select Results Event";
+"Bracket Help" = "Bracket Help";
+
+// Latest update notes
+"Results now let you switch events without leaving the rodeo detail view." = "Results now let you switch events without leaving the rodeo detail view.";
+"Daysheets are available from results when a rodeo provides them, with quick Results and Daysheets switching." = "Daysheets are available from results when a rodeo provides them, with quick Results and Daysheets switching.";
+"Schedule filtering now shows current rodeos and supports custom date ranges." = "Schedule filtering now shows current rodeos and supports custom date ranges.";
+"Other minor bugs and UI issues have been corrected." = "Other minor bugs and UI issues have been corrected.";
+"Privacy" = "Privacy";
+"Manage Ad Privacy Choices" = "Manage Ad Privacy Choices";
+
+// Additional hard-coded UI strings
+"Ad" = "Ad";
+"Add athletes to favorites from the settings tab. These athletes will be available to add widgets to your home screen." = "Add athletes to favorites from the settings tab. These athletes will be available to add widgets to your home screen.";
+"Favorite" = "Favorite";
+"Followed" = "Followed";
+"Map Filters" = "Map Filters";
+"No current day sheets" = "No current day sheets";
+"OK" = "OK";
+"Profile" = "Profile";
+"Season Map" = "Season Map";
+"Share results" = "Share results";
+"Share standings" = "Share standings";
+"Upcoming Rodeo Entries" = "Upcoming Rodeo Entries";
+"with" = "with";
+
+// Favorite athlete save errors
+"Unable to Add Favorite" = "Unable to Add Favorite";
+"Unable to load athlete details for %@ (ID %d). %@" = "Unable to load athlete details for %@ (ID %d). %@";
+"Unable to add %@ (ID %d) because the athlete profile did not include an athlete ID and name." = "Unable to add %@ (ID %d) because the athlete profile did not include an athlete ID and name.";
+"Unable to save %@ as a favorite. %@" = "Unable to save %@ as a favorite. %@";
+"Unable to Load Athlete" = "Unable to Load Athlete";
+"Try Again" = "Try Again";
+"The athlete profile response did not include the required athlete ID and name." = "The athlete profile response did not include the required athlete ID and name.";
+"The selected athlete profile does not include competition details." = "The selected athlete profile does not include competition details.";
+"The athlete profile response returned a different athlete ID." = "The athlete profile response returned a different athlete ID.";
+"Unable to save %@ because the loaded profile did not match the selected athlete." = "Unable to save %@ because the loaded profile did not match the selected athlete.";
+"Confirm Athlete" = "Confirm Athlete";
+"Athlete ID: %d" = "Athlete ID: %d";
+"No Competition Data" = "No Competition Data";
+"This athlete record has no results, rankings, or earnings available. Select another matching record if one is listed." = "This athlete record has no results, rankings, or earnings available. Select another matching record if one is listed.";
+"Add to Favorites" = "Add to Favorites";
+"Use Manage above to reorder athletes." = "Use Manage above to reorder athletes.";
+"Open" = "Open";
+"Latest %@ results" = "Latest %@ results";
+"No recent results for %@." = "No recent results for %@.";

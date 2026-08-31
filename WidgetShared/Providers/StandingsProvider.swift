@@ -16,7 +16,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
     let sampleData = Array(WidgetSampleData().standingsSampleData.prefix(3))
     
     var widgetFamily: WidgetFamily
-    
+
     var numberOfResults: Int {
         switch widgetFamily {
         case .systemSmall, .systemMedium:
@@ -41,25 +41,9 @@ struct StandingsProvider: AppIntentTimelineProvider {
     }
     
     func snapshot(for configuration: StandingsWidgetIntent, in context: Context) async -> StandingsWidgetEntry {
-        @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
-        
         var result: [Position] = []
-        
-        var config: StandingsWidgetIntent {
-            if widgetFamily == .accessoryRectangular {
-                let config = configuration
-                
-#if os(iOS)
-                config.event = favoriteStandingsEvent
-#endif
-                
-                return config
-            } else {
-                return configuration
-            }
-        }
-        
-        await StandingsWidgetApi().getStandings(event: config.event) { standings in
+
+        await StandingsWidgetApi().getStandings(event: configuration.event) { standings in
             result = standings
         }
 
@@ -68,67 +52,52 @@ struct StandingsProvider: AppIntentTimelineProvider {
 
         return Entry(
             date: Date(),
-            configuration: config,
+            configuration: configuration,
             standings: widgetFamily != .accessoryRectangular ? Array(result.prefix(numberOfResults)) : nil,
             position: widgetFamily != .accessoryRectangular ? nil : firstPosition
         )
     }
     
     func timeline(for configuration: StandingsWidgetIntent, in context: Context) async -> Timeline<StandingsWidgetEntry> {
-        @AppStorage("favoriteStandingsEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDaily")) var favoriteStandingsEvent: StandingsEvent = .aa
         var entries: [Entry] = []
-        
-        var config: StandingsWidgetIntent {
-            if widgetFamily == .accessoryRectangular {
-                let config = configuration
-                
-#if os(iOS)
-                config.event = favoriteStandingsEvent
-#endif
-                
-                return config
-            } else {
-                return configuration
-            }
-        }
-        
-        await StandingsWidgetApi().getStandings(event: config.event) { result in
+
+        await StandingsWidgetApi().getStandings(event: configuration.event) { result in
             switch widgetFamily {
             case .systemSmall, .systemMedium:
                 appendStandingsEntries(
                     into: &entries,
                     standings: result,
                     chunkSize: 3,
-                    configuration: config
+                    configuration: configuration
                 )
             case .systemLarge:
                 appendStandingsEntries(
                     into: &entries,
                     standings: result,
                     chunkSize: 5,
-                    configuration: config
+                    configuration: configuration
                 )
             case .systemExtraLarge:
                 appendStandingsEntries(
                     into: &entries,
                     standings: result,
                     chunkSize: 5,
-                    configuration: config
+                    configuration: configuration
                 )
             case .accessoryRectangular:
                 let positions = result.isEmpty ? sampleData : result
                 if positions.isEmpty {
                     entries.append(Entry(
                         date: .now,
-                        configuration: config,
+                        configuration: configuration,
                         standings: nil,
                         position: nil
                     ))
                 } else {
                     for i in 0..<min(positions.count, 15) {
                         entries.append(Entry(
-                            date: .now.advanced(by: TimeInterval(15 * (i + 1))),
-                            configuration: config,
+                            date: .now.advanced(by: TimeInterval(15 * i)),
+                            configuration: configuration,
                             standings: nil,
                             position: positions[i])
                         )
@@ -139,7 +108,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
                     into: &entries,
                     standings: result,
                     chunkSize: 5,
-                    configuration: config
+                    configuration: configuration
                 )
             }
             
@@ -148,7 +117,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
         if entries.isEmpty {
             entries.append(Entry(
                 date: .now,
-                configuration: config,
+                configuration: configuration,
                 standings: widgetFamily == .accessoryRectangular ? nil : sampleData,
                 position: widgetFamily == .accessoryRectangular ? sampleData.first : nil
             ))
@@ -188,7 +157,7 @@ struct StandingsProvider: AppIntentTimelineProvider {
         let limitedChunks = Array(chunks.prefix(5))
         for (index, chunk) in limitedChunks.enumerated() {
             entries.append(Entry(
-                date: .now.advanced(by: TimeInterval(60 * (index + 1))),
+                date: .now.advanced(by: TimeInterval(60 * index)),
                 configuration: configuration,
                 standings: chunk,
                 position: nil

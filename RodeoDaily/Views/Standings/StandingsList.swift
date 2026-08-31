@@ -22,7 +22,6 @@ struct StandingsList: View {
     @Binding var standingType: StandingType
     @Binding var selectedCircuit: Circuit
     
-    let adPlacement: Int = 10
     @State private var hasAttemptedLoad = false
     @State private var scrollOffset: CGFloat = 0
     @State private var isShowingShareRangeOptions = false
@@ -46,12 +45,15 @@ struct StandingsList: View {
             } else if filteredStandings.count > 0 {
                 standingsList
                 
-                BannerAd(style: .mediumRectangle)
+                if AdPlacementPolicy.shouldShowBottomAd(itemCount: filteredStandings.count, minimumItems: 10) {
+                    BannerAd(placement: .standingsListInline)
+                }
             } else {
                 noStandings
             }
         }
         .onAppear {
+            normalizeSelectedEventIfNeeded()
             if !standings.isEmpty {
                 hasAttemptedLoad = true
             }
@@ -126,11 +128,10 @@ struct StandingsList: View {
     // MARK: - Computed View Properties
     var standingsList: some View {
         LazyVStack(spacing: AppSpace.lg) {
-            ForEach(filteredStandings.indices, id: \.self) { index in
-                let position = filteredStandings[index]
+            ForEach(Array(filteredStandings.enumerated()), id: \.offset) { index, position in
                 
-                if (index % adPlacement) == 0 && index != 0 {
-                    BannerAd(style: .mediumRectangle)
+                if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 10, repeatEvery: 10) {
+                    BannerAd(placement: .standingsListInline)
                 }
                 
                 if position.hasBio {
@@ -217,7 +218,7 @@ struct StandingsList: View {
                 title: NSLocalizedString("Type", comment: ""),
                 value: standingType.title
             ) {
-                ForEach(StandingType.allCases, id: \.self) { type in
+                ForEach(StandingType.filterOrder, id: \.self) { type in
                     Button(type.title) {
                         withAnimation {
                             setType(type)
@@ -231,7 +232,7 @@ struct StandingsList: View {
                     title: NSLocalizedString("Event", comment: ""),
                     value: selectedEvent.title
                 ) {
-                    ForEach(StandingsEvent.allCases, id: \.self) { event in
+                    ForEach(availableStandingEvents, id: \.self) { event in
                         Button(event.title) {
                             withAnimation {
                                 setEvent(event)
@@ -322,6 +323,36 @@ struct StandingsList: View {
         } description: {
             Text("We were not able to load these standings at this time. Try again later")
                 .foregroundColor(.appPrimary)
+        } actions: {
+            VStack(spacing: AppSpace.sm) {
+                Menu {
+                    ForEach(StandingType.filterOrder, id: \.self) { type in
+                        Button(type.title) {
+                            withAnimation {
+                                setType(type)
+                            }
+                        }
+                    }
+                } label: {
+                    Label("Change Type", systemImage: "slider.horizontal.3")
+                }
+                .buttonStyle(.loadingButton(false))
+
+                if standingType.hasEvents {
+                    Menu {
+                        ForEach(availableStandingEvents, id: \.self) { event in
+                            Button(event.title) {
+                                withAnimation {
+                                    setEvent(event)
+                                }
+                            }
+                        }
+                    } label: {
+                        Label("Change Event", systemImage: "list.bullet")
+                    }
+                    .buttonStyle(.clearTextButton)
+                }
+            }
         }
     }
     
@@ -332,6 +363,10 @@ struct StandingsList: View {
             &&
             $0.name.localizedCaseInsensitiveContains(searchText)
         })
+    }
+
+    private var availableStandingEvents: [StandingsEvent] {
+        StandingsEvent.standingsFilterEvents(for: standingType)
     }
     
     var years: [String] {
@@ -354,10 +389,25 @@ struct StandingsList: View {
     
     func setType(_ type: StandingType) {
         standingType = type
+        if !availableStandingEvents.contains(selectedEvent) {
+            selectedEvent = selectedEvent.normalizedForStandingsFilter
+            if !availableStandingEvents.contains(selectedEvent) {
+                selectedEvent = .bb
+            }
+        }
     }
     
     func setEvent(_ event: StandingsEvent) {
-        selectedEvent = event
+        selectedEvent = event.normalizedForStandingsFilter
+    }
+
+    private func normalizeSelectedEventIfNeeded() {
+        guard !availableStandingEvents.contains(selectedEvent) else { return }
+
+        selectedEvent = selectedEvent.normalizedForStandingsFilter
+        if !availableStandingEvents.contains(selectedEvent) {
+            selectedEvent = .bb
+        }
     }
     
     func setCircuit(_ circuit: Circuit) {

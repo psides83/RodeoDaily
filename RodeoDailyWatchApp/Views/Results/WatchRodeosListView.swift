@@ -9,7 +9,11 @@ import SwiftUI
 
 struct WatchRodeosListView: View {
     // MARK: - Properties
-    @AppStorage("resultsWatchEvent", store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")) var resultsWatchEvent: Events.CodingKeys = .bb
+    @AppStorage(
+        FavoriteEventSettingsSync.favoriteResultsEventKey,
+        store: UserDefaults(suiteName: "group.PaytonSides.RodeoDailyWatch")
+    )
+    var favoriteResultsEvent: Events.CodingKeys = .bb
     
     @StateObject var rodeosApi = RodeosApi()
     
@@ -19,14 +23,22 @@ struct WatchRodeosListView: View {
 
     // MARK: - Body
     var body: some View {
-        Form {
-            Picker("Select Event", selection: $selectedEvent) {
-                ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                    Text(event.title)
-                        .tag(event)
+        List {
+            Section {
+                Picker("Event", selection: $selectedEvent) {
+                    ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                        Text(event.title)
+                            .tag(event)
+                    }
                 }
+                .pickerStyle(.navigationLink)
+            } header: {
+                WatchListHeader(
+                    title: selectedEvent.title,
+                    subtitle: "\(rodeosApi.rodeos.count) rodeos",
+                    systemImage: "trophy"
+                )
             }
-            .pickerStyle(.navigationLink)
 
             Group {
                 if rodeosApi.loading && rodeosApi.rodeos.isEmpty {
@@ -40,12 +52,12 @@ struct WatchRodeosListView: View {
                     }
                 } else {
                     ForEach(rodeosApi.rodeos) { rodeo in
-                    NavigationLink {
-                        WatchRodeoResultsView(rodeoId: rodeo.id, rodeoName: rodeo.location, event: selectedEvent)
-                    } label: {
-                        WatchRodeoCellView(rodeo: rodeo)
+                        NavigationLink {
+                            WatchRodeoResultsView(rodeoId: rodeo.id, rodeoName: rodeo.location, event: selectedEvent)
+                        } label: {
+                            WatchRodeoCellView(rodeo: rodeo)
+                        }
                     }
-                }
 
                     if rodeosApi.loading {
                         HStack {
@@ -55,16 +67,30 @@ struct WatchRodeosListView: View {
                         }
                         .listRowBackground(Color.clear)
                     } else {
-                    VStack(alignment: .center, content: loadMoreButton)
-                        .listRowBackground(Color.clear)
-                        .frame(maxWidth: .infinity)
+                        VStack(alignment: .center, content: loadMoreButton)
+                            .listRowBackground(Color.clear)
+                            .frame(maxWidth: .infinity)
                     }
                 }
             }
         }
+        .listStyle(.carousel)
         .navigationTitle("Results")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                WatchToolbarIconButton(
+                    systemImage: "arrow.clockwise",
+                    accessibilityLabel: "Refresh Results",
+                    isDisabled: rodeosApi.loading
+                ) {
+                    index = 1
+                    Task {
+                        await rodeosApi.loadRodeos(event: selectedEvent, index: 1, searchText: "", dateParams: "") {}
+                    }
+                }
+            }
+        }
         .onChange(of: selectedEvent) { oldValue, newValue in
-            resultsWatchEvent = newValue
             index = 1
             Task {
                 await rodeosApi.loadRodeos(event: newValue, index: 1, searchText: "", dateParams: "") {}
@@ -76,9 +102,9 @@ struct WatchRodeosListView: View {
         }
         .task {
             if initialLoad {
-                selectedEvent = resultsWatchEvent
+                selectedEvent = favoriteResultsEvent
                 index = 1
-                await rodeosApi.loadRodeos(event: resultsWatchEvent, index: 1, searchText: "", dateParams: "") {}
+                await rodeosApi.loadRodeos(event: favoriteResultsEvent, index: 1, searchText: "", dateParams: "") {}
                 initialLoad = false
             }
         }

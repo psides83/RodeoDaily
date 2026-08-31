@@ -9,7 +9,6 @@ import SwiftUI
 
 struct VideoHighlightsView: View {
     @ObservedObject var viewModel: BioViewModel
-    @State private var initialOffset: CGFloat?
 
     private let columns = [
         GridItem(.flexible(), spacing: AppSpace.md)
@@ -19,32 +18,11 @@ struct VideoHighlightsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppSpace.lg) {
                 Color.clear
-                    .frame(height: 0)
-                    .offset(coordinateSpcae: .named("BIO_SCROLL_SHARED")) { value in
-                        if initialOffset == nil {
-                            initialOffset = value
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
-                            return
-                        }
-                        if !viewModel.bioHasUserScrolled {
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
-                            return
-                        }
-                        let baseline = initialOffset ?? value
-                        let delta = value - baseline
-                        let newScroll = max(-delta, 0)
-                        viewModel.bioScrollOffset = newScroll < 1 ? 0 : newScroll
-                        viewModel.bioPullDownOffset = 0
-                    }
-
-                Color.clear
                     .frame(height: BioTelegramHeaderView.expandedHeight - 12)
 
                 if videos.isEmpty {
                     emptyState
-                    BannerAd(style: .mediumRectangle)
+                    BannerAd(placement: .athleteBioSection)
                 } else {
                     header
 
@@ -57,7 +35,7 @@ struct VideoHighlightsView: View {
                         }
                     }
 
-                    BannerAd(style: .mediumRectangle)
+                    BannerAd(placement: .athleteBioSection)
                 }
             }
             .padding(.horizontal)
@@ -65,14 +43,7 @@ struct VideoHighlightsView: View {
             .padding(.bottom, AppSpace.xxl)
         }
         .background(Color.appBg)
-        .simultaneousGesture(DragGesture(minimumDistance: 1)
-            .onChanged { _ in
-                viewModel.bioHasUserScrolled = true
-            }
-        )
-        .onAppear {
-            initialOffset = nil
-        }
+        .bioHeaderScrollTracking(viewModel)
     }
 
     private var header: some View {

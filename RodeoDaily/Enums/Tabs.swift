@@ -8,5 +8,5 @@
 import Foundation
 
 enum Tabs {
-    case standings, results, more
+    case standings, results, schedule, more
 }

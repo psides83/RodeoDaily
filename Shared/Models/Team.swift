@@ -21,42 +21,11 @@ struct Team: Identifiable, Hashable {
     let round: Int
     
     var headerImage: some View {
-        guard let url = headerImageUrl else {
-            return AsyncImage(url: URL(string: "https://psides83.github.io/listJSON/noimage.png")) { image in
-                image.resizable()
-            } placeholder: {
-                Image.noImage.resizable()
-            }
-            .frame(width: 48, height: 48)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-                
-        return AsyncImage(url: URL(string: "https://d1kfpvgfupbmyo.cloudfront.net\(url)?width=315&height=315&mode=crop&scale=both&anchor=topcenter")) {
-            image in image.resizable()
-        } placeholder: {
-            Image.noImage.resizable()
-        }
-        .frame(width: 48, height: 48)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        AthleteImageView(preferredImageUrl: headerImageUrl)
     }
     
     var heelerImage: some View {
-        guard let url = heelerImageUrl else {
-            return AsyncImage(url: URL(string: "https://psides83.github.io/listJSON/noimage.png")) { image in
-                image.resizable()
-            } placeholder: {
-                Image.noImage.resizable()
-            }
-            .frame(width: 48, height: 48)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-                
-        return AsyncImage(url: URL(string: "https://d1kfpvgfupbmyo.cloudfront.net\(url)?width=315&height=315&mode=crop&scale=both&anchor=topcenter")) {
-            image in image.resizable()
-        } placeholder: {
-            Image.noImage.resizable()
-        }
-        .frame(width: 48, height: 48)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        AthleteImageView(preferredImageUrl: heelerImageUrl)
     }
+
 }

@@ -16,7 +16,7 @@ struct FavoriteWidgetLargeView : View {
     
     var latestResults: ArraySlice<BioResult> {
         entry.bio.results
-            .filter { $0.eventType == entry.event }
+            .filter { selectedBioEventTypes.contains($0.eventType) }
             .sorted { lhs, rhs in
                 let leftDate = parsedResultDate(lhs.endDate)
                 let rightDate = parsedResultDate(rhs.endDate)
@@ -28,14 +28,24 @@ struct FavoriteWidgetLargeView : View {
             .prefix(4)
     }
     
-    var currentYearEarnings: String {
-        return entry.bio.career.filter({ $0.season == Date().yearInt && $0.eventType == entry.event })[0].earnings.currencyABS
+    var currentYearEarnings: String? {
+        currentYearCareer?.earnings.currencyABS
     }
     
     var currentYearRank: String {
-        let rankData = entry.bio.rankings.filter({ $0.season == Date().yearInt && $0.eventName.localizedCaseInsensitiveContains(entry.event.eventDisplay.localizedLowercase) })[0]
+        if let rankData = currentYearRanking, let currentYearEarnings {
+            return "\(rankData.rank) in \(rankData.eventName) with \(currentYearEarnings)"
+        }
+
+        if let rankData = currentYearRanking {
+            return "\(rankData.rank) in \(rankData.eventName)"
+        }
+
+        if let currentYearEarnings {
+            return "\(eventDisplay) with \(currentYearEarnings)"
+        }
         
-        return "\(rankData.rank) in \(rankData.eventName) with \(currentYearEarnings)"
+        return String(format: NSLocalizedString("Latest %@ results", comment: ""), eventDisplay)
     }
     
     var body: some View {
@@ -62,7 +72,14 @@ struct FavoriteWidgetLargeView : View {
                 .foregroundColor(.appSecondary)
                 .font(.system(size: 16, weight: .semibold))
                 .environment(\.colorScheme, .dark)
-            
+
+            if latestResults.isEmpty {
+                Text(String(format: NSLocalizedString("No recent results for %@.", comment: ""), eventDisplay))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.system(size: 14))
+                    .foregroundColor(.white)
+            }
+
             ForEach(latestResults, id: \.rodeoResultId) { result in
                 
                 VStack(alignment: .leading, spacing: 4) {
@@ -116,21 +133,54 @@ struct FavoriteWidgetLargeView : View {
             Color.rdGreen
         }
         .environment(\.colorScheme, .light)
+        .widgetURL(entry.athleteBioURL)
     }
 
     private func parsedResultDate(_ value: String) -> Date {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        value.rodeoDate ?? .distantPast
+    }
 
-        if let date = formatter.date(from: value) {
-            return date
+    private var selectedBioEventTypes: Set<String> {
+        switch entry.event {
+        case "TR", "TRHD", "TRHL":
+            return ["TR", "TRHD", "TRHL"]
+        default:
+            return [entry.event]
         }
+    }
 
-        let fallback = DateFormatter()
-        fallback.locale = Locale(identifier: "en_US_POSIX")
-        fallback.timeZone = TimeZone(secondsFromGMT: 0)
-        fallback.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return fallback.date(from: value) ?? .distantPast
+    private var eventDisplay: String {
+        let display = entry.event.eventDisplay
+        return display.isEmpty ? entry.event : display
+    }
+
+    private var rankingSearchTerms: [String] {
+        switch entry.event {
+        case "TR":
+            return ["Team Roping"]
+        case "TRHD":
+            return ["Team Roping (Headers)", "Team Roping"]
+        case "TRHL":
+            return ["Team Roping (Heelers)", "Team Roping"]
+        default:
+            return [eventDisplay]
+        }
+    }
+
+    private var currentYearCareer: Career? {
+        entry.bio.career.first {
+            $0.season == Date().yearInt && selectedBioEventTypes.contains($0.eventType)
+        }
+    }
+
+    private var currentYearRanking: Ranking? {
+        entry.bio.rankings.first { ranking in
+            ranking.season == Date().yearInt
+            &&
+            rankingSearchTerms.contains { term in
+                ranking.eventName.localizedCaseInsensitiveContains(term)
+            }
+        }
     }
 }
 
@@ -140,7 +190,7 @@ struct FavoriteWidget_Previews: PreviewProvider {
 //            FavoriteWidgetLargeView(entry: FavoriteWidgetEntry(date: Date(), bio: WidgetSampleData().favoriteSampleData, event: "TD"))
 //                .previewContext(WidgetPreviewContext(family: .systemExtraLarge))
             
-            FavoriteWidgetLargeView(entry: FavoriteWidgetEntry(date: Date(), bio: WidgetSampleData().favoriteSampleData, event: "TD"))
+            FavoriteWidgetLargeView(entry: FavoriteWidgetEntry(date: Date(), bio: WidgetSampleData().favoriteSampleData, event: "TD", athleteId: nil))
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
     }

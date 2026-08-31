@@ -32,22 +32,39 @@ public struct WidgetAthleteQuery: EntityQuery {
     func athletes() async -> [WidgetAthleteEntity] {
         let schema = Schema([WidgetAthlete.self, FollowedAthlete.self, FollowAlertEvent.self])
         let configuration = ModelConfiguration(schema: schema, url: sharedStoreURL)
-        guard let modelContainer = try? ModelContainer(for: schema, configurations: [configuration]) else {
+        let modelContainer: ModelContainer
+
+        do {
+            modelContainer = try ModelContainer(for: schema, configurations: [configuration])
+        } catch {
+            print("[WidgetAthleteQuery] Unable to open favorite athlete store: \(error.localizedDescription)")
             return []
         }
         
-        let fetchDescriptor = FetchDescriptor<WidgetAthlete>()
-        
-        guard let athletes = try? modelContainer.mainContext.fetch(fetchDescriptor) else {
+        let athletes: [WidgetAthlete]
+
+        do {
+            athletes = try modelContainer.mainContext.fetch(FetchDescriptor<WidgetAthlete>())
+        } catch {
+            print("[WidgetAthleteQuery] Unable to fetch favorite athletes: \(error.localizedDescription)")
             return []
         }
-        
-        if athletes.count == 0 {
-            return []
-        }
-        
-        return athletes.map { athlete in
+
+        return athletes.sorted(by: favoriteOrder).map { athlete in
             WidgetAthleteEntity(athlete: athlete)
+        }
+    }
+
+    private func favoriteOrder(_ lhs: WidgetAthlete, _ rhs: WidgetAthlete) -> Bool {
+        switch (lhs.sortOrder, rhs.sortOrder) {
+        case let (left?, right?) where left != right:
+            return left < right
+        case (_?, nil):
+            return true
+        case (nil, _?):
+            return false
+        default:
+            return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
         }
     }
 

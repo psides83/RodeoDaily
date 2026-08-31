@@ -10,8 +10,9 @@ import SwiftData
 import SwiftUI
 import UserNotifications
 
+@MainActor
 class BioViewModel: ObservableObject {
-    @ObservedObject var apiUrls = ApiUrls()
+    private let apiUrls = ApiUrls()
 //    @ObservedObject var search = DebouncedObservedObject(wrappedValue: SearchModel(), delay: 0.5)
     
     static var defaultSeason: String {
@@ -27,6 +28,7 @@ class BioViewModel: ObservableObject {
     @Published var infoType: BioInfoType = .stats
     @Published var showSearchBar = false
     @Published var loading = false
+    @Published private(set) var bioLoadError: String?
     @Published var searchText = ""
     @Published var bioScrollOffset: CGFloat = 0
     @Published var bioPullDownOffset: CGFloat = 0
@@ -101,12 +103,13 @@ class BioViewModel: ObservableObject {
     
     func getBio(for athleteId: Int) async {
         setLoading()
+        bioLoadError = nil
         
         let url = apiUrls.bioUrl(for: athleteId)
         print("bioUrl: ", url)
         
         do {
-            self.bio = try await APIService.fetchBio(from: url).data
+            self.bio = try await APIClient.fetch(Bio.self, from: url).data
             print(self.bio.events)
 
             if selectedEvent == nil {
@@ -115,9 +118,30 @@ class BioViewModel: ObservableObject {
 //            print(self.bio.contestantId)
             self.endLoading()
         } catch {
+            bioLoadError = bioLoadFailureDiagnostic(for: error)
             self.endLoading()
             print("Error decoding: ", error)
         }
+    }
+
+    private func bioLoadFailureDiagnostic(for error: Error) -> String {
+        switch error {
+        case DecodingError.keyNotFound(let key, let context):
+            return "Response is missing '\(key.stringValue)' at \(codingPathDescription(context.codingPath))."
+        case DecodingError.valueNotFound(let type, let context):
+            return "Response contains no \(type) value at \(codingPathDescription(context.codingPath))."
+        case DecodingError.typeMismatch(let type, let context):
+            return "Response has an invalid \(type) value at \(codingPathDescription(context.codingPath))."
+        case DecodingError.dataCorrupted(let context):
+            return "Response data is invalid at \(codingPathDescription(context.codingPath)): \(context.debugDescription)"
+        default:
+            return error.localizedDescription
+        }
+    }
+
+    private func codingPathDescription(_ codingPath: [CodingKey]) -> String {
+        let path = codingPath.map(\.stringValue).joined(separator: ".")
+        return path.isEmpty ? "the athlete profile" : path
     }
     
     func setLoading() {

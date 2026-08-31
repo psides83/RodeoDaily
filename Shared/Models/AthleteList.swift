@@ -18,6 +18,7 @@ struct AthleteList: Codable {
 struct AthleteData: Codable {
     let contestantId: Int
     let firstName, lastName, nickName, hometown: String
+    let image315Url: String?
     let photoUrl: String?
     let birthDate: String
 
@@ -27,6 +28,7 @@ struct AthleteData: Codable {
         case lastName = "LastName"
         case nickName = "NickName"
         case hometown = "Hometown"
+        case image315Url = "image_315_url"
         case photoUrl = "PhotoUrl"
         case birthDate = "BirthDate"
     }
@@ -38,24 +40,11 @@ struct AthleteData: Codable {
     }
     
     var image: some View {
-        guard let url = photoUrl else {
-            return AsyncImage(url: URL(string: "https://psides83.github.io/listJSON/noimage.png")) { image in
-                image.resizable()
-            } placeholder: {
-                Color.gray.opacity(0.5)
-            }
-            .frame(width: 48, height: 48)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-        
-        return AsyncImage(url: URL(string: "https://d1kfpvgfupbmyo.cloudfront.net\(url)?width=315&height=315&mode=crop&scale=both&anchor=topcenter")) {
-            image in image.resizable()
-        } placeholder: {
+        AthleteImageView(preferredImageUrl: image315Url, fallbackImageUrl: photoUrl) {
             Color.gray.opacity(0.5)
         }
-        .frame(width: 48, height: 48)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
+
 }
 
 // MARK: - Athlete Search Suggestions
@@ -72,7 +61,7 @@ struct SuggestionData: Codable {
 }
 
 // MARK: - DatumElement
-struct SearchResultElement: Codable {
+struct SearchResultElement: Codable, Identifiable {
     let term, type: String
     let id: Int
 

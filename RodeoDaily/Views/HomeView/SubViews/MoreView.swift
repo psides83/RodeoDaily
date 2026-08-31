@@ -1,12 +1,12 @@
 import SwiftUI
 
-private struct MorePBJFeedHostView: View {
-    @StateObject private var api = PBJFeedApi()
+private struct MoreBusinessJournalListingsHostView: View {
+    @StateObject private var api = BusinessJournalApi()
     @State private var searchText = ""
     @State private var didInitialLoad = false
 
     var body: some View {
-        PBJFeedView(
+        BusinessJournalListingsView(
             items: api.items,
             loading: api.loading,
             errorMessage: api.errorMessage,
@@ -34,23 +34,34 @@ struct MoreView: View {
             .appCardStyle()
 
             NavigationLink {
-                MorePBJFeedHostView()
+                AthletesView(searchText: "")
+            } label: {
+                sectionRow(
+                    customImage: .cowboy,
+                    title: NSLocalizedString("Favorite Athletes", comment: ""),
+                    subtitle: NSLocalizedString("Browse your selected favorite athlete bios", comment: "")
+                )
+            }
+            .buttonStyle(.plain)
+
+//            NavigationLink {
+//                NFRStandingsView()
+//            } label: {
+//                sectionRow(
+//                    symbol: "trophy",
+//                    title: NSLocalizedString("NFR Standings", comment: ""),
+//                    subtitle: NSLocalizedString("Round-by-round NFR average rankings", comment: "")
+//                )
+//            }
+//            .buttonStyle(.plain)
+
+            NavigationLink {
+                MoreBusinessJournalListingsHostView()
             } label: {
                 sectionRow(
                     symbol: "newspaper",
                     title: NSLocalizedString("Rodeo Listings", comment: ""),
                     subtitle: NSLocalizedString("Rodeo listings and details", comment: "")
-                )
-            }
-            .buttonStyle(.plain)
-
-            NavigationLink {
-                AthletesView(searchText: "")
-            } label: {
-                sectionRow(
-                    symbol: "person.3",
-                    title: NSLocalizedString("Favorite Athletes", comment: ""),
-                    subtitle: NSLocalizedString("Browse your selected favorite athlete bios", comment: "")
                 )
             }
             .buttonStyle(.plain)
@@ -80,10 +91,20 @@ struct MoreView: View {
     }
 
     private func sectionRow(symbol: String, title: String, subtitle: String) -> some View {
+        sectionRow(icon: Image(systemName: symbol), title: title, subtitle: subtitle)
+    }
+
+    private func sectionRow(customImage: Image, title: String, subtitle: String) -> some View {
+        sectionRow(icon: customImage, title: title, subtitle: subtitle)
+    }
+
+    private func sectionRow(icon: Image, title: String, subtitle: String) -> some View {
         HStack(spacing: AppSpace.sm) {
-            Image(systemName: symbol)
-                .font(.headline)
-                .frame(width: 28)
+            icon
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+                .frame(width: 28, height: 28)
                 .foregroundColor(.appSecondary)
 
             VStack(alignment: .leading, spacing: 3) {

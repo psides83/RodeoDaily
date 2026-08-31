@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import SwiftUI
 
-class ApiUrls: ObservableObject {
+final class ApiUrls {
     // MARK: Base Url
     let baseUrl = "https://d1kfpvgfupbmyo.cloudfront.net/services/pro_rodeo.ashx/"
-    let wpraBaseUrl = "https://psides83.github.io/wpra-json/"
+    private let cloudflareBaseUrl = "https://rodeo-data-api.psides83.workers.dev/v1/prca/"
     
     // MARK: URL for loading athlete Bio data
     func bioUrl(for athleteId: Int) -> URL {
@@ -28,6 +27,15 @@ class ApiUrls: ObservableObject {
         
         guard let url = URL(string: urlString) else { fatalError("Missing URL") }
         
+        return url
+    }
+
+    // MARK: URL for loading daysheet data
+    func rodeoDaysheetsUrl(for rodeoId: Int) -> URL {
+        let urlString = baseUrl + "daysheet?id=" + rodeoId.string
+
+        guard let url = URL(string: urlString) else { fatalError("Missing URL") }
+
         return url
     }
     
@@ -48,112 +56,48 @@ class ApiUrls: ObservableObject {
             index: index,
             searchText: searchText,
             dateParams: dateParams,
-            forceActive: nil,
             addDefaultStartDate: true
         )
     }
 
-    func rodeoScheduleCandidateUrls(with index: Int, searchText: String, dateParams: String) -> [URL] {
-        let urls = [
-            // Current preferred schedule variant.
-            scheduleUrl(
-                type: "schedule",
-                index: index,
-                searchText: searchText,
-                dateParams: dateParams,
-                forceActive: nil,
-                addDefaultStartDate: true
-            ),
-            // Legacy variant used by older API behavior.
-            scheduleUrl(
-                type: "schedules",
-                index: index,
-                searchText: searchText,
-                dateParams: dateParams,
-                forceActive: true,
-                addDefaultStartDate: false
-            ),
-            // Fallback without forcing active but keeping legacy type.
-            scheduleUrl(
-                type: "schedules",
-                index: index,
-                searchText: searchText,
-                dateParams: dateParams,
-                forceActive: nil,
-                addDefaultStartDate: true
-            )
+    func cloudflareSeasonRodeosUrl(
+        seasonYear: Int,
+        limit: Int = 200,
+        offset: Int = 0,
+        startDate: Date? = nil,
+        endDate: Date? = nil
+    ) -> URL {
+        guard var components = URLComponents(string: cloudflareBaseUrl + "rodeos") else {
+            fatalError("Missing URL")
+        }
+
+        var queryItems = [
+            URLQueryItem(name: "season_year", value: seasonYear.string),
+            URLQueryItem(name: "limit", value: limit.string),
+            URLQueryItem(name: "offset", value: offset.string)
         ]
 
-        var deduped: [URL] = []
-        for url in urls where !deduped.contains(url) {
-            deduped.append(url)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        if let startDate {
+            queryItems.append(URLQueryItem(name: "start_date", value: dateFormatter.string(from: startDate)))
         }
-        return deduped
-    }
-    
-    // MARK: URL for loading standings data
-    func standingsUrl(event: StandingsEvent, type: StandingType, circuit: Circuit, selectedYear: String) -> URL {
-        var id: String {
-            if type == .circuit {
-                return circuit.id.string
-            } else if type == .xBulls  {
-                return Tour.xBulls.id.string
-            } else if type == .xBroncs {
-                return Tour.xBroncs.id.string
-            } else if type == .legacySteerRoping {
-                return Tour.legacySteerRoping.id.string
-            } else {
-                return ""
-            }
+
+        if let endDate {
+            queryItems.append(URLQueryItem(name: "end_date", value: dateFormatter.string(from: endDate)))
         }
-        
-        var finalType: String {
-            if type == .xBulls || type == .xBroncs || type == .legacySteerRoping {
-                return "tour"
-            } else {
-                return type.rawValue
-            }
-        }
-        
-        var finalEvent: StandingsEvent {
-            if type == .xBulls || type == .xBroncs || type == .legacySteerRoping {
-                return .aa
-            } else {
-                return event
-            }
-        }
-        
-        var character: String {
-            if finalEvent == .gb || finalEvent == .lb {
-                return "-"
-            } else {
-                return "?"
-            }
-        }
-//        let gbUrlString = wpraBaseUrl + "br_\(finalType)_\(selectedYear)_\(type == .circuit ? circuit.convertToGit : "").json"
-//        let lbUrlString = wpraBaseUrl + "lb_\(finalType)_\(selectedYear)_\(type == .circuit ? circuit.convertToGit : "").json"
-        let urlFilters = "standings\(character)year=\(selectedYear)&type=\(finalType)&id=\(id)&event=\(finalEvent.rawValue)"
-        
-        var url: URL {
-            if finalEvent == .gb || finalEvent == .lb {
-                print(wpraBaseUrl + urlFilters + ".json")
-                guard let url = URL(string: wpraBaseUrl + urlFilters + ".json") else { fatalError("Missing URL") }
-            
-                return url
-            } else {
-                print(urlFilters)
-                guard let url = URL(string: baseUrl + urlFilters) else { fatalError("Missing URL") }
-            
-                return url
-            }
-        }
-        
-//        guard let url = dynamicUrl else { fatalError("Missing URL") }
-        
+
+        components.queryItems = queryItems
+
+        guard let url = components.url else { fatalError("Missing URL") }
+
         return url
     }
     
-    func athleteSearchUrl(from searchText: String) -> URL {
+    func athleteSearchUrl(from searchText: String, pageSize: Int = 10) -> URL {
         guard var components = URLComponents(string: baseUrl + "athletes") else {
             fatalError("Missing URL")
         }
@@ -161,7 +105,7 @@ class ApiUrls: ObservableObject {
         components.queryItems = [
             URLQueryItem(name: "event_type", value: ""),
             URLQueryItem(name: "letter", value: ""),
-            URLQueryItem(name: "page_size", value: "10"),
+            URLQueryItem(name: "page_size", value: pageSize.string),
             URLQueryItem(name: "index", value: "1"),
             URLQueryItem(name: "search_term", value: searchText.trimmingCharacters(in: .whitespacesAndNewlines)),
             URLQueryItem(name: "search_type", value: ""),
@@ -207,9 +151,12 @@ class ApiUrls: ObservableObject {
             URLQueryItem(name: "search_term", value: searchText.trimmingCharacters(in: .whitespacesAndNewlines)),
             URLQueryItem(name: "search_type", value: ""),
             URLQueryItem(name: "tourId", value: ""),
-            URLQueryItem(name: "circuitId", value: ""),
-            URLQueryItem(name: "combine_results", value: "true")
+            URLQueryItem(name: "circuitId", value: "")
         ]
+
+        if type == "results" {
+            items.append(URLQueryItem(name: "combine_results", value: "true"))
+        }
 
         if let forceActive {
             items.append(URLQueryItem(name: "active", value: forceActive ? "true" : "false"))

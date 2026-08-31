@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct PBJFeedDetailView: View {
-    let item: PBJFeedItem
+struct BusinessJournalListingDetailView: View {
+    let item: BusinessJournalFeedItem
 
     var body: some View {
         ScrollView {
@@ -35,6 +35,8 @@ struct PBJFeedDetailView: View {
                     }
                     .buttonStyle(.plain)
                 }
+
+                BannerAd(placement: .rodeoListingsList)
             }
             .padding(.horizontal)
             .padding(.top, AppSpace.md)
@@ -43,6 +45,9 @@ struct PBJFeedDetailView: View {
         .background(Color.appBg)
         .navigationTitle("Rodeo")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            AnalyticsService.shared.track(.rodeoListingDetailViewed)
+        }
     }
 
     private var listingHeader: some View {

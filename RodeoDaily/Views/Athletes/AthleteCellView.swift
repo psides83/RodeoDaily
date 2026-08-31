@@ -124,7 +124,6 @@ struct AthleteCellView: View {
             }
         }
         .task {
-            print(athlete.athleteId)
             if athlete.athleteId != 0 {
                 await viewModel.setSelectedEvent(athlete.event)
                 await viewModel.getBio(for: athlete.athleteId)

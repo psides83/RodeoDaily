@@ -5,9 +5,13 @@
 //  Created by Payton Sides on 12/12/22.
 //
 
+import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct WinnerCell: View {
+    @Environment(\.modelContext) private var modelContext
+
     let event: String
     let winner: Winner
     var widgetAthletes: [WidgetAthlete]
@@ -62,6 +66,17 @@ struct WinnerCell: View {
                 .frame(width: 150)
             }
         }
+        .contextMenu {
+            if isFavorite {
+                Label(NSLocalizedString("Favorite", comment: ""), systemImage: "star.fill")
+            } else {
+                Button {
+                    addFavoriteAthlete()
+                } label: {
+                    Label(NSLocalizedString("Add to Favorites", comment: ""), systemImage: "star.badge.plus")
+                }
+            }
+        }
     }
     
     var isFavorite: Bool {
@@ -80,6 +95,33 @@ struct WinnerCell: View {
                 .foregroundColor(.appSecondary)
         case false:
             EmptyView()
+        }
+    }
+
+    private var nextAthleteSortOrder: Int {
+        max((widgetAthletes.compactMap(\.sortOrder).max() ?? -1) + 1, widgetAthletes.count)
+    }
+
+    private func addFavoriteAthlete() {
+        guard !isFavorite else { return }
+
+        let widgetEvent = StandingsEvent(rawValue: event)?.withTeamRopingConversion ?? event
+        let athlete = WidgetAthlete(
+            athleteId: winner.contestantId,
+            name: winner.name,
+            event: widgetEvent,
+            events: [widgetEvent],
+            sortOrder: nextAthleteSortOrder
+        )
+
+        modelContext.insert(athlete)
+
+        do {
+            try modelContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
+            FavoriteAlert.added(winner.name).present
+        } catch {
+            modelContext.delete(athlete)
         }
     }
 }
