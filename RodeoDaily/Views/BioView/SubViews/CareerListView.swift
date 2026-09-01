@@ -52,12 +52,16 @@ struct CareerListView: View {
                     .padding(.top, AppSpace.lg)
                 } else {
                     LazyVStack(spacing: AppSpace.md) {
-                        ForEach(viewModel.careerSeasons, id: \.season) { season in
+                        ForEach(Array(viewModel.careerSeasons.enumerated()), id: \.element.season) { index, season in
+                            if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
+                                BannerAd(placement: .athleteBioSection)
+                            }
+
                             seasonCard(season)
                         }
                     }
                     
-                    BannerAd(style: .mediumRectangle)
+                    BannerAd(placement: .athleteBioSection)
                 }
             }
             .padding(.horizontal)

@@ -51,7 +51,7 @@ struct ScheduleListView: View {
                     ForEach(listRows) { row in
                         switch row {
                         case .ad:
-                            NativeAdCard(placement: .scheduleListInline)
+                            BannerAd(placement: .scheduleListInline)
                         case .rodeo(let rodeo):
                             NavigationLink {
                                 RodeoScheduleDetailView(rodeo: rodeo)
@@ -275,7 +275,7 @@ struct ScheduleListView: View {
         var adSlot = 0
 
         for (listIndex, rodeo) in rodeos.enumerated() {
-            if shouldShowScheduleAd(beforeItemAt: listIndex, adSlot: adSlot) {
+            if shouldShowScheduleAd(beforeItemAt: listIndex) {
                 rows.append(.ad(adSlot))
                 adSlot += 1
             }
@@ -286,9 +286,8 @@ struct ScheduleListView: View {
         return rows
     }
 
-    private func shouldShowScheduleAd(beforeItemAt index: Int, adSlot: Int) -> Bool {
-        guard adSlot < 2 else { return false }
-        return AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 8, repeatEvery: 20)
+    private func shouldShowScheduleAd(beforeItemAt index: Int) -> Bool {
+        AdPlacementPolicy.shouldShowListAd(beforeItemAt: index)
     }
 
     private enum ScheduleListRow: Identifiable {

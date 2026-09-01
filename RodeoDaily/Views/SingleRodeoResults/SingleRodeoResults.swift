@@ -219,17 +219,17 @@ struct SingleRodeoResults: View {
                         isShowingBracketHelp = true
                     } label: {
                         Image(systemName: "questionmark.circle")
-                            .font(.title3)
+//                            .font(.title2)
                             .foregroundColor(.appSecondary)
-                            .padding(AppSpace.sm)
-                            .background(
-                                Circle()
-                                    .fill(Color.appBg)
-                            )
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-                            )
+//                            .padding(AppSpace.sm)
+//                            .background(
+//                                Circle()
+//                                    .fill(Color.appBg)
+//                            )
+//                            .overlay(
+//                                Circle()
+//                                    .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+//                            )
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel("Bracket Help")
@@ -409,65 +409,69 @@ struct SingleRodeoResults: View {
 
     private var daysheetsSection: some View {
         VStack(alignment: .leading, spacing: AppSpace.sm) {
-            Text("Daysheets")
-                .font(.appCardTitle)
-                .foregroundColor(.appPrimary)
+            VStack(alignment: .leading, spacing: AppSpace.sm) {
+                Text("Daysheets")
+                    .font(.appCardTitle)
+                    .foregroundColor(.appPrimary)
 
-            if daysheetsLoading {
-                ProgressView("Loading daysheets...")
-            } else if let daysheetsError {
-                Text(daysheetsError)
-                    .font(.appBody)
-                    .foregroundColor(.red)
-            } else if daysheets.isEmpty {
-                Text("No daysheets returned yet for this rodeo.")
-                    .font(.appBody)
-                    .foregroundColor(.appTertiary)
-            } else {
-                VStack(spacing: AppSpace.sm) {
-                    ForEach(daysheets) { daysheet in
-                        NavigationLink {
-                            DaysheetDetailView(
-                                rodeoName: rodeoName,
-                                daysheet: daysheet,
-                                preferredEvent: selectedEvent
-                            )
-                        } label: {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(daysheet.roundsDisplay)
-                                        .font(.appBodyStrong)
-                                        .foregroundColor(.appPrimary)
-                                        .multilineTextAlignment(.leading)
-                                    Text(daysheet.startDisplay)
-                                        .font(.appCaptionStrong)
-                                        .foregroundColor(.appTertiary)
-                                    Text("\(daysheet.eventNames.count) events")
-                                        .font(.appCaption)
+                if daysheetsLoading {
+                    ProgressView("Loading daysheets...")
+                } else if let daysheetsError {
+                    Text(daysheetsError)
+                        .font(.appBody)
+                        .foregroundColor(.red)
+                } else if daysheets.isEmpty {
+                    Text("No daysheets returned yet for this rodeo.")
+                        .font(.appBody)
+                        .foregroundColor(.appTertiary)
+                } else {
+                    VStack(spacing: AppSpace.sm) {
+                        ForEach(daysheets) { daysheet in
+                            NavigationLink {
+                                DaysheetDetailView(
+                                    rodeoName: rodeoName,
+                                    daysheet: daysheet,
+                                    preferredEvent: selectedEvent
+                                )
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(daysheet.roundsDisplay)
+                                            .font(.appBodyStrong)
+                                            .foregroundColor(.appPrimary)
+                                            .multilineTextAlignment(.leading)
+                                        Text(daysheet.startDisplay)
+                                            .font(.appCaptionStrong)
+                                            .foregroundColor(.appTertiary)
+                                        Text("\(daysheet.eventNames.count) events")
+                                            .font(.appCaption)
+                                            .foregroundColor(.appSecondary)
+                                    }
+
+                                    Spacer()
+
+                                    Image(systemName: "chevron.right")
                                         .foregroundColor(.appSecondary)
                                 }
-
-                                Spacer()
-
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.appSecondary)
+                                .padding(AppSpace.md)
+                                .background(
+                                    RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                                        .fill(Color.appBg)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
+                                        .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+                                )
                             }
-                            .padding(AppSpace.md)
-                            .background(
-                                RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                    .fill(Color.appBg)
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                    .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-                            )
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             }
+            .appCardStyle()
+
+            BannerAd(placement: .resultsDetailSection)
         }
-        .appCardStyle()
     }
     
     var roundsList: some View {
@@ -525,33 +529,37 @@ struct SingleRodeoResults: View {
 
     @ViewBuilder
     private var topMoneyEarnersSection: some View {
-        if resultsApi.loading {
-            ResultsLoader()
-        } else if topMoneyEarners.isEmpty {
-            ContentUnavailableView {
-                Label("No Payouts Found", systemImage: "dollarsign.circle")
-                    .foregroundColor(.appPrimary)
-            } description: {
-                Text("Top money earners will appear as soon as this rodeo reports payouts for the selected event.")
-                    .foregroundColor(.appPrimary)
-            } actions: {
-                Menu {
-                    ForEach(Events.CodingKeys.allCases, id: \.self) { event in
-                        Button {
-                            withAnimation {
-                                selectedEvent = event
+        VStack(alignment: .leading, spacing: AppSpace.md) {
+            if resultsApi.loading {
+                ResultsLoader()
+            } else if topMoneyEarners.isEmpty {
+                ContentUnavailableView {
+                    Label("No Payouts Found", systemImage: "dollarsign.circle")
+                        .foregroundColor(.appPrimary)
+                } description: {
+                    Text("Top money earners will appear as soon as this rodeo reports payouts for the selected event.")
+                        .foregroundColor(.appPrimary)
+                } actions: {
+                    Menu {
+                        ForEach(Events.CodingKeys.allCases, id: \.self) { event in
+                            Button {
+                                withAnimation {
+                                    selectedEvent = event
+                                }
+                            } label: {
+                                Text(event.localizedTitle)
                             }
-                        } label: {
-                            Text(event.localizedTitle)
                         }
+                    } label: {
+                        Label("Change Event", systemImage: "slider.horizontal.3")
                     }
-                } label: {
-                    Label("Change Event", systemImage: "slider.horizontal.3")
+                    .buttonStyle(.loadingButton(false))
                 }
-                .buttonStyle(.loadingButton(false))
+            } else {
+                topMoneyEarnersCard
             }
-        } else {
-            topMoneyEarnersCard
+
+            BannerAd(placement: .resultsDetailSection)
         }
     }
 

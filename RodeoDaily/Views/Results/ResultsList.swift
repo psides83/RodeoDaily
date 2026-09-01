@@ -56,6 +56,8 @@ struct ResultsList: View {
                         ForEach(inProgressRodeos) { rodeo in
                             resultsRodeoLink(rodeo)
                         }
+
+                        BannerAd(placement: .resultsListInline)
                     }
 
                     if !completedRodeos.isEmpty {
@@ -66,7 +68,7 @@ struct ResultsList: View {
                         ForEach(completedRows) { row in
                             switch row {
                             case .ad:
-                                NativeAdCard(placement: .resultsListInline)
+                                BannerAd(placement: .resultsListInline)
                             case .rodeo(let rodeo):
                                 resultsRodeoLink(rodeo)
                             }
@@ -327,7 +329,7 @@ struct ResultsList: View {
         var adSlot = 0
 
         for (listIndex, rodeo) in rodeos.enumerated() {
-            if shouldShowResultsAd(beforeItemAt: listIndex, adSlot: adSlot) {
+            if shouldShowResultsAd(beforeItemAt: listIndex) {
                 rows.append(.ad(adSlot))
                 adSlot += 1
             }
@@ -338,9 +340,8 @@ struct ResultsList: View {
         return rows
     }
 
-    private func shouldShowResultsAd(beforeItemAt index: Int, adSlot: Int) -> Bool {
-        guard adSlot < 2 else { return false }
-        return AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 8, repeatEvery: 20)
+    private func shouldShowResultsAd(beforeItemAt index: Int) -> Bool {
+        AdPlacementPolicy.shouldShowListAd(beforeItemAt: index)
     }
 
     private enum ResultsListRow: Identifiable {

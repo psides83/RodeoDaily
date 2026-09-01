@@ -68,12 +68,10 @@ struct AthletesView: View {
                 } else {
                     LazyVStack(spacing: AppSpace.md) {
                         ForEach(Array(widgetAthletes.enumerated()), id: \.element.id) { index, athlete in
-                            
-                            if (index % 2) == 0 && index != 0 {
+                            if shouldShowFavoriteAthleteAd(afterItemAt: index) {
                                 BannerAd(placement: .athleteBioSection)
-                                    .frame(height: 250)
                             }
-                            
+
                             NavigationLink {
                                 BioView(athleteId: athlete.athleteId, preferredEvent: athlete.event)
                             } label: {
@@ -135,6 +133,10 @@ struct AthletesView: View {
         } message: {
             Text(favoriteSaveError ?? "")
         }
+    }
+
+    private func shouldShowFavoriteAthleteAd(afterItemAt index: Int) -> Bool {
+        widgetAthletes.count > 20 && index > 0 && index.isMultiple(of: 10)
     }
     
     private var headerCard: some View {

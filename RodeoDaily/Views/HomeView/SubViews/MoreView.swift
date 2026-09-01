@@ -87,6 +87,8 @@ struct MoreView: View {
                 )
             }
             .buttonStyle(.plain)
+
+            BannerAd(placement: .generalMediumRectangle)
         }
     }
 

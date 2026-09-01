@@ -23,7 +23,7 @@ struct PastChampionsListView: View {
                             championRow(champion)
                         }
 
-                        if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 2, repeatEvery: 4) {
+                        if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
                             championAdRow
                         }
                     }
@@ -45,7 +45,7 @@ struct PastChampionsListView: View {
                 }
 
                 ForEach(Array(filteredChampions.enumerated()), id: \.element.id) { index, champion in
-                    if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 10, repeatEvery: 12) {
+                    if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
                         championAdRow
                     }
 

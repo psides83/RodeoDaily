@@ -56,7 +56,11 @@ struct ResultsListView: View {
                     
                     LazyVStack(spacing: AppSpace.md) {
                         if usesFlatResultList {
-                            ForEach(flatResults, id: \.rodeoResultId) { result in
+                            ForEach(Array(flatResults.enumerated()), id: \.element.rodeoResultId) { index, result in
+                                if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
+                                    BannerAd(placement: .athleteBioSection)
+                                }
+
                                 if let event = codingKey(from: result.eventType) {
                                     NavigationLink {
                                         SingleRodeoResults(
@@ -75,7 +79,11 @@ struct ResultsListView: View {
                                 }
                             }
                         } else {
-                            ForEach(groupedResults) { group in
+                            ForEach(Array(groupedResults.enumerated()), id: \.element.id) { index, group in
+                                if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
+                                    BannerAd(placement: .athleteBioSection)
+                                }
+
                                 if let event = codingKey(from: group.eventType) {
                                     NavigationLink {
                                         SingleRodeoResults(
@@ -96,7 +104,7 @@ struct ResultsListView: View {
                         }
                     }
                     
-                    BannerAd(style: .mediumRectangle)
+                    BannerAd(placement: .athleteBioSection)
                 }
             }
             .padding(.horizontal)

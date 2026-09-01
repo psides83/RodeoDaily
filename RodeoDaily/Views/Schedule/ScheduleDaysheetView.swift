@@ -188,6 +188,12 @@ struct DaysheetDetailView: View {
                     }
                 }
             }
+
+            Section {
+                BannerAd(placement: .scheduleDetailBottom)
+            }
+            .listRowInsets(EdgeInsets(top: AppSpace.sm, leading: AppSpace.sm, bottom: AppSpace.sm, trailing: AppSpace.sm))
+            .listRowBackground(Color.clear)
         }
         .listStyle(.insetGrouped)
         .navigationTitle(rodeoName)

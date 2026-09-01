@@ -130,7 +130,7 @@ struct StandingsList: View {
         LazyVStack(spacing: AppSpace.lg) {
             ForEach(Array(filteredStandings.enumerated()), id: \.offset) { index, position in
                 
-                if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index, firstAfter: 10, repeatEvery: 10) {
+                if AdPlacementPolicy.shouldShowListAd(beforeItemAt: index) {
                     BannerAd(placement: .standingsListInline)
                 }
                 
