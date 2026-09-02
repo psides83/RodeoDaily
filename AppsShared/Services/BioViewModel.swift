@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 import SwiftUI
-import UserNotifications
+@preconcurrency import UserNotifications
 
 @MainActor
 class BioViewModel: ObservableObject {
@@ -33,6 +33,19 @@ class BioViewModel: ObservableObject {
     @Published var bioScrollOffset: CGFloat = 0
     @Published var bioPullDownOffset: CGFloat = 0
     @Published var bioHasUserScrolled = false
+
+    func setBioHeaderOffsets(scrollOffset: CGFloat, pullDownOffset: CGFloat) {
+        let normalizedScrollOffset = scrollOffset < 1 ? 0 : scrollOffset
+        let normalizedPullDownOffset = pullDownOffset < 1 ? 0 : pullDownOffset
+
+        if abs(bioScrollOffset - normalizedScrollOffset) >= 0.5 {
+            bioScrollOffset = normalizedScrollOffset
+        }
+
+        if abs(bioPullDownOffset - normalizedPullDownOffset) >= 0.5 {
+            bioPullDownOffset = normalizedPullDownOffset
+        }
+    }
     
 //    let months = DateFormatter().shortMonthSymbols
     
@@ -93,8 +106,26 @@ class BioViewModel: ObservableObject {
         static let alertTypeKey = "alert_type"
     }
     
-    private let followAlertCooldownSeconds: TimeInterval = 60 * 60 * 12
-    private let duplicateDebounceSeconds: TimeInterval = 60 * 10
+    nonisolated private static let followAlertCooldownSeconds: TimeInterval = 60 * 60 * 12
+    nonisolated private static let duplicateDebounceSeconds: TimeInterval = 60 * 10
+
+    private struct FollowAlertNotificationPayload: Sendable {
+        let id: UUID
+        let athleteId: Int
+        let event: String
+        let alertType: String
+        let title: String
+        let message: String
+
+        init(alert: FollowAlertEvent) {
+            id = alert.id
+            athleteId = alert.athleteId
+            event = alert.event
+            alertType = alert.alertType
+            title = alert.title
+            message = alert.message
+        }
+    }
     
     // MARK: - Methods
     func setSelectedEvent(_ event: String) async {
@@ -322,7 +353,7 @@ class BioViewModel: ObservableObject {
         alertType: String,
         modelContext: ModelContext
     ) -> Bool {
-        let cutoff = Date().addingTimeInterval(-followAlertCooldownSeconds)
+        let cutoff = Date().addingTimeInterval(-Self.followAlertCooldownSeconds)
         
         let recentDescriptor = FetchDescriptor<FollowAlertEvent>(
             predicate: #Predicate {
@@ -343,6 +374,7 @@ class BioViewModel: ObservableObject {
     
     private func scheduleLocalNotifications(for alerts: [FollowAlertEvent]) {
         guard !alerts.isEmpty else { return }
+        let notificationAlerts = alerts.map(FollowAlertNotificationPayload.init)
         
         let defaults = UserDefaults.standard
         let pushEnabled = defaults.object(forKey: FollowAlertDefaults.pushEnabled) == nil
@@ -377,24 +409,24 @@ class BioViewModel: ObservableObject {
             }
             
             let now = Date()
-            let dayKey = self.dayKey(for: now)
+            let dayKey = Self.dayKey(for: now)
             let inQuietHours = quietHoursEnabled
-                ? self.isInQuietHours(date: now, startHour: quietStartHour, endHour: quietEndHour)
+                ? Self.isInQuietHours(date: now, startHour: quietStartHour, endHour: quietEndHour)
                 : false
             
-            alerts.forEach { alert in
-                if self.shouldDebounceNotification(alert: alert, now: now) {
+            notificationAlerts.forEach { alert in
+                if Self.shouldDebounceNotification(alert: alert, now: now) {
                     return
                 }
                 
-                let deliveredToday = self.deliveredCount(for: dayKey)
+                let deliveredToday = Self.deliveredCount(for: dayKey)
                 let hitDailyCap = dailyCapEnabled && deliveredToday >= dailyCapCount
                 
                 if inQuietHours || hitDailyCap {
                     guard digestEnabled else { return }
                     
-                    self.incrementPendingDigestCount(for: dayKey)
-                    self.scheduleDigestNotification(
+                    Self.incrementPendingDigestCount(for: dayKey)
+                    Self.scheduleDigestNotification(
                         center: center,
                         dayKey: dayKey,
                         referenceDate: now,
@@ -423,12 +455,12 @@ class BioViewModel: ObservableObject {
                 )
                 
                 center.add(request)
-                self.incrementDeliveredCount(for: dayKey)
+                Self.incrementDeliveredCount(for: dayKey)
             }
         }
     }
     
-    private func shouldDebounceNotification(alert: FollowAlertEvent, now: Date) -> Bool {
+    nonisolated private static func shouldDebounceNotification(alert: FollowAlertNotificationPayload, now: Date) -> Bool {
         let defaults = UserDefaults.standard
         let stateKey = "\(alert.athleteId)_\(alert.alertType)_\(alert.event)"
         let sentAtKey = "\(FollowAlertDefaults.lastSentAtKeyPrefix)\(stateKey)"
@@ -475,36 +507,36 @@ class BioViewModel: ObservableObject {
         UserDefaults.standard.set(rank, forKey: key)
     }
     
-    private func dayKey(for date: Date) -> String {
+    nonisolated private static func dayKey(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)
     }
     
-    private func deliveredCount(for dayKey: String) -> Int {
+    nonisolated private static func deliveredCount(for dayKey: String) -> Int {
         let key = "\(FollowAlertDefaults.deliveredDayKeyPrefix)\(dayKey)"
         return UserDefaults.standard.integer(forKey: key)
     }
     
-    private func incrementDeliveredCount(for dayKey: String) {
+    nonisolated private static func incrementDeliveredCount(for dayKey: String) {
         let key = "\(FollowAlertDefaults.deliveredDayKeyPrefix)\(dayKey)"
         let current = UserDefaults.standard.integer(forKey: key)
         UserDefaults.standard.set(current + 1, forKey: key)
     }
     
-    private func pendingDigestCount(for dayKey: String) -> Int {
+    nonisolated private static func pendingDigestCount(for dayKey: String) -> Int {
         let key = "\(FollowAlertDefaults.pendingDigestDayKeyPrefix)\(dayKey)"
         return UserDefaults.standard.integer(forKey: key)
     }
     
-    private func incrementPendingDigestCount(for dayKey: String) {
+    nonisolated private static func incrementPendingDigestCount(for dayKey: String) {
         let key = "\(FollowAlertDefaults.pendingDigestDayKeyPrefix)\(dayKey)"
         let current = UserDefaults.standard.integer(forKey: key)
         UserDefaults.standard.set(current + 1, forKey: key)
     }
     
-    private func isInQuietHours(date: Date, startHour: Int, endHour: Int) -> Bool {
+    nonisolated private static func isInQuietHours(date: Date, startHour: Int, endHour: Int) -> Bool {
         guard startHour != endHour else { return false }
         
         let hour = Calendar.current.component(.hour, from: date)
@@ -516,7 +548,7 @@ class BioViewModel: ObservableObject {
         return hour >= startHour || hour < endHour
     }
     
-    private func scheduleDigestNotification(
+    nonisolated private static func scheduleDigestNotification(
         center: UNUserNotificationCenter,
         dayKey: String,
         referenceDate: Date,
@@ -555,7 +587,7 @@ class BioViewModel: ObservableObject {
         center.add(request)
     }
     
-    private func nextQuietHoursEnd(after date: Date, quietStartHour: Int, quietEndHour: Int) -> Date {
+    nonisolated private static func nextQuietHoursEnd(after date: Date, quietStartHour: Int, quietEndHour: Int) -> Date {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)
         

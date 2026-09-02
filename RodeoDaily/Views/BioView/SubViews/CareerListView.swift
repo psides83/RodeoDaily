@@ -19,20 +19,17 @@ struct CareerListView: View {
                     .offset(coordinateSpcae: .named("BIO_SCROLL_SHARED")) { value in
                         if initialOffset == nil {
                             initialOffset = value
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
+                            viewModel.setBioHeaderOffsets(scrollOffset: 0, pullDownOffset: 0)
                             return
                         }
                         if !viewModel.bioHasUserScrolled {
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
+                            viewModel.setBioHeaderOffsets(scrollOffset: 0, pullDownOffset: 0)
                             return
                         }
                         let baseline = initialOffset ?? value
                         let delta = value - baseline
                         let newScroll = max(-delta, 0)
-                        viewModel.bioScrollOffset = newScroll < 1 ? 0 : newScroll
-                        viewModel.bioPullDownOffset = 0
+                        viewModel.setBioHeaderOffsets(scrollOffset: newScroll, pullDownOffset: 0)
                     }
 
                 Color.clear

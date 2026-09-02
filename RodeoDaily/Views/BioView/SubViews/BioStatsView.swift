@@ -19,20 +19,17 @@ struct BioStatsView: View {
                     .offset(coordinateSpcae: .named("BIO_SCROLL_SHARED")) { value in
                         if initialOffset == nil {
                             initialOffset = value
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
+                            viewModel.setBioHeaderOffsets(scrollOffset: 0, pullDownOffset: 0)
                             return
                         }
                         if !viewModel.bioHasUserScrolled {
-                            viewModel.bioScrollOffset = 0
-                            viewModel.bioPullDownOffset = 0
+                            viewModel.setBioHeaderOffsets(scrollOffset: 0, pullDownOffset: 0)
                             return
                         }
                         let baseline = initialOffset ?? value
                         let delta = value - baseline
                         let newScroll = max(-delta, 0)
-                        viewModel.bioScrollOffset = newScroll < 1 ? 0 : newScroll
-                        viewModel.bioPullDownOffset = 0
+                        viewModel.setBioHeaderOffsets(scrollOffset: newScroll, pullDownOffset: 0)
                     }
 
                 Color.clear
@@ -41,18 +38,18 @@ struct BioStatsView: View {
                 statsHeader
                 seasonChips
 
-                if selectedSeasonStats == nil {
+                if statsSnapshot == nil {
                     ContentUnavailableView {
                         Label(NSLocalizedString("No Stats Available", comment: ""), systemImage: "chart.bar.xaxis")
                     } description: {
                         Text(NSLocalizedString("No stats are available for this season and event.", comment: ""))
                     }
                     .padding(.top, AppSpace.lg)
-                } else if let stats = selectedSeasonStats {
-                    seasonOverviewCard(season: selectedSeason, stats: stats)
-                    bestPerformanceCard(stats: stats)
-                    nfrSummaryCard(season: selectedSeason)
-                    monthlyEarningsCard(season: selectedSeason)
+                } else if let statsSnapshot {
+                    seasonOverviewCard(season: statsSnapshot.season, stats: statsSnapshot.seasonStats)
+                    bestPerformanceCard(stats: statsSnapshot.seasonStats)
+                    nfrSummaryCard(statsSnapshot: statsSnapshot)
+                    monthlyEarningsCard(statsSnapshot: statsSnapshot)
                     BannerAd(style: .mediumRectangle)
                 }
             }
@@ -87,14 +84,34 @@ struct BioStatsView: View {
         return seasons.first ?? viewModel.selectedSeason
     }
 
-    private var selectedSeasonStats: (
+    private typealias SeasonStats = (
         seasonEarningsAndRank: (rank: String, earnings: String),
         bestGo: (rodeo: String, result: String),
         earningsGo: (rodeo: String, result: String, payout: String),
         earningRodeo: (rodeo: String, payout: String)
-    )? {
+    )
+
+    private struct StatsSnapshot {
+        let season: String
+        let seasonStats: SeasonStats
+        let nfrBestGo: String?
+        let nfrEarnings: String?
+        let monthlyEarnings: [(month: String, total: Double)]
+        let regularSeasonTotal: Double
+    }
+
+    private var statsSnapshot: StatsSnapshot? {
         guard !selectedSeason.isEmpty else { return nil }
-        return viewModel.stats(season: selectedSeason)
+
+        let monthlyEarnings = viewModel.monthlyEarnings(season: selectedSeason)
+        return StatsSnapshot(
+            season: selectedSeason,
+            seasonStats: viewModel.stats(season: selectedSeason),
+            nfrBestGo: viewModel.nfrBestGo(season: selectedSeason.int),
+            nfrEarnings: viewModel.nfrEarnings(for: selectedSeason),
+            monthlyEarnings: monthlyEarnings,
+            regularSeasonTotal: monthlyEarnings.reduce(0) { $0 + $1.total }
+        )
     }
 
     private var statsHeader: some View {
@@ -267,13 +284,13 @@ struct BioStatsView: View {
         }
     }
 
-    private func nfrSummaryCard(season: String) -> some View {
+    private func nfrSummaryCard(statsSnapshot: StatsSnapshot) -> some View {
         VStack(alignment: .leading, spacing: AppSpace.sm) {
             Text(NSLocalizedString("NFR Summary", comment: ""))
                 .font(.appBodyStrong)
                 .foregroundColor(.appPrimary)
 
-            if let result = viewModel.nfrBestGo(season: season.int) {
+            if let result = statsSnapshot.nfrBestGo {
                 HStack {
                     Text(String(format: NSLocalizedString("Best NFR %@", comment: ""), viewModel.scoreTypeText.scoreType.replacingOccurrences(of: ":", with: "")))
                         .font(.appBody)
@@ -285,7 +302,7 @@ struct BioStatsView: View {
                 }
             }
 
-            if let nfrEarnings = viewModel.nfrEarnings(for: season) {
+            if let nfrEarnings = statsSnapshot.nfrEarnings {
                 HStack {
                     Text(NSLocalizedString("NFR Earnings", comment: ""))
                         .font(.appBody)
@@ -297,7 +314,7 @@ struct BioStatsView: View {
                 }
             }
 
-            if viewModel.nfrBestGo(season: season.int) == nil && viewModel.nfrEarnings(for: season) == nil {
+            if statsSnapshot.nfrBestGo == nil && statsSnapshot.nfrEarnings == nil {
                 Text(NSLocalizedString("No NFR stats for this season.", comment: ""))
                     .font(.appCaption)
                     .foregroundColor(.appTertiary)
@@ -306,10 +323,9 @@ struct BioStatsView: View {
         .appCardStyle()
     }
 
-    private func monthlyEarningsCard(season: String) -> some View {
-        let data = viewModel.monthlyEarnings(season: season)
+    private func monthlyEarningsCard(statsSnapshot: StatsSnapshot) -> some View {
+        let data = statsSnapshot.monthlyEarnings
         let maxTotal = max(data.map(\.total).max() ?? 0, 1)
-        let regularSeasonTotal = data.reduce(0) { $0 + $1.total }
 
         return VStack(alignment: .leading, spacing: AppSpace.md) {
             HStack(alignment: .firstTextBaseline, spacing: AppSpace.sm) {
@@ -319,7 +335,7 @@ struct BioStatsView: View {
 
                 Spacer()
 
-                Text("\(NSLocalizedString("Regular Season", comment: "")): \(regularSeasonTotal.currencyABS)")
+                Text("\(NSLocalizedString("Regular Season", comment: "")): \(statsSnapshot.regularSeasonTotal.currencyABS)")
                     .font(.appCaptionStrong)
                     .foregroundColor(.appSecondary)
                     .lineLimit(1)

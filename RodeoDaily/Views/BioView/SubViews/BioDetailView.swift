@@ -4,29 +4,28 @@ import Foundation
 struct BioDetailView: View {
     let athleteName: String
     let biographyText: String
-    private let parsed: BioDetailDocument
-    private let hasNoBioContent: Bool
+    @State private var parsedBio: ParsedBio?
 
     init(athleteName: String, biographyText: String) {
         self.athleteName = athleteName
         self.biographyText = biographyText
-        let plainText = BioDetailParser
-            .htmlToPlainText(biographyText)
-            .replacingOccurrences(of: "\u{00A0}", with: " ")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        self.hasNoBioContent = plainText.isEmpty
-        self.parsed = hasNoBioContent ? BioDetailDocument(blocks: []) : BioDetailParser.parse(html: biographyText)
     }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                if hasNoBioContent {
-                    noBioState
-                } else if parsed.isEmpty {
-                    HtmlView(htmlContent: biographyText)
+                if let parsedBio {
+                    if parsedBio.hasNoBioContent {
+                        noBioState
+                    } else if parsedBio.document.isEmpty {
+                        HtmlView(htmlContent: biographyText)
+                    } else {
+                        nativeBioContent(parsedBio.document)
+                    }
                 } else {
-                    nativeBioContent
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, AppSpace.xxl)
                 }
                 BannerAd(placement: .athleteBioSection)
             }
@@ -40,6 +39,25 @@ struct BioDetailView: View {
         .onAppear {
             AnalyticsService.shared.track(.athleteBioViewed(source: "bio_detail"))
         }
+        .task(id: biographyText) {
+            parsedBio = Self.parseBiography(biographyText)
+        }
+    }
+
+    private struct ParsedBio {
+        let document: BioDetailDocument
+        let hasNoBioContent: Bool
+    }
+
+    private static func parseBiography(_ biographyText: String) -> ParsedBio {
+        let plainText = BioDetailParser
+            .htmlToPlainText(biographyText)
+            .replacingOccurrences(of: "\u{00A0}", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let hasNoBioContent = plainText.isEmpty
+        let document = hasNoBioContent ? BioDetailDocument(blocks: []) : BioDetailParser.parse(html: biographyText)
+
+        return ParsedBio(document: document, hasNoBioContent: hasNoBioContent)
     }
 
     private var noBioState: some View {
@@ -69,9 +87,9 @@ struct BioDetailView: View {
         .padding(.bottom, AppSpace.sm)
     }
 
-    private var nativeBioContent: some View {
+    private func nativeBioContent(_ document: BioDetailDocument) -> some View {
         VStack(alignment: .leading, spacing: AppSpace.sm) {
-            ForEach(Array(parsed.blocks.enumerated()), id: \.offset) { _, block in
+            ForEach(Array(document.blocks.enumerated()), id: \.offset) { _, block in
                 switch block {
                 case .heading(let text):
                     Text(text)

@@ -58,8 +58,7 @@ private struct BioHeaderScrollTrackingModifier: ViewModifier {
 
                 let baseline = initialOffset ?? value
                 let delta = value - baseline
-                viewModel.bioScrollOffset = max(-delta, 0)
-                viewModel.bioPullDownOffset = max(delta, 0)
+                viewModel.setBioHeaderOffsets(scrollOffset: max(-delta, 0), pullDownOffset: max(delta, 0))
             }
     }
 }
