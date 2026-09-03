@@ -35,7 +35,7 @@ struct BusinessJournalListingsView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: AppSpace.lg) {
                 disclaimerCard
-                filterControls
+                activeDateFilterBanner
 
                 Group {
                     if loading && items.isEmpty {
@@ -84,6 +84,23 @@ struct BusinessJournalListingsView: View {
         .sheet(isPresented: $showingDateRangeSheet) {
             dateRangeSheet
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Menu {
+                    sortMenuContent
+                } label: {
+                    Image(systemName: "arrow.up.arrow.down")
+                }
+                .accessibilityLabel("Sort Rodeo Listings")
+
+                Menu {
+                    dateFilterMenuContent
+                } label: {
+                    Image(systemName: activeDateFilterText == nil ? "calendar" : "calendar.badge.clock")
+                }
+                .accessibilityLabel("Filter Rodeo Listing Dates")
+            }
+        }
         .onChange(of: dateFilterMode) { _, newValue in
             if newValue == .month && selectedMonthKey == nil {
                 selectedMonthKey = monthOptions.first?.0
@@ -117,57 +134,120 @@ struct BusinessJournalListingsView: View {
             }
             .buttonStyle(.plain)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
-    private var filterControls: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+    @ViewBuilder
+    private var activeDateFilterBanner: some View {
+        if let activeDateFilterText {
             HStack(spacing: AppSpace.sm) {
-                filterMenuChip(title: "Sort", value: sortOption.rawValue) {
-                    ForEach(SortOption.allCases) { option in
-                        Button(option.rawValue) {
-                            sortOption = option
-                        }
+                Image(systemName: "calendar.badge.clock")
+                    .foregroundColor(.appSecondary)
+
+                Text(activeDateFilterText)
+                    .font(.appCaptionStrong)
+                    .foregroundColor(.appPrimary)
+                    .lineLimit(2)
+
+                Spacer()
+
+                Button {
+                    dateFilterMode = .all
+                    selectedMonthKey = nil
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.appTertiary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Clear Date Filter")
+            }
+            .padding(.vertical, AppSpace.sm)
+            .padding(.horizontal, AppSpace.md)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(Color.appBg)
+            )
+            .overlay(
+                Capsule(style: .continuous)
+                    .stroke(Color.appTertiary.opacity(0.22), lineWidth: AppStroke.hairline)
+            )
+        }
+    }
+
+    @ViewBuilder
+    private var sortMenuContent: some View {
+        ForEach(SortOption.allCases) { option in
+            Button {
+                sortOption = option
+            } label: {
+                if sortOption == option {
+                    Label(option.rawValue, systemImage: "checkmark")
+                } else {
+                    Text(option.rawValue)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var dateFilterMenuContent: some View {
+        Button {
+            dateFilterMode = .all
+            selectedMonthKey = nil
+        } label: {
+            if dateFilterMode == .all {
+                Label(DateFilterMode.all.rawValue, systemImage: "checkmark")
+            } else {
+                Text(DateFilterMode.all.rawValue)
+            }
+        }
+
+        Menu {
+            Button {
+                dateFilterMode = .month
+                selectedMonthKey = nil
+            } label: {
+                if dateFilterMode == .month && selectedMonthKey == nil {
+                    Label("All Months", systemImage: "checkmark")
+                } else {
+                    Text("All Months")
+                }
+            }
+
+            ForEach(monthOptions, id: \.0) { option in
+                Button {
+                    dateFilterMode = .month
+                    selectedMonthKey = option.0
+                } label: {
+                    if selectedMonthKey == option.0 {
+                        Label(option.1, systemImage: "checkmark")
+                    } else {
+                        Text(option.1)
                     }
                 }
+            }
+        } label: {
+            if dateFilterMode == .month, let selectedMonthLabel {
+                Text("Month: \(selectedMonthLabel)")
+            } else {
+                Text("Month")
+            }
+        }
 
-                filterMenuChip(title: "Date Filter", value: dateFilterValue) {
-                    Button(DateFilterMode.all.rawValue) {
-                        dateFilterMode = .all
-                    }
+        Button {
+            dateFilterMode = .range
+            showingDateRangeSheet = true
+        } label: {
+            if dateFilterMode == .range {
+                Label("Date Range", systemImage: "checkmark")
+            } else {
+                Text("Date Range")
+            }
+        }
 
-                    Menu {
-                        Button("All Months") {
-                            dateFilterMode = .month
-                            selectedMonthKey = nil
-                        }
-
-                        ForEach(monthOptions, id: \.0) { option in
-                            Button(option.1) {
-                                dateFilterMode = .month
-                                selectedMonthKey = option.0
-                            }
-                        }
-                    } label: {
-                        if dateFilterMode == .month, let selectedMonthLabel {
-                            Text("Month: \(selectedMonthLabel)")
-                        } else {
-                            Text("Month")
-                        }
-                    }
-
-                    Button("Date Range") {
-                        dateFilterMode = .range
-                        showingDateRangeSheet = true
-                    }
-
-                    if dateFilterMode == .range {
-                        Button("Edit Date Range") {
-                            showingDateRangeSheet = true
-                        }
-                    }
-                }
-
+        if dateFilterMode == .range {
+            Button("Edit Date Range") {
+                showingDateRangeSheet = true
             }
         }
     }
@@ -204,16 +284,27 @@ struct BusinessJournalListingsView: View {
         return monthOptions.first(where: { $0.0 == selectedMonthKey })?.1
     }
 
-    private var dateFilterValue: String {
+    private var activeDateFilterText: String? {
         switch dateFilterMode {
         case .all:
-            return DateFilterMode.all.rawValue
+            return nil
         case .month:
-            return selectedMonthLabel ?? "All Months"
+            guard let selectedMonthLabel else { return nil }
+            return "Showing \(selectedMonthLabel)"
         case .range:
-            return "Date Range"
+            let start = min(rangeStartDate, rangeEndDate)
+            let end = max(rangeStartDate, rangeEndDate)
+            return "Showing \(Self.dateRangeFormatter.string(from: start)) - \(Self.dateRangeFormatter.string(from: end))"
         }
     }
+
+    private static let dateRangeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
 
     private func filteredBySearch(_ source: [BusinessJournalFeedItem]) -> [BusinessJournalFeedItem] {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -322,63 +413,35 @@ struct BusinessJournalListingsView: View {
         item.eventSortDate
     }
 
-    private func filterMenuChip<Content: View>(
-        title: String,
-        value: String,
-        @ViewBuilder content: @escaping () -> Content
-    ) -> some View {
-        Menu(content: content) {
-            chipContent(title: title, value: value, trailingSystemImage: "chevron.down")
-        }
-    }
-
-    private func chipContent(title: String, value: String, trailingSystemImage: String) -> some View {
-        VStack(alignment: .leading, spacing: AppSpace.xxs) {
-            Text(title.uppercased())
-                .font(.appMetricLabel)
-                .foregroundColor(.appTertiary)
-
-            HStack(spacing: AppSpace.xs) {
-                Text(value)
-                    .font(.appBodyStrong)
-                    .foregroundColor(.appPrimary)
-                    .lineLimit(1)
-
-                Image(systemName: trailingSystemImage)
-                    .font(.caption2)
-                    .foregroundColor(.appSecondary)
-            }
-        }
-        .padding(.vertical, AppSpace.sm)
-        .padding(.horizontal, AppSpace.md)
-        .background(
-            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                .fill(Color.appBg)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-        )
-    }
-
     private var dateRangeSheet: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: AppSpace.lg) {
-                SwiftUI.DatePicker(
-                    "Start Date",
-                    selection: $rangeStartDate,
-                    displayedComponents: .date
-                )
-                .datePickerStyle(.graphical)
+            Form {
+                Section {
+                    SwiftUI.DatePicker(
+                        "Start",
+                        selection: $rangeStartDate,
+                        displayedComponents: .date
+                    )
 
-                SwiftUI.DatePicker(
-                    "End Date",
-                    selection: $rangeEndDate,
-                    displayedComponents: .date
-                )
-                .datePickerStyle(.graphical)
+                    SwiftUI.DatePicker(
+                        "End",
+                        selection: $rangeEndDate,
+                        displayedComponents: .date
+                    )
+                } footer: {
+                    Text("Listings that overlap this date range will be shown.")
+                }
+            }
+            .navigationTitle("Date Range")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        showingDateRangeSheet = false
+                    }
+                }
 
-                HStack(spacing: AppSpace.sm) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Clear") {
                         let today = Date.now
                         rangeStartDate = Calendar.current.date(byAdding: .month, value: -1, to: today) ?? today
@@ -386,21 +449,17 @@ struct BusinessJournalListingsView: View {
                         dateFilterMode = .all
                         showingDateRangeSheet = false
                     }
-                    .buttonStyle(.bordered)
+                }
 
-                    Spacer()
-
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Apply") {
                         dateFilterMode = .range
                         showingDateRangeSheet = false
                     }
-                    .buttonStyle(.borderedProminent)
+                    .fontWeight(.semibold)
                 }
             }
-            .padding()
-            .navigationTitle("Date Range")
-            .navigationBarTitleDisplayMode(.inline)
         }
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.height(260), .medium])
     }
 }

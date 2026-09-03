@@ -108,7 +108,7 @@ struct ResultsListView: View {
             .padding(.top, AppSpace.md)
             .padding(.bottom, AppSpace.xxl)
         }
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .simultaneousGesture(DragGesture(minimumDistance: 1)
             .onChanged { _ in
                 viewModel.bioHasUserScrolled = true
@@ -173,7 +173,7 @@ struct ResultsListView: View {
                 .font(.appCaption)
                 .foregroundColor(.appTertiary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
     
     private var searchButton: some View {
@@ -189,14 +189,7 @@ struct ResultsListView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundColor(.appPrimary)
                 .frame(width: 34, height: 34)
-                .background(
-                    Circle()
-                        .fill(Color.appBg)
-                )
-                .overlay(
-                    Circle()
-                        .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-                )
+                .appGlassSurface(Circle(), strokeOpacity: 0.16, shadowOpacity: 0.03)
         }
         .buttonStyle(.plain)
     }
@@ -222,14 +215,7 @@ struct ResultsListView: View {
         }
         .padding(.horizontal, AppSpace.md)
         .padding(.vertical, AppSpace.sm)
-        .background(
-            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                .fill(Color.appBg)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-        )
+        .appGlassSurface(RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous), strokeOpacity: 0.14, shadowOpacity: 0.02)
     }
     
     private func compactFilterChip(value: String) -> some View {
@@ -393,7 +379,7 @@ struct ResultsListView: View {
                     .frame(width: 96, alignment: .trailing)
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
     
     func codingKey(from eventType: String) -> Events.CodingKeys? {

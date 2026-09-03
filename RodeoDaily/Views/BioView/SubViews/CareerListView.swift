@@ -65,7 +65,7 @@ struct CareerListView: View {
             .padding(.top, AppSpace.md)
             .padding(.bottom, AppSpace.xxl)
         }
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .simultaneousGesture(DragGesture(minimumDistance: 1)
             .onChanged { _ in
                 viewModel.bioHasUserScrolled = true
@@ -90,7 +90,7 @@ struct CareerListView: View {
                 .font(.appCaption)
                 .foregroundColor(.appTertiary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
     
     private var columnHeader: some View {
@@ -136,7 +136,7 @@ struct CareerListView: View {
                 .monospacedDigit()
                 .frame(width: 110, alignment: .trailing)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 }
 

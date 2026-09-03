@@ -18,15 +18,27 @@ struct EventFilterView: View {
     }
     
     func menuIcon() -> some View {
-//        VStack {
-//            Image.calendar
-//                .imageScale(.large)
-//                .foregroundColor(.appPrimary)
-            
-        Text(selectedEvent?.eventDisplay ?? "Select an Event")
+        HStack(spacing: AppSpace.xs) {
+            Text(selectedEvent?.eventDisplay ?? "Select an Event")
                 .font(.caption)
                 .fontWeight(.medium)
-//        }
+                .foregroundColor(.appSecondary)
+                .lineLimit(1)
+
+            Image(systemName: "chevron.down")
+                .font(.caption2)
+                .foregroundColor(.appTertiary)
+        }
+        .padding(.horizontal, AppSpace.md)
+        .padding(.vertical, AppSpace.sm)
+        .background(
+            Capsule(style: .continuous)
+                .fill(Color.appBg)
+        )
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+        )
     }
     
     func menuContent() -> some View {

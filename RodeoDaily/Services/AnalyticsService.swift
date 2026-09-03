@@ -7,12 +7,21 @@
 
 import Foundation
 import TelemetryDeck
+import UserNotifications
+
+#if os(iOS)
+import AppTrackingTransparency
+import UIKit
+#endif
 
 final class AnalyticsService {
     static let shared = AnalyticsService()
 
     private let appID = "517FE151-1DA2-42A1-B4B4-3FA05A511A1E"
     private let namespace = "com.thewaymedia"
+    private let appGroupDefaults = UserDefaults(suiteName: "group.PaytonSides.RodeoDaily") ?? .standard
+    private let installDateKey = "analyticsInstallDate"
+    private let hasTrackedLaunchKey = "hasTrackedAnalyticsLaunch"
     private var isConfigured = false
 
     private init() {}
@@ -29,12 +38,132 @@ final class AnalyticsService {
     }
 
     func track(_ event: AnalyticsEvent) {
+        guard event.shouldSendToTelemetryDeck else { return }
+
         if !isConfigured {
             configure()
         }
 
-        TelemetryDeck.signal(event.name, parameters: event.parameters)
+        signal(event)
     }
+
+    private var appEnvironmentParameters: [String: String] {
+        let launchState = launchState
+        var parameters = [
+            "app_version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown",
+            "build_number": Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown",
+            "device_type": deviceType,
+            "app_locale": Locale.current.identifier,
+            "is_first_launch": launchState.isFirstLaunch.analyticsString,
+            "days_since_install": String(launchState.daysSinceInstall),
+            "install_cohort": launchState.installCohort,
+            "os_name": osName,
+            "os_version": ProcessInfo.processInfo.operatingSystemVersion.analyticsString,
+            "att_status": trackingAuthorizationStatus,
+            "preferred_standings_event": appGroupDefaults.string(forKey: "favoriteStandingsEvent") ?? "aa",
+            "preferred_results_event": appGroupDefaults.string(forKey: "favoriteResultsEvent") ?? "bb"
+        ]
+
+        #if os(iOS)
+        parameters["is_ipad_app_on_mac"] = ProcessInfo.processInfo.isiOSAppOnMac.analyticsString
+        #endif
+
+        return parameters
+    }
+
+    private func signal(_ event: AnalyticsEvent) {
+        var parameters = event.parameters.merging(appEnvironmentParameters) { current, _ in
+            current
+        }
+
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            parameters["notification_authorization_status"] = settings.authorizationStatus.analyticsString
+
+            DispatchQueue.main.async {
+                TelemetryDeck.signal(event.name, parameters: parameters)
+            }
+        }
+    }
+
+    private var launchState: (isFirstLaunch: Bool, daysSinceInstall: Int, installCohort: String) {
+        let defaults = UserDefaults.standard
+        let now = Date()
+        let existingInstallDate = defaults.object(forKey: installDateKey) as? Date
+        let isFirstLaunch = !defaults.bool(forKey: hasTrackedLaunchKey) && !hasExistingAppState
+        let installDate = existingInstallDate ?? now
+
+        if existingInstallDate == nil {
+            defaults.set(installDate, forKey: installDateKey)
+        }
+        defaults.set(true, forKey: hasTrackedLaunchKey)
+
+        return (
+            isFirstLaunch: isFirstLaunch,
+            daysSinceInstall: Calendar.current.dateComponents([.day], from: installDate, to: now).day ?? 0,
+            installCohort: Self.installCohortFormatter.string(from: installDate)
+        )
+    }
+
+    private var hasExistingAppState: Bool {
+        let defaults = UserDefaults.standard
+        return defaults.object(forKey: "lastSeenWhatsNewVersion") != nil
+            || defaults.object(forKey: "needsATTRequest") != nil
+            || appGroupDefaults.object(forKey: "favoriteStandingsEvent") != nil
+            || appGroupDefaults.object(forKey: "favoriteResultsEvent") != nil
+    }
+
+    private var deviceType: String {
+        #if os(iOS)
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return "iPhone"
+        case .pad:
+            return "iPad"
+        case .mac:
+            return "Mac"
+        case .tv:
+            return "Apple TV"
+        case .carPlay:
+            return "CarPlay"
+        case .vision:
+            return "Apple Vision"
+        case .unspecified:
+            return "unspecified"
+        @unknown default:
+            return "unknown"
+        }
+        #elseif os(watchOS)
+        return "Apple Watch"
+        #else
+        return "unknown"
+        #endif
+    }
+
+    private var trackingAuthorizationStatus: String {
+        #if os(iOS)
+        return ATTrackingManager.trackingAuthorizationStatus.analyticsString
+        #else
+        return "unavailable"
+        #endif
+    }
+
+    private var osName: String {
+        #if os(iOS)
+        return "iOS"
+        #elseif os(watchOS)
+        return "watchOS"
+        #else
+        return "unknown"
+        #endif
+    }
+
+    private static let installCohortFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 }
 
 enum AnalyticsEvent {
@@ -86,6 +215,25 @@ enum AnalyticsEvent {
             return "past_champions_viewed"
         case .adLifecycle:
             return "ad_lifecycle"
+        }
+    }
+
+    var shouldSendToTelemetryDeck: Bool {
+        switch self {
+        case .appOpened:
+            return true
+        case .tabViewed,
+             .standingsFilterChanged,
+             .resultsFilterChanged,
+             .scheduleFilterChanged,
+             .rodeoDetailViewed,
+             .daysheetViewed,
+             .athleteBioViewed,
+             .rodeoListingsViewed,
+             .rodeoListingDetailViewed,
+             .pastChampionsViewed,
+             .adLifecycle:
+            return false
         }
     }
 
@@ -146,6 +294,50 @@ enum AnalyticsEvent {
 private extension Bool {
     var analyticsString: String {
         self ? "true" : "false"
+    }
+}
+
+#if os(iOS)
+private extension ATTrackingManager.AuthorizationStatus {
+    var analyticsString: String {
+        switch self {
+        case .notDetermined:
+            return "not_determined"
+        case .restricted:
+            return "restricted"
+        case .denied:
+            return "denied"
+        case .authorized:
+            return "authorized"
+        @unknown default:
+            return "unknown"
+        }
+    }
+}
+#endif
+
+private extension UNAuthorizationStatus {
+    var analyticsString: String {
+        switch self {
+        case .notDetermined:
+            return "not_determined"
+        case .denied:
+            return "denied"
+        case .authorized:
+            return "authorized"
+        case .provisional:
+            return "provisional"
+        case .ephemeral:
+            return "ephemeral"
+        @unknown default:
+            return "unknown"
+        }
+    }
+}
+
+private extension OperatingSystemVersion {
+    var analyticsString: String {
+        "\(majorVersion).\(minorVersion).\(patchVersion)"
     }
 }
 

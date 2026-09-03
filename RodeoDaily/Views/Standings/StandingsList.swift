@@ -9,7 +9,6 @@ import SwiftUI
 import UIKit
 
 struct StandingsList: View {
-    @Environment(\.colorScheme) private var colorScheme
     var widgetAthletes: [WidgetAthlete]
     var followedAthletes: [FollowedAthlete]
     let standings: [Position]
@@ -107,22 +106,7 @@ struct StandingsList: View {
                 .opacity(0.85)
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, AppSpace.lg)
-        .padding(.vertical, AppSpace.xs)
-        .padding(.horizontal, AppSpace.sm)
-        .background {
-            Capsule(style: .continuous)
-                .stroke(.gray.opacity(0.25), lineWidth: 1.5)
-                .background(
-                    Capsule(style: .continuous)
-                        .fill(colorScheme == .dark ? Color.black.opacity(0.42) : Color.appBg.opacity(0.8))
-                )
-                .background(
-                    Capsule(style: .continuous)
-                        .fill(.ultraThinMaterial)
-                )
-                .compositingGroup()
-        }
+        .appCollapsedHeaderStyle()
     }
     
     // MARK: - Computed View Properties
@@ -205,7 +189,7 @@ struct StandingsList: View {
 //                .accessibilityLabel("Share standings")
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
     
     var standingsFilters: some View {

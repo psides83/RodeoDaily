@@ -4,17 +4,12 @@
 //
 
 import SwiftData
-import UIKit
 import UserNotifications
 
 enum AppBadgeManager {
     @MainActor
     static func clearBadge() async {
-        if #available(iOS 17.0, *) {
-            try? await UNUserNotificationCenter.current().setBadgeCount(0)
-        } else {
-            UIApplication.shared.applicationIconBadgeNumber = 0
-        }
+        try? await UNUserNotificationCenter.current().setBadgeCount(0)
     }
 
     @MainActor
@@ -24,10 +19,6 @@ enum AppBadgeManager {
         )
         let unreadCount = ((try? modelContext.fetch(descriptor)) ?? []).count
 
-        if #available(iOS 17.0, *) {
-            try? await UNUserNotificationCenter.current().setBadgeCount(unreadCount)
-        } else {
-            UIApplication.shared.applicationIconBadgeNumber = unreadCount
-        }
+        try? await UNUserNotificationCenter.current().setBadgeCount(unreadCount)
     }
 }

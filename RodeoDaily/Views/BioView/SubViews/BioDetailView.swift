@@ -33,7 +33,7 @@ struct BioDetailView: View {
             .padding(.top, AppSpace.md)
             .padding(.bottom, AppSpace.xxl)
         }
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .navigationTitle(athleteName)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -75,15 +75,7 @@ struct BioDetailView: View {
             .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(AppSpace.md)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.appBg)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-        )
+        .appSectionSurface()
         .padding(.bottom, AppSpace.sm)
     }
 

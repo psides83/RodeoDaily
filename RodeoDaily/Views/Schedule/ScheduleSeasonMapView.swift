@@ -615,8 +615,8 @@ struct ScheduleSeasonMapView: View {
     private func openSelectedInAppleMaps() {
         guard let selectedRodeo, let coordinate = selectedRodeo.coordinate else { return }
 
-        let placemark = MKPlacemark(coordinate: coordinate)
-        let item = MKMapItem(placemark: placemark)
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let item = MKMapItem(location: location, address: nil)
         item.name = selectedRodeo.venueName.isEmpty ? selectedRodeo.name : selectedRodeo.venueName
         item.openInMaps()
     }

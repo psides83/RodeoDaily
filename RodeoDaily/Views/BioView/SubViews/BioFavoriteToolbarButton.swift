@@ -28,8 +28,12 @@ struct BioFavoriteToolbarButton: View {
         } label: {
             Image(systemName: favoriteIcon)
                 .imageScale(.medium)
+                .font(.subheadline.weight(.semibold))
+                .foregroundColor(.appSecondary)
+                .frame(width: 34, height: 34)
+                .appGlassSurface(Circle(), strokeOpacity: 0.16, shadowOpacity: 0.03)
         }
-        .tint(.appSecondary)
+        .buttonStyle(.plain)
         .disabled(!isFavorite && !canCreateFavorite)
         .alert(
             Text("Unable to Add Favorite"),

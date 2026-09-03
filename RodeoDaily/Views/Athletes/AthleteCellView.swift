@@ -25,9 +25,11 @@ struct AthleteCellView: View {
                     .foregroundColor(.appPrimary)
                     .padding(.horizontal, AppSpace.sm)
                     .padding(.vertical, AppSpace.xxs)
-                    .background(
-                        Capsule()
-                            .fill(Color.appSecondary.opacity(0.18))
+                    .appGlassSurface(
+                        Capsule(style: .continuous),
+                        tint: Color.appBg,
+                        strokeOpacity: 0.12,
+                        shadowOpacity: 0.01
                     )
             }
 
@@ -37,7 +39,7 @@ struct AthleteCellView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundColor(.appTertiary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 }
 

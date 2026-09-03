@@ -128,7 +128,7 @@ struct BioResultCellView: View {
                 }
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 }
 

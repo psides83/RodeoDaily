@@ -80,20 +80,25 @@ struct Buttons_Previews: PreviewProvider {
 struct LoadingButtonStyle: ButtonStyle {
     let loading: Bool
     
-    var color = Color.rdGreen
-    
     func makeBody(configuration: Configuration) -> some View {
-        
         let isPressed = configuration.isPressed
         
         configuration.label
             .font(.subheadline.weight(.semibold))
             .textCase(.none)
-            .foregroundColor(.white)
-            .padding(10)
-            .background(isPressed ? Color.rdGreen.opacity(0.6) : loading ? Color.rdGray.opacity(0.8) : Color.rdGreen)
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
+            .foregroundColor(loading ? .appTertiary : .appBg)
+            .padding(.horizontal, AppSpace.lg)
+            .padding(.vertical, AppSpace.md)
+            .background(
+                RoundedRectangle(cornerRadius: AppRadius.sm, style: .continuous)
+                    .fill(loading ? Color.appTertiary.opacity(0.24) : Color.appSecondary)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: AppRadius.sm, style: .continuous)
+                    .stroke(Color.appTertiary.opacity(0.18), lineWidth: AppStroke.hairline)
+            )
+            .scaleEffect(isPressed ? 0.98 : 1)
+            .animation(.easeOut(duration: 0.14), value: isPressed)
     }
 }
 
@@ -178,12 +183,10 @@ struct ClearBackground<S: Shape>: View {
         ZStack {
             if isHighlighted {
                 shape
-                    .fill(Color.systemGroupedBackground)
-                    .cornerRadius(10)
+                    .fill(Color.appTertiary.opacity(0.14))
             } else {
                 shape
                     .fill(Color.clear)
-                    .cornerRadius(10)
             }
         }
     }

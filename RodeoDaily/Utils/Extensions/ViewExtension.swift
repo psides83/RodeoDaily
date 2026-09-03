@@ -72,7 +72,6 @@ extension View {
     }
     
 #if os(iOS)
-    @available(iOS 14, *)
     func navigationBarTitleColor(_ color: Color) -> some View {
         let uiColor = UIColor(color)
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]

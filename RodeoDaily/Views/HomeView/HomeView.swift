@@ -90,11 +90,15 @@ fileprivate struct HomeCustomTabBar: View {
                         .background(alignment: .leading) {
                             ZStack {
                                 Capsule(style: .continuous)
-                                    .stroke(.gray.opacity(0.25), lineWidth: 3)
+                                    .stroke(Color.appSecondary.opacity(0.32), lineWidth: 2)
                                     .opacity(isActive ? 1 : 0)
 
                                 Capsule(style: .continuous)
-                                    .fill(.background)
+                                    .fill(Color.appBg.opacity(colorScheme == .dark ? 0.26 : 0.78))
+                                    .background(
+                                        Capsule(style: .continuous)
+                                            .fill(.thinMaterial)
+                                    )
                             }
                             .compositingGroup()
                             .frame(width: tabItemWidth, height: tabItemHeight)
@@ -154,7 +158,7 @@ fileprivate struct HomeCustomTabBar: View {
 
         VStack(spacing: 6) {
             Image(systemName: tab.symbol)
-                .font(.title2)
+                .font(.system(size: 20, weight: .semibold))
                 .symbolVariant(.fill)
 
             if !isSearchExpanded {
@@ -201,17 +205,13 @@ fileprivate struct HomeCustomTabBar: View {
 
     @ViewBuilder
     private func TabBarBackground() -> some View {
-        ZStack {
-            Capsule(style: .continuous)
-                .stroke(.gray.opacity(0.25), lineWidth: 1.5)
-
-            Capsule(style: .continuous)
-                .fill(.background.opacity(0.8))
-
-            Capsule(style: .continuous)
-                .fill(.ultraThinMaterial)
-        }
-        .compositingGroup()
+        Color.clear
+            .appGlassSurface(
+                Capsule(style: .continuous),
+                tint: Color.appBg,
+                strokeOpacity: 0.18,
+                shadowOpacity: 0.08
+            )
     }
 
     @ViewBuilder
@@ -221,7 +221,7 @@ fileprivate struct HomeCustomTabBar: View {
         searchLayout {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
-                    .font(isSearchExpanded ? .body : .title2)
+                    .font(isSearchExpanded ? .body : .system(size: 20, weight: .semibold))
                     .foregroundStyle(isSearchExpanded ? .gray : inactiveColor)
                     .frame(width: isSearchExpanded ? nil : height, height: height)
                     .onTapGesture {
@@ -333,6 +333,8 @@ extension HomeView {
                     trackScrollOffset(-value)
                 }
             }
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .coordinateSpace(name: "HOME_TAB_SCROLL")
             .refreshable {
                 await refreshCurrentTab(.standings)
@@ -354,6 +356,8 @@ extension HomeView {
                     trackScrollOffset(-value)
                 }
             }
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .coordinateSpace(name: "HOME_TAB_SCROLL")
             .refreshable {
                 await refreshCurrentTab(.results)
@@ -373,6 +377,8 @@ extension HomeView {
                     trackScrollOffset(-value)
                 }
             }
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .coordinateSpace(name: "HOME_TAB_SCROLL")
             .refreshable {
                 await refreshCurrentTab(.schedule)
@@ -387,6 +393,8 @@ extension HomeView {
                         trackScrollOffset(-value)
                     }
             }
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .coordinateSpace(name: "HOME_TAB_SCROLL")
         }
     }
@@ -811,28 +819,13 @@ extension HomeView {
 }
 
 extension View {
-    @ViewBuilder
     func optionalGeometryGroup() -> some View {
-        if #available(iOS 17, *) {
-            self
-                .geometryGroup()
-        } else {
-            self
-        }
+        geometryGroup()
     }
 
-    @ViewBuilder
     func customOnChange<T: Equatable>(value: T, result: @escaping (T) -> ()) -> some View {
-        if #available(iOS 17, *) {
-            self
-                .onChange(of: value) { _, newValue in
-                    result(newValue)
-                }
-        } else {
-            self
-                .onChange(of: value) { newValue in
-                    result(newValue)
-                }
+        onChange(of: value) { _, newValue in
+            result(newValue)
         }
     }
 }

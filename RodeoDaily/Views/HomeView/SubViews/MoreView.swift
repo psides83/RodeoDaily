@@ -31,7 +31,7 @@ struct MoreView: View {
                     .foregroundColor(.appPrimary)
                     .fontWeight(.bold)
             }
-            .appCardStyle()
+            .appSectionSurface()
 
             NavigationLink {
                 AthletesView(searchText: "")
@@ -124,7 +124,7 @@ struct MoreView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 }
 

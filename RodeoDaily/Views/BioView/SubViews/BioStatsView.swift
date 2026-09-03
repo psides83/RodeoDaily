@@ -57,7 +57,7 @@ struct BioStatsView: View {
             .padding(.top, AppSpace.md)
             .padding(.bottom, AppSpace.xxl)
         }
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .simultaneousGesture(DragGesture(minimumDistance: 1)
             .onChanged { _ in
                 viewModel.bioHasUserScrolled = true
@@ -148,7 +148,7 @@ struct BioStatsView: View {
                 .font(.appBodyStrong)
                 .foregroundColor(.appSecondary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private var hasBiographyContent: Bool {
@@ -180,12 +180,17 @@ struct BioStatsView: View {
                             .foregroundColor(selectedSeason == season ? .white : .appPrimary)
                             .padding(.horizontal, AppSpace.lg)
                             .padding(.vertical, AppSpace.sm)
-                            .background(
-                                Capsule()
+                            .background {
+                                Capsule(style: .continuous)
                                     .fill(selectedSeason == season ? Color.rdGreen : Color.appBg)
-                            )
+
+                                if selectedSeason == season {
+                                    Capsule(style: .continuous)
+                                        .fill(Color.rdGreen)
+                                }
+                            }
                             .overlay(
-                                Capsule()
+                                Capsule(style: .continuous)
                                     .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
                             )
                     }
@@ -225,7 +230,7 @@ struct BioStatsView: View {
                     .foregroundColor(.appSecondary)
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private func bestPerformanceCard(
@@ -259,7 +264,7 @@ struct BioStatsView: View {
                 trailing: stats.earningRodeo.payout
             )
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private func statRow(title: String, rodeo: String, trailing: String) -> some View {
@@ -320,7 +325,7 @@ struct BioStatsView: View {
                     .foregroundColor(.appTertiary)
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private func monthlyEarningsCard(statsSnapshot: StatsSnapshot) -> some View {
@@ -373,7 +378,7 @@ struct BioStatsView: View {
                 }
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private func syncSelectedSeasonIfNeeded() {

@@ -18,6 +18,8 @@ struct RodeoScheduleDetailView: View {
     @State private var mapPosition: MapCameraPosition = .automatic
     @State private var venueCoordinate: CLLocationCoordinate2D?
     @State private var resolvedVenueName = ""
+    @State private var resolvedVenueAddress: MKAddress?
+    @State private var resolvedVenueAddressDisplay: String?
     @State private var isLoadingVenueMap = false
     @State private var venueMapUnavailable = false
     @State private var isShowingFullMap = false
@@ -43,11 +45,11 @@ struct RodeoScheduleDetailView: View {
         return "\(start) - \(end)"
     }
 
-    private var mapSearchQuery: String {
+    private var mapSearchQueries: [String] {
         if rodeo.venueName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return rodeo.location
+            return [rodeo.location]
         }
-        return "\(rodeo.venueName), \(rodeo.location)"
+        return ["\(rodeo.venueName), \(rodeo.location)", rodeo.location]
     }
 
     var body: some View {
@@ -69,7 +71,12 @@ struct RodeoScheduleDetailView: View {
                                 .foregroundColor(.orange)
                                 .padding(.horizontal, AppSpace.sm)
                                 .padding(.vertical, 6)
-                                .background(Color.orange.opacity(0.15), in: Capsule())
+                                .appGlassSurface(
+                                    Capsule(style: .continuous),
+                                    tint: Color.orange,
+                                    strokeOpacity: 0.16,
+                                    shadowOpacity: 0.02
+                                )
                         }
                     }
 
@@ -98,11 +105,16 @@ struct RodeoScheduleDetailView: View {
                                 .foregroundColor(.appPrimary)
                                 .padding(.horizontal, AppSpace.sm)
                                 .padding(.vertical, 6)
-                                .background(Color.appTertiary.opacity(0.15), in: Capsule())
+                                .appGlassSurface(
+                                    Capsule(style: .continuous),
+                                    tint: Color.appBg,
+                                    strokeOpacity: 0.14,
+                                    shadowOpacity: 0.02
+                                )
                         }
                     }
                 }
-                .appCardStyle()
+                .appSectionSurface()
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 VStack(alignment: .leading, spacing: AppSpace.sm) {
@@ -120,7 +132,7 @@ struct RodeoScheduleDetailView: View {
                             .foregroundColor(.appPrimary)
                     }
                 }
-                .appCardStyle()
+                .appSectionSurface()
 
                 VStack(alignment: .leading, spacing: AppSpace.sm) {
                     Text(rodeo.venueName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Venue Map" : rodeo.venueName)
@@ -143,7 +155,7 @@ struct RodeoScheduleDetailView: View {
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .padding()
-                            .background(Color.appBg)
+                            .background(.regularMaterial)
                         } else {
                             Map(position: $mapPosition, interactionModes: [.zoom, .pan]) {
                                 if let coordinate = venueCoordinate {
@@ -179,7 +191,12 @@ struct RodeoScheduleDetailView: View {
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundColor(.primary)
                                     .padding(10)
-                                    .background(.ultraThinMaterial, in: Circle())
+                                    .appGlassSurface(
+                                        Circle(),
+                                        tint: Color.appBg,
+                                        strokeOpacity: 0.18,
+                                        shadowOpacity: 0.05
+                                    )
                             }
                             .padding(10)
                         }
@@ -193,19 +210,33 @@ struct RodeoScheduleDetailView: View {
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundColor(.primary)
                                     .padding(10)
-                                    .background(.ultraThinMaterial, in: Circle())
+                                    .appGlassSurface(
+                                        Circle(),
+                                        tint: Color.appBg,
+                                        strokeOpacity: 0.18,
+                                        shadowOpacity: 0.05
+                                    )
                             }
                             .padding(10)
                         }
                     }
 
                     if !venueMapUnavailable {
-                        Text("Preview map. Open full screen for full controls.")
-                            .font(.appCaption)
-                            .foregroundColor(.appTertiary)
+                        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+                            if let resolvedVenueAddressDisplay {
+                                Text(resolvedVenueAddressDisplay)
+                                    .font(.appCaption)
+                                    .foregroundColor(.appSecondary)
+                                    .lineLimit(2)
+                            }
+
+                            Text("Preview map. Open full screen for full controls.")
+                                .font(.appCaption)
+                                .foregroundColor(.appTertiary)
+                        }
                     }
                 }
-                .appCardStyle()
+                .appSectionSurface()
 
                 VStack(alignment: .leading, spacing: AppSpace.sm) {
                     Text("Daysheets")
@@ -241,15 +272,7 @@ struct RodeoScheduleDetailView: View {
                                         Image(systemName: "chevron.right")
                                             .foregroundColor(.appSecondary)
                                     }
-                                    .padding(AppSpace.md)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                            .fill(Color.appBg)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                            .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-                                    )
+                                    .appInlineRowSurface()
                                 }
                             }
                         }
@@ -263,7 +286,7 @@ struct RodeoScheduleDetailView: View {
                             .foregroundColor(.appTertiary)
                     }
                 }
-                .appCardStyle()
+                .appSectionSurface()
 
                 if let website = rodeo.websiteUrl,
                    let url = URL(string: website),
@@ -282,7 +305,7 @@ struct RodeoScheduleDetailView: View {
         }
         .navigationTitle("Rodeo Details")
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .onAppear {
             AnalyticsService.shared.track(.rodeoDetailViewed(source: "schedule", rodeoID: rodeo.id))
         }
@@ -296,7 +319,9 @@ struct RodeoScheduleDetailView: View {
                     city: rodeo.location,
                     venue: rodeo.venueName,
                     initialCoordinate: venueCoordinate ?? rodeo.coordinate,
-                    initialVenueName: resolvedVenueName.isEmpty ? nil : resolvedVenueName
+                    initialVenueName: resolvedVenueName.isEmpty ? nil : resolvedVenueName,
+                    initialVenueAddress: resolvedVenueAddress,
+                    initialVenueAddressDisplay: resolvedVenueAddressDisplay
                 )
                     .navigationTitle(rodeo.venueName.isEmpty ? rodeo.location : rodeo.venueName)
                     .navigationBarTitleDisplayMode(.inline)
@@ -358,6 +383,8 @@ struct RodeoScheduleDetailView: View {
             venueCoordinate = coordinate
             venueMapUnavailable = false
             resolvedVenueName = rodeo.venueName.isEmpty ? rodeo.location : rodeo.venueName
+            resolvedVenueAddress = nil
+            resolvedVenueAddressDisplay = nil
             setPreviewMapPosition(coordinate)
             return
         }
@@ -368,24 +395,27 @@ struct RodeoScheduleDetailView: View {
     private func searchForVenue() {
         isLoadingVenueMap = true
         venueMapUnavailable = false
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = mapSearchQuery
 
-        let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard let item = response?.mapItems.first else {
+        Task { @MainActor in
+            guard let resolution = await VenueResolver.resolve(
+                queries: mapSearchQueries,
+                fallbackName: rodeo.venueName.isEmpty ? rodeo.location : rodeo.venueName
+            ) else {
                 venueCoordinate = nil
                 venueMapUnavailable = true
+                resolvedVenueAddress = nil
+                resolvedVenueAddressDisplay = nil
                 isLoadingVenueMap = false
                 return
             }
 
-            let coord = item.placemark.coordinate
-            venueCoordinate = coord
+            venueCoordinate = resolution.coordinate
             venueMapUnavailable = false
-            resolvedVenueName = item.name ?? (rodeo.venueName.isEmpty ? rodeo.location : rodeo.venueName)
+            resolvedVenueName = resolution.name
+            resolvedVenueAddress = resolution.address
+            resolvedVenueAddressDisplay = resolution.addressDisplay
 
-            setPreviewMapPosition(coord)
+            setPreviewMapPosition(resolution.coordinate)
             isLoadingVenueMap = false
         }
     }

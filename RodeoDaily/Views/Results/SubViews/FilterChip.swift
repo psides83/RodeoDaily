@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct FilterChip: View {
-    @Environment(\.colorScheme) private var colorScheme
-    
     let dateRangeDisplay: String
     
     @Binding var dateRange: Set<DateComponents>
@@ -34,27 +32,15 @@ struct FilterChip: View {
                     }
                     .buttonStyle(.clearButtonSmall)
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(
-                    Capsule()
-                        .fill(chipBackground)
+                .foregroundColor(.appPrimary)
+                .appGlassSurface(
+                    Capsule(style: .continuous),
+                    tint: Color.appBg,
+                    strokeOpacity: 0.18,
+                    shadowOpacity: 0.03
                 )
-                .overlay(
-                    Capsule()
-                        .stroke(Color.appSecondary.opacity(colorScheme == .dark ? 0.35 : 0.22), lineWidth: 1)
-                )
-                .foregroundColor(chipForeground)
             }
             Spacer()
         }
-    }
-
-    private var chipBackground: Color {
-        colorScheme == .dark ? Color.white.opacity(0.10) : Color.appSecondary.opacity(0.12)
-    }
-
-    private var chipForeground: Color {
-        colorScheme == .dark ? .white : .appPrimary
     }
 }

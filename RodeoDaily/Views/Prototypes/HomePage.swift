@@ -13,6 +13,7 @@ struct HomePage: View {
         ScrollView {
             ForEach(StandingsEvent.allCases) { event in
                 EventCard(event: event)
+                    .padding(.horizontal, 10)
                     .padding(.bottom, 32)
             }
         }
@@ -64,7 +65,7 @@ struct EventCard: View {
 //            }
         }
         .padding()
-        .frame(width: UIScreen.main.bounds.width - 20, height: 300)
+        .frame(maxWidth: .infinity, minHeight: 300)
         .background(Color.rdGreen)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .task {

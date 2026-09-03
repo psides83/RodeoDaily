@@ -15,26 +15,7 @@ struct BusinessJournalListingDetailView: View {
 
                 listingHeader
 
-                if !orderedDetailFields.isEmpty {
-                    VStack(alignment: .leading, spacing: AppSpace.sm) {
-                        ForEach(orderedDetailFields) { field in
-                            detailLine(field)
-                        }
-                    }
-                }
-
-                if let link = item.link {
-                    Link(destination: link) {
-                        HStack(spacing: AppSpace.xs) {
-                            Image(systemName: "arrow.up.right.square")
-                            Text("Open Full Listing")
-                                .font(.appBodyStrong)
-                        }
-                        .foregroundStyle(Color.appSecondary)
-                        .padding(.top, AppSpace.sm)
-                    }
-                    .buttonStyle(.plain)
-                }
+                detailsSection
 
                 BannerAd(placement: .rodeoListingsList)
             }
@@ -42,9 +23,19 @@ struct BusinessJournalListingDetailView: View {
             .padding(.top, AppSpace.md)
             .padding(.bottom, AppSpace.xxl)
         }
-        .background(Color.appBg)
+        .background(Color.appBg.ignoresSafeArea())
         .navigationTitle("Rodeo")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if let link = item.link {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Link(destination: link) {
+                        Label("Official Listing", systemImage: "arrow.up.right.square")
+                    }
+                    .accessibilityLabel("Open Full Listing")
+                }
+            }
+        }
         .onAppear {
             AnalyticsService.shared.track(.rodeoListingDetailViewed)
         }
@@ -70,6 +61,24 @@ struct BusinessJournalListingDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .appSectionSurface()
+    }
+
+    @ViewBuilder
+    private var detailsSection: some View {
+        if !orderedDetailFields.isEmpty {
+            VStack(alignment: .leading, spacing: AppSpace.sm) {
+                ForEach(Array(orderedDetailFields.enumerated()), id: \.element.id) { index, field in
+                    detailLine(field)
+
+                    if index != orderedDetailFields.count - 1 {
+                        Divider()
+                            .overlay(Color.appTertiary.opacity(0.18))
+                    }
+                }
+            }
+            .appSectionSurface()
+        }
     }
     
     private var publishDate: String? {
@@ -116,19 +125,17 @@ struct BusinessJournalListingDetailView: View {
     
     @ViewBuilder
     private func detailLine(_ field: PBJDetailField) -> some View {
-        let formattedLabel = "\(field.label.uppercased()): "
-        
-        (
-            Text(formattedLabel)
-                .font(.appBodyStrong)
-                .foregroundStyle(Color.appPrimary)
-            +
+        VStack(alignment: .leading, spacing: AppSpace.xxs) {
+            Text(field.label.uppercased())
+                .font(.appMetricLabel)
+                .foregroundStyle(Color.appTertiary)
+
             Text(field.value)
                 .font(.appBody)
                 .foregroundStyle(Color.appPrimary)
-        )
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
         .multilineTextAlignment(.leading)
-        .textSelection(.enabled)
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

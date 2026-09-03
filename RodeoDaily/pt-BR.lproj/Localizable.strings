@@ -369,6 +369,7 @@
 "Day sheets for \"In Progress\" rodeos can be viewed in Rodeo Results." = "Os daysheets de rodeios \"Em andamento\" podem ser vistos em Resultados de rodeio.";
 "Select Range" = "Selecionar intervalo";
 "Loading map..." = "Carregando mapa...";
+"Added: %@" = "Adicionado: %@";
 "Added Money: %@" = "Dinheiro adicionado: %@";
 "Dates TBD" = "Datas a confirmar";
 "TBD" = "A confirmar";

@@ -26,14 +26,17 @@ struct VideoHighlightsView: View {
                 } else {
                     header
 
-                    LazyVGrid(columns: columns, spacing: AppSpace.md) {
-                        ForEach(videos) { video in
-                            VimeoPlayer(video: video.path)
-                                .frame(height: videoHeight)
-                                .clipShape(RoundedRectangle(cornerRadius: AppRadius.lg, style: .continuous))
-                                .padding(.vertical)
+                    GeometryReader { proxy in
+                        LazyVGrid(columns: columns, spacing: AppSpace.md) {
+                            ForEach(videos) { video in
+                                VimeoPlayer(video: video.path)
+                                    .frame(height: videoHeight(for: proxy.size.width))
+                                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.lg, style: .continuous))
+                                    .padding(.vertical)
+                            }
                         }
                     }
+                    .frame(height: totalVideoGridHeight(for: videos.count))
 
                     BannerAd(placement: .athleteBioSection)
                 }
@@ -60,23 +63,15 @@ struct VideoHighlightsView: View {
                 .font(.appCaption)
                 .foregroundColor(.appTertiary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     @ViewBuilder
     private var emptyState: some View {
-        if #available(iOS 17.0, *) {
-            ContentUnavailableView {
-                Label("No Highlights Available", systemImage: "video.slash.fill")
-            } description: {
-                Text("\(viewModel.bio.name) doesn't have any highlights available. Videos will be added as they become available")
-            }
-        } else {
-            UnavailableContentView(
-                imageName: "video.slash.fill",
-                title: "No Highlights Available",
-                description: "\(viewModel.bio.name) doesn't have any highlights available. Videos will be added as they become available"
-            )
+        ContentUnavailableView {
+            Label("No Highlights Available", systemImage: "video.slash.fill")
+        } description: {
+            Text("\(viewModel.bio.name) doesn't have any highlights available. Videos will be added as they become available")
         }
     }
 
@@ -111,9 +106,13 @@ struct VideoHighlightsView: View {
         return segments.last(where: { !$0.isEmpty && $0.allSatisfy(\.isNumber) })
     }
 
-    private var videoHeight: CGFloat {
-        let screenWidth = UIScreen.main.bounds.width - 32
-        return (screenWidth / 16) * 9
+    private func videoHeight(for width: CGFloat) -> CGFloat {
+        (width / 16) * 9
+    }
+
+    private func totalVideoGridHeight(for count: Int) -> CGFloat {
+        let rowHeight = videoHeight(for: 358) + (AppSpace.xl * 2)
+        return CGFloat(count) * rowHeight + CGFloat(max(count - 1, 0)) * AppSpace.md
     }
 }
 

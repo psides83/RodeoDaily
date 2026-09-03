@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct FilterMenuIcon: View {
-    @Environment(\.colorScheme) var colorScheme
-    
     let label: String
     
     var body: some View {
-        VStack {
+        VStack(spacing: AppSpace.xxs) {
             Image.filter
-                .foregroundColor(colorScheme == .light ? .appPrimary : .primary)
+                .foregroundColor(.appPrimary)
                 .imageScale(.large)
             
             Text(label)
                 .font(.caption)
                 .foregroundColor(.appSecondary)
         }
+        .frame(minWidth: 64)
+        .padding(.horizontal, AppSpace.md)
+        .padding(.vertical, AppSpace.sm)
+        .background(
+            Capsule(style: .continuous)
+                .fill(Color.appBg)
+        )
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+        )
     }
 }
 

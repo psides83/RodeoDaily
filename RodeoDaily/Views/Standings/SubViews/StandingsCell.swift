@@ -44,7 +44,7 @@ struct StandingsCell: View {
                 
                 metrics
             }
-            .appCardStyle()
+            .appSectionSurface()
             
             position.image
                 .scaleEffect(2.5)

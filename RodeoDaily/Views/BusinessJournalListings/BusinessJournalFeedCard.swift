@@ -57,7 +57,7 @@ struct BusinessJournalFeedCard: View {
 
     var body: some View {
         rowContent
-            .appCardStyle()
+            .appSectionSurface()
     }
 
     private var rowContent: some View {
@@ -116,15 +116,9 @@ struct BusinessJournalFeedCard: View {
             }
             
             if let specialFeesText = item.specialEntryFeesText, !specialFeesText.isEmpty {
-                (
-                    Text("Special Entry Fees: ")
-                        .font(.appBodyStrong)
-                        .foregroundStyle(Color.appPrimary)
-                    +
-                    Text(specialFeesText)
-                        .font(.appBody)
-                        .foregroundStyle(Color.appPrimary)
-                )
+                Text("Special Entry Fees: \(specialFeesText)")
+                    .font(.appBody)
+                    .foregroundStyle(Color.appPrimary)
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
             }
@@ -141,11 +135,11 @@ struct BusinessJournalFeedCard: View {
                 .lineLimit(1)
         }
         .foregroundStyle(color)
-        .padding(.horizontal, AppSpace.xs)
-        .padding(.vertical, 4)
-        .background(
-            Capsule()
-                .fill(Color.appBg.opacity(0.55))
+        .appGlassSurface(
+            Capsule(style: .continuous),
+            tint: Color.appBg,
+            strokeOpacity: 0.1,
+            shadowOpacity: 0.01
         )
     }
 

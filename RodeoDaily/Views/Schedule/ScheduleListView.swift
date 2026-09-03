@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ScheduleListView: View {
-    @Environment(\.colorScheme) private var colorScheme
     let rodeos: [RodeoData]
     let loading: Bool
     
@@ -165,7 +164,7 @@ struct ScheduleListView: View {
                 Spacer()
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     var scheduleFilters: some View {
@@ -215,22 +214,7 @@ struct ScheduleListView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, AppSpace.lg)
-        .padding(.vertical, AppSpace.xs)
-        .padding(.horizontal, AppSpace.sm)
-        .background {
-            Capsule(style: .continuous)
-                .stroke(.gray.opacity(0.25), lineWidth: 1.5)
-                .background(
-                    Capsule(style: .continuous)
-                        .fill(colorScheme == .dark ? Color.black.opacity(0.42) : Color.appBg.opacity(0.8))
-                )
-                .background(
-                    Capsule(style: .continuous)
-                        .fill(.ultraThinMaterial)
-                )
-                .compositingGroup()
-        }
+        .appCollapsedHeaderStyle()
     }
 
     private func chipContent(title: String, value: String, trailingSystemImage: String) -> some View {

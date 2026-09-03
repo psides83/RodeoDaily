@@ -45,27 +45,26 @@ struct RodeoCell: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                VStack(alignment: .leading) {
+        HStack(alignment: .center, spacing: AppSpace.md) {
+            VStack(alignment: .leading, spacing: AppSpace.sm) {
                     Text(rodeo.name)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(.appPrimary)
-                        .font(.title2)
+                        .font(.appCardTitle)
                         .fontWeight(.bold)
+                        .lineLimit(3)
                     
-                    HStack {
+                    HStack(spacing: AppSpace.xs) {
                         Text(rodeo.location)
                             .font(.subheadline)
                         
                         Circle().fill(Color.appSecondary).frame(width: 4, height: 4)
                         
-                        Text("Added: \(rodeo.payout.currencyABS)")
+                        Text(String(format: NSLocalizedString("Added: %@", comment: ""), rodeo.payout.currencyABS))
                             .foregroundColor(.appTertiary)
                             .font(.subheadline)
                         
                     }
-                    .padding(.bottom, 8)
 
                     if !tagTitles.isEmpty || rodeo.inProgress {
                         HStack(spacing: 6) {
@@ -75,10 +74,14 @@ struct RodeoCell: View {
                                     .font(.system(size: 12, weight: .semibold))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 5)
-                                    .background(RoundedRectangle(cornerRadius: 50).fill(Color.appSecondary.opacity(0.15)))
+                                    .appGlassSurface(
+                                        Capsule(style: .continuous),
+                                        tint: Color.appBg,
+                                        strokeOpacity: 0.12,
+                                        shadowOpacity: 0.01
+                                    )
                             }
                         }
-                        .padding(.bottom, 8)
                     }
 
                     HStack {
@@ -94,18 +97,18 @@ struct RodeoCell: View {
                                 .font(.system(size: 12, weight: .medium))
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 6)
-                                .background(RoundedRectangle(cornerRadius: 50).fill(Color.appSecondary))
+                                .background(Capsule(style: .continuous).fill(Color.appSecondary))
                         }
                     }
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.appSecondary)
             }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundColor(.appSecondary)
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 }
 

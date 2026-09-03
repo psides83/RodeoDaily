@@ -31,6 +31,8 @@ struct VenueMapView: View {
     @State private var position: MapCameraPosition = .automatic
     @State private var venueCoordinate: CLLocationCoordinate2D?
     @State private var venueName: String = ""
+    @State private var venueAddress: MKAddress?
+    @State private var venueAddressDisplay: String?
     @State private var venueMapUnavailable = false
 
     @State private var mode: MapMode = .satellite
@@ -49,17 +51,23 @@ struct VenueMapView: View {
     let venue: String
     let initialCoordinate: CLLocationCoordinate2D?
     let initialVenueName: String?
+    let initialVenueAddress: MKAddress?
+    let initialVenueAddressDisplay: String?
 
     init(
         city: String,
         venue: String,
         initialCoordinate: CLLocationCoordinate2D? = nil,
-        initialVenueName: String? = nil
+        initialVenueName: String? = nil,
+        initialVenueAddress: MKAddress? = nil,
+        initialVenueAddressDisplay: String? = nil
     ) {
         self.city = city
         self.venue = venue
         self.initialCoordinate = initialCoordinate
         self.initialVenueName = initialVenueName
+        self.initialVenueAddress = initialVenueAddress
+        self.initialVenueAddressDisplay = initialVenueAddressDisplay
     }
 
     private let controlSize: CGFloat = 56
@@ -321,6 +329,8 @@ struct VenueMapView: View {
             venueCoordinate = initialCoordinate
             venueMapUnavailable = false
             venueName = initialVenueName ?? (venue.isEmpty ? city : venue)
+            venueAddress = initialVenueAddress
+            venueAddressDisplay = initialVenueAddressDisplay
             setMapPosition(initialCoordinate)
             return
         }
@@ -330,23 +340,24 @@ struct VenueMapView: View {
 
     private func searchForVenue() {
         venueMapUnavailable = false
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "\(venue), \(city)"
 
-        let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard let item = response?.mapItems.first else {
+        Task { @MainActor in
+            guard let resolution = await VenueResolver.resolve(
+                queries: mapSearchQueries,
+                fallbackName: venue.isEmpty ? city : venue
+            ) else {
                 venueCoordinate = nil
                 venueMapUnavailable = true
                 return
             }
 
-            let coord = item.placemark.coordinate
-            venueCoordinate = coord
+            venueCoordinate = resolution.coordinate
             venueMapUnavailable = false
-            venueName = item.name ?? venue
+            venueName = resolution.name
+            venueAddress = resolution.address
+            venueAddressDisplay = resolution.addressDisplay
 
-            setMapPosition(coord)
+            setMapPosition(resolution.coordinate)
         }
     }
 
@@ -404,9 +415,12 @@ struct VenueMapView: View {
 
     private func openInAppleMaps() {
         if let coordinate = venueCoordinate {
-            let placemark = MKPlacemark(coordinate: coordinate)
-            let item = MKMapItem(placemark: placemark)
-            item.name = venueName.isEmpty ? venue : venueName
+            let item = VenueResolution(
+                coordinate: coordinate,
+                name: venueName,
+                address: venueAddress,
+                addressDisplay: venueAddressDisplay
+            ).mapItem(fallbackName: venue.isEmpty ? city : venue)
             item.openInMaps()
             return
         }
@@ -417,8 +431,109 @@ struct VenueMapView: View {
         UIApplication.shared.open(url)
     }
 
+    private var mapSearchQueries: [String] {
+        if venue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return [city]
+        }
+        return ["\(venue), \(city)", city]
+    }
 }
 
 #Preview("Bridgestone Arena – Nashville") {
     VenueMapView(city: "Nashville, TN", venue: "Bridgestone Arena")
+}
+
+extension MKMapItem {
+    var validCoordinate: CLLocationCoordinate2D? {
+        let coordinate = location.coordinate
+        guard CLLocationCoordinate2DIsValid(coordinate),
+              (-90...90).contains(coordinate.latitude),
+              (-180...180).contains(coordinate.longitude),
+              coordinate.latitude != 0,
+              coordinate.longitude != 0 else {
+            return nil
+        }
+
+        return coordinate
+    }
+
+    func venueResolution(fallbackName: String) -> VenueResolution? {
+        guard let coordinate = validCoordinate else { return nil }
+
+        return VenueResolution(
+            coordinate: coordinate,
+            name: name?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty ?? fallbackName,
+            address: address,
+            addressDisplay: formattedAddress
+        )
+    }
+
+    var formattedAddress: String? {
+        if let addressRepresentations,
+           let fullAddress = addressRepresentations.fullAddress(includingRegion: false, singleLine: true)?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !fullAddress.isEmpty {
+            return fullAddress
+        }
+
+        if let shortAddress = address?.shortAddress?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !shortAddress.isEmpty {
+            return shortAddress
+        }
+
+        let fullAddress = address?.fullAddress.trimmingCharacters(in: .whitespacesAndNewlines)
+        return fullAddress?.isEmpty == false ? fullAddress : nil
+    }
+}
+
+struct VenueResolution {
+    let coordinate: CLLocationCoordinate2D
+    let name: String
+    let address: MKAddress?
+    let addressDisplay: String?
+
+    func mapItem(fallbackName: String) -> MKMapItem {
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let item = MKMapItem(location: location, address: address)
+        item.name = name.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty ?? fallbackName
+        return item
+    }
+}
+
+enum VenueResolver {
+    @MainActor
+    static func resolve(queries: [String], fallbackName: String) async -> VenueResolution? {
+        for query in queries {
+            let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmedQuery.isEmpty else {
+                continue
+            }
+
+            let request = MKLocalSearch.Request()
+            request.naturalLanguageQuery = trimmedQuery
+            request.resultTypes = [.pointOfInterest, .address]
+
+            let search = MKLocalSearch(request: request)
+            if let response = try? await search.start(),
+               let resolution = response.mapItems.compactMap({ $0.venueResolution(fallbackName: fallbackName) }).first {
+                return resolution
+            }
+
+            if let geocodingRequest = MKGeocodingRequest(addressString: trimmedQuery) {
+                geocodingRequest.preferredLocale = .current
+
+                if let mapItems = try? await geocodingRequest.mapItems,
+                   let resolution = mapItems.compactMap({ $0.venueResolution(fallbackName: fallbackName) }).first {
+                    return resolution
+                }
+            }
+        }
+
+        return nil
+    }
+}
+
+private extension String {
+    var nilIfEmpty: String? {
+        isEmpty ? nil : self
+    }
 }

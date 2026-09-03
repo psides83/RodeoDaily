@@ -18,15 +18,30 @@ struct SeasonFilterView: View {
     }
     
     func menuIcon() -> some View {
-        VStack {
+        HStack(spacing: AppSpace.xs) {
             Image.calendar
-                .imageScale(.large)
+                .imageScale(.medium)
                 .foregroundColor(.appPrimary)
             
             Text(selectedSeason)
                 .font(.caption)
                 .fontWeight(.medium)
+                .foregroundColor(.appSecondary)
+
+            Image(systemName: "chevron.down")
+                .font(.caption2)
+                .foregroundColor(.appTertiary)
         }
+        .padding(.horizontal, AppSpace.md)
+        .padding(.vertical, AppSpace.sm)
+        .background(
+            Capsule(style: .continuous)
+                .fill(Color.appBg)
+        )
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
+        )
     }
     
     func menuContent() -> some View {

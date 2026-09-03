@@ -94,23 +94,25 @@ struct SingleRodeoResults: View {
             }
             .padding()
         }
-        .background(Color.appBg)
-        .navigationTitle(rodeoName)
+        .background(Color.appBg.ignoresSafeArea())
+        .navigationTitle("Results")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $isShowingBracketHelp) {
-            VStack {
-                Text("**Important**")
-                    .font(.largeTitle)
-                
+            VStack(alignment: .leading, spacing: AppSpace.md) {
+                Label("Important", systemImage: "info.circle.fill")
+                    .font(.appSectionTitle)
+                    .foregroundColor(.appSecondary)
+
                 Text(helpMessage)
-                    .font(.title3)
-                    .padding()
+                    .font(.appBody)
+                    .foregroundColor(.appPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.rdGreen.edgesIgnoringSafeArea(.all))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(AppSpace.xl)
+            .presentationBackground(.regularMaterial)
             .presentationDetents([.height(340)])
             .presentationDragIndicator(.visible)
-            .foregroundColor(.white)
         }
         .task(id: selectedEvent) {
             resultsApi.setLoading()
@@ -219,17 +221,10 @@ struct SingleRodeoResults: View {
                         isShowingBracketHelp = true
                     } label: {
                         Image(systemName: "questionmark.circle")
-//                            .font(.title2)
+                            .font(.subheadline.weight(.semibold))
                             .foregroundColor(.appSecondary)
-//                            .padding(AppSpace.sm)
-//                            .background(
-//                                Circle()
-//                                    .fill(Color.appBg)
-//                            )
-//                            .overlay(
-//                                Circle()
-//                                    .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-//                            )
+                            .frame(width: 34, height: 34)
+                            .appGlassSurface(Circle(), strokeOpacity: 0.16, shadowOpacity: 0.03)
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel("Bracket Help")
@@ -281,7 +276,7 @@ struct SingleRodeoResults: View {
                     .lineLimit(1)
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private var eventFilter: some View {
@@ -332,15 +327,13 @@ struct SingleRodeoResults: View {
                 .padding(.vertical, AppSpace.sm)
                 .padding(.horizontal, AppSpace.lg)
                 .background {
-                    ZStack {
-                        if isSelected {
-                            Capsule(style: .continuous)
-                                .fill(Color.rdGreen)
-                                .matchedGeometryEffect(id: "selectedContentChip", in: eventChipNamespace)
-                        } else {
-                            Capsule(style: .continuous)
-                                .fill(Color.appBg)
-                        }
+                    Capsule(style: .continuous)
+                        .fill(isSelected ? Color.rdGreen : Color.appBg)
+
+                    if isSelected {
+                        Capsule(style: .continuous)
+                            .fill(Color.rdGreen)
+                            .matchedGeometryEffect(id: "selectedContentChip", in: eventChipNamespace)
                     }
                 }
                 .overlay(
@@ -377,15 +370,13 @@ struct SingleRodeoResults: View {
                 .padding(.vertical, AppSpace.sm)
                 .padding(.horizontal, AppSpace.lg)
                 .background {
-                    ZStack {
-                        if isSelected {
-                            Capsule(style: .continuous)
-                                .fill(Color.rdGreen)
-                                .matchedGeometryEffect(id: "selectedEventChip", in: eventChipNamespace)
-                        } else {
-                            Capsule(style: .continuous)
-                                .fill(Color.appBg)
-                        }
+                    Capsule(style: .continuous)
+                        .fill(isSelected ? Color.rdGreen : Color.appBg)
+
+                    if isSelected {
+                        Capsule(style: .continuous)
+                            .fill(Color.rdGreen)
+                            .matchedGeometryEffect(id: "selectedEventChip", in: eventChipNamespace)
                     }
                 }
                 .overlay(
@@ -453,22 +444,14 @@ struct SingleRodeoResults: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(.appSecondary)
                                 }
-                                .padding(AppSpace.md)
-                                .background(
-                                    RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                        .fill(Color.appBg)
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: AppRadius.md, style: .continuous)
-                                        .stroke(Color.appTertiary.opacity(0.25), lineWidth: AppStroke.hairline)
-                                )
+                                .appInlineRowSurface()
                             }
                             .buttonStyle(.plain)
                         }
                     }
                 }
             }
-            .appCardStyle()
+            .appSectionSurface()
 
             BannerAd(placement: .resultsDetailSection)
         }
@@ -520,7 +503,7 @@ struct SingleRodeoResults: View {
                         }
                     }
                 }
-                .appCardStyle()
+                .appSectionSurface()
                 
                 BannerAd(placement: .resultsDetailSection)
             }
@@ -622,7 +605,7 @@ struct SingleRodeoResults: View {
                 }
             }
         }
-        .appCardStyle()
+        .appSectionSurface()
     }
 
     private func moneyEarnerRow(_ earner: MoneyEarner) -> some View {
